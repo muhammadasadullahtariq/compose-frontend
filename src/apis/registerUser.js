@@ -1,11 +1,13 @@
-const registerUser = async (name, phone, toekn) => {
+import { getCookie } from "cookies-next";
+
+const registerUser = async (name, phone) => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}registerUser`,
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-access-token": toekn,
+        "x-access-token": getCookie("token"),
       },
       body: JSON.stringify({
         name,
