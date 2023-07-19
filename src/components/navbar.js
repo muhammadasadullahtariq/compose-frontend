@@ -12,6 +12,8 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import { useRouter } from "next/navigation";
+import ProtectedPageRoute from "@/app/protected-page-route";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -19,6 +21,7 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const router = useRouter();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -32,7 +35,13 @@ function ResponsiveAppBar() {
   };
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+    console.log("close");
+    const userLogedIn = ProtectedPageRoute();
+    if (!userLogedIn) {
+      router.push("/signin");
+    } else {
+      router.push("/questionary");
+    }
   };
 
   return (
@@ -44,7 +53,7 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href="/landing"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -117,7 +126,7 @@ function ResponsiveAppBar() {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={handleCloseUserMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page}

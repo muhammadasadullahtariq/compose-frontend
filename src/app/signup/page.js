@@ -13,12 +13,20 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import registerUser from "@/apis/registerUser";
 import firebase_app from "../config";
 import GoogleButton from "react-google-button";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
+import { setCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 function Copyright(props) {
   return (
@@ -45,38 +53,61 @@ const defaultTheme = createTheme();
 export default function SignUp() {
   const [fname, setFName] = React.useState("");
   const [lname, setLName] = React.useState("");
-  const [phone, setPhone] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [user, setUser] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
+  const [message, setMessage] = React.useState("");
+  const [severity, setSeverity] = React.useState("success");
   firebase.initializeApp(firebase_app);
   const auth = firebase.auth();
   const provider = new firebase.auth.GoogleAuthProvider();
   provider.setCustomParameters({ prompt: "select_account" });
   const signIn = () => auth.signInWithPopup(provider);
   const signOut = () => auth.signOut();
+  const router = useRouter();
 
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
       if (user) {
         console.log(user);
-        const token = user.getIdToken();
-        const userDate = registerUser(name, phone, token);
-        console.log(user);
-        setUser(user);
+        const token = await user.getIdToken();
+        setCookie("token", token);
+        const userData = registerUser(fname + " " + lname);
+        if (userData?.message == "User Created") {
+          setCookie("user", userData.data);
+          setOpen(true);
+          setMessage("User Created Successfully");
+          setSeverity("success");
+          router.push("/landing");
+        } else {
+          setOpen(true);
+          setMessage(userData.message);
+          setSeverity("error");
+        }
       }
     });
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(authLogin, email, password)
+    createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         const user = userCredential.user;
-        const token = user.getIdToken();
-        const userDate = registerUser(fname + " " + lname, phone, token);
-        console.log(user);
-        setUser(user);
+        const token = await user.getIdToken();
+        console.log("token is", token);
+        setCookie("token", token);
+        const userData = registerUser(fname + " " + lname);
+        if (userData?.message == "User Created") {
+          setCookie("user", userData.data);
+          setOpen(true);
+          setMessage("User Created Successfully");
+          setSeverity("success");
+          router.push("/landing");
+        } else {
+          setOpen(true);
+          setMessage(userData.message);
+          setSeverity("error");
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -86,6 +117,15 @@ export default function SignUp() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={() => setOpen(false)}
+        >
+          <Alert onClose={() => setOpen(false)} severity={severity}>
+            {message}
+          </Alert>
+        </Snackbar>
         <CssBaseline />
         <Box
           sx={{

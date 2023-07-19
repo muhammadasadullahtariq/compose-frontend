@@ -10,9 +10,9 @@ import { useRouter } from "next/navigation";
 function ResponsiveAppBar() {
   const router = useRouter();
   useEffect(() => {
-    ProtectedPageRoute(() => {
-      router.push("/signin");
-    });
+    // ProtectedPageRoute(() => {
+    //   router.push("/signin");
+    // });
   }, []);
 
   return (

@@ -1,6 +1,7 @@
 import { getCookie } from "cookies-next";
 
-const registerUser = async (name, phone) => {
+const registerUser = async (name) => {
+  console.log("token is ", getCookie("token"));
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}registerUser`,
     {
@@ -11,7 +12,6 @@ const registerUser = async (name, phone) => {
       },
       body: JSON.stringify({
         name,
-        phone,
       }),
     }
   );
