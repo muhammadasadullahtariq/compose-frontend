@@ -15,6 +15,7 @@ import FourthBlock from "@/components/fourthBlock";
 import Image from "next/image";
 import headerImage from "@/assets/images/pageMainImage.svg";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import Footer from "@/components/footer";
 
 function ResponsiveAppBar() {
   const router = useRouter();
@@ -152,6 +153,7 @@ function ResponsiveAppBar() {
       <SecondBlock />
       <ThirdBlock />
       <FourthBlock />
+      <Footer />
     </Box>
   );
 }
