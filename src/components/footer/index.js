@@ -12,18 +12,18 @@ const Footer = () => {
                 </Grid>
                 <Grid item xs={6} md={3}>
                     <ul>
-                        <li>Home</li>
-                        <li>About Us</li>
-                        <li>How it works</li>
-                        <li>Testimonial</li>
-                        <li>Contact Us</li>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">How it works</a></li>
+                        <li><a href="#">Testimonial</a></li>
+                        <li><a href="#">Contact Us</a></li>
                     </ul>
                 </Grid>
                 <Grid item xs={6} md={3}>
                     <ul>
-                        <li>Terms & Conditions</li>
-                        <li>Privacy Policy</li>
-                        <li>Cookies Policy</li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookies Policy</a></li>
                     </ul>
                 </Grid>
                 <Grid item xs={12} sm={6} md={3}>
