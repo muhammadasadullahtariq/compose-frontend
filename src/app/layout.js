@@ -2,10 +2,9 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
+import Footer from "@/components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
-
-
 
 export default function RootLayout({ children }) {
   return (
@@ -25,7 +24,10 @@ export default function RootLayout({ children }) {
       }}
     >
       <html lang="en">
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          {children}
+          <Footer />
+        </body>
       </html>
     </GoogleReCaptchaProvider>
   );

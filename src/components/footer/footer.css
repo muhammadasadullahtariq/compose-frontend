@@ -1,0 +1,59 @@
+.footer {
+    background-image: url('/assets/img/footer-bg.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 5rem;
+}
+
+.footer h5 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.footer p {
+    font-weight: 300;
+}
+
+.footer .plan_button {
+    margin-top: 20px;
+    border-radius: 100px;
+    border: 1px solid #fff;
+    padding: 10px 20px;
+    background-color: inherit;
+}
+
+.footer ul {
+    list-style: none;
+}
+
+.footer ul li {
+    font-weight: 300;
+    padding: 12px 0px;
+}
+
+.footer h6 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.footer form {
+    margin-top: 15px;
+}
+
+.footer input {
+    width: 95%;
+    border-radius: 100px;
+    border: none;
+    background: #0D3C62;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+}
+
+.footer .sub_button {
+    border: none;
+    border-radius: 100px;
+    background: #2B92D5;
+    color: #fff;
+    font-size: 14px;
+    padding: 13px 30px;
+}
