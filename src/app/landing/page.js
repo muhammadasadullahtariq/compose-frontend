@@ -6,18 +6,26 @@ import { Typography } from "@mui/material";
 import Icon from "@mui/material";
 import ProtectedPageRoute from "../protected-page-route";
 import { useRouter } from "next/navigation";
+import * as COLORS from "@/constants/colors";
+import FirstBloack from "@/components/firstBlock";
+import SecondBlock from "@/components/secondBlock";
+import ThirdBlock from "@/components/thirdBlock";
+import FourthBlock from "@/components/fourthBlock";
 
 function ResponsiveAppBar() {
   const router = useRouter();
-  useEffect(() => {
-    // ProtectedPageRoute(() => {
-    //   router.push("/signin");
-    // });
-  }, []);
+  useEffect(() => {}, []);
 
   return (
-    <Box sx={{ flexGrow: 1, justifyContent: "center", alignItems: "center" }}>
+    <Box
+      className="landing"
+      sx={{ flexGrow: 1, justifyContent: "center", alignItems: "center" }}
+    >
       <AppBar />
+      <FirstBloack />
+      <SecondBlock />
+      <ThirdBlock />
+      <FourthBlock />
     </Box>
   );
 }

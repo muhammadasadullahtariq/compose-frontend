@@ -1,0 +1,19 @@
+.landing img {
+width: 500px;
+    height: 348px;
+} 
+
+
+@media (max-width: 400px) {
+.landing img {
+    width: 200px;
+    height: 200px;
+}
+}
+
+@media (max-width: 900px) and (min-width: 400px) {
+    .landing img {
+        width: 300px;
+            height: 300px;
+    }
+}
