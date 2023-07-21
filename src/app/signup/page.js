@@ -23,6 +23,7 @@ import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import checkUserExist from "@/apis/checkUserExist";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -58,6 +59,8 @@ export default function SignUp() {
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState("");
   const [severity, setSeverity] = React.useState("success");
+  const [googleButton, setGoogleButton] = React.useState(false);
+  const [buttonText, setButtonText] = React.useState("Sign Up");
   firebase.initializeApp(firebase_app);
   const auth = firebase.auth();
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -69,27 +72,63 @@ export default function SignUp() {
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
       if (user) {
-        console.log(user);
         const token = await user.getIdToken();
         setCookie("token", token);
-        const userData = registerUser(fname + " " + lname);
-        if (userData?.message == "User Created") {
-          setCookie("user", userData.data);
+        const userExist = await checkUserExist();
+        if (userExist?.data?.name) {
+          setCookie("user", userExist.data);
           setOpen(true);
-          setMessage("User Created Successfully");
+          setMessage("User Signed In Successfully");
           setSeverity("success");
           router.push("/landing");
+        } else if (
+          user.displayName != null &&
+          user.displayName != undefined &&
+          user.displayName != ""
+        ) {
+          await userRegisterHandaler(user.displayName);
         } else {
-          setOpen(true);
-          setMessage(userData.message);
-          setSeverity("error");
+          setEmail(user.email);
+          setGoogleButton(false);
+          setButtonText("Submit Form");
         }
       }
     });
   }, []);
 
+  const userRegisterHandaler = async (name) => {
+    const userData = registerUser(name);
+    if (userData?.message == "User Created") {
+      setCookie("user", userData.data);
+      setOpen(true);
+      setMessage("User Created Successfully");
+      setSeverity("success");
+      router.push("/landing");
+    } else {
+      setOpen(true);
+      setMessage(userData.message);
+      setSeverity("error");
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (fname == "" || lname == "") {
+      setOpen(true);
+      setMessage("Please enter your first and last name");
+      setSeverity("info");
+      return;
+    } else if (email == "" || password == "") {
+      setOpen(true);
+      setMessage("Please enter your email and password");
+      setSeverity("info");
+      return;
+    } else if (password.length < 6) {
+      setOpen(true);
+      setMessage("Password must be at least 6 characters");
+      setSeverity("info");
+      return;
+    }
     createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         const user = userCredential.user;
@@ -144,7 +183,19 @@ export default function SignUp() {
           <Box
             component="form"
             noValidate
-            onSubmit={handleSubmit}
+            onSubmit={
+              googleButton
+                ? handleSubmit
+                : () => {
+                    if (fname != "" && lname != "") {
+                      setOpen(true);
+                      setMessage("Please enter your first and last name");
+                      setSeverity("info");
+                      return;
+                    }
+                    userRegisterHandaler(fname + " " + lname);
+                  }
+            }
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
@@ -209,7 +260,7 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              {buttonText}
             </Button>
             <Box
               sx={{
