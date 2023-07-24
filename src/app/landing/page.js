@@ -138,7 +138,7 @@ function ResponsiveAppBar() {
                 if (!user) {
                   router.push("/signin");
                 } else {
-                  router.push("/questionnaire");
+                  router.push("/questionaire");
                 }
               }}
             >
