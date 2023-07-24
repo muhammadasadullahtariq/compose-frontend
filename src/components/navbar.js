@@ -60,7 +60,7 @@ function ResponsiveAppBar() {
             href="/landing"
             sx={{
               display: { xs: "none", md: "flex" },
-              fontFamily: "relaway",
+              fontFamily: "raleway",
               fontWeight: 600,
               color: COLORS.primary,
               textDecoration: "none",
@@ -80,7 +80,7 @@ function ResponsiveAppBar() {
               sx={{
                 display: { xs: "flex", md: "none" },
                 flexGrow: 1,
-                fontFamily: "relaway",
+                fontFamily: "raleway",
                 fontWeight: 700,
                 letterSpacing: ".3rem",
                 color: COLORS.primary,
@@ -109,7 +109,7 @@ function ResponsiveAppBar() {
                 sx={{
                   fontSize: "12px",
                   fontWeight: "500",
-                  fontFamily: "relaway",
+                  fontFamily: "raleway",
                 }}
               >
                 Sign up
@@ -159,7 +159,7 @@ function ResponsiveAppBar() {
                   sx={{
                     fontSize: "18px",
                     fontWeight: page == "Homepage" ? "700" : "500",
-                    fontFamily: "relaway",
+                    fontFamily: "raleway",
                     color: COLORS.black,
                   }}
                 >
@@ -187,7 +187,7 @@ function ResponsiveAppBar() {
                 sx={{
                   fontSize: "18px",
                   fontWeight: "500",
-                  fontFamily: "relaway",
+                  fontFamily: "raleway",
                 }}
               >
                 Sign up

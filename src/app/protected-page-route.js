@@ -1,5 +1,5 @@
 import { getCookie } from "cookies-next";
-export default async function ProtectedPageRoute(functionToRun) {
+export default function ProtectedPageRoute() {
   console.log("ProtectedPageRoute");
   const token = getCookie("token");
   if (!token) {

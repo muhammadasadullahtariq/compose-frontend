@@ -4,3 +4,5 @@ export const textColor = "#757780";
 export const white = "#FFFFFF";
 export const blockBackgroundColor = "#EBF6F8";
 export const headerTextColor = "#282A3A";
+export const gray = "#D2D4DA";
+export const questionHeadingColor = "#757780";
