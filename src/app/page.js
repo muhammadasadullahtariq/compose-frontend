@@ -6,8 +6,7 @@ export default function Home() {
  
 
   return (
-    <main>
-      <div></div>
+    <main style={{ backgroundColor: '#fff', color: '#333' }}>
       <Testimonials />
     </main>
   );

@@ -14,13 +14,27 @@ const Testimonials = () => {
         slidesToScroll: 1
     };
 
+    const data = [
+        {
+            img: '',
+            name: '',
+            feedback: ''
+        },
+        {
+            img: '',
+            name: '',
+            feedback: ''
+        }
+    ]
+
     return (
         <div className="testimonials">
             <h3>User <span>Testimonials</span></h3>
             <div>
                 <Slider {...settings}>
-                    <div>1</div>
-                    <div>2</div>
+                    {data?.map((item, i) => (
+                        <Testimonial key={i} data={item} />
+                    ))}
                 </Slider>
             </div>
         </div>
