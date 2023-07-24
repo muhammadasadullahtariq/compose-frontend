@@ -131,12 +131,22 @@ function ResponsiveAppBar() {
                 border: "1px solid #2B92D5",
                 marginTop: "20px",
               }}
+              onClick={() => {
+                console.log("clicked");
+                const user = ProtectedPageRoute();
+                console.log(user);
+                if (!user) {
+                  router.push("/signin");
+                } else {
+                  router.push("/questionnaire");
+                }
+              }}
             >
               <Typography
                 sx={{
                   fontSize: "12px",
                   fontWeight: "500",
-                  fontFamily: "relaway",
+                  fontFamily: "raleway",
                 }}
               >
                 Start Planing Now

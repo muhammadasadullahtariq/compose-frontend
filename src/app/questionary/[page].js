@@ -20,8 +20,6 @@ function ResponsiveAppBar() {
   };
   return (
     <Box sx={{ flexGrow: 1, justifyContent: "center", alignItems: "center" }}>
-      <AppBar />
-
       <Box sx={{ flexGrow: 1, justifyContent: "center", alignItems: "center" }}>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Welcome to the landing page
