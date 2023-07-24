@@ -4,13 +4,13 @@ import Box from "@mui/material/Box";
 import AppBar from "@/components/navbar";
 import { Button, Typography } from "@mui/material";
 import Icon from "@mui/material";
-import ProtectedPageRoute from "../protected-page-route";
+import ProtectedPageRoute from "../../protected-page-route";
 import { useRouter } from "next/navigation";
 import ReCAPTCHA from "react-google-recaptcha";
 import TextField from "@mui/material/TextField";
 import verifyRecaptcha from "@/apis/verifyRecaptcha";
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar({ params }) {
   const recaptchaRef = React.createRef();
   const onChange = async (value) => {
     console.log("Captcha value:", value);
@@ -18,6 +18,8 @@ function ResponsiveAppBar() {
     console.log(reponce.message);
     alert(reponce.message);
   };
+
+  console.log(params.question);
   return (
     <Box sx={{ flexGrow: 1, justifyContent: "center", alignItems: "center" }}>
       <Box sx={{ flexGrow: 1, justifyContent: "center", alignItems: "center" }}>

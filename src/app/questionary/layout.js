@@ -3,8 +3,12 @@ import { Box, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import * as COLORS from "@/constants/colors";
 import AppBar from "@/components/navbar";
+import { useParams } from "next/navigation";
 
-export default function Layou({ children }) {
+export default function Layout({ children }) {
+  const router = useParams();
+  console.log(router);
+
   const questionsHedaing = [
     "Purpose of trip",
     "Who's travelling",
