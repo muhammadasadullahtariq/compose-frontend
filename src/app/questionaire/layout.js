@@ -35,15 +35,17 @@ export default function Layout({ children }) {
           display: "flex",
           flexDirection: "row",
           overflow: "hidden",
+          height: { md: "auto", xs: "100%" },
         }}
       >
         <Box
           sx={{
-            width: { md: "270px", xs: "80px" },
+            width: { md: "270px" },
             display: "flex",
-            paddingTop: "60px",
+            paddingTop: { md: "60px", xs: "20px" },
             borderRight: 1,
-
+            paddingBottom: { xs: "20px" },
+            paddingX: { md: "0", xs: "20px" },
             borderColor: "#D2D4DA",
           }}
         >
@@ -53,7 +55,7 @@ export default function Layout({ children }) {
                 md: "none",
                 xs: "flex",
               },
-              justifyContent: "center",
+              justifyContent: "start",
               alignItems: "center",
               flexDirection: "column",
               width: "100%",
@@ -74,7 +76,6 @@ export default function Layout({ children }) {
               >
                 <Box
                   sx={{
-<<<<<<< HEAD
                     display: "flex",
                     width: "30px",
                     height: "30px",
@@ -90,16 +91,6 @@ export default function Layout({ children }) {
                       indexOfQuestion == index || indexOfQuestion > index
                         ? "#F9F9F9"
                         : "#D2D4DA",
-=======
-                    fontSize: "18px",
-                    lineHeight: "51px",
-                    fontWeight: "500",
-                    fontFamily: "raleway",
-                    paddingLeft: "30px",
-                    width: "100%",
-                    color: COLORS.questionHeadingColor,
-                    textAlign: { md: "center", xs: "center", lg: "left" },
->>>>>>> bc9c3a8edc2622c62eb82169c13990bea58bed0b
                     backgroundColor:
                       indexOfQuestion == index || indexOfQuestion > index
                         ? "#2B92D5"
@@ -199,13 +190,13 @@ export default function Layout({ children }) {
         </Box>
         <Box
           sx={{
-            //padding: "30px",
             display: "flex",
             flexDirection: "column",
             position: "relative",
             overflow: "hidden",
-            gap: "20px",
+            padding: "20px",
             width: "100%",
+            justifyContent: "space-between",
           }}
         >
           <Typography
@@ -214,6 +205,7 @@ export default function Layout({ children }) {
               fontWeight: "600",
               fontFamily: "Raleway",
               maxWidth: "394px",
+              flex: "1",
             }}
           >
             {questionsTitle[indexOfQuestion]}
@@ -224,12 +216,21 @@ export default function Layout({ children }) {
               width: "100%",
               height: "350px",
               overflow: "auto",
+              flex: "6",
             }}
           >
             {children}
           </Box>
 
-          <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "end",
+              alignItems: "center",
+              flex: "1",
+            }}
+          >
             <Button
               sx={{
                 backgroundColor: COLORS.primary,
