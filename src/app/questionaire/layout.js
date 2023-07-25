@@ -29,7 +29,7 @@ export default function Layout({ children }) {
     >
       <Box
         sx={{
-          width: "80%",
+          width: "100%",
           backgroundColor: "#F9F9F9",
           borderRadius: "20px",
           display: "flex",
@@ -67,7 +67,6 @@ export default function Layout({ children }) {
                     fontFamily: "raleway",
                     paddingLeft: "30px",
                     width: "100%",
-
                     color: COLORS.questionHeadingColor,
                     textAlign: { md: "center", xs: "center", lg: "left" },
                     backgroundColor:
@@ -105,7 +104,7 @@ export default function Layout({ children }) {
         </Box>
         <Box
           sx={{
-            padding: "30px",
+            //padding: "30px",
             display: "flex",
             flexDirection: "column",
             position: "relative",
