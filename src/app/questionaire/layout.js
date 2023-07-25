@@ -74,6 +74,7 @@ export default function Layout({ children }) {
               >
                 <Box
                   sx={{
+<<<<<<< HEAD
                     display: "flex",
                     width: "30px",
                     height: "30px",
@@ -89,6 +90,16 @@ export default function Layout({ children }) {
                       indexOfQuestion == index || indexOfQuestion > index
                         ? "#F9F9F9"
                         : "#D2D4DA",
+=======
+                    fontSize: "18px",
+                    lineHeight: "51px",
+                    fontWeight: "500",
+                    fontFamily: "raleway",
+                    paddingLeft: "30px",
+                    width: "100%",
+                    color: COLORS.questionHeadingColor,
+                    textAlign: { md: "center", xs: "center", lg: "left" },
+>>>>>>> bc9c3a8edc2622c62eb82169c13990bea58bed0b
                     backgroundColor:
                       indexOfQuestion == index || indexOfQuestion > index
                         ? "#2B92D5"
@@ -188,7 +199,7 @@ export default function Layout({ children }) {
         </Box>
         <Box
           sx={{
-            padding: "30px",
+            //padding: "30px",
             display: "flex",
             flexDirection: "column",
             position: "relative",
