@@ -29,9 +29,9 @@ export default function Layout({ children }) {
     >
       <Box
         sx={{
-          width: "80%",
+          width: { md: "80%", xs: "100%" },
           backgroundColor: "#F9F9F9",
-          borderRadius: "20px",
+          borderRadius: { md: "20px", xs: "0" },
           display: "flex",
           flexDirection: "row",
           overflow: "hidden",
@@ -39,55 +39,63 @@ export default function Layout({ children }) {
       >
         <Box
           sx={{
-            width: "270px",
+            width: { md: "270px", xs: "80px" },
             display: "flex",
             paddingTop: "60px",
-            flexDirection: "column",
             borderRight: 1,
+
             borderColor: "#D2D4DA",
           }}
         >
-          {questionsHedaing.map((question, index) => {
-            return (
+          <Box
+            sx={{
+              display: {
+                md: "none",
+                xs: "flex",
+              },
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+              width: "100%",
+            }}
+          >
+            {questionsHedaing.map((question, index) => (
               <Box
                 sx={{
-                  display: "flex",
-                  flexDirection: "row",
+                  display: {
+                    md: "none",
+                    xs: "flex",
+                  },
+                  justifyContent: "center",
+                  flexDirection: "column",
                   alignItems: "center",
-                  justifyContent: "space-between",
-                  width: "100%",
                 }}
+                key={question}
               >
-                <Typography
-                  key={index}
+                <Box
                   sx={{
-                    fontSize: "18px",
-                    lineHeight: "51px",
-                    fontWeight: "500",
-                    fontFamily: "raleway",
-                    paddingLeft: "30px",
-                    width: "100%",
-
-                    color: COLORS.questionHeadingColor,
-                    textAlign: { md: "center", xs: "center", lg: "left" },
+                    display: "flex",
+                    width: "30px",
+                    height: "30px",
+                    borderRadius: "50%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    border: "1px solid",
+                    borderColor:
+                      indexOfQuestion == index || indexOfQuestion > index
+                        ? "#2B92D5"
+                        : "#D2D4DA",
+                    color:
+                      indexOfQuestion == index || indexOfQuestion > index
+                        ? "#F9F9F9"
+                        : "#D2D4DA",
                     backgroundColor:
-                      indexOfQuestion == index ? "#E2E8FF" : "#F9F9F9",
-                    cursor: "pointer",
+                      indexOfQuestion == index || indexOfQuestion > index
+                        ? "#2B92D5"
+                        : "transparent",
                   }}
                 >
-                  {question}
-                </Typography>
-                {index < indexOfQuestion && (
-                  <Box
-                    sx={{
-                      backgroundColor: COLORS.primary,
-                      borderRadius: 5,
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      marginRight: 1,
-                    }}
-                  >
+                  {index < indexOfQuestion ? (
                     <CheckIcon
                       fontSize="small"
                       sx={{
@@ -97,11 +105,86 @@ export default function Layout({ children }) {
                         padding: "1px",
                       }}
                     />
-                  </Box>
-                )}
+                  ) : (
+                    <span>{index + 1}</span>
+                  )}
+                </Box>
+                {index < questionsHedaing.length - 1 ? (
+                  <Box
+                    sx={{
+                      width: "1px",
+                      height: "30px",
+                      background:
+                        indexOfQuestion > index ? "#2B92D5" : "#D2D4DA",
+                    }}
+                  />
+                ) : null}
               </Box>
-            );
-          })}
+            ))}
+          </Box>
+          <Box
+            sx={{
+              display: { md: "flex", xs: "none" },
+              flexDirection: "column",
+            }}
+          >
+            {questionsHedaing.map((question, index) => {
+              return (
+                <Box
+                  sx={{
+                    display: { md: "flex", xs: "none" },
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    width: "100%",
+                  }}
+                  key={question}
+                >
+                  <Typography
+                    key={index}
+                    sx={{
+                      fontSize: "18px",
+                      lineHeight: "51px",
+                      fontWeight: "500",
+                      fontFamily: "raleway",
+                      paddingLeft: "30px",
+                      width: "100%",
+
+                      color: COLORS.questionHeadingColor,
+                      textAlign: "left",
+                      backgroundColor:
+                        indexOfQuestion == index ? "#E2E8FF" : "#F9F9F9",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {question}
+                  </Typography>
+                  {index < indexOfQuestion && (
+                    <Box
+                      sx={{
+                        backgroundColor: COLORS.primary,
+                        borderRadius: 5,
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginRight: 1,
+                      }}
+                    >
+                      <CheckIcon
+                        fontSize="small"
+                        sx={{
+                          color: COLORS.white,
+                          width: 15,
+                          height: 15,
+                          padding: "1px",
+                        }}
+                      />
+                    </Box>
+                  )}
+                </Box>
+              );
+            })}
+          </Box>
         </Box>
         <Box
           sx={{
