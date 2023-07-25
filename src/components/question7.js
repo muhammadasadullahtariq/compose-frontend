@@ -21,7 +21,7 @@ const Question7 = () => {
           <Grid
             item
             key={item.title}
-            lg={4}
+            lg={5}
             xs={12}
             sm={6}
           >

@@ -178,10 +178,10 @@ export const questions7 = [
     bg: COLORS.questionBlockBlueColor,
   },
   { title: "Sleep only", image: SleepOnly, bg: COLORS.questionBlockGrayColor },
-  { title: "Visit only", image: VisitOnly, bg: COLORS.questionBlockBlueColor },
+  { title: "Visit only", image: VisitOnly, bg: COLORS.questionBlockGrayColor },
   {
     title: "Dining only",
     image: DiningOnly,
-    bg: COLORS.questionBlockGrayColor,
+    bg: COLORS.questionBlockBlueColor,
   },
 ];
