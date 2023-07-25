@@ -17,6 +17,8 @@ export default function Layout({ children }) {
   const router = useRouter();
 
   return (
+    <>
+    <AppBar />
     <Box
       sx={{
         display: "flex",
@@ -29,7 +31,7 @@ export default function Layout({ children }) {
     >
       <Box
         sx={{
-          width: "100%",
+          width: { sm: '100%', md: '95%', lg: "90%"},
           backgroundColor: "#F9F9F9",
           borderRadius: "20px",
           display: "flex",
@@ -50,6 +52,7 @@ export default function Layout({ children }) {
           {questionsHedaing.map((question, index) => {
             return (
               <Box
+                key={index}
                 sx={{
                   display: "flex",
                   flexDirection: "row",
@@ -104,7 +107,7 @@ export default function Layout({ children }) {
         </Box>
         <Box
           sx={{
-            //padding: "30px",
+            padding: "30px",
             display: "flex",
             flexDirection: "column",
             position: "relative",
@@ -158,5 +161,6 @@ export default function Layout({ children }) {
         </Box>
       </Box>
     </Box>
+    </>
   );
 }

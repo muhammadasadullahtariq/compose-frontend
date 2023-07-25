@@ -19,13 +19,13 @@ width: 500px;
 }
 
 /* Question 6 image styling */ 
-.question6 img {
-width: 46px;
-height: 46px;
+.question6 img, .question7 img {
+    width: 46px;
+    height: 46px;
 }
 
 @media (max-width: 400px) {
-    .question6 img {
+    .question6 img, .question7 img {
         width: 30px;
         height: 30px;
     }
