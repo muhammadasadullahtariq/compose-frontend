@@ -6,39 +6,47 @@ import {
 import { Box, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import { questions7 } from "@/constants/questions";
+import './styles.css'
 
 const Question7 = () => {
   return (
-    <Grid container sx={{ gap: "20px" }}>
-      {questions7.map((item) => (
-        <Grid
-          item
-          key={item.title}
-          lg={5}
-          sx={{
-            background: item.bg,
-            overflow: "hidden",
-            padding: "20px 20px",
-            borderRadius: "20px",
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "start",
-              flexDirection: "row",
-              gap: "40px",
-            }}
+    <Box
+      sx={{
+        width: {sm: '100%', md: '100%', lg: "100%"},
+        height: "100%",
+      }}
+    >
+      <Grid container spacing={2}>
+        {questions7.map((item) => (
+          <Grid
+            item
+            key={item.title}
+            lg={4}
+            xs={12}
+            sm={6}
           >
-            <Image src={item.image} alt={item.title} width={100} height={100} />
-            <Typography variant="p" sx={{ fontWeight: "500" }}>
-              {item.title}
-            </Typography>
-          </Box>
-        </Grid>
-      ))}
-    </Grid>
+            <Box
+              sx={{
+                background: item.bg,
+                padding: "20px 20px",
+                height: '100%',
+                display: "flex",
+                flexDirection: { xs: 'column', sm: 'column', md: 'column', lg: 'row', xl: 'row' },
+                alignItems: "center",
+                justifyContent: "start",
+                borderRadius: "20px",
+                gap: { md: 5, xl: 10 },
+              }}
+            >
+              <Image src={item.image} alt={item.title} width={100} height={100} />
+              <Typography  variant="p" sx={{  textAlign: { xs: 'center', sm: 'center' }, fontWeight: "500", fontSize: '21px' }}>
+                {item.title}
+              </Typography>
+            </Box>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
   );
 };
 
