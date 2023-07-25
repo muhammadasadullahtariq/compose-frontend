@@ -16,6 +16,7 @@ import Image from "next/image";
 import headerImage from "@/assets/images/pageMainImage.svg";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Footer from "@/components/footer";
+import Testimonials from "@/components/testimonials";
 
 function ResponsiveAppBar() {
   const router = useRouter();
@@ -138,7 +139,7 @@ function ResponsiveAppBar() {
                 if (!user) {
                   router.push("/signin");
                 } else {
-                  router.push("/questionaire");
+                  router.push("/questionaire/question1");
                 }
               }}
             >
@@ -163,6 +164,7 @@ function ResponsiveAppBar() {
       <SecondBlock />
       <ThirdBlock />
       <FourthBlock />
+      {/* <Testimonials /> */}
       <Footer />
     </Box>
   );
