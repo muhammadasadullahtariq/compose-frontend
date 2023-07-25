@@ -9,96 +9,47 @@ import { useRouter } from "next/navigation";
 import ReCAPTCHA from "react-google-recaptcha";
 import TextField from "@mui/material/TextField";
 import verifyRecaptcha from "@/apis/verifyRecaptcha";
+import Question1 from "@/components/question1";
+import Question3 from "@/components/question3";
+import Question2 from "@/components/question2";
+import Question4 from "@/components/question4";
+import Question7 from "@/components/question7";
+import Question5 from "@/components/question5";
+import Question6 from "@/components/question6";
 
 function ResponsiveAppBar({ params }) {
-  const recaptchaRef = React.createRef();
-  const onChange = async (value) => {
-    console.log("Captcha value:", value);
-    const reponce = await verifyRecaptcha(value);
-    console.log(reponce.message);
-    alert(reponce.message);
-  };
-
   console.log(params.question);
   return (
-    <Box sx={{ flexGrow: 1, justifyContent: "center", alignItems: "center" }}>
-      <Box sx={{ flexGrow: 1, justifyContent: "center", alignItems: "center" }}>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Welcome to the landing page
-        </Typography>
-        <Box
-          component={"form"}
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{
-              flexGrow: 1,
-            }}
-          >
-            Please fill the form
-          </Typography>
-          <Box component={"div"}>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Question 1
-            </Typography>
-            <TextField
-              id="outlined-basic"
-              label="Outlined"
-              variant="outlined"
-            />
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Question 1
-            </Typography>
-            <TextField
-              id="outlined-basic"
-              label="Outlined"
-              variant="outlined"
-            />{" "}
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Question 1
-            </Typography>
-            <TextField
-              id="outlined-basic"
-              label="Outlined"
-              variant="outlined"
-            />{" "}
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Question 1
-            </Typography>
-            <TextField
-              id="outlined-basic"
-              label="Outlined"
-              variant="outlined"
-            />{" "}
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Question 1
-            </Typography>
-            <TextField
-              id="outlined-basic"
-              label="Outlined"
-              variant="outlined"
-            />
-          </Box>
-
-          <Button variant="contained" color="primary">
-            Submit
-          </Button>
-          <ReCAPTCHA
-            size="normal"
-            ref={recaptchaRef}
-            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-            onChange={onChange}
-          />
-        </Box>
-      </Box>
+    <Box
+      sx={{
+        width: "100%",
+      }}
+    >
+      {params.question == "question1" && <Question1 />}
+      {params.question == "question2" && <Question2 />}
+      {params.question == "question3" && <Question3 />}
+      {params.question == "question4" && <Question4 />}
+      {params.question == "question5" && <Question5 />}
+      {params.question == "question6" && <Question6 />}
+      {params.question == "question7" && <Question7 />}
     </Box>
   );
 }
 export default ResponsiveAppBar;
+
+{
+  /* <ReCAPTCHA
+  size="normal"
+  ref={recaptchaRef}
+  sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+  onChange={onChange}
+/>; */
+}
+
+// const recaptchaRef = React.createRef();
+// const onChange = async (value) => {
+//   console.log("Captcha value:", value);
+//   const reponce = await verifyRecaptcha(value);
+//   console.log(reponce.message);
+//   alert(reponce.message);
+// };
