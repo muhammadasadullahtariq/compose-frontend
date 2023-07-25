@@ -1,6 +1,6 @@
 "use client";
-import { Box, Button, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import { Box, Button, Typography, useTheme } from "@mui/material";
+import React from "react";
 import * as COLORS from "@/constants/colors";
 import AppBar from "@/components/navbar";
 import { useParams, useRouter } from "next/navigation";
@@ -15,6 +15,7 @@ export default function Layout({ children }) {
   const params = useParams();
   const indexOfQuestion = questionSlug.indexOf(params.question);
   const router = useRouter();
+  const theme = useTheme();
 
   return (
     <Box
@@ -29,7 +30,9 @@ export default function Layout({ children }) {
     >
       <Box
         sx={{
-          width: "80%",
+          [theme.breakpoints.up("md")]: {
+            width: "80%",
+          },
           backgroundColor: "#F9F9F9",
           borderRadius: "20px",
           display: "flex",
@@ -57,6 +60,7 @@ export default function Layout({ children }) {
                   justifyContent: "space-between",
                   width: "100%",
                 }}
+                key={question}
               >
                 <Typography
                   key={index}
