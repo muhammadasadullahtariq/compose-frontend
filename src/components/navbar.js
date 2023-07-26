@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -16,13 +17,17 @@ import { useRouter } from "next/navigation";
 import ProtectedPageRoute from "@/app/protected-page-route";
 import * as COLORS from "@/constants/colors";
 
-const pages = ["Homepage", "About us", "How it works", "Login"];
-const settings = [];
-
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const router = useRouter();
+  const [signUpHide, setSignUpHide] = React.useState(false);
+  const [pages, setPages] = React.useState([
+    "Homepage",
+    "About us",
+    "How it works",
+    "Login",
+  ]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -44,6 +49,15 @@ function ResponsiveAppBar() {
       router.push("/questionary");
     }
   };
+
+  React.useEffect(() => {
+    const userLogedIn = ProtectedPageRoute();
+    console.log("hide sign up", userLogedIn, "sign up hide");
+    if (userLogedIn) {
+      setSignUpHide(true);
+      setPages(["Homepage", "About us", "How it works", "Logout"]);
+    }
+  }, []);
 
   return (
     <AppBar
@@ -89,32 +103,34 @@ function ResponsiveAppBar() {
             >
               ComposeTrip
             </Typography>
-            <Button
-              sx={{
-                display: { xs: "flex", md: "none" },
-                backgroundColor: COLORS.primary,
-                color: "white",
-                borderRadius: "20px",
-                width: "79px",
-                height: "27px",
-                alignSelf: "center",
-              }}
-              onMouseOver={(e) => {
-                e.target.style.backgroundColor = COLORS.primary;
-              }}
-            >
-              <Typography
-                color="white"
-                textAlign="center"
+            {!signUpHide && (
+              <Button
                 sx={{
-                  fontSize: "12px",
-                  fontWeight: "500",
-                  fontFamily: "raleway",
+                  display: { xs: "flex", md: "none" },
+                  backgroundColor: COLORS.primary,
+                  color: "white",
+                  borderRadius: "20px",
+                  width: "79px",
+                  height: "27px",
+                  alignSelf: "center",
+                }}
+                onMouseOver={(e) => {
+                  e.target.style.backgroundColor = COLORS.primary;
                 }}
               >
-                Sign up
-              </Typography>
-            </Button>
+                <Typography
+                  color="white"
+                  textAlign="center"
+                  sx={{
+                    fontSize: "12px",
+                    fontWeight: "500",
+                    fontFamily: "raleway",
+                  }}
+                >
+                  Sign up
+                </Typography>
+              </Button>
+            )}
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -167,32 +183,34 @@ function ResponsiveAppBar() {
                 </Typography>
               </MenuItem>
             ))}
-            <Button
-              sx={{
-                backgroundColor: COLORS.primary,
-                color: "white",
-                borderRadius: "20px",
-                width: "128px",
-                height: "41px",
-                mr: 2,
-              }}
-              //hover effect
-              onMouseOver={(e) => {
-                e.target.style.backgroundColor = COLORS.primary;
-              }}
-            >
-              <Typography
-                color="white"
-                textAlign="center"
+            {!signUpHide && (
+              <Button
                 sx={{
-                  fontSize: "18px",
-                  fontWeight: "500",
-                  fontFamily: "raleway",
+                  backgroundColor: COLORS.primary,
+                  color: "white",
+                  borderRadius: "20px",
+                  width: "128px",
+                  height: "41px",
+                  mr: 2,
+                }}
+                //hover effect
+                onMouseOver={(e) => {
+                  e.target.style.backgroundColor = COLORS.primary;
                 }}
               >
-                Sign up
-              </Typography>
-            </Button>
+                <Typography
+                  color="white"
+                  textAlign="center"
+                  sx={{
+                    fontSize: "18px",
+                    fontWeight: "500",
+                    fontFamily: "raleway",
+                  }}
+                >
+                  Sign up
+                </Typography>
+              </Button>
+            )}
           </Box>
         </Toolbar>
       </Container>

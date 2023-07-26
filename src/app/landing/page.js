@@ -137,7 +137,7 @@ function ResponsiveAppBar() {
                 const user = ProtectedPageRoute();
                 console.log(user);
                 if (!user) {
-                  router.push("/signin");
+                  router.push("/signup");
                 } else {
                   router.push("/questionaire/question1");
                 }
