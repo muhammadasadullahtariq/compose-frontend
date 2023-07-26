@@ -1,4 +1,4 @@
-import { getCookie } from "cookies-next";
+import { getCookie,deleteCookie } from "cookies-next";
 export default function ProtectedPageRoute() {
   console.log("ProtectedPageRoute");
   const token = getCookie("token");
@@ -7,4 +7,10 @@ export default function ProtectedPageRoute() {
   } else {
     return true;
   }
+}
+
+export  function clearToken() {
+  deleteCookie("token");
+  deleteCookie("user");
+  return true;
 }

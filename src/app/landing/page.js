@@ -128,9 +128,11 @@ function ResponsiveAppBar() {
             <Button
               variant="outlined"
               sx={{
-                borderRadius: "20px",
-                border: "1px solid #2B92D5",
+                borderRadius: "30px",
+                border: `1px solid`,
+                borderColor: COLORS.buttonMobileColor,
                 marginTop: "20px",
+                backgroundColor: COLORS.buttonMobileColor,
               }}
               onClick={() => {
                 console.log("clicked");
@@ -145,15 +147,21 @@ function ResponsiveAppBar() {
             >
               <Typography
                 sx={{
-                  fontSize: "12px",
+                  fontSize: { lg: "18px", md: "16px", xs: "14px" },
                   fontWeight: "500",
                   fontFamily: "raleway",
+                  padding: "5px 30px",
+                  color: COLORS.white,
                 }}
               >
-                Start Planing Now
+                Get Started
               </Typography>
               <ArrowForwardIosIcon
-                sx={{ fontSize: "12px", marginLeft: "2px" }}
+                sx={{
+                  fontSize: { lg: "18px", md: "16px", xs: "14px" },
+                  marginLeft: "2px",
+                  color: COLORS.white,
+                }}
               />
             </Button>
           </Grid>

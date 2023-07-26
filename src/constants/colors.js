@@ -9,3 +9,5 @@ export const questionHeadingColor = "#757780";
 export const questionBlockBlueColor = "#cfe3f1";
 export const questionBlockGrayColor = "#f9e8cd";
 export const answeredQuestionColor = "#F0F0F0";
+export const buttonMobileColor = "#FFA41B";
+export const transparent = "transparent";
