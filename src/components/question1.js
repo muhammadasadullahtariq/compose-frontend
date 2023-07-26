@@ -19,7 +19,6 @@ const Question1 = () => {
               <Box
                 sx={{
                   width: "100%",
-                  height: "100%",
                   paddingTop: "20px",
                   paddingLeft: "15px",
                   paddingRight: "15px",
@@ -55,17 +54,6 @@ const Question1 = () => {
                   }}
                 >
                   {question.heading}
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "14px",
-                    fontWeight: "400",
-                    fontFamily: "Raleway",
-                    maxWidth: "394px",
-                    textAlign: "left",
-                  }}
-                >
-                  {question.label}
                 </Typography>
               </Box>
             </Grid>
