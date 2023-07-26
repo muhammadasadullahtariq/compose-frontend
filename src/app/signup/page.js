@@ -70,30 +70,30 @@ export default function SignUp() {
   const router = useRouter();
 
   useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        const token = await user.getIdToken();
-        setCookie("token", token);
-        const userExist = await checkUserExist();
-        if (userExist?.data?.name) {
-          setCookie("user", userExist.data);
-          setOpen(true);
-          setMessage("User Signed In Successfully");
-          setSeverity("success");
-          router.push("/landing");
-        } else if (
-          user.displayName != null &&
-          user.displayName != undefined &&
-          user.displayName != ""
-        ) {
-          await userRegisterHandaler(user.displayName);
-        } else {
-          setEmail(user.email);
-          setGoogleButton(false);
-          setButtonText("Submit Form");
-        }
-      }
-    });
+    // auth.onAuthStateChanged(async (user) => {
+    //   if (user) {
+    //     const token = await user.getIdToken();
+    //     setCookie("token", token);
+    //     const userExist = await checkUserExist();
+    //     if (userExist?.data?.name) {
+    //       setCookie("user", userExist.data);
+    //       setOpen(true);
+    //       setMessage("User Signed In Successfully");
+    //       setSeverity("success");
+    //       router.push("/landing");
+    //     } else if (
+    //       user.displayName != null &&
+    //       user.displayName != undefined &&
+    //       user.displayName != ""
+    //     ) {
+    //       await userRegisterHandaler(user.displayName);
+    //     } else {
+    //       setEmail(user.email);
+    //       setGoogleButton(false);
+    //       setButtonText("Submit Form");
+    //     }
+    //   }
+    // });
   }, []);
 
   const userRegisterHandaler = async (name) => {
@@ -185,15 +185,16 @@ export default function SignUp() {
             noValidate
             onSubmit={
               googleButton
-                ? handleSubmit
+                ? handleSubmit()
                 : () => {
-                    if (fname != "" && lname != "") {
+                    if (fname == "" && lname == "") {
                       setOpen(true);
                       setMessage("Please enter your first and last name");
                       setSeverity("info");
                       return;
+                    } else {
+                      userRegisterHandaler(fname + " " + lname);
                     }
-                    userRegisterHandaler(fname + " " + lname);
                   }
             }
             sx={{ mt: 3 }}
@@ -279,7 +280,7 @@ export default function SignUp() {
             </Box>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signin" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
