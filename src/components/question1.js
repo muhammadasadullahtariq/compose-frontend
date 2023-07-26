@@ -8,20 +8,22 @@ const Question1 = () => {
   return (
     <Box
       sx={{
-        width: "80%",
+        width: {xs: "100%", md: "90%", lg: '80%'},
         height: "100%",
       }}
     >
       <Grid container spacing={2}>
         {questions1.map((question, index) => {
           return (
-            <Grid item xs={12} sm={8} md={4} key={index}>
+            <Grid item xs={6} sm={6} md={6} lg={4} key={index}>
               <Box
                 sx={{
-                  width: "217px",
-                  height: "168px",
+                  width: "100%",
+                  height: "100%",
                   paddingTop: "20px",
                   paddingLeft: "15px",
+                  paddingRight: "15px",
+                  paddingBottom: { xs: '10px', sm: "10px", md: '15px', lg: '20px' },
                   borderRadius: "10px",
                   backgroundColor:
                     index % 2 == 0
