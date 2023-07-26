@@ -25,7 +25,7 @@ export default function Layout({ children }) {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          height: "90vh",
+          height: { md: "90vh", xs: "100vh" },
           backgroundColor: COLORS.primary,
         }}
       >
@@ -81,7 +81,7 @@ export default function Layout({ children }) {
                       display: "flex",
                       width: "30px",
                       height: "30px",
-                      borderRadius: "50%",
+                      borderRadius: "100%",
                       justifyContent: "center",
                       alignItems: "center",
                       border: "1px solid",
@@ -110,7 +110,7 @@ export default function Layout({ children }) {
                         }}
                       />
                     ) : (
-                      <span>{index + 1}</span>
+                      <p style={{ marginTop: -5 }}>{index + 1}</p>
                     )}
                   </Box>
                   {index < questionsHedaing.length - 1 ? (
@@ -203,6 +203,7 @@ export default function Layout({ children }) {
               overflow: "hidden",
               padding: "20px",
               width: "100%",
+
               justifyContent: "space-between",
             }}
           >
@@ -211,8 +212,8 @@ export default function Layout({ children }) {
                 fontSize: "28px",
                 fontWeight: "600",
                 fontFamily: "Raleway",
+                marginBottom: "10px",
                 maxWidth: "394px",
-                flex: "1",
               }}
             >
               {questionsTitle[indexOfQuestion]}
@@ -221,9 +222,9 @@ export default function Layout({ children }) {
               sx={{
                 display: "block",
                 width: "100%",
-                height: "350px",
+                height: { md: "360px", sm: "50%", xs: "50%" },
                 overflow: "auto",
-                flex: "6",
+                flex: "5",
               }}
             >
               {children}
@@ -238,6 +239,19 @@ export default function Layout({ children }) {
                 flex: "1",
               }}
             >
+              <Button
+                sx={{
+                  color: "#333",
+                  borderRadius: "20px",
+                  width: "128px",
+                  height: "41px",
+                }}
+                onClick={() => {
+                  router.back();
+                }}
+              >
+                Back
+              </Button>
               <Button
                 sx={{
                   backgroundColor: COLORS.primary,

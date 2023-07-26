@@ -39,12 +39,12 @@ export const questionsHedaing = [
   "Purpose of trip",
   "Who's travelling",
   "Where to",
-  "When to go",
-  "Budget",
-  "Interests",
   "Itinerary",
   "Any comments",
+  "Interests",
   "What you looking for?",
+  "When to go",
+  "Budget",
 ];
 
 export const questionSlug = [
@@ -59,8 +59,8 @@ export const questionSlug = [
 
 export const questionsTitle = [
   "Hey there! What brings you to travel?",
-  "Where will your journey take you?",
   "With whom will you be traveling?",
+  "Where will your journey take you?",
   "What kind of itinerary you are looking for?",
   "We would love to hear from you!",
   "Hey there! What brings you to travel?",
