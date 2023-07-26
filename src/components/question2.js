@@ -6,23 +6,20 @@ import { questions2 } from "@/constants/questions";
 
 
 const Question2 = () => {
-  
-
   return (
     <Box
       sx={{
-        width: "100%",
+        width: {sm: '100%', md: '100%', lg: "80%"},
         height: "100%",
       }}
     >
-      <Grid container sx={{ gap: "20px" }}>
+      <Grid container spacing={2}>
         {questions2.map((question, index) => {
           return (
-            <Grid item xs={12} sm={8} md={3} lg={3} key={index}>
+            <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={index}>
               <Box
                 sx={{
-                  width: "217px",
-                  height: "168px",
+                  height: "170px",
                   padding: "15px",
                   borderRadius: "10px",
                   backgroundColor:

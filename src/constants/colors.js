@@ -8,3 +8,4 @@ export const gray = "#D2D4DA";
 export const questionHeadingColor = "#757780";
 export const questionBlockBlueColor = "#cfe3f1";
 export const questionBlockGrayColor = "#f9e8cd";
+export const answeredQuestionColor = "#F0F0F0";
