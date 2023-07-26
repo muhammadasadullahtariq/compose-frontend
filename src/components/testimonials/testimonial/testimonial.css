@@ -23,6 +23,34 @@
     right: 6%;
 }
 
+@media (max-width: 500px) {
+    .testimonial .bottom-quotation, .testimonial .top-quotation {
+        height: 40px;
+        width: 40px;
+    }
+
+    .testimonial .top-quotation {
+        top: -5%;
+    }
+
+    .testimonial .bottom-quotation {
+        bottom: -5%;
+    }
+
+    .testimonial {
+        padding: 65px 20px;
+    }
+
+    .testimonial p {
+        font-size: 13px !important;
+    }
+
+    .testimonial .testimonial-profilepic {
+        height: 80px !important;
+        width: 80px !important;
+    }
+}
+
 .testimonial .testimonial-profilepic {
     position: absolute;
     left: 50%;

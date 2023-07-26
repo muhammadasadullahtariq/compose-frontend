@@ -88,6 +88,7 @@ function FourthBlock() {
           display: "flex",
           flexDirection: "row",
           justifyContent: "flex-end",
+          marginTop: { xs: "20px", md: "0px", lg: "0px" },
         }}
       >
         <Image src={blockImage} alt="image" />

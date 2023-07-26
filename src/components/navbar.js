@@ -14,8 +14,16 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useRouter } from "next/navigation";
-import ProtectedPageRoute from "@/app/protected-page-route";
+import ProtectedPageRoute, { clearToken } from "@/app/protected-page-route";
 import * as COLORS from "@/constants/colors";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import { signOut, getAuth } from "firebase/auth";
+import { firebase_app } from "@/app/config";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -28,6 +36,10 @@ function ResponsiveAppBar() {
     "How it works",
     "Login",
   ]);
+  const [open, setOpen] = React.useState(false);
+  const [message, setMessage] = React.useState("");
+  const [severity, setSeverity] = React.useState("success");
+  const auth = getAuth();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -36,7 +48,27 @@ function ResponsiveAppBar() {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (page) => {
+    if (page == "Logout") {
+      signOut(auth)
+        .then(() => {
+          setMessage("Logout successfully");
+          setSeverity("success");
+          setOpen(true);
+          clearToken();
+          setSignUpHide(false);
+          setPages(["Homepage", "About us", "How it works", "Login"]);
+          router.push("/landing");
+        })
+        .catch((error) => {
+          console.log(error);
+          setMessage("Something went wrong");
+          setSeverity("error");
+          setOpen(true);
+        });
+    } else if (page == "Login") {
+      router.push("/signin");
+    }
     setAnchorElNav(null);
   };
 
@@ -66,6 +98,15 @@ function ResponsiveAppBar() {
         backgroundColor: "white",
       }}
     >
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={() => setOpen(false)}
+      >
+        <Alert onClose={() => setOpen(false)} severity={severity}>
+          {message}
+        </Alert>
+      </Snackbar>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -96,9 +137,9 @@ function ResponsiveAppBar() {
                 flexGrow: 1,
                 fontFamily: "raleway",
                 fontWeight: 700,
-                letterSpacing: ".3rem",
                 color: COLORS.primary,
                 alignSelf: "center",
+                fontSize: "16px",
               }}
             >
               ComposeTrip
@@ -116,6 +157,9 @@ function ResponsiveAppBar() {
                 }}
                 onMouseOver={(e) => {
                   e.target.style.backgroundColor = COLORS.primary;
+                }}
+                onClick={() => {
+                  router.push("/signup");
                 }}
               >
                 <Typography
@@ -160,7 +204,7 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page} onClick={() => handleCloseNavMenu(page)}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -169,7 +213,7 @@ function ResponsiveAppBar() {
 
           <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <MenuItem key={page} onClick={handleCloseNavMenu}>
+              <MenuItem key={page} onClick={() => handleCloseNavMenu(page)}>
                 <Typography
                   textAlign="center"
                   sx={{
@@ -196,6 +240,9 @@ function ResponsiveAppBar() {
                 //hover effect
                 onMouseOver={(e) => {
                   e.target.style.backgroundColor = COLORS.primary;
+                }}
+                onClick={() => {
+                  router.push("/signup");
                 }}
               >
                 <Typography

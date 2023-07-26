@@ -13,11 +13,13 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
 import registerUser from "@/apis/registerUser";
-import firebase_app from "../config";
+import firebase_app, { signIn, auth } from "../config";
 import GoogleButton from "react-google-button";
-import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
@@ -47,8 +49,6 @@ function Copyright(props) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
 export default function SignUp() {
@@ -59,45 +59,41 @@ export default function SignUp() {
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState("");
   const [severity, setSeverity] = React.useState("success");
-  const [googleButton, setGoogleButton] = React.useState(false);
-  const [buttonText, setButtonText] = React.useState("Sign Up");
-  firebase.initializeApp(firebase_app);
-  const auth = firebase.auth();
-  const provider = new firebase.auth.GoogleAuthProvider();
-  provider.setCustomParameters({ prompt: "select_account" });
-  const signIn = () => auth.signInWithPopup(provider);
-  const signOut = () => auth.signOut();
   const router = useRouter();
+  const [usedEmailSignUp, setUsedEmailSignUp] = React.useState(false);
 
   useEffect(() => {
-    // auth.onAuthStateChanged(async (user) => {
-    //   if (user) {
-    //     const token = await user.getIdToken();
-    //     setCookie("token", token);
-    //     const userExist = await checkUserExist();
-    //     if (userExist?.data?.name) {
-    //       setCookie("user", userExist.data);
-    //       setOpen(true);
-    //       setMessage("User Signed In Successfully");
-    //       setSeverity("success");
-    //       router.push("/landing");
-    //     } else if (
-    //       user.displayName != null &&
-    //       user.displayName != undefined &&
-    //       user.displayName != ""
-    //     ) {
-    //       await userRegisterHandaler(user.displayName);
-    //     } else {
-    //       setEmail(user.email);
-    //       setGoogleButton(false);
-    //       setButtonText("Submit Form");
-    //     }
-    //   }
-    // });
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const token = await user.getIdToken();
+        setCookie("token", token);
+        const userExist = await checkUserExist();
+        if (userExist?.message == "User found") {
+          setCookie("user", userExist.data);
+          setOpen(true);
+          setMessage("User Signed In Successfully");
+          setSeverity("success");
+          router.push("/landing");
+        } else {
+          if (!usedEmailSignUp) {
+            if (
+              user.displayName == null ||
+              user.displayName == "" ||
+              user.displayName == undefined
+            ) {
+              await userRegisterHandaler(user.email);
+            }
+            await userRegisterHandaler(user.displayName);
+          }
+        }
+      }
+    });
   }, []);
 
   const userRegisterHandaler = async (name) => {
-    const userData = registerUser(name);
+    const userData = await registerUser(name);
+    console.log("user not exist extra user called");
+    console.log(userData);
     if (userData?.message == "User Created") {
       setCookie("user", userData.data);
       setOpen(true);
@@ -113,29 +109,31 @@ export default function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setUsedEmailSignUp(true);
     if (fname == "" || lname == "") {
       setOpen(true);
       setMessage("Please enter your first and last name");
-      setSeverity("info");
+      setSeverity("error");
       return;
     } else if (email == "" || password == "") {
       setOpen(true);
       setMessage("Please enter your email and password");
-      setSeverity("info");
+      setSeverity("error");
       return;
     } else if (password.length < 6) {
       setOpen(true);
       setMessage("Password must be at least 6 characters");
-      setSeverity("info");
+      setSeverity("error");
       return;
     }
     createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
+        //await sendEmailVerification(auth.currentUser);
         const user = userCredential.user;
         const token = await user.getIdToken();
-        console.log("token is", token);
         setCookie("token", token);
-        const userData = registerUser(fname + " " + lname);
+        const userData = await registerUser(fname + " " + lname);
+        console.log(userData);
         if (userData?.message == "User Created") {
           setCookie("user", userData.data);
           setOpen(true);
@@ -143,19 +141,30 @@ export default function SignUp() {
           setSeverity("success");
           router.push("/landing");
         } else {
+          console.log("user not created called");
+          console.log(userData);
           setOpen(true);
           setMessage(userData.message);
           setSeverity("error");
         }
       })
       .catch((error) => {
+        setOpen(true);
+        setMessage(error.message);
+        setSeverity("error");
+
         console.log(error);
       });
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container
+        maxWidth="xs"
+        sx={{
+          height: "100vh",
+        }}
+      >
         <Snackbar
           open={open}
           autoHideDuration={6000}
@@ -181,24 +190,22 @@ export default function SignUp() {
             Sign up
           </Typography>
           <Box
-            component="form"
-            noValidate
-            onSubmit={
-              googleButton
-                ? handleSubmit()
-                : () => {
-                    if (fname == "" && lname == "") {
-                      setOpen(true);
-                      setMessage("Please enter your first and last name");
-                      setSeverity("info");
-                      return;
-                    } else {
-                      userRegisterHandaler(fname + " " + lname);
-                    }
-                  }
-            }
-            sx={{ mt: 3 }}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+              marginTop: "10px",
+            }}
           >
+            <GoogleButton
+              onClick={() => {
+                console.log("Google button clicked");
+                signIn();
+              }}
+            />
+          </Box>
+          <Box component="form" sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -260,25 +267,11 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={(e) => handleSubmit(e)}
             >
-              {buttonText}
+              Sign Up
             </Button>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "column",
-              }}
-            >
-              <GoogleButton
-                onClick={() => {
-                  console.log("Google button clicked");
-                  signIn();
-                }}
-              />
-            </Box>
-            <Grid container justifyContent="flex-end">
+            <Grid container justifyContent="center">
               <Grid item>
                 <Link href="/signin" variant="body2">
                   Already have an account? Sign in
