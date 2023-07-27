@@ -68,6 +68,8 @@ function ResponsiveAppBar() {
         });
     } else if (page == "Login") {
       router.push("/signin");
+    } else if (page == "Homepage") {
+      router.push("/landing");
     }
     setAnchorElNav(null);
   };
