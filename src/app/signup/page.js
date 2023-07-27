@@ -128,7 +128,7 @@ export default function SignUp() {
     }
     createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
-        //await sendEmailVerification(auth.currentUser);
+        await sendEmailVerification(auth.currentUser);
         const user = userCredential.user;
         const token = await user.getIdToken();
         setCookie("token", token);

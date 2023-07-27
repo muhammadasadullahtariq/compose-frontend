@@ -8,7 +8,7 @@ const Question1 = () => {
   return (
     <Box
       sx={{
-        width: {xs: "100%", md: "90%", lg: '80%'},
+        width: { xs: "100%", md: "90%", lg: "80%" },
         height: "100%",
       }}
     >
@@ -22,7 +22,12 @@ const Question1 = () => {
                   paddingTop: "20px",
                   paddingLeft: "15px",
                   paddingRight: "15px",
-                  paddingBottom: { xs: '10px', sm: "10px", md: '15px', lg: '20px' },
+                  paddingBottom: {
+                    xs: "10px",
+                    sm: "10px",
+                    md: "15px",
+                    lg: "20px",
+                  },
                   borderRadius: "10px",
                   backgroundColor:
                     index % 2 == 0
@@ -48,12 +53,29 @@ const Question1 = () => {
                 <Typography
                   sx={{
                     fontSize: "18px",
-                    fontWeight: "600",
+                    fontWeight: "500",
                     fontFamily: "Raleway",
                     maxWidth: "394px",
                   }}
                 >
                   {question.heading}
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    fontWeight: "400",
+                    fontFamily: "Raleway",
+                    maxWidth: "394px",
+                    textAlign: "left",
+                    display: {
+                      xs: "none",
+                      sm: "none",
+                      md: "block",
+                      lg: "block",
+                    },
+                  }}
+                >
+                  {question.label}
                 </Typography>
               </Box>
             </Grid>

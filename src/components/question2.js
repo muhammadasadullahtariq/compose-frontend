@@ -6,7 +6,7 @@ const Question2 = () => {
   return (
     <Grid container sx={{ gap: { lg: "20px", xs: "10px" } }}>
       {questions3.map((item) => (
-        <Grid item key={item} lg={2} xs={12} md={3} sm={6}>
+        <Grid item key={item} lg={2} xs={12} md={3} sm={4}>
           <div
             style={{
               display: "flex",

@@ -129,10 +129,16 @@ function ResponsiveAppBar() {
               variant="outlined"
               sx={{
                 borderRadius: "30px",
-                border: `1px solid`,
+                border: "none",
+                outline: "none",
                 borderColor: COLORS.buttonMobileColor,
                 marginTop: "20px",
                 backgroundColor: COLORS.buttonMobileColor,
+                "&:hover": {
+                  backgroundColor: COLORS.buttonMobileColor,
+                  border: "none",
+                  outline: "none",
+                },
               }}
               onClick={() => {
                 console.log("clicked");
