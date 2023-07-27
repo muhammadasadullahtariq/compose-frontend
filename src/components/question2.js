@@ -2,10 +2,11 @@ import { Grid, Box, Typography } from "@mui/material";
 import Image from "next/image";
 import { questions3 } from "@/constants/questions";
 
-const Question2 = () => {
+const Question2 = ({ question }) => {
+  console.log(question, "question");
   return (
     <Grid container sx={{ gap: { lg: "20px", xs: "10px" } }}>
-      {questions3.map((item) => (
+      {question.items.map((item) => (
         <Grid item key={item} lg={2} xs={12} md={3} sm={4}>
           <div
             style={{
@@ -15,7 +16,19 @@ const Question2 = () => {
               alignItems: "center",
             }}
           >
-            <Image src={item.image} alt={item} />
+            {questions3.find(
+              (ques) => ques.title.toLowerCase() === item.title.toLowerCase()
+            ) && (
+              <Image
+                src={
+                  questions3.find(
+                    (ques) =>
+                      ques.title.toLowerCase() === item.title.toLowerCase()
+                  ).image
+                }
+                alt={item.title}
+              />
+            )}
             <Typography
               as="p"
               sx={{
