@@ -3,9 +3,14 @@ import React from "react";
 import * as COLORS from "@/constants/colors";
 import Image from "next/image";
 import { questions2 } from "@/constants/questions";
+import { DataContext } from "@/app/questionaire/context";
 
 
 const Question3 = () => {
+   const handleButtonClick = () => {
+     dispatch({ type: "UPDATE_DATA", payload: { purposeOfTrip: "someValue" } });
+   };
+
   return (
     <Box
       sx={{

@@ -1,8 +1,13 @@
 import { Grid, Box, Typography } from "@mui/material";
 import Image from "next/image";
 import { questions3 } from "@/constants/questions";
+import { DataContext } from "@/app/questionaire/context";
 
 const Question2 = () => {
+   const handleButtonClick = () => {
+     dispatch({ type: "UPDATE_DATA", payload: { purposeOfTrip: "someValue" } });
+   };
+
   return (
     <Grid container sx={{ gap: { lg: "20px", xs: "10px" } }}>
       {questions3.map((item) => (

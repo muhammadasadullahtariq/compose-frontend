@@ -1,6 +1,6 @@
 "use client";
 import { Box, Button, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useReducer } from "react";
 import * as COLORS from "@/constants/colors";
 import AppBar from "@/components/navbar";
 import { useParams, useRouter } from "next/navigation";
@@ -10,11 +10,34 @@ import {
   questionsTitle,
 } from "@/constants/questions";
 import CheckIcon from "@mui/icons-material/Check";
+import { DataContext, dataReducer } from "@/app/questionaire/context";
+import { validateVlueSelection } from "@/constants/questions";
 
 export default function Layout({ children }) {
   const params = useParams();
   const indexOfQuestion = questionSlug.indexOf(params.question);
   const router = useRouter();
+
+  const [data, dispatch] = useReducer(dataReducer, {});
+
+  useEffect(() => {
+    const savedData = localStorage.getItem("questionaireData");
+    if (savedData) {
+      dispatch({ type: "UPDATE_DATA", payload: JSON.parse(savedData) });
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("questionaireData", JSON.stringify(data));
+  }, [data]);
+
+  const nextHandler = () => {
+    if (!data[validateVlueSelection[questionSlug[indexOfQuestion]]]) {
+      return;
+    } else {
+      router.push("/questionaire/" + questionSlug[indexOfQuestion + 1]);
+    }
+  };
 
   return (
     <div>
@@ -218,17 +241,19 @@ export default function Layout({ children }) {
             >
               {questionsTitle[indexOfQuestion]}
             </Typography>
-            <Box
-              sx={{
-                display: "block",
-                width: "100%",
-                height: { md: "360px", sm: "50%", xs: "50%" },
-                overflow: "auto",
-                flex: "5",
-              }}
-            >
-              {children}
-            </Box>
+            <DataContext.Provider value={{ data, dispatch }}>
+              <Box
+                sx={{
+                  display: "block",
+                  width: "100%",
+                  height: { md: "360px", sm: "50%", xs: "50%" },
+                  overflow: "auto",
+                  flex: "5",
+                }}
+              >
+                {children}
+              </Box>
+            </DataContext.Provider>
 
             <Box
               sx={{
@@ -263,11 +288,7 @@ export default function Layout({ children }) {
                 onMouseOver={(e) => {
                   e.target.style.backgroundColor = COLORS.primary;
                 }}
-                onClick={() => {
-                  router.push(
-                    "/questionaire/" + questionSlug[indexOfQuestion + 1]
-                  );
-                }}
+                onClick={nextHandler}
               >
                 Next
               </Button>

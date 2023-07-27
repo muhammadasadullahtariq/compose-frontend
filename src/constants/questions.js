@@ -185,3 +185,13 @@ export const questions7 = [
     bg: COLORS.questionBlockBlueColor,
   },
 ];
+
+export const validateVlueSelection = {
+  question1: "purposeOfTrip",
+  question2: "travelingWith",
+  question3: "whereToTravel",
+  question4: "tripInterest",
+  question5: "comment",
+  question6: "interest",
+  question7: "motivation",
+};

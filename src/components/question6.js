@@ -5,8 +5,13 @@ import * as COLORS from "@/constants/colors";
 import Image from "next/image";
 import { questions6 } from "@/constants/questions";
 import "./styles.css";
+import { DataContext } from "@/app/questionaire/context";
 
 const Question7 = () => {
+   const handleButtonClick = () => {
+     dispatch({ type: "UPDATE_DATA", payload: { purposeOfTrip: "someValue" } });
+   };
+
   return (
     <Grid className="question6" container sx={{ gap: "20px" }}>
       {questions6.map((item, index) => (
