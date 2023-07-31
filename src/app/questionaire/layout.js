@@ -13,19 +13,23 @@ import CheckIcon from "@mui/icons-material/Check";
 import { DataContext, dataReducer } from "@/app/questionaire/context";
 import { validateVlueSelection } from "@/constants/questions";
 
+import { fetcher } from "../../lib/APIFetcher";
+import {
+  addSpacesToString,
+  removeSpacesFromString,
+} from "../../lib/CreateSlug";
 export default function Layout({ children }) {
   const params = useParams();
-  const indexOfQuestion = questionSlug.indexOf(params.question);
+  const [questions, setQuestions] = useState([]);
+  const [indexOfQuestion, setIndexOfQuestion] = useState(
+    questions.findIndex(
+      (ques) => ques.navTitle.toLowerCase() == params.question.toLowerCase()
+    )
+  );
+
   const router = useRouter();
 
   const [data, dispatch] = useReducer(dataReducer, {});
-
-  useEffect(() => {
-    const savedData = localStorage.getItem("questionaireData");
-    if (savedData) {
-      dispatch({ type: "UPDATE_DATA", payload: JSON.parse(savedData) });
-    }
-  }, []);
 
   useEffect(() => {
     localStorage.setItem("questionaireData", JSON.stringify(data));
@@ -38,6 +42,40 @@ export default function Layout({ children }) {
       router.push("/questionaire/" + questionSlug[indexOfQuestion + 1]);
     }
   };
+
+  useEffect(() => {
+     const savedData = localStorage.getItem("questionaireData");
+     if (savedData) {
+       dispatch({ type: "UPDATE_DATA", payload: JSON.parse(savedData) });
+     }
+    async function getData() {
+      const data = await fetcher(
+        "http://localhost:1337/api/questions?populate=items"
+      );
+      const formatted = data.data
+        .map((que) => {
+          return {
+            id: que.id,
+            navTitle: que.attributes.nav_title,
+            title: que.attributes.title,
+            sortNum: que.attributes.sorting_number,
+            items: que.attributes.items,
+          };
+        })
+        .sort((a, b) => a.sortNum - b.sortNum);
+      setQuestions(formatted);
+      return data;
+    }
+    getData();
+  }, []);
+  
+  useEffect(() => {
+    setIndexOfQuestion(
+      questions.findIndex((ques) => {
+        return ques.navTitle == addSpacesToString(params.question);
+      })
+    );
+  }, [params, questions]);
 
   return (
     <div>
@@ -86,7 +124,7 @@ export default function Layout({ children }) {
                 width: "100%",
               }}
             >
-              {questionsHedaing.map((question, index) => (
+              {questions.map((question, index) => (
                 <Box
                   sx={{
                     display: {
@@ -97,7 +135,7 @@ export default function Layout({ children }) {
                     flexDirection: "column",
                     alignItems: "center",
                   }}
-                  key={question}
+                  key={question.navTitle}
                 >
                   <Box
                     sx={{
@@ -155,7 +193,7 @@ export default function Layout({ children }) {
                 flexDirection: "column",
               }}
             >
-              {questionsHedaing.map((question, index) => {
+              {questions.map((question, index) => {
                 return (
                   <Box
                     sx={{
@@ -188,7 +226,7 @@ export default function Layout({ children }) {
                         cursor: "pointer",
                       }}
                     >
-                      {question}
+                      {question.navTitle}
                     </Typography>
                     {index < indexOfQuestion && (
                       <Box
@@ -239,7 +277,8 @@ export default function Layout({ children }) {
                 maxWidth: "394px",
               }}
             >
-              {questionsTitle[indexOfQuestion]}
+              {questions[indexOfQuestion - 1] &&
+                questions[indexOfQuestion - 1].title}
             </Typography>
             <DataContext.Provider value={{ data, dispatch }}>
               <Box
@@ -288,7 +327,15 @@ export default function Layout({ children }) {
                 onMouseOver={(e) => {
                   e.target.style.backgroundColor = COLORS.primary;
                 }}
-                onClick={nextHandler}
+                //onClick={nextHandler}
+                onClick={() => {
+                  const nextIndex = indexOfQuestion + 1;
+                  const path = removeSpacesFromString(
+                    questions[nextIndex] && questions[nextIndex].navTitle
+                  );
+
+                  router.push("/questionaire/" + path);
+                }}
               >
                 Next
               </Button>

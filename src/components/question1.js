@@ -5,12 +5,13 @@ import Image from "next/image";
 import { questions1 } from "@/constants/questions";
 import { DataContext } from "@/app/questionaire/context";
 
-const Question1 = () => {
+const Question1 = ({ question }) => {
   const { data, dispatch } = useContext(DataContext);
   const handleButtonClick = (value) => {
     dispatch({ type: "UPDATE_DATA", payload: { purposeOfTrip: "someValue" } });
   };
 
+  console.log(question, "question no 1");
   return (
     <Box
       sx={{
@@ -19,7 +20,7 @@ const Question1 = () => {
       }}
     >
       <Grid container spacing={2}>
-        {questions1.map((question, index) => {
+        {question.items.map((question, index) => {
           return (
             <Grid item xs={6} sm={6} md={6} lg={4} key={index}>
               <Box
@@ -52,12 +53,28 @@ const Question1 = () => {
                     height: "53px",
                   }}
                 >
-                  <Image
+                  {/* <Image
                     width={53}
                     height={40}
                     src={question.image}
                     alt="Picture of the author"
-                  />
+                  /> */}
+                  {questions1.find(
+                    (ques) =>
+                      ques.heading.toLowerCase() ===
+                      question.title.toLowerCase()
+                  ) && (
+                    <Image
+                      src={
+                        questions1.find(
+                          (ques) =>
+                            ques.heading.toLowerCase() ===
+                            question.title.toLowerCase()
+                        ).image
+                      }
+                      alt={question.title}
+                    />
+                  )}
                 </Box>
                 <Typography
                   sx={{
@@ -67,7 +84,7 @@ const Question1 = () => {
                     maxWidth: "394px",
                   }}
                 >
-                  {question.heading}
+                  {question.title}
                 </Typography>
                 <Typography
                   sx={{
@@ -84,7 +101,7 @@ const Question1 = () => {
                     },
                   }}
                 >
-                  {question.label}
+                  {question.description}
                 </Typography>
               </Box>
             </Grid>
