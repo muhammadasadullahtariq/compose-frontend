@@ -31,15 +31,17 @@ export default function Layout({ children }) {
       const data = await fetcher(
         "http://localhost:1337/api/questions?populate=items"
       );
-      const formatted = data.data.map((que) => {
-        return {
-          id: que.id,
-          navTitle: que.attributes.nav_title,
-          title: que.attributes.title,
-          sortNum: que.attributes.sorting_number,
-          items: que.attributes.items,
-        };
-      });
+      const formatted = data.data
+        .map((que) => {
+          return {
+            id: que.id,
+            navTitle: que.attributes.nav_title,
+            title: que.attributes.title,
+            sortNum: que.attributes.sorting_number,
+            items: que.attributes.items,
+          };
+        })
+        .sort((a, b) => a.sortNum - b.sortNum);
       setQuestions(formatted);
       return data;
     }
