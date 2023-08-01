@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Box from "@mui/material/Box";
 import AppBar from "@/components/navbar";
 import { Button, Typography } from "@mui/material";
@@ -17,52 +17,28 @@ import Question4 from "@/components/question4";
 import Question7 from "@/components/question7";
 import Question5 from "@/components/question5";
 import Question6 from "@/components/question6";
-import { addSpacesToString } from "../../../lib/CreateSlug";
+import { DataContext } from "@/app/questionaire/context";
+
 function ResponsiveAppBar({ params }) {
-  const [question, setQuestion] = useState({});
+  const { data } = useContext(DataContext);
 
   useEffect(() => {
-    async function getData() {
-      const data = await fetcher(
-        `http://localhost:1337/api/questions?filters[nav_title]=${addSpacesToString(
-          params.question
-        )}&populate=items`
-      );
-
-      const formatted = data.data.map((que) => {
-        return {
-          id: que.id,
-          navTitle: que.attributes.nav_title,
-          title: que.attributes.title,
-          sortNum: que.attributes.sorting_number,
-          items: que.attributes.items.data.map((item) => {
-            return {
-              title: item.attributes.title,
-              description: item.attributes.description,
-              url: item.attributes.url,
-              id: item.attributes.id,
-            };
-          }),
-        };
-      });
-      setQuestion(...formatted);
-      return data;
-    }
-    getData();
+    console.log(data.questionNumber, "data.questionNumber");
   }, []);
+
   return (
     <Box
       sx={{
         width: "100%",
       }}
     >
-      {question.sortNum === 1 && <Question1 question={question} />}
-      {question.sortNum === 2 && <Question2 question={question} />}
-      {question.sortNum === 3 && <Question3 question={question} />}
-      {question.sortNum === 4 && <Question4 question={question} />}
-      {question.sortNum === 5 && <Question5 question={question} />}
-      {question.sortNum === 6 && <Question6 question={question} />}
-      {question.sortNum === 7 && <Question7 question={question} />}
+      {data.questionNumber === 1 && <Question1 />}
+      {data.questionNumber === 2 && <Question2 />}
+      {data.questionNumber === 3 && <Question3 />}
+      {data.questionNumber === 4 && <Question4 />}
+      {data.questionNumber === 5 && <Question5 />}
+      {data.questionNumber === 6 && <Question6 />}
+      {data.questionNumber === 7 && <Question7 />}
     </Box>
   );
 }

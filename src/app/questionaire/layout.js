@@ -1,6 +1,6 @@
 "use client";
 import { Box, Button, Typography } from "@mui/material";
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import * as COLORS from "@/constants/colors";
 import AppBar from "@/components/navbar";
 import { useParams, useRouter } from "next/navigation";
@@ -35,19 +35,20 @@ export default function Layout({ children }) {
     localStorage.setItem("questionaireData", JSON.stringify(data));
   }, [data]);
 
-  const nextHandler = () => {
-    if (!data[validateVlueSelection[questionSlug[indexOfQuestion]]]) {
-      return;
-    } else {
-      router.push("/questionaire/" + questionSlug[indexOfQuestion + 1]);
-    }
-  };
-
   useEffect(() => {
-     const savedData = localStorage.getItem("questionaireData");
-     if (savedData) {
-       dispatch({ type: "UPDATE_DATA", payload: JSON.parse(savedData) });
-     }
+    const savedData = localStorage.getItem("questionaireData");
+    if (savedData) {
+      dispatch({ type: "UPDATE_DATA", payload: JSON.parse(savedData) });
+      dispatch({
+        type: "UPDATE_QUESTION_NUMBER",
+        payload: JSON.parse(savedData).questionNumber,
+      });
+    } else {
+      dispatch({
+        type: "UPDATE_QUESTION_NUMBER",
+        payload: 0,
+      });
+    }
     async function getData() {
       const data = await fetcher(
         "http://localhost:1337/api/questions?populate=items"
@@ -60,6 +61,7 @@ export default function Layout({ children }) {
             title: que.attributes.title,
             sortNum: que.attributes.sorting_number,
             items: que.attributes.items,
+            dbAttribute: que.attributes.db_attribute,
           };
         })
         .sort((a, b) => a.sortNum - b.sortNum);
@@ -68,7 +70,7 @@ export default function Layout({ children }) {
     }
     getData();
   }, []);
-  
+
   useEffect(() => {
     setIndexOfQuestion(
       questions.findIndex((ques) => {
@@ -98,7 +100,7 @@ export default function Layout({ children }) {
             display: "flex",
             flexDirection: "row",
             overflow: "hidden",
-            height: { md: "auto", xs: "100%" },
+            height: { lg: "80%", xs: "100%" },
           }}
         >
           <Box
@@ -191,6 +193,7 @@ export default function Layout({ children }) {
               sx={{
                 display: { md: "flex", xs: "none" },
                 flexDirection: "column",
+                width: "100%",
               }}
             >
               {questions.map((question, index) => {
@@ -280,7 +283,12 @@ export default function Layout({ children }) {
               {questions[indexOfQuestion - 1] &&
                 questions[indexOfQuestion - 1].title}
             </Typography>
-            <DataContext.Provider value={{ data, dispatch }}>
+            <DataContext.Provider
+              value={{
+                data,
+                dispatch,
+              }}
+            >
               <Box
                 sx={{
                   display: "block",
@@ -311,7 +319,14 @@ export default function Layout({ children }) {
                   height: "41px",
                 }}
                 onClick={() => {
-                  router.back();
+                  if (indexOfQuestion >= 1) {
+                    const prevIndex = indexOfQuestion - 1;
+                    dispatch({
+                      type: "UPDATE_QUESTION_NUMBER",
+                      payload: questions[prevIndex].sortNum,
+                    });
+                    router.back();
+                  }
                 }}
               >
                 Back
@@ -329,12 +344,20 @@ export default function Layout({ children }) {
                 }}
                 //onClick={nextHandler}
                 onClick={() => {
-                  const nextIndex = indexOfQuestion + 1;
-                  const path = removeSpacesFromString(
-                    questions[nextIndex] && questions[nextIndex].navTitle
-                  );
-
-                  router.push("/questionaire/" + path);
+                  console.log(questions[indexOfQuestion].dbAttribute, "data");
+                  if (!data[questions[indexOfQuestion].dbAttribute]) {
+                    return;
+                  } else {
+                    const nextIndex = indexOfQuestion + 1;
+                    const path = removeSpacesFromString(
+                      questions[nextIndex] && questions[nextIndex].navTitle
+                    );
+                    dispatch({
+                      type: "UPDATE_QUESTION_NUMBER",
+                      payload: questions[nextIndex].sortNum,
+                    });
+                    router.push("/questionaire/" + path);
+                  }
                 }}
               >
                 Next

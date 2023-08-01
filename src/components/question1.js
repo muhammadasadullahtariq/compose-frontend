@@ -5,13 +5,14 @@ import Image from "next/image";
 import { questions1 } from "@/constants/questions";
 import { DataContext } from "@/app/questionaire/context";
 
-const Question1 = ({ question }) => {
+const Question1 = () => {
   const { data, dispatch } = useContext(DataContext);
+  const [selectedValue, setSelectedValue] = React.useState(null);
   const handleButtonClick = (value) => {
-    dispatch({ type: "UPDATE_DATA", payload: { purposeOfTrip: "someValue" } });
+    setSelectedValue(value);
+    dispatch({ type: "UPDATE_DATA", payload: { country: value } });
   };
 
-  console.log(question, "question no 1");
   return (
     <Box
       sx={{
@@ -20,7 +21,7 @@ const Question1 = ({ question }) => {
       }}
     >
       <Grid container spacing={2}>
-        {question.items.map((question, index) => {
+        {questions1.map((question, index) => {
           return (
             <Grid item xs={6} sm={6} md={6} lg={4} key={index}>
               <Box
@@ -30,8 +31,10 @@ const Question1 = ({ question }) => {
                   paddingTop: "20px",
                   paddingLeft: "15px",
                   paddingRight: "15px",
-                  border: "2px solid",
-                  borderColor: COLORS.primary,
+                  border:
+                    selectedValue == question.heading
+                      ? `2px solid ${COLORS.primary}`
+                      : "none",
                   paddingBottom: {
                     xs: "10px",
                     sm: "10px",
@@ -53,28 +56,12 @@ const Question1 = ({ question }) => {
                     height: "53px",
                   }}
                 >
-                  {/* <Image
+                  <Image
                     width={53}
                     height={40}
                     src={question.image}
                     alt="Picture of the author"
-                  /> */}
-                  {questions1.find(
-                    (ques) =>
-                      ques.heading.toLowerCase() ===
-                      question.title.toLowerCase()
-                  ) && (
-                    <Image
-                      src={
-                        questions1.find(
-                          (ques) =>
-                            ques.heading.toLowerCase() ===
-                            question.title.toLowerCase()
-                        ).image
-                      }
-                      alt={question.title}
-                    />
-                  )}
+                  />
                 </Box>
                 <Typography
                   sx={{
@@ -84,7 +71,7 @@ const Question1 = ({ question }) => {
                     maxWidth: "394px",
                   }}
                 >
-                  {question.title}
+                  {question.heading}
                 </Typography>
                 <Typography
                   sx={{
@@ -101,7 +88,7 @@ const Question1 = ({ question }) => {
                     },
                   }}
                 >
-                  {question.description}
+                  {question.label}
                 </Typography>
               </Box>
             </Grid>

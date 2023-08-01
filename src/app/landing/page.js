@@ -168,7 +168,7 @@ function ResponsiveAppBar() {
                 console.log("clicked");
                 const user = ProtectedPageRoute();
                 console.log(user);
-                if (user) {
+                if (!user) {
                   router.push("/signup");
                 } else {
                   const firstEl = removeSpacesFromString(questions[0].navTitle);
