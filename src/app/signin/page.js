@@ -22,6 +22,9 @@ import { useRouter } from "next/navigation";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import registerUser from "@/apis/registerUser";
+import Or from "@/components/Or";
+import PersonIcon from '@mui/icons-material/Person';
+import { Lock, RemoveRedEye } from "@mui/icons-material";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -130,12 +133,8 @@ export default function SignIn() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container
+      <div
         component="main"
-        maxWidth="xs"
-        sx={{
-          height: "100vh",
-        }}
       >
         <Snackbar
           open={open}
@@ -149,81 +148,87 @@ export default function SignIn() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 2,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "10px",
-            }}
-          >
-            <GoogleButton onClick={signIn} />
-          </Box>
+            <GoogleButton 
+              label="Continue with Google"
+              className="google-button"
+              onClick={signIn}
+              style={{
+                borderRadius: '100px',
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                background: '#fff',
+                color: '#333',
+                border: '1px solid #D2D4DA',
+                boxShadow: 'none'
+              }}
+            />
+          <Or />
           <Box
             component="form"
             onSubmit={handleSubmit}
             noValidate
             sx={{ mt: 1 }}
           >
+            <label>Email or Username</label>
             <TextField
               margin="normal"
               required
               fullWidth
               id="email"
-              label="Email Address"
+              placeholder="abcxyz@gmail.com"
               name="email"
               autoComplete="email"
               autoFocus
+              InputProps={{
+                startAdornment: <PersonIcon />,
+              }}
             />
+            <label>Password</label>
             <TextField
               margin="normal"
               required
               fullWidth
               name="password"
-              label="Password"
               type="password"
+              placeholder="password"
               id="password"
               autoComplete="current-password"
+              InputProps={{
+                startAdornment: <Lock />,
+              }}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+            <Typography
+              as="p"
+              textAlign={"right"}
+            >
+              <Link href="#" variant="body2">
+                    Forgot password?
+              </Link>
+            </Typography>
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Login
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
+            <Typography as="p" textAlign={"center"}>
+                Don't have an account?{' '}
                 <Link href="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  Signup
                 </Link>
-              </Grid>
-            </Grid>
+            </Typography>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
-      </Container>
+      </div>
     </ThemeProvider>
   );
 }

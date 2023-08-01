@@ -26,6 +26,7 @@ import { useRouter } from "next/navigation";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import checkUserExist from "@/apis/checkUserExist";
+import Or from "@/components/Or";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -159,12 +160,7 @@ export default function SignUp() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container
-        maxWidth="xs"
-        sx={{
-          height: "100vh",
-        }}
-      >
+      <div>
         <Snackbar
           open={open}
           autoHideDuration={6000}
@@ -177,37 +173,32 @@ export default function SignUp() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 2,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-              marginTop: "10px",
-            }}
-          >
+          
             <GoogleButton
-              onClick={() => {
-                console.log("Google button clicked");
-                signIn();
+              label="Continue with Google"
+              className="google-button"
+              onClick={signIn}
+              style={{
+                borderRadius: '100px',
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                background: '#fff',
+                color: '#333',
+                border: '1px solid #D2D4DA',
+                boxShadow: 'none'
               }}
             />
-          </Box>
-          <Box component="form" sx={{ mt: 3 }}>
+          <Or />
+          <Box component="form" sx={{ mt: 0 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   autoComplete="given-name"
                   name="firstName"
@@ -219,7 +210,7 @@ export default function SignUp() {
                   onChange={(e) => setFName(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
@@ -242,6 +233,7 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
+                
                 <TextField
                   required
                   fullWidth
@@ -258,7 +250,7 @@ export default function SignUp() {
                   control={
                     <Checkbox value="allowExtraEmails" color="primary" />
                   }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  label="By selecting agree and continue, i agree to composetrip terms of service and privacy policy."
                 />
               </Grid>
             </Grid>
@@ -269,19 +261,19 @@ export default function SignUp() {
               sx={{ mt: 3, mb: 2 }}
               onClick={(e) => handleSubmit(e)}
             >
-              Sign Up
+              Create Account
             </Button>
             <Grid container justifyContent="center">
               <Grid item>
+              Already a user?{' '}
                 <Link href="/signin" variant="body2">
-                  Already have an account? Sign in
+                  Login
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
-      </Container>
+      </div>
     </ThemeProvider>
   );
 }
