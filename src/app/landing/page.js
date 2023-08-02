@@ -17,10 +17,34 @@ import headerImage from "@/assets/images/pageMainImage.svg";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Footer from "@/components/footer";
 import Testimonials from "@/components/testimonials";
+import { fetcher } from "../../lib/APIFetcher";
+import { removeSpacesFromString } from "../../lib/CreateSlug";
 
 function ResponsiveAppBar() {
+  const [questions, setQuestions] = useState([]);
   const router = useRouter();
-  useEffect(() => {}, []);
+  useEffect(() => {
+    async function getData() {
+      const data = await fetcher(
+        "http://localhost:1337/api/questions?populate=items"
+      );
+      const formatted = data.data
+        .map((que) => {
+          return {
+            id: que.id,
+            navTitle: que.attributes.nav_title,
+            title: que.attributes.title,
+            sortNum: que.attributes.sorting_number,
+            items: que.attributes.items,
+          };
+        })
+        .sort((a, b) => a.sortNum - b.sortNum);
+      setQuestions(formatted);
+      return data;
+    }
+    getData();
+  }, []);
+  console.log(questions);
 
   return (
     <Box
@@ -147,7 +171,8 @@ function ResponsiveAppBar() {
                 if (!user) {
                   router.push("/signup");
                 } else {
-                  router.push("/questionaire/question1");
+                  const firstEl = removeSpacesFromString(questions[0].navTitle);
+                  router.push("/questionaire/" + firstEl);
                 }
               }}
             >

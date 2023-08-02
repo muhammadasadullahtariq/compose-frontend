@@ -1,14 +1,15 @@
 import React from "react";
-import {
-  questionBlockBlueColor,
-  questionBlockGrayColor,
-} from "@/constants/colors";
 import { Box, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import { questions7 } from "@/constants/questions";
 import "./styles.css";
+import { DataContext } from "@/app/questionaire/context";
 
 const Question7 = () => {
+  const handleButtonClick = () => {
+    dispatch({ type: "UPDATE_DATA", payload: { purposeOfTrip: "someValue" } });
+  };
+
   return (
     <Box
       sx={{

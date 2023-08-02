@@ -1,9 +1,9 @@
-import fun from "@/assets/images/fun.svg";
+import fun from "@/assets/images/Fun.svg";
 import history from "@/assets/images/history.svg";
-import relax from "@/assets/images/relax.svg";
-import discovery from "@/assets/images/discovery.svg";
+import relax from "@/assets/images/Relax.svg";
+import discovery from "@/assets/images/Discovery.svg";
 import sportsQuestion1 from "@/assets/images/sports.svg";
-import business from "@/assets/images/business.svg";
+import business from "@/assets/images/Business.svg";
 import getLost from "@/assets/images/questionaires/getLost.svg";
 import knowCountry from "@/assets/images/questionaires/knowCountry.svg";
 import mainCity from "@/assets/images/questionaires/mainCity.svg";
@@ -185,3 +185,13 @@ export const questions7 = [
     bg: COLORS.questionBlockBlueColor,
   },
 ];
+
+export const validateVlueSelection = {
+  question1: "purposeOfTrip",
+  question2: "travelingWith",
+  question3: "whereToTravel",
+  question4: "tripInterest",
+  question5: "comment",
+  question6: "interest",
+  question7: "motivation",
+};

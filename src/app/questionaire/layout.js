@@ -1,6 +1,6 @@
 "use client";
 import { Box, Button, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import * as COLORS from "@/constants/colors";
 import AppBar from "@/components/navbar";
 import { useParams, useRouter } from "next/navigation";
@@ -10,11 +10,74 @@ import {
   questionsTitle,
 } from "@/constants/questions";
 import CheckIcon from "@mui/icons-material/Check";
+import { DataContext, dataReducer } from "@/app/questionaire/context";
+import { validateVlueSelection } from "@/constants/questions";
 
+import { fetcher } from "../../lib/APIFetcher";
+import {
+  addSpacesToString,
+  removeSpacesFromString,
+} from "../../lib/CreateSlug";
 export default function Layout({ children }) {
   const params = useParams();
-  const indexOfQuestion = questionSlug.indexOf(params.question);
+  const [questions, setQuestions] = useState([]);
+  const [indexOfQuestion, setIndexOfQuestion] = useState(
+    questions.findIndex(
+      (ques) => ques.navTitle.toLowerCase() == params.question.toLowerCase()
+    )
+  );
+
   const router = useRouter();
+
+  const [data, dispatch] = useReducer(dataReducer, {});
+
+  useEffect(() => {
+    localStorage.setItem("questionaireData", JSON.stringify(data));
+  }, [data]);
+
+  useEffect(() => {
+    const savedData = localStorage.getItem("questionaireData");
+    if (savedData) {
+      dispatch({ type: "UPDATE_DATA", payload: JSON.parse(savedData) });
+      dispatch({
+        type: "UPDATE_QUESTION_NUMBER",
+        payload: JSON.parse(savedData).questionNumber,
+      });
+    } else {
+      dispatch({
+        type: "UPDATE_QUESTION_NUMBER",
+        payload: 0,
+      });
+    }
+    async function getData() {
+      const data = await fetcher(
+        "http://localhost:1337/api/questions?populate=items"
+      );
+      const formatted = data.data
+        .map((que) => {
+          return {
+            id: que.id,
+            navTitle: que.attributes.nav_title,
+            title: que.attributes.title,
+            sortNum: que.attributes.sorting_number,
+            items: que.attributes.items,
+            dbAttribute: que.attributes.db_attribute,
+          };
+        })
+        .sort((a, b) => a.sortNum - b.sortNum);
+      setQuestions(formatted);
+      return data;
+    }
+    getData();
+  }, []);
+
+  useEffect(() => {
+    setIndexOfQuestion(
+      questions.findIndex((ques) => {
+        return ques.navTitle == addSpacesToString(params.question);
+      })
+    );
+  }, [params, questions]);
 
   return (
     <div>
@@ -37,7 +100,7 @@ export default function Layout({ children }) {
             display: "flex",
             flexDirection: "row",
             overflow: "hidden",
-            height: { md: "auto", xs: "100%" },
+            height: { lg: "80%", xs: "100%" },
           }}
         >
           <Box
@@ -63,7 +126,7 @@ export default function Layout({ children }) {
                 width: "100%",
               }}
             >
-              {questionsHedaing.map((question, index) => (
+              {questions.map((question, index) => (
                 <Box
                   sx={{
                     display: {
@@ -74,7 +137,7 @@ export default function Layout({ children }) {
                     flexDirection: "column",
                     alignItems: "center",
                   }}
-                  key={question}
+                  key={question.navTitle}
                 >
                   <Box
                     sx={{
@@ -130,9 +193,10 @@ export default function Layout({ children }) {
               sx={{
                 display: { md: "flex", xs: "none" },
                 flexDirection: "column",
+                width: "100%",
               }}
             >
-              {questionsHedaing.map((question, index) => {
+              {questions.map((question, index) => {
                 return (
                   <Box
                     sx={{
@@ -165,7 +229,7 @@ export default function Layout({ children }) {
                         cursor: "pointer",
                       }}
                     >
-                      {question}
+                      {question.navTitle}
                     </Typography>
                     {index < indexOfQuestion && (
                       <Box
@@ -216,19 +280,27 @@ export default function Layout({ children }) {
                 maxWidth: "394px",
               }}
             >
-              {questionsTitle[indexOfQuestion]}
+              {questions[indexOfQuestion - 1] &&
+                questions[indexOfQuestion - 1].title}
             </Typography>
-            <Box
-              sx={{
-                display: "block",
-                width: "100%",
-                height: { md: "360px", sm: "50%", xs: "50%" },
-                overflow: "auto",
-                flex: "5",
+            <DataContext.Provider
+              value={{
+                data,
+                dispatch,
               }}
             >
-              {children}
-            </Box>
+              <Box
+                sx={{
+                  display: "block",
+                  width: "100%",
+                  height: { md: "360px", sm: "50%", xs: "50%" },
+                  overflow: "auto",
+                  flex: "5",
+                }}
+              >
+                {children}
+              </Box>
+            </DataContext.Provider>
 
             <Box
               sx={{
@@ -247,7 +319,14 @@ export default function Layout({ children }) {
                   height: "41px",
                 }}
                 onClick={() => {
-                  router.back();
+                  if (indexOfQuestion >= 1) {
+                    const prevIndex = indexOfQuestion - 1;
+                    dispatch({
+                      type: "UPDATE_QUESTION_NUMBER",
+                      payload: questions[prevIndex].sortNum,
+                    });
+                    router.back();
+                  }
                 }}
               >
                 Back
@@ -263,10 +342,22 @@ export default function Layout({ children }) {
                 onMouseOver={(e) => {
                   e.target.style.backgroundColor = COLORS.primary;
                 }}
+                //onClick={nextHandler}
                 onClick={() => {
-                  router.push(
-                    "/questionaire/" + questionSlug[indexOfQuestion + 1]
-                  );
+                  console.log(questions[indexOfQuestion].dbAttribute, "data");
+                  if (!data[questions[indexOfQuestion].dbAttribute]) {
+                    return;
+                  } else {
+                    const nextIndex = indexOfQuestion + 1;
+                    const path = removeSpacesFromString(
+                      questions[nextIndex] && questions[nextIndex].navTitle
+                    );
+                    dispatch({
+                      type: "UPDATE_QUESTION_NUMBER",
+                      payload: questions[nextIndex].sortNum,
+                    });
+                    router.push("/questionaire/" + path);
+                  }
                 }}
               >
                 Next

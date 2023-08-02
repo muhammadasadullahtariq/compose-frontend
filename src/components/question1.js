@@ -1,10 +1,18 @@
 import { Box, Typography, Grid } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
 import * as COLORS from "@/constants/colors";
 import Image from "next/image";
 import { questions1 } from "@/constants/questions";
+import { DataContext } from "@/app/questionaire/context";
 
 const Question1 = () => {
+  const { data, dispatch } = useContext(DataContext);
+  const [selectedValue, setSelectedValue] = React.useState(null);
+  const handleButtonClick = (value) => {
+    setSelectedValue(value);
+    dispatch({ type: "UPDATE_DATA", payload: { country: value } });
+  };
+
   return (
     <Box
       sx={{
@@ -17,11 +25,16 @@ const Question1 = () => {
           return (
             <Grid item xs={6} sm={6} md={6} lg={4} key={index}>
               <Box
+                onClick={() => handleButtonClick(question.heading)}
                 sx={{
                   width: "100%",
                   paddingTop: "20px",
                   paddingLeft: "15px",
                   paddingRight: "15px",
+                  border:
+                    selectedValue == question.heading
+                      ? `2px solid ${COLORS.primary}`
+                      : "none",
                   paddingBottom: {
                     xs: "10px",
                     sm: "10px",

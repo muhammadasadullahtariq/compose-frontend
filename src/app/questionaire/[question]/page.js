@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Box from "@mui/material/Box";
 import AppBar from "@/components/navbar";
 import { Button, Typography } from "@mui/material";
@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import ReCAPTCHA from "react-google-recaptcha";
 import TextField from "@mui/material/TextField";
 import verifyRecaptcha from "@/apis/verifyRecaptcha";
+import { fetcher } from "../../../lib/APIFetcher";
 import Question1 from "@/components/question1";
 import Question2 from "@/components/question2";
 import Question3 from "@/components/question3";
@@ -16,22 +17,28 @@ import Question4 from "@/components/question4";
 import Question7 from "@/components/question7";
 import Question5 from "@/components/question5";
 import Question6 from "@/components/question6";
+import { DataContext } from "@/app/questionaire/context";
 
 function ResponsiveAppBar({ params }) {
-  console.log(params.question);
+  const { data } = useContext(DataContext);
+
+  useEffect(() => {
+    console.log(data.questionNumber, "data.questionNumber");
+  }, []);
+
   return (
     <Box
       sx={{
         width: "100%",
       }}
     >
-      {params.question == "question1" && <Question1 />}
-      {params.question == "question2" && <Question2 />}
-      {params.question == "question3" && <Question3 />}
-      {params.question == "question4" && <Question4 />}
-      {params.question == "question5" && <Question5 />}
-      {params.question == "question6" && <Question6 />}
-      {params.question == "question7" && <Question7 />}
+      {data.questionNumber === 1 && <Question1 />}
+      {data.questionNumber === 2 && <Question2 />}
+      {data.questionNumber === 3 && <Question3 />}
+      {data.questionNumber === 4 && <Question4 />}
+      {data.questionNumber === 5 && <Question5 />}
+      {data.questionNumber === 6 && <Question6 />}
+      {data.questionNumber === 7 && <Question7 />}
     </Box>
   );
 }

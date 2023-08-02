@@ -1,6 +1,11 @@
 import React from "react";
+import { DataContext } from "@/app/questionaire/context";
 
 const Question5 = () => {
+   const handleButtonClick = () => {
+     dispatch({ type: "UPDATE_DATA", payload: { purposeOfTrip: "someValue" } });
+   };
+
   return (
     <textarea
       style={{
