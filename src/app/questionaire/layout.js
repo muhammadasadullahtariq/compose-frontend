@@ -4,6 +4,7 @@ import React, { useEffect, useReducer, useState } from "react";
 import * as COLORS from "@/constants/colors";
 import AppBar from "@/components/navbar";
 import { useParams, useRouter } from "next/navigation";
+import { useAutocomplete } from "@mui/base";
 import {
   questionSlug,
   questionsHedaing,
@@ -37,18 +38,15 @@ export default function Layout({ children }) {
 
   useEffect(() => {
     const savedData = localStorage.getItem("questionaireData");
-    if (savedData) {
-      dispatch({ type: "UPDATE_DATA", payload: JSON.parse(savedData) });
-      dispatch({
-        type: "UPDATE_QUESTION_NUMBER",
-        payload: JSON.parse(savedData).questionNumber,
-      });
-    } else {
-      dispatch({
-        type: "UPDATE_QUESTION_NUMBER",
-        payload: 0,
-      });
-    }
+    // if (savedData) {
+    //   dispatch({ type: "UPDATE_DATA", payload: JSON.parse(savedData) });
+    //   dispatch({
+    //     type: "UPDATE_QUESTION_NUMBER",
+    //     payload: JSON.parse(savedData).questionNumber,
+    //   });
+    // } else {
+
+    // }
     async function getData() {
       const data = await fetcher(
         "http://localhost:1337/api/questions?populate=items"
@@ -69,6 +67,10 @@ export default function Layout({ children }) {
       return data;
     }
     getData();
+    dispatch({
+      type: "UPDATE_QUESTION_NUMBER",
+      payload: 1,
+    });
   }, []);
 
   useEffect(() => {
@@ -88,7 +90,7 @@ export default function Layout({ children }) {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          height: { md: "90vh", xs: "100vh" },
+          height: { md: "90vh", xs: "calc(100vh - 64px)" },
           backgroundColor: COLORS.primary,
         }}
       >
@@ -280,8 +282,7 @@ export default function Layout({ children }) {
                 maxWidth: "394px",
               }}
             >
-              {questions[indexOfQuestion - 1] &&
-                questions[indexOfQuestion - 1].title}
+              {questions[indexOfQuestion]?.title}
             </Typography>
             <DataContext.Provider
               value={{
@@ -345,19 +346,19 @@ export default function Layout({ children }) {
                 //onClick={nextHandler}
                 onClick={() => {
                   console.log(questions[indexOfQuestion].dbAttribute, "data");
-                  if (!data[questions[indexOfQuestion].dbAttribute]) {
-                    return;
-                  } else {
-                    const nextIndex = indexOfQuestion + 1;
-                    const path = removeSpacesFromString(
-                      questions[nextIndex] && questions[nextIndex].navTitle
-                    );
-                    dispatch({
-                      type: "UPDATE_QUESTION_NUMBER",
-                      payload: questions[nextIndex].sortNum,
-                    });
-                    router.push("/questionaire/" + path);
-                  }
+                  // if (!data[questions[indexOfQuestion].dbAttribute]) {
+                  //   return;
+                  // } else {
+                  const nextIndex = indexOfQuestion + 1;
+                  const path = removeSpacesFromString(
+                    questions[nextIndex] && questions[nextIndex].navTitle
+                  );
+                  dispatch({
+                    type: "UPDATE_QUESTION_NUMBER",
+                    payload: questions[nextIndex].sortNum,
+                  });
+                  router.push("/questionaire/" + path);
+                  // }
                 }}
               >
                 Next

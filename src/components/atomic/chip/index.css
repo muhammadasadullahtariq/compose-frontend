@@ -1,0 +1,20 @@
+.Chip_Main {
+  border-radius: 10px;
+  border: 1px solid #d2d4da;
+  background: #fff;
+  padding: 9px 10px;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  cursor: pointer;
+  max-height: 35px;
+}
+
+.Chip_Main p {
+  color: #282a3a;
+  font-family: Raleway;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  margin-left: 12px;
+}
