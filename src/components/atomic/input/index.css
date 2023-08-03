@@ -1,0 +1,13 @@
+.Input_Main input {
+  border-radius: 10px;
+  border: 1px solid #d2d4da;
+  background: #fff;
+  font-family: Raleway;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  color: #282a3a;
+  padding: 8px 12px;
+  height: 42px;
+  width: 100%;
+}

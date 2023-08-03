@@ -124,7 +124,6 @@ export const questions3 = [
   { title: "Friends", image: Friends },
   { title: "Couple", image: Couple },
   { title: "Family", image: Family },
-  { title: "Business", image: Business },
 ];
 
 export const questions4 = [

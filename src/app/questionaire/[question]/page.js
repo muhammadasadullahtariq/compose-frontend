@@ -36,9 +36,7 @@ function ResponsiveAppBar({ params }) {
       {data.questionNumber === 2 && <Question2 />}
       {data.questionNumber === 3 && <Question3 />}
       {data.questionNumber === 4 && <Question4 />}
-      {data.questionNumber === 5 && <Question5 />}
-      {data.questionNumber === 6 && <Question6 />}
-      {data.questionNumber === 7 && <Question7 />}
+      {data.questionNumber === 5 && <Question7 />}
     </Box>
   );
 }
