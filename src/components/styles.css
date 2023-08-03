@@ -31,12 +31,6 @@ width: 500px;
     }
 }
 
-@media (max-width: 900px) and (min-width: 400px) {
-    .landing img {
-        width: 33px;
-        height: 33px;
-    }
-}
     
 
 
