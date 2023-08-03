@@ -4,83 +4,80 @@ import React, { useEffect, useReducer, useState } from "react";
 import * as COLORS from "@/constants/colors";
 import AppBar from "@/components/navbar";
 import { useParams, useRouter } from "next/navigation";
-import {
-  questionSlug,
-  questionsHedaing,
-  questionsTitle,
-} from "@/constants/questions";
+import { questionsHedaing, questionaires } from "@/constants/questions";
 import CheckIcon from "@mui/icons-material/Check";
 import { DataContext, dataReducer } from "@/app/questionaire/context";
-import { validateVlueSelection } from "@/constants/questions";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
-import { fetcher } from "../../lib/APIFetcher";
-import {
-  addSpacesToString,
-  removeSpacesFromString,
-} from "../../lib/CreateSlug";
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 export default function Layout({ children }) {
   const params = useParams();
-  const [questions, setQuestions] = useState([]);
-  const [indexOfQuestion, setIndexOfQuestion] = useState(
-    questions.findIndex(
-      (ques) => ques.navTitle.toLowerCase() == params.question.toLowerCase()
-    )
-  );
+  const [indexOfQuestion, setIndexOfQuestion] = useState(0);
+  const [open, setOpen] = React.useState(false);
+  const [message, setMessage] = React.useState("");
+  const [severity, setSeverity] = React.useState("success");
 
   const router = useRouter();
 
-  const [data, dispatch] = useReducer(dataReducer, {});
+  const [data, dispatch] = useReducer(dataReducer, {
+    questionNumber: 0,
+  });
 
   useEffect(() => {
     localStorage.setItem("questionaireData", JSON.stringify(data));
   }, [data]);
 
-  useEffect(() => {
-    const savedData = localStorage.getItem("questionaireData");
-    if (savedData) {
-      dispatch({ type: "UPDATE_DATA", payload: JSON.parse(savedData) });
-      dispatch({
-        type: "UPDATE_QUESTION_NUMBER",
-        payload: JSON.parse(savedData).questionNumber,
-      });
-    } else {
-      dispatch({
-        type: "UPDATE_QUESTION_NUMBER",
-        payload: 0,
-      });
-    }
-    async function getData() {
-      const data = await fetcher(
-        "http://localhost:1337/api/questions?populate=items"
-      );
-      const formatted = data.data
-        .map((que) => {
-          return {
-            id: que.id,
-            navTitle: que.attributes.nav_title,
-            title: que.attributes.title,
-            sortNum: que.attributes.sorting_number,
-            items: que.attributes.items,
-            dbAttribute: que.attributes.db_attribute,
-          };
-        })
-        .sort((a, b) => a.sortNum - b.sortNum);
-      setQuestions(formatted);
-      return data;
-    }
-    getData();
-  }, []);
+  const removeSpaceFromURL = (url) => {
+    //i got this where%20to and i want it to be where to
+    const newUrl = url.replace(/%20/g, " ");
+    return newUrl;
+  };
+
+  const handelNextQuestion = () => {
+    router.push("/questionaire/" + questionaires[indexOfQuestion].navTitle);
+    dispatch({
+      type: "UPDATE_QUESTION_NUMBER",
+      payload: indexOfQuestion + 1,
+    });
+    setIndexOfQuestion(indexOfQuestion + 1);
+  };
+
+  // useEffect(() => {
+  //   //remove spaces from slug
+  //   console.log(removeSpaceFromURL(params.question), "params.question");
+
+  //   const index = questionaires.findIndex(
+  //     (question) => question.navTitle === removeSpaceFromURL(params.question)
+  //   );
+  //   if (index >= 0) {
+  //     setIndexOfQuestion(index);
+  //     dispatch({
+  //       type: "UPDATE_QUESTION_NUMBER",
+  //       payload: index,
+  //     });
+  //   }
+  //   return () => {};
+  // }, [params]);
 
   useEffect(() => {
-    setIndexOfQuestion(
-      questions.findIndex((ques) => {
-        return ques.navTitle == addSpacesToString(params.question);
-      })
-    );
-  }, [params, questions]);
+    const savedData = localStorage.getItem("questionaireData");
+  }, []);
 
   return (
     <div>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={() => setOpen(false)}
+      >
+        <Alert onClose={() => setOpen(false)} severity={severity}>
+          {message}
+        </Alert>
+      </Snackbar>
       <AppBar />
       <Box
         sx={{
@@ -88,7 +85,7 @@ export default function Layout({ children }) {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          height: { md: "90vh", xs: "100vh" },
+          height: { md: "90vh", xs: "calc(100vh - 64px)" },
           backgroundColor: COLORS.primary,
         }}
       >
@@ -126,7 +123,7 @@ export default function Layout({ children }) {
                 width: "100%",
               }}
             >
-              {questions.map((question, index) => (
+              {questionaires.map((question, index) => (
                 <Box
                   sx={{
                     display: {
@@ -196,7 +193,7 @@ export default function Layout({ children }) {
                 width: "100%",
               }}
             >
-              {questions.map((question, index) => {
+              {questionaires.map((question, index) => {
                 return (
                   <Box
                     sx={{
@@ -280,8 +277,7 @@ export default function Layout({ children }) {
                 maxWidth: "394px",
               }}
             >
-              {questions[indexOfQuestion - 1] &&
-                questions[indexOfQuestion - 1].title}
+              {questionaires[indexOfQuestion]?.title}
             </Typography>
             <DataContext.Provider
               value={{
@@ -321,10 +317,6 @@ export default function Layout({ children }) {
                 onClick={() => {
                   if (indexOfQuestion >= 1) {
                     const prevIndex = indexOfQuestion - 1;
-                    dispatch({
-                      type: "UPDATE_QUESTION_NUMBER",
-                      payload: questions[prevIndex].sortNum,
-                    });
                     router.back();
                   }
                 }}
@@ -344,19 +336,26 @@ export default function Layout({ children }) {
                 }}
                 //onClick={nextHandler}
                 onClick={() => {
-                  console.log(questions[indexOfQuestion].dbAttribute, "data");
-                  if (!data[questions[indexOfQuestion].dbAttribute]) {
-                    return;
-                  } else {
-                    const nextIndex = indexOfQuestion + 1;
-                    const path = removeSpacesFromString(
-                      questions[nextIndex] && questions[nextIndex].navTitle
-                    );
-                    dispatch({
-                      type: "UPDATE_QUESTION_NUMBER",
-                      payload: questions[nextIndex].sortNum,
-                    });
-                    router.push("/questionaire/" + path);
+                  if (indexOfQuestion <= 3) {
+                    if (indexOfQuestion == 0 && data.country && data.city) {
+                      handelNextQuestion();
+                    } else if (
+                      indexOfQuestion == 1 &&
+                      data.monthOfTravel &&
+                      data.numberOfDays
+                    ) {
+                      handelNextQuestion();
+                    } else if (indexOfQuestion == 2 && data.travelingWith) {
+                      handelNextQuestion();
+                    } else if (indexOfQuestion == 3 && data.interest) {
+                      handelNextQuestion();
+                    } else if (indexOfQuestion == 4 && data.food) {
+                      handelNextQuestion();
+                    } else {
+                      setOpen(true);
+                      setMessage("Please answer the question");
+                      setSeverity("error");
+                    }
                   }
                 }}
               >

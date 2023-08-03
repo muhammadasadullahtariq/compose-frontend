@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import { questions7 } from "@/constants/questions";
 import "./styles.css";
 import { DataContext } from "@/app/questionaire/context";
+import { fuel } from "@/constants/fuel";
+import * as COLORS from "@/constants/colors";
 
 const Question7 = () => {
-  const handleButtonClick = () => {
-    dispatch({ type: "UPDATE_DATA", payload: { purposeOfTrip: "someValue" } });
+  const { dispatch } = useContext(DataContext);
+  const [selected, setSelected] = useState("");
+  const handleButtonClick = (value) => {
+    setSelected(value);
+    dispatch({ type: "UPDATE_DATA", payload: { food: value } });
   };
 
   return (
@@ -15,50 +20,26 @@ const Question7 = () => {
       sx={{
         width: "100%",
         height: "100%",
+        display: "flex",
+        gap: "15px",
+        flexWrap: "wrap",
+        padding: "5px",
       }}
     >
-      <Grid container spacing={2}>
-        {questions7.map((item) => (
-          <Grid item key={item.title} lg={5} xs={12} sm={6}>
-            <Box
-              sx={{
-                background: item.bg,
-                padding: "20px 20px",
-
-                display: "flex",
-                flexDirection: {
-                  xs: "column",
-                  sm: "column",
-                  md: "row",
-                  lg: "row",
-                  xl: "row",
-                },
-                alignItems: "center",
-                justifyContent: "start",
-                borderRadius: "20px",
-                gap: { md: 5, xl: 10 },
-              }}
-            >
-              <Image
-                src={item.image}
-                alt={item.title}
-                width={100}
-                height={100}
-              />
-              <Typography
-                variant="p"
-                sx={{
-                  textAlign: { xs: "center", sm: "center" },
-                  fontWeight: "500",
-                  fontSize: "21px",
-                }}
-              >
-                {item.title}
-              </Typography>
-            </Box>
-          </Grid>
-        ))}
-      </Grid>
+      {fuel.map((el) => (
+        <Image
+          key={el.name}
+          onClick={handleButtonClick.bind(this, el.name)}
+          style={{
+            //border shadow
+            boxShadow:
+              selected == el.name ? `0 0 0 3px ${COLORS.primary}` : "none",
+            borderRadius: "20px",
+            padding: "0px",
+          }}
+          src={el.image}
+        />
+      ))}
     </Box>
   );
 };

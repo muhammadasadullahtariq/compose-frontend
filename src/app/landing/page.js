@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import AppBar from "@/components/navbar";
 import { Button, Typography } from "@mui/material";
-import ProtectedPageRoute from "./protected-page-route";
+import ProtectedPageRoute from "../protected-page-route";
 import { useRouter } from "next/navigation";
 import * as COLORS from "@/constants/colors";
 import FirstBloack from "@/components/firstBlock";
@@ -16,8 +16,8 @@ import headerImage from "@/assets/images/pageMainImage.svg";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Footer from "@/components/footer";
 import Testimonials from "@/components/testimonials";
-import { removeSpacesFromString } from "../lib/CreateSlug";
-import Recaptchs from "../components/recaptcha_modal/index";
+import { removeSpacesFromString } from "../../lib/CreateSlug";
+
 function ResponsiveAppBar() {
   const [questions, setQuestions] = useState([]);
   const router = useRouter();
@@ -50,7 +50,6 @@ function ResponsiveAppBar() {
         <Box
           sx={{
             width: { xs: "100%", md: "100%", lg: "55%" },
-            padding: { sm: "0", xs: "16px" },
           }}
           alignItems={{ xs: "center", md: "center", lg: "flex-start" }}
         >
@@ -184,7 +183,6 @@ function ResponsiveAppBar() {
       <FourthBlock />
       <Testimonials />
       <Footer />
-      <Recaptchs />
     </Box>
   );
 }

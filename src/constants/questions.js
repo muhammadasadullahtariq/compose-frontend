@@ -47,6 +47,39 @@ export const questionsHedaing = [
   "Budget",
 ];
 
+export const questionaires = [
+  // {
+  //   navTitle: "Itinerary",
+  //   title: "Choose your itinerary",
+  //   dbAttribute: "modalType",
+  // },
+  {
+    navTitle: "Where to",
+    title: "Where do you want to go?",
+    dbAttribute: "country",
+  },
+  {
+    navTitle: "When to go",
+    title: "When do you want to go?",
+    dbAttribute: "monthOfTravel",
+  },
+  {
+    navTitle: "Who's travelling",
+    title: "Who is coming with you?",
+    dbAttribute: "travelingWith",
+  },
+  {
+    navTitle: "Purpose of trip",
+    title: "What do you want to do?",
+    dbAttribute: "interest",
+  },
+  {
+    navTitle: "Food",
+    title: "What’s your fuel?",
+    dbAttribute: "food",
+  },
+];
+
 export const questionSlug = [
   "question1",
   "question2",
@@ -124,7 +157,6 @@ export const questions3 = [
   { title: "Friends", image: Friends },
   { title: "Couple", image: Couple },
   { title: "Family", image: Family },
-  { title: "Business", image: Business },
 ];
 
 export const questions4 = [

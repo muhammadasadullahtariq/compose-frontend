@@ -1,0 +1,55 @@
+.Autocomplete_Main {
+  position: relative;
+}
+
+.Autocomplete_Backdrop {
+  width: 100%;
+  height: 100%;
+  
+  position: absolute;
+  top: 0px;
+  right: 0px;
+
+}
+
+.Autocomplete_Main input {
+  position: absolute;
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid #d2d4da;
+  background: #fff;
+  width: 100%;
+  padding: 12px 8px;
+  color: #757780;
+  font-family: Raleway;
+  font-size: 14px;
+  z-index: 10000;
+}
+
+.Autocomplete_Main img {
+  position: absolute;
+  right: 12px;
+  top: 20px;
+}
+
+.Autocomplete_Dropdown {
+  overflow: scroll;
+  z-index: 100;
+  position: absolute;
+  top: 50px;
+  height: 120px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 10px;
+  border: 1px solid #d2d4da;
+  padding: 10px 0px;
+}
+
+.Autocomplete_Dropdown p {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.Autocomplete_Dropdown p:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}

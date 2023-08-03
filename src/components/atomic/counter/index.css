@@ -1,0 +1,52 @@
+.Counter_Main {
+  position: relative;
+}
+
+.Counter_Main input {
+  border-radius: 10px;
+  border: 1px solid #d2d4da;
+  background: #fff;
+  position: absolute;
+  height: 42px;
+  width: 100%;
+  padding: 12px 8px;
+  color: #757780;
+  font-family: Raleway;
+  font-size: 14px;
+}
+
+.Counter_Counter {
+  right: 10px;
+  top: 10px;
+  display: flex;
+  z-index: 1000;
+  position: absolute;
+  align-items: flex-end;
+}
+
+.Counter_Counter img {
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+}
+
+.Counter_Counter p {
+  margin: 0px 12px;
+  color: #757780;
+  font-family: Raleway;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* Hide the number input spinner (increment and decrement arrows) */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  /* Disable text input for Firefox */
+  -moz-appearance: textfield;
+}
