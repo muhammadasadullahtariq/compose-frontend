@@ -7,28 +7,42 @@ import Chip from "./atomic/chip";
 import activities from "@/constants/activities";
 import { useState } from "react";
 import Input from "./atomic/input";
+import React, { useEffect, useContext } from "react";
 
 const Question4 = () => {
-  const handleButtonClick = () => {
-    dispatch({ type: "UPDATE_DATA", payload: { purposeOfTrip: "someValue" } });
-  };
+  const { dispatch } = useContext(DataContext);
   const [selected, setSelected] = useState([]);
+  const [others, setOthers] = useState("");
 
   const handleSelect = (name) => {
     if (selected.includes(name)) {
       let newSelected = selected.filter((el) => el !== name);
       setSelected(newSelected);
-    } else {
+    } else if (selected.length < 5) {
       setSelected((curr) => [...curr, name]);
     }
   };
+
+  useEffect(() => {
+    console.log(selected);
+    dispatch({ type: "UPDATE_DATA", payload: { purposeOfTrip: selected } });
+  }, [selected]);
+
+  useEffect(() => {
+    //seperate the others text by comma
+    let temp = others.split(",");
+    temp = temp.map((el) => el.trim());
+    selected.push(...temp);
+    console.log(selected);
+    dispatch({ type: "UPDATE_DATA", payload: { purposeOfTrip: selected } });
+  }, [others]);
 
   return (
     <Grid container sx={{ display: "flex", flexDirection: "column" }}>
       <Typography
         sx={{ fontFamily: "Raleway", fontSize: "14px", marginBottom: "15px" }}
       >
-        Choose as many as you'd like
+        Choose upto 5 you'd like
       </Typography>
       <Box sx={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
         {activities.map((el) => (
@@ -76,7 +90,7 @@ const Question4 = () => {
           flexDirection: "column",
         }}
       >
-        <Input />
+        <Input value={others} setValue={setOthers} />
         <Typography
           sx={{
             color: "#9496A1",

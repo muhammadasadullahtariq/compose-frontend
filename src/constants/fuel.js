@@ -4,8 +4,8 @@ import vegetarian from "../assets/images/fuel/vegetarian.svg";
 import pescetarian from "../assets/images/fuel/pescetarian.svg";
 
 export const fuel = [
-  { image: everything },
-  { image: vegan },
-  { image: vegetarian },
-  { image: pescetarian },
+  { image: everything, name: "Everything" },
+  { image: vegan, name: "Vegan" },
+  { image: vegetarian, name: "Vegetarian" },
+  { image: pescetarian, name: "Pescetarian" },
 ];

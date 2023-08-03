@@ -14,11 +14,19 @@ import Autocomplete from "./atomic/autocompleteSingle";
 
 const Question1 = () => {
   const { data, dispatch } = useContext(DataContext);
-  const [selectedValue, setSelectedValue] = React.useState(null);
-  const handleButtonClick = (value) => {
-    setSelectedValue(value);
-    dispatch({ type: "UPDATE_DATA", payload: { country: value } });
+  const [country, setCountry] = React.useState("");
+  const [city, setCity] = React.useState("");
+  const handleButtonClick = () => {
+    if (country.length === 0) {
+    } else if ((city.length = 0)) {
+    } else {
+      dispatch({ type: "UPDATE_DATA", payload: { country: country[0] } });
+    }
   };
+
+  React.useEffect(() => {
+    handleButtonClick();
+  }, [city, country]);
 
   return (
     <Box
@@ -46,7 +54,7 @@ const Question1 = () => {
           I already know the country
         </Typography>
       </Box>
-      <Autocomplete list={countries} />
+      <Autocomplete list={countries} setCountry={setCountry} />
 
       <Box sx={{ margin: "32px 0px" }}>
         <Or />
@@ -71,7 +79,7 @@ const Question1 = () => {
           I already know the cities
         </Typography>
       </Box>
-      <CustomAutocomplete list={citiesList} />
+      <CustomAutocomplete cities={city} setCities={setCity} list={citiesList} />
     </Box>
   );
 };

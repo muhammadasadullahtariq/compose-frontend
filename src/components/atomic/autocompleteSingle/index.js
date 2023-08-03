@@ -3,8 +3,8 @@ import Image from "next/image";
 import "./index.css";
 import drop from "../../../assets/images/icons/drop.svg";
 
-const Autocomplete = ({ list }) => {
-  const [chosen, setChosen] = useState([]);
+const Autocomplete = ({ list, setCountry }) => {
+  //const [chosen, setChosen] = useState([]);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [searchText, setSearchText] = useState("");
@@ -39,8 +39,9 @@ const Autocomplete = ({ list }) => {
 
   useEffect(() => {
     const array = value.length > 0 ? value.split(", ") : [];
-    setChosen(array);
-    console.log(chosen);
+    setCountry(array);
+    //setChosen(array);
+    //console.log(chosen);
     setSearchText(array[array.length - 1]);
   }, [value]);
 

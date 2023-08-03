@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import AppBar from "@/components/navbar";
 import { Button, Typography } from "@mui/material";
-import Icon from "@mui/material";
 import ProtectedPageRoute from "../protected-page-route";
 import { useRouter } from "next/navigation";
 import * as COLORS from "@/constants/colors";
@@ -17,34 +16,12 @@ import headerImage from "@/assets/images/pageMainImage.svg";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Footer from "@/components/footer";
 import Testimonials from "@/components/testimonials";
-import { fetcher } from "../../lib/APIFetcher";
 import { removeSpacesFromString } from "../../lib/CreateSlug";
 
 function ResponsiveAppBar() {
   const [questions, setQuestions] = useState([]);
   const router = useRouter();
-  useEffect(() => {
-    async function getData() {
-      const data = await fetcher(
-        "http://localhost:1337/api/questions?populate=items"
-      );
-      const formatted = data.data
-        .map((que) => {
-          return {
-            id: que.id,
-            navTitle: que.attributes.nav_title,
-            title: que.attributes.title,
-            sortNum: que.attributes.sorting_number,
-            items: que.attributes.items,
-          };
-        })
-        .sort((a, b) => a.sortNum - b.sortNum);
-      setQuestions(formatted);
-      return data;
-    }
-    getData();
-  }, []);
-  console.log(questions);
+  useEffect(() => {}, []);
 
   return (
     <Box
@@ -165,15 +142,16 @@ function ResponsiveAppBar() {
                 },
               }}
               onClick={() => {
-                console.log("clicked");
-                const user = ProtectedPageRoute();
-                console.log(user);
-                if (!user) {
-                  router.push("/signup");
-                } else {
-                  const firstEl = removeSpacesFromString(questions[0].navTitle);
-                  router.push("/questionaire/" + firstEl);
-                }
+                // console.log("clicked");
+                // const user = ProtectedPageRoute();
+                // console.log(user);
+                // if (!user) {
+                //   router.push("/signup");
+                // } else {
+                //   const firstEl = removeSpacesFromString(questions[0].navTitle);
+                //   router.push("/questionaire/" + firstEl);
+                // }
+                router.push("/questionaire/where to");
               }}
             >
               <Typography

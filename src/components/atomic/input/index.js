@@ -1,9 +1,14 @@
 import "./index.css";
 
-const Input = () => {
+const Input = ({ value, setValue }) => {
   return (
     <div className="Input_Main">
-      <input />
+      <input
+        value={value}
+        onChange={(e) => {
+          setValue(e.target.value);
+        }}
+      />
     </div>
   );
 };
