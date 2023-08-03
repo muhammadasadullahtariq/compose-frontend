@@ -14,6 +14,12 @@ import { Datepicker } from "./atomic/datepicker/datepicker";
 const Question2 = () => {
   const { data, dispatch } = useContext(DataContext);
   const [selectedValue, setSelectedValue] = React.useState(null);
+  const [formData, setFormData] = React.useState({
+    length: 3,
+    month: "",
+    date: { to: "Start date", from: "End date" },
+  });
+
   const handleButtonClick = (value) => {
     setSelectedValue(value);
     dispatch({ type: "UPDATE_DATA", payload: { monthOfTravel: value } });
@@ -49,7 +55,13 @@ const Question2 = () => {
           Trip length
         </Typography>
       </Box>
-      <Counter />
+      <Counter
+        value={formData.length}
+        handleSetValue={(length) => {
+          console.log("length", length);
+          setFormData({ ...formData, length });
+        }}
+      />
       <Typography
         sx={{
           color: "#9496A1",
@@ -102,13 +114,22 @@ const Question2 = () => {
       >
         {months.map((el) => (
           <Box
+            key={el.name}
+            onClick={() => setFormData({ ...formData, month: el.name })}
             sx={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              cursor: "pointer",
             }}
           >
-            <Image src={el.image} />
+            <Image
+              src={el.image}
+              style={{
+                border: formData.month === el.name ? "2px solid #2b92d5" : "",
+                borderRadius: "12px",
+              }}
+            />
             <Typography
               sx={{
                 fontFamily: "Raleway",
@@ -142,7 +163,23 @@ const Question2 = () => {
           Have exact dates in mind
         </Typography>
       </Box>
-      <Datepicker />
+      <Datepicker
+        date1={formData.date.from}
+        date2={formData.date.to}
+        handleDate={(date, value) => {
+          if (date === 1) {
+            setFormData({
+              ...formData,
+              date: { ...formData.date, from: value },
+            });
+          } else {
+            setFormData({
+              ...formData,
+              date: { ...formData.date, to: value },
+            });
+          }
+        }}
+      />
     </Grid>
   );
 };
