@@ -24,17 +24,12 @@ const Question4 = () => {
   };
 
   useEffect(() => {
-    console.log(selected);
-    dispatch({ type: "UPDATE_DATA", payload: { purposeOfTrip: selected } });
+    if (selected.length > 0)
+      dispatch({ type: "UPDATE_DATA", payload: { interest: selected } });
   }, [selected]);
 
   useEffect(() => {
-    //seperate the others text by comma
-    let temp = others.split(",");
-    temp = temp.map((el) => el.trim());
-    selected.push(...temp);
-    console.log(selected);
-    dispatch({ type: "UPDATE_DATA", payload: { purposeOfTrip: selected } });
+    dispatch({ type: "UPDATE_DATA", payload: { otherInterest: others } });
   }, [others]);
 
   return (

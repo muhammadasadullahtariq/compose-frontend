@@ -4,18 +4,22 @@ import React, { useEffect, useReducer, useState } from "react";
 import * as COLORS from "@/constants/colors";
 import AppBar from "@/components/navbar";
 import { useParams, useRouter } from "next/navigation";
-import { useAutocomplete } from "@mui/base";
 import { questionsHedaing, questionaires } from "@/constants/questions";
 import CheckIcon from "@mui/icons-material/Check";
 import { DataContext, dataReducer } from "@/app/questionaire/context";
-import { validateVlueSelection } from "@/constants/questions";
-import {
-  addSpacesToString,
-  removeSpacesFromString,
-} from "../../lib/CreateSlug";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 export default function Layout({ children }) {
   const params = useParams();
   const [indexOfQuestion, setIndexOfQuestion] = useState(0);
+  const [open, setOpen] = React.useState(false);
+  const [message, setMessage] = React.useState("");
+  const [severity, setSeverity] = React.useState("success");
 
   const router = useRouter();
 
@@ -31,6 +35,15 @@ export default function Layout({ children }) {
     //i got this where%20to and i want it to be where to
     const newUrl = url.replace(/%20/g, " ");
     return newUrl;
+  };
+
+  const handelNextQuestion = () => {
+    router.push("/questionaire/" + questionaires[indexOfQuestion].navTitle);
+    dispatch({
+      type: "UPDATE_QUESTION_NUMBER",
+      payload: indexOfQuestion + 1,
+    });
+    setIndexOfQuestion(indexOfQuestion + 1);
   };
 
   // useEffect(() => {
@@ -56,6 +69,15 @@ export default function Layout({ children }) {
 
   return (
     <div>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={() => setOpen(false)}
+      >
+        <Alert onClose={() => setOpen(false)} severity={severity}>
+          {message}
+        </Alert>
+      </Snackbar>
       <AppBar />
       <Box
         sx={{
@@ -315,22 +337,25 @@ export default function Layout({ children }) {
                 //onClick={nextHandler}
                 onClick={() => {
                   if (indexOfQuestion <= 3) {
-                    console.log(
-                      questionaires[indexOfQuestion].dbAttribute,
-                      "data"
-                    );
-                    // if (!data[questions[indexOfQuestion].dbAttribute]) {
-                    //   return;
-                    // } else {
-
-                    router.push(
-                      "/questionaire/" + questionaires[indexOfQuestion].navTitle
-                    );
-                    dispatch({
-                      type: "UPDATE_QUESTION_NUMBER",
-                      payload: indexOfQuestion + 1,
-                    });
-                    setIndexOfQuestion(indexOfQuestion + 1);
+                    if (indexOfQuestion == 0 && data.country && data.city) {
+                      handelNextQuestion();
+                    } else if (
+                      indexOfQuestion == 1 &&
+                      data.monthOfTravel &&
+                      data.numberOfDays
+                    ) {
+                      handelNextQuestion();
+                    } else if (indexOfQuestion == 2 && data.travelingWith) {
+                      handelNextQuestion();
+                    } else if (indexOfQuestion == 3 && data.interest) {
+                      handelNextQuestion();
+                    } else if (indexOfQuestion == 4 && data.food) {
+                      handelNextQuestion();
+                    } else {
+                      setOpen(true);
+                      setMessage("Please answer the question");
+                      setSeverity("error");
+                    }
                   }
                 }}
               >

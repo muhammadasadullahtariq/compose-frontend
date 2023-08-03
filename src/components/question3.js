@@ -11,7 +11,7 @@ const Question2 = () => {
   const [selectedValue, setSelectedValue] = React.useState(null);
   const handleButtonClick = (value) => {
     setSelectedValue(value);
-    dispatch({ type: "UPDATE_DATA", payload: { monthOfTravel: value } });
+    dispatch({ type: "UPDATE_DATA", payload: { travelingWith: value } });
   };
   const isSmall = useMediaQuery({
     query: "(max-width: 768px)",

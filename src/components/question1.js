@@ -17,10 +17,11 @@ const Question1 = () => {
   const [country, setCountry] = React.useState("");
   const [city, setCity] = React.useState("");
   const handleButtonClick = () => {
-    if (country.length === 0) {
+    if (country.length == "") {
     } else if ((city.length = 0)) {
     } else {
-      dispatch({ type: "UPDATE_DATA", payload: { country: country[0] } });
+      dispatch({ type: "UPDATE_DATA", payload: { city: city } });
+      dispatch({ type: "UPDATE_DATA", payload: { country: country } });
     }
   };
 

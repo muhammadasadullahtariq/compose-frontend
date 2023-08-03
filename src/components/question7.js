@@ -8,9 +8,11 @@ import { fuel } from "@/constants/fuel";
 import * as COLORS from "@/constants/colors";
 
 const Question7 = () => {
+  const { dispatch } = useContext(DataContext);
   const [selected, setSelected] = useState("");
-  const handleButtonClick = () => {
-    dispatch({ type: "UPDATE_DATA", payload: { purposeOfTrip: "someValue" } });
+  const handleButtonClick = (value) => {
+    setSelected(value);
+    dispatch({ type: "UPDATE_DATA", payload: { food: value } });
   };
 
   return (
@@ -27,7 +29,7 @@ const Question7 = () => {
       {fuel.map((el) => (
         <Image
           key={el.name}
-          onClick={() => setSelected(el.name)}
+          onClick={handleButtonClick.bind(this, el.name)}
           style={{
             //border shadow
             boxShadow:

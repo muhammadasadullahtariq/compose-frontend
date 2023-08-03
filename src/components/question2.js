@@ -2,7 +2,7 @@ import { Grid, Box, Typography } from "@mui/material";
 import Image from "next/image";
 import { questions3 } from "@/constants/questions";
 import { DataContext } from "@/app/questionaire/context";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import * as COLORS from "@/constants/colors";
 import tripLength from "../assets/images/icons/tripLength.svg";
 import Counter from "./atomic/counter";
@@ -24,6 +24,30 @@ const Question2 = () => {
     setSelectedValue(value);
     dispatch({ type: "UPDATE_DATA", payload: { monthOfTravel: value } });
   };
+
+  useEffect(() => {
+    if (formData.month !== "") {
+      dispatch({
+        type: "UPDATE_DATA",
+        payload: {
+          monthOfTravel: formData.month,
+          numberOfDays: formData.length,
+        },
+      });
+    }
+    if (
+      formData.date.from !== "Start date" &&
+      formData.date.to !== "End date"
+    ) {
+      dispatch({
+        type: "UPDATE_DATA",
+        payload: {
+          startDate: formData.date.from,
+          endDate: formData.date.to,
+        },
+      });
+    }
+  }, [formData]);
 
   return (
     <Grid container sx={{ display: "flex", flexDirection: "column" }}>
