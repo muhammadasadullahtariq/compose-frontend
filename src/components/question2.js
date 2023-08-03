@@ -4,6 +4,12 @@ import { questions3 } from "@/constants/questions";
 import { DataContext } from "@/app/questionaire/context";
 import React, { useContext } from "react";
 import * as COLORS from "@/constants/colors";
+import tripLength from "../assets/images/icons/tripLength.svg";
+import Counter from "./atomic/counter";
+import { months } from "@/constants/months";
+import Or from "./Or";
+import calender from "../assets/images/icons/calender.svg";
+import { Datepicker } from "./atomic/datepicker/datepicker";
 
 const Question2 = () => {
   const { data, dispatch } = useContext(DataContext);
@@ -14,47 +20,129 @@ const Question2 = () => {
   };
 
   return (
-    <Grid container sx={{ gap: { lg: "20px", xs: "10px" } }}>
-      {questions3.map((item) => (
-        <Grid item key={item} lg={2} xs={12} md={3} sm={4}>
-          <div
-            onClick={() => handleButtonClick(item.title)}
-            style={{
+    <Grid container sx={{ display: "flex", flexDirection: "column" }}>
+      <Typography
+        sx={{
+          fontFamily: "Raleway",
+          fontSize: "14px",
+          marginBottom: "18px",
+        }}
+      >
+        Choose a date range or length of stay (up to 7 days)
+      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          marginBottom: "17px",
+        }}
+      >
+        <Image src={tripLength} />
+        <Typography
+          sx={{
+            fontFamily: "Raleway",
+            fontSize: "14px",
+            fontWeight: "600",
+            marginLeft: "6px",
+          }}
+        >
+          Trip length
+        </Typography>
+      </Box>
+      <Counter />
+      <Typography
+        sx={{
+          color: "#9496A1",
+          fontFamily: "Raleway",
+          fontSize: "10px",
+          marginTop: "48px",
+          alignSelf: "flex-end",
+        }}
+      >
+        7 days maximum
+      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          marginTop: "9px",
+          marginBottom: "15px",
+          alignItems: "center",
+        }}
+      >
+        <Typography
+          sx={{
+            fontFamily: "Raleway",
+            fontSize: "14px",
+            fontWeight: "600",
+          }}
+        >
+          During what month
+        </Typography>
+        <Typography
+          sx={{
+            color: "#9496A1",
+            fontFamily: "Raleway",
+            fontSize: "10px",
+            alignSelf: "center",
+            marginLeft: "6px",
+          }}
+        >
+          (optional)
+        </Typography>
+      </Box>
+      <Box
+        sx={{
+          width: "100%",
+          overflow: "scroll",
+          display: "flex",
+          flexWrap: "nowrap",
+          gap: "10px",
+          marginBottom: "20px",
+        }}
+      >
+        {months.map((el) => (
+          <Box
+            sx={{
               display: "flex",
               flexDirection: "column",
-              justifyContent: "center",
               alignItems: "center",
-              paddingTop: "5px",
             }}
           >
-            <Image
-              style={{
-                //border shadow
-                boxShadow:
-                  selectedValue == item.title
-                    ? `0 0 0 3px ${COLORS.primary}`
-                    : "none",
-
-                borderRadius: "20px",
-                padding: "0px",
-              }}
-              src={item.image}
-              alt={item}
-            />
+            <Image src={el.image} />
             <Typography
-              as="p"
               sx={{
-                textAlign: "center",
-                width: "100%",
-                fontWeight: "500",
-                marginTop: "7px",
+                fontFamily: "Raleway",
+                fontSize: "14px",
+                fontWeight: "600",
               }}
             >
-              {item.title}
+              {el.name}
             </Typography>
-          </div>
-        </Grid>
-      ))}
+          </Box>
+        ))}
+      </Box>
+      <Or />
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          marginBottom: "17px",
+          marginTop: "20px",
+        }}
+      >
+        <Image src={calender} />
+        <Typography
+          sx={{
+            fontFamily: "Raleway",
+            fontSize: "14px",
+            fontWeight: "600",
+            marginLeft: "6px",
+          }}
+        >
+          Have exact dates in mind
+        </Typography>
+      </Box>
+      <Datepicker />
     </Grid>
   );
 };

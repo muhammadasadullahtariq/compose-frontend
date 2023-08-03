@@ -1,9 +1,16 @@
-import { Box, Typography, Grid } from "@mui/material";
+import { Box, Typography, Grid, Divider, TextField } from "@mui/material";
 import React, { useContext } from "react";
 import * as COLORS from "@/constants/colors";
 import Image from "next/image";
 import { questions1 } from "@/constants/questions";
 import { DataContext } from "@/app/questionaire/context";
+import CustomAutocomplete from "./atomic/autocomplete";
+import country from "../assets/images/icons/country.svg";
+import cities from "../assets/images/icons/cities.svg";
+import { citiesList } from "@/constants/cities";
+import { countries } from "../constants/countries.js";
+import Or from "./Or";
+import Autocomplete from "./atomic/autocompleteSingle";
 
 const Question1 = () => {
   const { data, dispatch } = useContext(DataContext);
@@ -20,81 +27,51 @@ const Question1 = () => {
         height: "100%",
       }}
     >
-      <Grid container spacing={2}>
-        {questions1.map((question, index) => {
-          return (
-            <Grid item xs={6} sm={6} md={6} lg={4} key={index}>
-              <Box
-                onClick={() => handleButtonClick(question.heading)}
-                sx={{
-                  width: "100%",
-                  paddingTop: "20px",
-                  paddingLeft: "15px",
-                  paddingRight: "15px",
-                  border:
-                    selectedValue == question.heading
-                      ? `2px solid ${COLORS.primary}`
-                      : "none",
-                  paddingBottom: {
-                    xs: "10px",
-                    sm: "10px",
-                    md: "15px",
-                    lg: "20px",
-                  },
-                  borderRadius: "10px",
-                  backgroundColor:
-                    index % 2 == 0
-                      ? COLORS.questionBlockBlueColor
-                      : COLORS.questionBlockGrayColor,
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Box
-                  sx={{
-                    width: "53px",
-                    height: "53px",
-                  }}
-                >
-                  <Image
-                    width={53}
-                    height={40}
-                    src={question.image}
-                    alt="Picture of the author"
-                  />
-                </Box>
-                <Typography
-                  sx={{
-                    fontSize: "18px",
-                    fontWeight: "500",
-                    fontFamily: "Raleway",
-                    maxWidth: "394px",
-                  }}
-                >
-                  {question.heading}
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "14px",
-                    fontWeight: "400",
-                    fontFamily: "Raleway",
-                    maxWidth: "394px",
-                    textAlign: "left",
-                    display: {
-                      xs: "none",
-                      sm: "none",
-                      md: "block",
-                      lg: "block",
-                    },
-                  }}
-                >
-                  {question.label}
-                </Typography>
-              </Box>
-            </Grid>
-          );
-        })}
-      </Grid>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          marginBottom: "17px",
+        }}
+      >
+        <Image src={country} />
+        <Typography
+          sx={{
+            fontFamily: "Raleway",
+            fontSize: "14px",
+            fontWeight: "600",
+            marginLeft: "6px",
+          }}
+        >
+          I already know the country
+        </Typography>
+      </Box>
+      <Autocomplete list={countries} />
+
+      <Box sx={{ margin: "32px 0px" }}>
+        <Or />
+      </Box>
+
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          marginBottom: "17px",
+        }}
+      >
+        <Image src={cities} />
+        <Typography
+          sx={{
+            fontFamily: "Raleway",
+            fontSize: "14px",
+            fontWeight: "600",
+            marginLeft: "6px",
+          }}
+        >
+          I already know the cities
+        </Typography>
+      </Box>
+      <CustomAutocomplete list={citiesList} />
     </Box>
   );
 };
