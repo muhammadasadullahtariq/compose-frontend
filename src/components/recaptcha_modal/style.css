@@ -1,0 +1,61 @@
+.recaptcha-model .recaptcha-heading {
+  text-transform: uppercase;
+  color: #2b92d5;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 43px;
+  letter-spacing: 0em;
+  padding: 10px 20px;
+  border-bottom: 1px solid #d2d4da;
+}
+.recaptcha-model .recaptcha-box {
+  padding: 20px 20px 50px;
+}
+
+.recaptcha-model .recaptcha-title h6 {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 43px;
+  letter-spacing: 0em;
+}
+
+.recaptcha-model .recaptcha-title h6 span {
+  color: #2b92d5;
+}
+
+.recaptcha-model .recaptcha-title p {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* recaptcha Pages Modifiying CSS */
+.recaptcha-model label {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 27px;
+  letter-spacing: 0em;
+}
+
+.recaptcha-model .css-8j6b76-MuiInputBase-root-MuiOutlinedInput-root,
+.recaptcha-model .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
+  border-radius: 100px;
+}
+
+.recaptcha-model .css-8j6b76-MuiInputBase-root-MuiOutlinedInput-root svg {
+  color: #2b92d5;
+}
+
+.recaptcha-model .css-8j6b76-MuiInputBase-root-MuiOutlinedInput-root input {
+  background-color: #fff !important;
+  padding: 15px 20px !important;
+}
+
+.recaptcha-model button {
+  background: #2b92d5;
+  border-radius: 100px;
+  padding: 15px 20px;
+}
+
+.recaptcha-model .google-button > div {
+  margin-top: 0px !important;
+}

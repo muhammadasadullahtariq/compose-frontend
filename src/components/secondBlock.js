@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import AppBar from "@/components/navbar";
 import { Typography } from "@mui/material";
-import Icon from "@mui/material";
+import { Container } from "@mui/material";
 import { useRouter } from "next/navigation";
 import * as COLORS from "@/constants/colors";
 import blockImage from "@/assets/images/secondBlock.svg";
@@ -17,82 +17,86 @@ function SecondBlock() {
   return (
     <Box
       sx={{
-        display: "flex",
-        flex: 1,
-        flexDirection: {
-          xs: "column",
-          md: "row",
-          lg: "row-reverse",
-        },
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: {
-          xs: "30px 30px",
-          md: "30px 0px 30px 40px",
-          lg: "30px 100px 30px 0px",
-        },
+        paddingTop: "50px",
+        paddingBottom: "50px",
         backgroundColor: COLORS.blockBackgroundColor,
       }}
     >
-      <Box
-        sx={{
-          flexDirection: {
-            xs: "column",
-            md: "row",
-            lg: "column",
-          },
-          width: { xs: "100%", md: "100%", lg: "50%" },
-        }}
-      >
-        <Typography
+      <Container>
+        <Box
           sx={{
-            fontSize: { xs: "22px", md: "32px", lg: "32px" },
-            fontWeight: "800",
-            fontFamily: "raleway",
-            textTransform: "uppercase",
-            color: COLORS.black,
-            textAlign: { md: "center", xs: "center", lg: "left" },
+            display: "flex",
+            flex: 1,
+            flexDirection: {
+              xs: "column",
+              md: "row",
+              lg: "row-reverse",
+            },
+            justifyContent: "space-between",
+            alignItems: "center",
           }}
         >
-          Tailor Your Travel&nbsp;
-          <Typography
-            as="span"
+          <Box
             sx={{
-              fontSize: { xs: "22px", md: "32px", lg: "32px" },
-              fontWeight: "700",
-              fontFamily: "raleway",
-              textTransform: "uppercase",
-              color: COLORS.primary,
+              flexDirection: {
+                xs: "column",
+                md: "row",
+                lg: "column",
+              },
+              width: { xs: "100%", md: "100%", lg: "50%" },
             }}
           >
-            Experience &nbsp;
-          </Typography>
-        </Typography>
-        <Typography
-          sx={{
-            fontSize: { xs: "16px", md: "18px", lg: "22px" },
-            fontWeight: "500",
-            fontFamily: "raleway",
-            color: COLORS.textColor,
-            textAlign: { md: "center", xs: "center", lg: "left" },
-            width: { xs: "100%", md: "100%", lg: "100%" },
-          }}
-        >
-          Customize your voyage to mirror your unique travel style. No matter
-          who your travel companions are, ComposeTrip provides an itinerary as
-          distinctive as you are. Enter your travel duration, purpose, and
-          interests for a one-of-a-kind travel blueprint.
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "flex-end",
-        }}
-      >
-        <Image src={blockImage} alt="image" />
-      </Box>
+            <Typography
+              sx={{
+                fontSize: { xs: "22px", md: "32px", lg: "32px" },
+                fontWeight: "800",
+                fontFamily: "raleway",
+                textTransform: "uppercase",
+                color: COLORS.black,
+                textAlign: { md: "center", xs: "center", lg: "left" },
+              }}
+            >
+              Tailor Your Travel&nbsp;
+              <Typography
+                as="span"
+                sx={{
+                  fontSize: { xs: "22px", md: "32px", lg: "32px" },
+                  fontWeight: "700",
+                  fontFamily: "raleway",
+                  textTransform: "uppercase",
+                  color: COLORS.primary,
+                }}
+              >
+                Experience &nbsp;
+              </Typography>
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: { xs: "16px", md: "18px", lg: "22px" },
+                fontWeight: "500",
+                fontFamily: "raleway",
+                color: COLORS.textColor,
+                textAlign: { md: "center", xs: "center", lg: "left" },
+                width: { xs: "100%", md: "100%", lg: "100%" },
+              }}
+            >
+              Customize your voyage to mirror your unique travel style. No
+              matter who your travel companions are, ComposeTrip provides an
+              itinerary as distinctive as you are. Enter your travel duration,
+              purpose, and interests for a one-of-a-kind travel blueprint.
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-end",
+            }}
+          >
+            <Image src={blockImage} alt="image" />
+          </Box>
+        </Box>
+      </Container>
     </Box>
   );
 }

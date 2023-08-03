@@ -1,44 +1,25 @@
 .landing img {
-width: 500px;
-    height: 348px;
-} 
-
-
-@media (max-width: 400px) {
-.landing img {
-    width: 200px;
-    height: 200px;
-}
+  width: 500px;
+  height: 348px;
 }
 
-@media (max-width: 900px) and (min-width: 400px) {
-    .landing img {
-        width: 300px;
-        height: 300px;
-    }
-}
-
-/* Question 6 image styling */ 
-.question6 img, .question7 img {
-    width: 46px;
-    height: 46px;
+/* Question 6 image styling */
+.question6 img,
+.question7 img {
+  width: 46px;
+  height: 46px;
 }
 
 @media (max-width: 400px) {
-    .question6 img, .question7 img {
-        width: 30px;
-        height: 30px;
-    }
+  .question6 img,
+  .question7 img {
+    width: 30px;
+    height: 30px;
+  }
 }
 
-@media (max-width: 900px) and (min-width: 400px) {
-    .landing img {
-        width: 33px;
-        height: 33px;
-    }
+@media screen and (max-width: 560px) {
+  .landing img {
+    width: 100%;
+  }
 }
-    
-
-
-
-

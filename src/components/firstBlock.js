@@ -27,9 +27,9 @@ function FirstBloack() {
         alignItems: "center",
         width: "100%",
         padding: {
-          xs: "30px 30px",
-          md: "30px 0px 30px 40px",
-          lg: "30px 0px 30px 100px",
+          xs: "50px 30px",
+          md: "50px 0px 50px 40px",
+          lg: "50px 0px 50px 100px",
         },
         backgroundColor: COLORS.white,
       }}

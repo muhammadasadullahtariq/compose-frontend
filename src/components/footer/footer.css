@@ -1,68 +1,68 @@
 .footer {
-    background-image: url('/assets/img/footer-bg.png');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    padding: 5rem;
+  background-image: url("/assets/img/footer-bg.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .footer h5 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #fff;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #fff;
 }
 
 .footer p {
-    font-weight: 300;
-    color: #fff;
+  font-weight: 300;
+  color: #fff;
 }
 
 .footer a {
-    color: #fff;
+  color: #fff;
 }
 
 .footer .plan_button {
-    margin-top: 20px;
-    border-radius: 100px;
-    border: 1px solid #fff;
-    padding: 10px 20px;
-    background-color: inherit;
-    color: #fff;
+  margin-top: 20px;
+  border-radius: 100px;
+  border: 1px solid #fff;
+  padding: 10px 20px;
+  background-color: inherit;
+  color: #fff;
 }
 
 .footer ul {
-    list-style: none;
+  list-style: none;
 }
 
 .footer ul li {
-    font-weight: 300;
-    padding: 12px 0px;
+  font-weight: 300;
+  padding: 12px 0px;
 }
 
 .footer h6 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #fff;
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #fff;
 }
 
 .footer form {
-    margin-top: 15px;
-
+  margin-top: 15px;
 }
 
 .footer input {
-    width: 95%;
-    border-radius: 100px;
-    border: none;
-    background: #0D3C62;
-    padding: 15px 20px;
-    margin-bottom: 10px;
+  width: 95%;
+  border-radius: 100px;
+  border: none;
+  background: #0d3c62;
+  padding: 15px 20px;
+  margin-bottom: 10px;
 }
 
 .footer .sub_button {
-    border: none;
-    border-radius: 100px;
-    background: #2B92D5;
-    color: #fff;
-    font-size: 14px;
-    padding: 13px 30px;
+  border: none;
+  border-radius: 100px;
+  background: #2b92d5;
+  color: #fff;
+  font-size: 14px;
+  padding: 13px 30px;
 }

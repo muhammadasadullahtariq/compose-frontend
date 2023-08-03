@@ -1,67 +1,68 @@
 .testimonials {
-    padding: 5rem 10rem;
+  padding-top: 100px;
+  padding-bottom: 50px;
 }
 
 .testimonials h3 {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 26px;
-    font-weight: 600;
-    text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 26px;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .testimonials h3 span {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #2B92D5;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2b92d5;
 }
 
 .testimonials .slick-dots li button::before {
-    content: '';
+  content: "";
 }
 
 .testimonials .slick-dots li button {
-    width: 10px;
-    height: 10px;
-    background-color: #D9D9D9;
-    border-radius: 1000%;
+  width: 10px;
+  height: 10px;
+  background-color: #d9d9d9;
+  border-radius: 1000%;
 }
 
 .testimonials .slick-dots li.slick-active button {
-    width: 10px;
-    height: 10px;
-    background-color: #2B92D5;
-    border-radius: 1000%;
+  width: 10px;
+  height: 10px;
+  background-color: #2b92d5;
+  border-radius: 1000%;
 }
 
 .testimonials .slick-prev:before,
 .testimonials .slick-next:before {
-    color: #9496A1;
-    font-size: 25px;
-    background-color: #F9F9F9;;
-    border-radius: 100%;
-    padding: 15px 20px;
+  color: #9496a1;
+  font-size: 25px;
+  background-color: #f9f9f9;
+  border-radius: 100%;
+  padding: 15px 20px;
 }
 
-.testimonials .slick-prev:before{
-    content: url('/assets/icons/left-arrow.png');
+.testimonials .slick-prev:before {
+  content: url("/assets/icons/left-arrow.png");
 }
 
-.testimonials .slick-next:before{
-    content: url('/assets/icons/right-arrow.png');
+.testimonials .slick-next:before {
+  content: url("/assets/icons/right-arrow.png");
 }
 
 @media (max-width: 1000px) {
-    .testimonials {
-        padding: 5rem 0.5rem;
-    }
-    .testimonials .slick-arrow {
-        display: none!important;
-    }
+  .testimonials {
+    padding: 5rem 0.5rem;
+  }
+  .testimonials .slick-arrow {
+    display: none !important;
+  }
 }
 
 @media (max-width: 600px) {
-    .testimonials {
-        padding: 5rem 2rem;
-    }
+  .testimonials {
+    padding: 5rem 2rem;
+  }
 }
