@@ -126,8 +126,9 @@ const Question2 = () => {
             <Image
               src={el.image}
               style={{
-                border: formData.month === el.name ? "2px solid #2b92d5" : "",
+                outline: formData.month === el.name ? "2px solid #2b92d5" : "",
                 borderRadius: "12px",
+                marginTop: "2px",
               }}
             />
             <Typography
@@ -163,23 +164,25 @@ const Question2 = () => {
           Have exact dates in mind
         </Typography>
       </Box>
-      <Datepicker
-        date1={formData.date.from}
-        date2={formData.date.to}
-        handleDate={(date, value) => {
-          if (date === 1) {
-            setFormData({
-              ...formData,
-              date: { ...formData.date, from: value },
-            });
-          } else {
-            setFormData({
-              ...formData,
-              date: { ...formData.date, to: value },
-            });
-          }
-        }}
-      />
+      <Box sx={{ marginBottom: "12px" }}>
+        <Datepicker
+          date1={formData.date.from}
+          date2={formData.date.to}
+          handleDate={(date, value) => {
+            if (date === 1) {
+              setFormData({
+                ...formData,
+                date: { ...formData.date, from: value },
+              });
+            } else {
+              setFormData({
+                ...formData,
+                date: { ...formData.date, to: value },
+              });
+            }
+          }}
+        />
+      </Box>
     </Grid>
   );
 };

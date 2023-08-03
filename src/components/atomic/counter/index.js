@@ -7,9 +7,9 @@ import { useState } from "react";
 const Counter = ({ value, handleSetValue }) => {
   const handleValue = (opr) => {
     if (opr === "+" && value < 7) {
-      handleSetValue((curr) => curr + 1);
+      handleSetValue(value + 1);
     } else if (opr === "-" && value > 3) {
-      handleSetValue((curr) => curr - 1);
+      handleSetValue(value - 1);
     }
   };
   const handleBlur = () => {
