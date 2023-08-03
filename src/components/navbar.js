@@ -32,12 +32,7 @@ function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const router = useRouter();
   const [signUpHide, setSignUpHide] = React.useState(false);
-  const [pages, setPages] = React.useState([
-    "Homepage",
-    "About us",
-    "How it works",
-    "Login",
-  ]);
+  const [pages, setPages] = React.useState(["Homepage"]);
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState("");
   const [severity, setSeverity] = React.useState("success");
@@ -59,8 +54,8 @@ function ResponsiveAppBar() {
           setOpen(true);
           clearToken();
           setSignUpHide(false);
-          setPages(["Homepage", "About us", "How it works", "Login"]);
-          router.push("/landing");
+          setPages(["Homepage"]);
+          router.push("/");
         })
         .catch((error) => {
           console.log(error);
@@ -69,9 +64,8 @@ function ResponsiveAppBar() {
           setOpen(true);
         });
     } else if (page == "Login") {
-      router.push("/signin");
     } else if (page == "Homepage") {
-      router.push("/landing");
+      router.push("/");
     }
     setAnchorElNav(null);
   };
@@ -91,7 +85,7 @@ function ResponsiveAppBar() {
     console.log("hide sign up", userLogedIn, "sign up hide");
     if (userLogedIn) {
       setSignUpHide(true);
-      setPages(["Homepage", "About us", "How it works", "Logout"]);
+      setPages(["Homepage", "Logout"]);
     }
   }, []);
 
@@ -116,11 +110,11 @@ function ResponsiveAppBar() {
           <Typography
             variant="h6"
             component="a"
-            href="/landing"
+            href="/"
             sx={{
               display: { xs: "none", md: "flex" },
               fontFamily: "raleway",
-              fontWeight: 600,
+              fontWeight: 800,
               color: COLORS.primary,
               textDecoration: "none",
               fontSize: "20px",
@@ -211,6 +205,13 @@ function ResponsiveAppBar() {
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
+              {!signUpHide && (
+                <SignIn>
+                  <MenuItem>
+                    <Typography textAlign="center">Login</Typography>
+                  </MenuItem>
+                </SignIn>
+              )}
             </Menu>
           </Box>
 
@@ -230,6 +231,23 @@ function ResponsiveAppBar() {
                 </Typography>
               </MenuItem>
             ))}
+            {!signUpHide && (
+              <SignIn>
+                <MenuItem>
+                  <Typography
+                    textAlign="center"
+                    sx={{
+                      fontSize: "18px",
+                      fontWeight: "500",
+                      fontFamily: "raleway",
+                      color: COLORS.black,
+                    }}
+                  >
+                    Login
+                  </Typography>
+                </MenuItem>
+              </SignIn>
+            )}
 
             {!signUpHide && (
               <SignUp>

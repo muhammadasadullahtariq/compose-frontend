@@ -9,6 +9,8 @@ import CheckIcon from "@mui/icons-material/Check";
 import { DataContext, dataReducer } from "@/app/questionaire/context";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import Recaptchs from "@/components/recaptcha_modal";
+import { Router } from "next/router";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -20,9 +22,9 @@ export default function Layout({ children }) {
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState("");
   const [severity, setSeverity] = React.useState("success");
+  const [recaptchaOpen, setRecaptchaOpen] = React.useState(false);
 
   const router = useRouter();
-
   const [data, dispatch] = useReducer(dataReducer, {
     questionNumber: 0,
   });
@@ -46,22 +48,23 @@ export default function Layout({ children }) {
     setIndexOfQuestion(indexOfQuestion + 1);
   };
 
-  // useEffect(() => {
-  //   //remove spaces from slug
-  //   console.log(removeSpaceFromURL(params.question), "params.question");
-
-  //   const index = questionaires.findIndex(
-  //     (question) => question.navTitle === removeSpaceFromURL(params.question)
-  //   );
-  //   if (index >= 0) {
-  //     setIndexOfQuestion(index);
-  //     dispatch({
-  //       type: "UPDATE_QUESTION_NUMBER",
-  //       payload: index,
-  //     });
-  //   }
-  //   return () => {};
-  // }, [params]);
+  useEffect(() => {
+    // //remove spaces from slug
+    // console.log(removeSpaceFromURL(params.question), "params.question");
+    // const index = questionaires.findIndex(
+    //   (question) => question.navTitle === removeSpaceFromURL(params.question)
+    // );
+    // if (index >= 0) {
+    //   setIndexOfQuestion(index);
+    //   dispatch({
+    //     type: "UPDATE_QUESTION_NUMBER",
+    //     payload: index,
+    //   });
+    // }
+    // return () => {};
+    
+    
+  }, [Router.events]);
 
   useEffect(() => {
     const savedData = localStorage.getItem("questionaireData");
@@ -79,6 +82,13 @@ export default function Layout({ children }) {
         </Alert>
       </Snackbar>
       <AppBar />
+      <Recaptchs
+        open={recaptchaOpen}
+        handleModel={() => {
+          console.log("handleModel");
+          setRecaptchaOpen(false);
+        }}
+      />
       <Box
         sx={{
           display: "flex",
@@ -205,6 +215,18 @@ export default function Layout({ children }) {
                       backgroundColor: COLORS.answeredQuestionColor,
                     }}
                     key={question}
+                    onClick={() => {
+                      if (index <= indexOfQuestion) {
+                        router.push(
+                          "/questionaire/" + questionaires[index].navTitle
+                        );
+                        dispatch({
+                          type: "UPDATE_QUESTION_NUMBER",
+                          payload: index,
+                        });
+                        setIndexOfQuestion(index);
+                      }
+                    }}
                   >
                     <Typography
                       key={index}
@@ -316,8 +338,17 @@ export default function Layout({ children }) {
                 }}
                 onClick={() => {
                   if (indexOfQuestion >= 1) {
-                    const prevIndex = indexOfQuestion - 1;
-                    router.back();
+                    router.push(
+                      "/questionaire/" +
+                        questionaires[indexOfQuestion - 1].navTitle
+                    );
+                    dispatch({
+                      type: "UPDATE_QUESTION_NUMBER",
+                      payload: indexOfQuestion - 1,
+                    });
+                    setIndexOfQuestion(indexOfQuestion - 1);
+                  } else if (indexOfQuestion == 0) {
+                    router.push("/");
                   }
                 }}
               >
@@ -336,7 +367,7 @@ export default function Layout({ children }) {
                 }}
                 //onClick={nextHandler}
                 onClick={() => {
-                  if (indexOfQuestion <= 3) {
+                  if (indexOfQuestion <= 4) {
                     if (indexOfQuestion == 0 && data.country && data.city) {
                       handelNextQuestion();
                     } else if (
@@ -350,7 +381,8 @@ export default function Layout({ children }) {
                     } else if (indexOfQuestion == 3 && data.interest) {
                       handelNextQuestion();
                     } else if (indexOfQuestion == 4 && data.food) {
-                      handelNextQuestion();
+                      console.log("data", data);
+                      setRecaptchaOpen(true);
                     } else {
                       setOpen(true);
                       setMessage("Please answer the question");
@@ -359,7 +391,7 @@ export default function Layout({ children }) {
                   }
                 }}
               >
-                Next
+                {indexOfQuestion == 4 ? "Submit" : "Next"}
               </Button>
             </Box>
           </Box>

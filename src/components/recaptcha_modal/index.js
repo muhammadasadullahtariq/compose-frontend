@@ -7,14 +7,15 @@ import verifyRecaptcha from "@/apis/verifyRecaptcha";
 const Recaptchs = ({ open, handleModel }) => {
   const recaptchaRef = createRef();
   const onChange = async (value) => {
-    console.log("Captcha value:", value);
     const reponce = await verifyRecaptcha(value);
-    console.log(reponce.message);
+    console.log("recpta called", reponce);
+    handleModel();
     alert(reponce.message);
+    
   };
   return (
     <Modal
-      open={true}
+      open={open}
       onClose={handleModel}
       sx={{
         display: "flex",

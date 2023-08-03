@@ -8,11 +8,13 @@ import { fuel } from "@/constants/fuel";
 import * as COLORS from "@/constants/colors";
 
 const Question7 = () => {
-  const { dispatch } = useContext(DataContext);
+  const { data, dispatch } = useContext(DataContext);
   const [selected, setSelected] = useState("");
   const handleButtonClick = (value) => {
+    console.log(value);
     setSelected(value);
     dispatch({ type: "UPDATE_DATA", payload: { food: value } });
+    //dispatch({ type: "UPDATE_DATA", payload: { food: value } });
   };
 
   return (
@@ -32,6 +34,7 @@ const Question7 = () => {
           onClick={handleButtonClick.bind(this, el.name)}
           style={{
             //border shadow
+            cursor: "pointer",
             boxShadow:
               selected == el.name ? `0 0 0 3px ${COLORS.primary}` : "none",
             borderRadius: "20px",

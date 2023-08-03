@@ -23,8 +23,9 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import registerUser from "@/apis/registerUser";
 import Or from "@/components/Or";
-import PersonIcon from '@mui/icons-material/Person';
+import PersonIcon from "@mui/icons-material/Person";
 import { Lock, RemoveRedEye } from "@mui/icons-material";
+import SignUp from "@/components/signup";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -50,7 +51,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function SignIn() {
+export default function SignIn({ closeModel }) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState("");
@@ -68,19 +69,21 @@ export default function SignIn() {
       const user = userCredential.user;
       const token = await user.getIdToken();
       setCookie("token", token);
-      const userExist = await checkUserExist();
+      //router.refresh();
+      window.location.reload();
+      //router.push("/");
+      //const userExist = await checkUserExist();
       console.log(userExist);
-      if (userExist?.message == "User found") {
-        setCookie("uid", userExist.data._id);
-        setCookie("user", userExist.data);
-        setOpen(true);
-        setMessage("User Signed In Successfully");
-        setSeverity("success");
-        router.push("/landing");
-      } else {
-        console.log("user not exist");
-        router.push("/signup");
-      }
+      // if (userExist?.message == "User found") {
+      //   setCookie("uid", userExist.data._id);
+      //   setCookie("user", userExist.data);
+      //   setOpen(true);
+      //   setMessage("User Signed In Successfully");
+      //   setSeverity("success");
+      //   closeModel();
+      // } else {
+      //   console.log("user not exist");
+      // }
     } catch (error) {
       console.log(error);
       setOpen(true);
@@ -94,48 +97,54 @@ export default function SignIn() {
       if (user) {
         const token = await user.getIdToken();
         setCookie("token", token);
-        const userExist = await checkUserExist();
-        if (userExist?.data?.name) {
-          setCookie("user", userExist.data);
-          setOpen(true);
-          setMessage("User Signed In Successfully");
-          setSeverity("success");
-          router.push("/landing");
-        } else {
-          if (
-            user.displayName == null ||
-            user.displayName == "" ||
-            user.displayName == undefined
-          ) {
-            await userRegisterHandaler(user.email);
-          } else {
-            await userRegisterHandaler(user.displayName);
-          }
-        }
+        //router.refresh();
+        window.location.reload();
+        //router.push("/");
+        //const userExist = await checkUserExist();
+        // if (userExist?.data?.name) {
+        //   setCookie("user", userExist.data);
+        //   setOpen(true);
+        //   setMessage("User Signed In Successfully");
+        //   setSeverity("success");
+        //   closeModel();
+        // } else {
+        //   if (
+        //     user.displayName == null ||
+        //     user.displayName == "" ||
+        //     user.displayName == undefined
+        //   ) {
+        //     await userRegisterHandaler(user.email);
+        //   } else {
+        //     await userRegisterHandaler(user.displayName);
+        //   }
+        // }
       }
     });
   }, []);
 
   const userRegisterHandaler = async (name) => {
-    const userData = await registerUser(name);
-    if (userData?.message == "User Created") {
-      setCookie("user", userData.data);
-      setOpen(true);
-      setMessage("User Created Successfully");
-      setSeverity("success");
-      router.push("/landing");
-    } else {
-      setOpen(true);
-      setMessage(userData.message);
-      setSeverity("error");
+    try {
+      const userData = await registerUser(name);
+      if (userData?.message == "User Created") {
+        setCookie("user", userData.data);
+        setOpen(true);
+        setMessage("User Created Successfully");
+        setSeverity("success");
+        closeModel();
+      } else {
+        setOpen(true);
+        setMessage(userData.message);
+        setSeverity("error");
+      }
+    } catch (error) {
+      router.refresh();
+      router.push("/");
     }
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <div
-        component="main"
-      >
+      <div component="main">
         <Snackbar
           open={open}
           autoHideDuration={6000}
@@ -154,21 +163,21 @@ export default function SignIn() {
             alignItems: "center",
           }}
         >
-            <GoogleButton 
-              label="Continue with Google"
-              className="google-button"
-              onClick={signIn}
-              style={{
-                borderRadius: '100px',
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'center',
-                background: '#fff',
-                color: '#333',
-                border: '1px solid #D2D4DA',
-                boxShadow: 'none'
-              }}
-            />
+          <GoogleButton
+            label="Continue with Google"
+            className="google-button"
+            onClick={signIn}
+            style={{
+              borderRadius: "100px",
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              background: "#fff",
+              color: "#333",
+              border: "1px solid #D2D4DA",
+              boxShadow: "none",
+            }}
+          />
           <Or />
           <Box
             component="form"
@@ -204,12 +213,9 @@ export default function SignIn() {
                 startAdornment: <Lock />,
               }}
             />
-            <Typography
-              as="p"
-              textAlign={"right"}
-            >
+            <Typography as="p" textAlign={"right"}>
               <Link href="#" variant="body2">
-                    Forgot password?
+                Forgot password?
               </Link>
             </Typography>
             <Button
@@ -221,10 +227,10 @@ export default function SignIn() {
               Login
             </Button>
             <Typography as="p" textAlign={"center"}>
-                Don't have an account?{' '}
-                <Link href="/signup" variant="body2">
-                  Signup
-                </Link>
+              Don't have an account?{" "}
+              <SignUp close={closeModel}>
+                <a onClick={closeModel}>Signup</a>
+              </SignUp>
             </Typography>
           </Box>
         </Box>

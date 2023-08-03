@@ -27,6 +27,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import checkUserExist from "@/apis/checkUserExist";
 import Or from "@/components/Or";
+import SignIn from "@/components/signin";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -52,7 +53,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function SignUp() {
+export default function SignUp({ closeModel }) {
   const [fname, setFName] = React.useState("");
   const [lname, setLName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -65,46 +66,65 @@ export default function SignUp() {
 
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
+      console.log("user is", user);
+      //closeModel();
       if (user) {
+        console.log("user is", user);
         const token = await user.getIdToken();
         setCookie("token", token);
-        const userExist = await checkUserExist();
-        if (userExist?.message == "User found") {
-          setCookie("user", userExist.data);
-          setOpen(true);
-          setMessage("User Signed In Successfully");
-          setSeverity("success");
-          router.push("/landing");
-        } else {
-          if (!usedEmailSignUp) {
-            if (
-              user.displayName == null ||
-              user.displayName == "" ||
-              user.displayName == undefined
-            ) {
-              await userRegisterHandaler(user.email);
-            }
-            await userRegisterHandaler(user.displayName);
-          }
+        window.location.reload();
+        //router.refresh();
+        //router.push("/");
+        try {
+          // const userExist = await checkUserExist();
+          // if (userExist?.message == "User found") {
+          //   setCookie("user", userExist.data);
+          //   setOpen(true);
+          //   setMessage("User Signed In Successfully");
+          //   setSeverity("success");
+          //   closeModel();
+          // } else {
+          //   closeModel();
+          //   if (!usedEmailSignUp) {
+          //     if (
+          //       user.displayName == null ||
+          //       user.displayName == "" ||
+          //       user.displayName == undefined
+          //     ) {
+          //       await userRegisterHandaler(user.email);
+          //     }
+          //     await userRegisterHandaler(user.displayName);
+          //   }
+          // }
+        } catch (e) {
+          window.location.reload();
+          //router.refresh();
+          //router.push("/");
+          console.log("error is", e);
         }
       }
     });
   }, []);
 
   const userRegisterHandaler = async (name) => {
-    const userData = await registerUser(name);
-    console.log("user not exist extra user called");
-    console.log(userData);
-    if (userData?.message == "User Created") {
-      setCookie("user", userData.data);
-      setOpen(true);
-      setMessage("User Created Successfully");
-      setSeverity("success");
-      router.push("/landing");
-    } else {
-      setOpen(true);
-      setMessage(userData.message);
-      setSeverity("error");
+    try {
+      const userData = await registerUser(name);
+      console.log("user not exist extra user called");
+      console.log(userData);
+      if (userData?.message == "User Created") {
+        setCookie("user", userData.data);
+        setOpen(true);
+        setMessage("User Created Successfully");
+        setSeverity("success");
+        closeModel();
+      } else {
+        setOpen(true);
+        setMessage(userData.message);
+        setSeverity("error");
+      }
+    } catch (e) {
+      router.refresh();
+      //router.push("/");
     }
   };
 
@@ -133,27 +153,34 @@ export default function SignUp() {
         const user = userCredential.user;
         const token = await user.getIdToken();
         setCookie("token", token);
-        const userData = await registerUser(fname + " " + lname);
-        console.log(userData);
-        if (userData?.message == "User Created") {
-          setCookie("user", userData.data);
-          setOpen(true);
-          setMessage("User Created Successfully");
-          setSeverity("success");
-          router.push("/landing");
-        } else {
-          console.log("user not created called");
-          console.log(userData);
-          setOpen(true);
-          setMessage(userData.message);
-          setSeverity("error");
+        window.location.reload();
+        //router.refresh();
+        //router.push("/");
+        try {
+          // const userData = await registerUser(fname + " " + lname);
+          // console.log(userData);
+          // if (userData?.message == "User Created") {
+          //   setCookie("user", userData.data);
+          //   setOpen(true);
+          //   setMessage("User Created Successfully");
+          //   setSeverity("success");
+          //   closeModel();
+          // } else {
+          //   console.log("user not created called");
+          //   console.log(userData);
+          //   setOpen(true);
+          //   setMessage(userData.message);
+          //   setSeverity("error");
+          // }
+        } catch (e) {
+          //router.refresh();
+          //router.push("/");
         }
       })
       .catch((error) => {
         setOpen(true);
         setMessage(error.message);
         setSeverity("error");
-
         console.log(error);
       });
   };
@@ -179,22 +206,21 @@ export default function SignUp() {
             alignItems: "center",
           }}
         >
-          
-            <GoogleButton
-              label="Continue with Google"
-              className="google-button"
-              onClick={signIn}
-              style={{
-                borderRadius: '100px',
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'center',
-                background: '#fff',
-                color: '#333',
-                border: '1px solid #D2D4DA',
-                boxShadow: 'none'
-              }}
-            />
+          <GoogleButton
+            label="Continue with Google"
+            className="google-button"
+            onClick={signIn}
+            style={{
+              borderRadius: "100px",
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              background: "#fff",
+              color: "#333",
+              border: "1px solid #D2D4DA",
+              boxShadow: "none",
+            }}
+          />
           <Or />
           <Box component="form" sx={{ mt: 0 }}>
             <Grid container spacing={2}>
@@ -233,7 +259,6 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-                
                 <TextField
                   required
                   fullWidth
@@ -265,10 +290,10 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="center">
               <Grid item>
-              Already a user?{' '}
-                <Link href="/signin" variant="body2">
-                  Login
-                </Link>
+                Already a user?{" "}
+                <SignIn>
+                  <a>Login</a>
+                </SignIn>
               </Grid>
             </Grid>
           </Box>

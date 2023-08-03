@@ -184,7 +184,6 @@ function ResponsiveAppBar() {
       <FourthBlock />
       <Testimonials />
       <Footer />
-      <Recaptchs />
     </Box>
   );
 }
