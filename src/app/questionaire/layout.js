@@ -1,6 +1,6 @@
 "use client";
 import { Box, Button, Typography } from "@mui/material";
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState, useRef } from "react";
 import * as COLORS from "@/constants/colors";
 import AppBar from "@/components/navbar";
 import { useParams, useRouter } from "next/navigation";
@@ -11,6 +11,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import Recaptchs from "@/components/recaptcha_modal";
 import { Router } from "next/router";
+import ProtectedPageRoute from "../protected-page-route";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -18,6 +19,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export default function Layout({ children }) {
   const params = useParams();
+  const signInRef = useRef();
   const [indexOfQuestion, setIndexOfQuestion] = useState(0);
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState("");
@@ -47,22 +49,6 @@ export default function Layout({ children }) {
     });
     setIndexOfQuestion(indexOfQuestion + 1);
   };
-
-  useEffect(() => {
-    // //remove spaces from slug
-    // console.log(removeSpaceFromURL(params.question), "params.question");
-    // const index = questionaires.findIndex(
-    //   (question) => question.navTitle === removeSpaceFromURL(params.question)
-    // );
-    // if (index >= 0) {
-    //   setIndexOfQuestion(index);
-    //   dispatch({
-    //     type: "UPDATE_QUESTION_NUMBER",
-    //     payload: index,
-    //   });
-    // }
-    // return () => {};
-  }, [Router.events]);
 
   useEffect(() => {
     //it must run only once
@@ -390,7 +376,12 @@ export default function Layout({ children }) {
                       handelNextQuestion();
                     } else if (indexOfQuestion == 4 && data.food) {
                       console.log("data", data);
-                      setRecaptchaOpen(true);
+                      const user = ProtectedPageRoute();
+                      if (user) {
+                        setRecaptchaOpen(true);
+                      } else {
+                        document.getElementById("loginButton").click();
+                      }
                     } else {
                       setOpen(true);
                       setMessage("Please answer the question");

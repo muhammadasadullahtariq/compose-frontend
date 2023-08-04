@@ -27,7 +27,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar({ ref }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const router = useRouter();
@@ -236,7 +236,7 @@ function ResponsiveAppBar() {
                   handleModel={iModelHandle}
                   popup={uModelHandle}
                 >
-                  <MenuItem>
+                  <MenuItem id="loginButton">
                     <Typography textAlign="center">Login</Typography>
                   </MenuItem>
                 </SignIn>
