@@ -70,25 +70,26 @@ export default function SignIn({ closeModel, popup }) {
       const token = await user.getIdToken();
       setCookie("token", token);
       //router.refresh();
-      window.location.reload();
+      //window.location.reload();
       //router.push("/");
-      //const userExist = await checkUserExist();
+      const userExist = await checkUserExist();
       console.log(userExist);
-      // if (userExist?.message == "User found") {
-      //   setCookie("uid", userExist.data._id);
-      //   setCookie("user", userExist.data);
-      //   setOpen(true);
-      //   setMessage("User Signed In Successfully");
-      //   setSeverity("success");
-      //   closeModel();
-      // } else {
-      //   console.log("user not exist");
-      // }
+      if (userExist?.message == "User found") {
+        setCookie("uid", userExist.data._id);
+        setCookie("user", userExist.data);
+        setOpen(true);
+        setMessage("User Signed In Successfully");
+        setSeverity("success");
+        closeModel();
+      } else {
+        console.log("user not exist");
+      }
     } catch (error) {
       console.log(error);
       setOpen(true);
       setMessage(error.message);
       setSeverity("error");
+      closeModel();
     }
   };
 
@@ -98,26 +99,26 @@ export default function SignIn({ closeModel, popup }) {
         const token = await user.getIdToken();
         setCookie("token", token);
         //router.refresh();
-        window.location.reload();
+        //window.location.reload();
         //router.push("/");
-        //const userExist = await checkUserExist();
-        // if (userExist?.data?.name) {
-        //   setCookie("user", userExist.data);
-        //   setOpen(true);
-        //   setMessage("User Signed In Successfully");
-        //   setSeverity("success");
-        //   closeModel();
-        // } else {
-        //   if (
-        //     user.displayName == null ||
-        //     user.displayName == "" ||
-        //     user.displayName == undefined
-        //   ) {
-        //     await userRegisterHandaler(user.email);
-        //   } else {
-        //     await userRegisterHandaler(user.displayName);
-        //   }
-        // }
+        const userExist = await checkUserExist();
+        if (userExist?.data?.name) {
+          setCookie("user", userExist.data);
+          setOpen(true);
+          setMessage("User Signed In Successfully");
+          setSeverity("success");
+          closeModel();
+        } else {
+          if (
+            user.displayName == null ||
+            user.displayName == "" ||
+            user.displayName == undefined
+          ) {
+            await userRegisterHandaler(user.email);
+          } else {
+            await userRegisterHandaler(user.displayName);
+          }
+        }
       }
     });
   }, []);
@@ -135,10 +136,13 @@ export default function SignIn({ closeModel, popup }) {
         setOpen(true);
         setMessage(userData.message);
         setSeverity("error");
+        closeModel();
       }
     } catch (error) {
-      router.refresh();
-      router.push("/");
+      //router.refresh();
+      //router.push("/");
+      console.log(error);
+      closeModel();
     }
   };
 

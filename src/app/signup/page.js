@@ -76,26 +76,25 @@ export default function SignUp({ closeModel, popup }) {
         //router.refresh();
         //router.push("/");
         try {
-          // const userExist = await checkUserExist();
-          // if (userExist?.message == "User found") {
-          //   setCookie("user", userExist.data);
-          //   setOpen(true);
-          //   setMessage("User Signed In Successfully");
-          //   setSeverity("success");
-          //   closeModel();
-          // } else {
-          //   closeModel();
-          //   if (!usedEmailSignUp) {
-          //     if (
-          //       user.displayName == null ||
-          //       user.displayName == "" ||
-          //       user.displayName == undefined
-          //     ) {
-          //       await userRegisterHandaler(user.email);
-          //     }
-          //     await userRegisterHandaler(user.displayName);
-          //   }
-          // }
+          const userExist = await checkUserExist();
+          if (userExist?.message == "User found") {
+            setCookie("user", userExist.data);
+            setOpen(true);
+            setMessage("User Signed In Successfully");
+            setSeverity("success");
+            closeModel();
+          } else {
+            if (!usedEmailSignUp) {
+              if (
+                user.displayName == null ||
+                user.displayName == "" ||
+                user.displayName == undefined
+              ) {
+                await userRegisterHandaler(user.email);
+              }
+              await userRegisterHandaler(user.displayName);
+            }
+          }
         } catch (e) {
           window.location.reload();
           //router.refresh();
@@ -121,10 +120,10 @@ export default function SignUp({ closeModel, popup }) {
         setOpen(true);
         setMessage(userData.message);
         setSeverity("error");
+        closeModel();
       }
     } catch (e) {
       router.refresh();
-      //router.push("/");
     }
   };
 
@@ -153,28 +152,28 @@ export default function SignUp({ closeModel, popup }) {
         const user = userCredential.user;
         const token = await user.getIdToken();
         setCookie("token", token);
-        window.location.reload();
-        //router.refresh();
-        //router.push("/");
         try {
-          // const userData = await registerUser(fname + " " + lname);
-          // console.log(userData);
-          // if (userData?.message == "User Created") {
-          //   setCookie("user", userData.data);
-          //   setOpen(true);
-          //   setMessage("User Created Successfully");
-          //   setSeverity("success");
-          //   closeModel();
-          // } else {
-          //   console.log("user not created called");
-          //   console.log(userData);
-          //   setOpen(true);
-          //   setMessage(userData.message);
-          //   setSeverity("error");
-          // }
+          const userData = await registerUser(fname + " " + lname);
+          console.log(userData);
+          if (userData?.message == "User Created") {
+            setCookie("user", userData.data);
+            setOpen(true);
+            setMessage("User Created Successfully");
+            setSeverity("success");
+            closeModel();
+          } else {
+            console.log("user not created called");
+            console.log(userData);
+            setOpen(true);
+            setMessage(userData.message);
+            setSeverity("error");
+            closeModel();
+          }
         } catch (e) {
-          //router.refresh();
-          //router.push("/");
+          setOpen(true);
+          setMessage(e.message);
+          setSeverity("error");
+          closeModel();
         }
       })
       .catch((error) => {
@@ -290,7 +289,7 @@ export default function SignUp({ closeModel, popup }) {
             </Button>
             <Grid container justifyContent="center">
               <Grid item>
-                Already a user?{" "}<a onClick={popup}>Login</a>
+                Already a user? <a onClick={popup}>Login</a>
               </Grid>
             </Grid>
           </Box>

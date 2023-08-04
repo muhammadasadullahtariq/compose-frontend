@@ -41,20 +41,3 @@ function ResponsiveAppBar({ params }) {
   );
 }
 export default ResponsiveAppBar;
-
-{
-  /* <ReCAPTCHA
-  size="normal"
-  ref={recaptchaRef}
-  sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-  onChange={onChange}
-/>; */
-}
-
-// const recaptchaRef = React.createRef();
-// const onChange = async (value) => {
-//   console.log("Captcha value:", value);
-//   const reponce = await verifyRecaptcha(value);
-//   console.log(reponce.message);
-//   alert(reponce.message);
-// };

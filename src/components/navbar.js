@@ -38,10 +38,26 @@ function ResponsiveAppBar() {
   const [severity, setSeverity] = React.useState("success");
   const auth = getAuth();
 
-  const [iModel, setIModel] = React.useState(false)
-  const iModelHandle = () => setIModel(!iModel)
-  const [uModel, setUModel] = React.useState(false)
-  const uModelHandle = () => setUModel(!uModel)
+  const [iModel, setIModel] = React.useState(false);
+  const iModelHandle = () => {
+    const userLogedIn = ProtectedPageRoute();
+    console.log("hide sign up", userLogedIn, "sign up hide");
+    if (userLogedIn) {
+      setSignUpHide(true);
+      setPages(["Homepage", "Logout"]);
+    }
+    setIModel(!iModel);
+  };
+  const [uModel, setUModel] = React.useState(false);
+  const uModelHandle = () => {
+    const userLogedIn = ProtectedPageRoute();
+    console.log("hide sign up", userLogedIn, "sign up hide");
+    if (userLogedIn) {
+      setSignUpHide(true);
+      setPages(["Homepage", "Logout"]);
+    }
+    setUModel(!uModel);
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -148,7 +164,11 @@ function ResponsiveAppBar() {
               ComposeTrip
             </Typography>
             {!signUpHide && (
-              <SignUp open={iModel} handleModel={iModelHandle} popup={uModelHandle}>
+              <SignUp
+                open={iModel}
+                handleModel={iModelHandle}
+                popup={uModelHandle}
+              >
                 <Button
                   sx={{
                     display: { xs: "flex", md: "none" },
@@ -211,7 +231,11 @@ function ResponsiveAppBar() {
                 </MenuItem>
               ))}
               {!signUpHide && (
-                <SignIn open={iModel} handleModel={iModelHandle} popup={uModelHandle}>
+                <SignIn
+                  open={iModel}
+                  handleModel={iModelHandle}
+                  popup={uModelHandle}
+                >
                   <MenuItem>
                     <Typography textAlign="center">Login</Typography>
                   </MenuItem>
@@ -237,7 +261,11 @@ function ResponsiveAppBar() {
               </MenuItem>
             ))}
             {!signUpHide && (
-              <SignIn open={uModel} handleModel={uModelHandle} popup={iModelHandle}>
+              <SignIn
+                open={uModel}
+                handleModel={uModelHandle}
+                popup={iModelHandle}
+              >
                 <MenuItem>
                   <Typography
                     textAlign="center"
@@ -255,7 +283,11 @@ function ResponsiveAppBar() {
             )}
 
             {!signUpHide && (
-              <SignUp open={iModel} handleModel={iModelHandle} popup={uModelHandle}>
+              <SignUp
+                open={iModel}
+                handleModel={iModelHandle}
+                popup={uModelHandle}
+              >
                 <Button
                   sx={{
                     backgroundColor: COLORS.primary,

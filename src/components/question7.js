@@ -14,7 +14,6 @@ const Question7 = () => {
     console.log(value);
     setSelected(value);
     dispatch({ type: "UPDATE_DATA", payload: { food: value } });
-    //dispatch({ type: "UPDATE_DATA", payload: { food: value } });
   };
 
   return (
