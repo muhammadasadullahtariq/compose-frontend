@@ -72,7 +72,7 @@ export default function SignUp({ closeModel, popup }) {
         console.log("user is", user);
         const token = await user.getIdToken();
         setCookie("token", token);
-        window.location.reload();
+        //window.location.reload();
         //router.refresh();
         //router.push("/");
         try {

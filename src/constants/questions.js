@@ -48,11 +48,6 @@ export const questionsHedaing = [
 ];
 
 export const questionaires = [
-  // {
-  //   navTitle: "Itinerary",
-  //   title: "Choose your itinerary",
-  //   dbAttribute: "modalType",
-  // },
   {
     navTitle: "Where to",
     title: "Where do you want to go?",
@@ -69,7 +64,7 @@ export const questionaires = [
     dbAttribute: "travelingWith",
   },
   {
-    navTitle: "Purpose of trip",
+    navTitle: "Interests",
     title: "What do you want to do?",
     dbAttribute: "interest",
   },

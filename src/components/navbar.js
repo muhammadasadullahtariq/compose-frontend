@@ -40,30 +40,27 @@ function ResponsiveAppBar({ ref }) {
 
   const [iModel, setIModel] = React.useState(false);
   const iModelHandle = () => {
-    const userLogedIn = ProtectedPageRoute();
-    console.log("hide sign up", userLogedIn, "sign up hide");
-    if (userLogedIn) {
-      setSignUpHide(true);
-      setPages(["Homepage", "Logout"]);
-    }
+    // const userLogedIn = ProtectedPageRoute();
+    // console.log("hide sign up", userLogedIn, "sign up hide");
+    // if (userLogedIn) {
+    //   setSignUpHide(true);
+    //   setPages(["Homepage", "Logout"]);
+    // }
     setIModel(!iModel);
   };
   const [uModel, setUModel] = React.useState(false);
   const uModelHandle = () => {
-    const userLogedIn = ProtectedPageRoute();
-    console.log("hide sign up", userLogedIn, "sign up hide");
-    if (userLogedIn) {
-      setSignUpHide(true);
-      setPages(["Homepage", "Logout"]);
-    }
+    // const userLogedIn = ProtectedPageRoute();
+    // console.log("hide sign up", userLogedIn, "sign up hide");
+    // if (userLogedIn) {
+    //   setSignUpHide(true);
+    //   setPages(["Homepage", "Logout"]);
+    // }
     setUModel(!uModel);
   };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = (page) => {
@@ -76,7 +73,6 @@ function ResponsiveAppBar({ ref }) {
           clearToken();
           setSignUpHide(false);
           setPages(["Homepage"]);
-          router.push("/");
         })
         .catch((error) => {
           console.log(error);
@@ -89,16 +85,6 @@ function ResponsiveAppBar({ ref }) {
       router.push("/");
     }
     setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    console.log("close");
-    const userLogedIn = ProtectedPageRoute();
-    if (!userLogedIn) {
-      router.push("/signin");
-    } else {
-      router.push("/questionary");
-    }
   };
 
   React.useEffect(() => {

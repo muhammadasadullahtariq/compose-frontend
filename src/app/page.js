@@ -113,6 +113,7 @@ function ResponsiveAppBar() {
           </Typography>
           <Typography
             sx={{
+              marginTop: { xs: "10px", md: "20px", lg: "20px" },
               fontSize: { xs: "16px", md: "18px", lg: "22px" },
               fontWeight: "500",
               fontFamily: "raleway",

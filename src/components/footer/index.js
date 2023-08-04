@@ -1,7 +1,9 @@
 import { Grid, Container } from "@mui/material";
 import "./footer.css";
+import { useRouter } from "next/navigation";
 
 const Footer = () => {
+  const router = useRouter();
   return (
     <footer className="footer">
       <Container>
@@ -9,7 +11,15 @@ const Footer = () => {
           <Grid item xs={12} sm={6} md={3}>
             <h5>COMPOSETRIP</h5>
             <p>Your Next Adventure Begins Here</p>
-            <button className="plan_button">
+            <button
+              style={{
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                router.push("/questionaire/where to");
+              }}
+              className="plan_button"
+            >
               Plan your journey &nbsp;{">"}
             </button>
           </Grid>

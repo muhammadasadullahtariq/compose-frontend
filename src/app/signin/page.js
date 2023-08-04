@@ -97,10 +97,7 @@ export default function SignIn({ closeModel, popup }) {
     auth.onAuthStateChanged(async (user) => {
       if (user) {
         const token = await user.getIdToken();
-        setCookie("token", token);
-        //router.refresh();
-        //window.location.reload();
-        //router.push("/");
+        setCookie("token", token);  
         const userExist = await checkUserExist();
         if (userExist?.data?.name) {
           setCookie("user", userExist.data);

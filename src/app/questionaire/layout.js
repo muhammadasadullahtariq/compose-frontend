@@ -12,6 +12,7 @@ import MuiAlert from "@mui/material/Alert";
 import Recaptchs from "@/components/recaptcha_modal";
 import { Router } from "next/router";
 import ProtectedPageRoute from "../protected-page-route";
+import createTrip from "@/apis/createTrip";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -32,7 +33,10 @@ export default function Layout({ children }) {
   });
 
   useEffect(() => {
-    localStorage.setItem("questionaireData", JSON.stringify(data));
+    console.log("useEffect checking", data);
+    if (data.questionNumber != 0) {
+      localStorage.setItem("questionaireData", JSON.stringify(data));
+    }
   }, [data]);
 
   const removeSpaceFromURL = (url) => {
@@ -40,6 +44,26 @@ export default function Layout({ children }) {
     const newUrl = url.replace(/%20/g, " ");
     return newUrl;
   };
+
+  // useEffect(() => {
+  //   console.log("params are", params.question);
+  //   const question = removeSpaceFromURL(params.question);
+  //   const index = questionaires.findIndex((el) => el.navTitle == question);
+  //   if (index != -1) {
+  //     setIndexOfQuestion(index);
+  //     dispatch({
+  //       type: "UPDATE_QUESTION_NUMBER",
+  //       payload: index,
+  //     });
+  //   } else {
+  //     router.push("/questionaire/" + questionaires[0].navTitle);
+  //     dispatch({
+  //       type: "UPDATE_QUESTION_NUMBER",
+  //       payload: 0,
+  //     });
+  //     setIndexOfQuestion(0);
+  //   }
+  // }, [params.question]);
 
   const handelNextQuestion = () => {
     router.push("/questionaire/" + questionaires[indexOfQuestion].navTitle);
@@ -51,13 +75,18 @@ export default function Layout({ children }) {
   };
 
   useEffect(() => {
-    //it must run only once
     const savedData = localStorage.getItem("questionaireData");
+    console.log("useEffect checking", savedData);
     if (savedData) {
       dispatch({
         type: "UPDATE_DATA",
         payload: JSON.parse(savedData),
       });
+      dispatch({
+        type: "UPDATE_QUESTION_NUMBER",
+        payload: JSON.parse(savedData).questionNumber,
+      });
+      setIndexOfQuestion(JSON.parse(savedData).questionNumber);
     }
     return () => {
       localStorage.removeItem("questionaireData");
@@ -78,9 +107,12 @@ export default function Layout({ children }) {
       <AppBar />
       <Recaptchs
         open={recaptchaOpen}
-        handleModel={() => {
+        handleModel={(value) => {
           console.log("handleModel");
           setRecaptchaOpen(false);
+          if (value) {
+            createTrip(data);
+          }
         }}
       />
       <Box
@@ -129,6 +161,18 @@ export default function Layout({ children }) {
             >
               {questionaires.map((question, index) => (
                 <Box
+                  onClick={() => {
+                    if (index <= indexOfQuestion) {
+                      router.push(
+                        "/questionaire/" + questionaires[index].navTitle
+                      );
+                      dispatch({
+                        type: "UPDATE_QUESTION_NUMBER",
+                        payload: index,
+                      });
+                      setIndexOfQuestion(index);
+                    }
+                  }}
                   sx={{
                     display: {
                       md: "none",
