@@ -191,7 +191,7 @@ export default function Layout({ children }) {
                       <p style={{ marginTop: -5 }}>{index + 1}</p>
                     )}
                   </Box>
-                  {index < questionsHedaing.length - 1 ? (
+                  {index < questionaires.length - 1 ? (
                     <Box
                       sx={{
                         width: "1px",
@@ -292,7 +292,10 @@ export default function Layout({ children }) {
               flexDirection: "column",
               position: "relative",
               overflow: "hidden",
-              padding: "20px",
+              padding: {
+                md: "30px",
+                xs: "15px",
+              },
               width: "100%",
 
               justifyContent: "space-between",
@@ -303,7 +306,7 @@ export default function Layout({ children }) {
                 fontSize: "28px",
                 fontWeight: "600",
                 fontFamily: "Raleway",
-                marginBottom: "10px",
+                marginBottom: "15px",
                 maxWidth: "394px",
               }}
             >
@@ -376,12 +379,12 @@ export default function Layout({ children }) {
                 //onClick={nextHandler}
                 onClick={() => {
                   if (indexOfQuestion <= 4) {
-                    if (indexOfQuestion == 0 && data.country && data.city) {
+                    if (indexOfQuestion == 0 && (data.country || data.city)) {
                       handelNextQuestion();
                     } else if (
                       indexOfQuestion == 1 &&
-                      data.monthOfTravel &&
-                      data.numberOfDays
+                      ((data.monthOfTravel && data.numberOfDays) ||
+                        (data.startDate && data.endDate))
                     ) {
                       handelNextQuestion();
                     } else if (indexOfQuestion == 2 && data.travelingWith) {

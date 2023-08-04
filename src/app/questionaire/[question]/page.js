@@ -22,10 +22,6 @@ import { DataContext } from "@/app/questionaire/context";
 function ResponsiveAppBar({ params }) {
   const { data } = useContext(DataContext);
 
-  useEffect(() => {
-    console.log(data.questionNumber, "data.questionNumber");
-  }, []);
-
   return (
     <Box
       sx={{

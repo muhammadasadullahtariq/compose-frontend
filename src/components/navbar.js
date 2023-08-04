@@ -145,7 +145,7 @@ function ResponsiveAppBar() {
                 fontSize: "16px",
               }}
             >
-              ComposeTrip
+              COMPOSETRIP
             </Typography>
             {!signUpHide && (
               <SignUp open={iModel} handleModel={iModelHandle} popup={uModelHandle}>

@@ -1,11 +1,11 @@
 import { Box, Typography, Grid, Divider, TextField } from "@mui/material";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import * as COLORS from "@/constants/colors";
 import Image from "next/image";
 import { questions1 } from "@/constants/questions";
 import { DataContext } from "@/app/questionaire/context";
 import CustomAutocomplete from "./atomic/autocomplete";
-import country from "../assets/images/icons/country.svg";
+import countryIcon from "../assets/images/questionaires/country.svg";
 import cities from "../assets/images/icons/cities.svg";
 import { citiesList } from "@/constants/cities";
 import { countries } from "../constants/countries.js";
@@ -17,14 +17,15 @@ const Question1 = () => {
   const [country, setCountry] = React.useState("");
   const [city, setCity] = React.useState("");
   const handleButtonClick = () => {
-    if (country.length == "") {
-    } else if ((city.length = 0)) {
-    } else {
+    if (country.length != "" || city.length != "") {
       dispatch({ type: "UPDATE_DATA", payload: { city: city } });
       dispatch({ type: "UPDATE_DATA", payload: { country: country } });
     }
   };
-
+  useEffect(() => {
+    setCountry(data.country || "");
+    setCity(data.city || "");
+  }, []);
   React.useEffect(() => {
     handleButtonClick();
   }, [city, country]);
@@ -34,16 +35,23 @@ const Question1 = () => {
       sx={{
         width: { xs: "100%", md: "90%", lg: "80%" },
         height: "100%",
+        marginTop: {
+          md: "15px",
+          xs: "0",
+        },
       }}
     >
       <Box
         sx={{
           display: "flex",
           alignItems: "center",
-          marginBottom: "17px",
+          marginBottom: {
+            md: "20px",
+            xs: "15px",
+          },
         }}
       >
-        <Image src={country} />
+        <Image src={countryIcon} />
         <Typography
           sx={{
             fontFamily: "Raleway",
@@ -55,9 +63,20 @@ const Question1 = () => {
           I already know the country
         </Typography>
       </Box>
-      <Autocomplete list={countries} setCountry={setCountry} />
+      <Autocomplete
+        list={countries}
+        setCountry={setCountry}
+        country={country}
+      />
 
-      <Box sx={{ margin: "32px 0px" }}>
+      <Box
+        sx={{
+          margin: {
+            md: "30px 0px",
+            xs: "25px 0px",
+          },
+        }}
+      >
         <Or />
       </Box>
 
@@ -65,7 +84,10 @@ const Question1 = () => {
         sx={{
           display: "flex",
           alignItems: "center",
-          marginBottom: "17px",
+          marginBottom: {
+            md: "20px",
+            xs: "15px",
+          },
         }}
       >
         <Image src={cities} />
@@ -80,7 +102,12 @@ const Question1 = () => {
           I already know the cities
         </Typography>
       </Box>
-      <CustomAutocomplete cities={city} setCities={setCity} list={citiesList} />
+      <CustomAutocomplete
+        cities={city}
+        setCities={setCity}
+        list={citiesList}
+        city={city}
+      />
     </Box>
   );
 };

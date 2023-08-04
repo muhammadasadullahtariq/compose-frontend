@@ -10,7 +10,7 @@ import Input from "./atomic/input";
 import React, { useEffect, useContext } from "react";
 
 const Question4 = () => {
-  const { dispatch } = useContext(DataContext);
+  const { data, dispatch } = useContext(DataContext);
   const [selected, setSelected] = useState([]);
   const [others, setOthers] = useState("");
 
@@ -22,7 +22,11 @@ const Question4 = () => {
       setSelected((curr) => [...curr, name]);
     }
   };
-
+  console.log(data, "data_4");
+  useEffect(() => {
+    setSelected(data.interest || []);
+    setOthers(data.otherInterest || "");
+  }, []);
   useEffect(() => {
     if (selected.length > 0)
       dispatch({ type: "UPDATE_DATA", payload: { interest: selected } });
@@ -35,11 +39,21 @@ const Question4 = () => {
   return (
     <Grid container sx={{ display: "flex", flexDirection: "column" }}>
       <Typography
-        sx={{ fontFamily: "Raleway", fontSize: "14px", marginBottom: "15px" }}
+        sx={{
+          fontFamily: "Raleway",
+          fontSize: "14px",
+          marginBottom: { md: "20px", xs: "15px" },
+        }}
       >
         Choose upto 5 you'd like
       </Typography>
-      <Box sx={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: { md: "10px", xs: "5px" },
+        }}
+      >
         {activities.map((el) => (
           <Box key={el.name} onClick={() => handleSelect(el.name)}>
             <Chip
@@ -53,8 +67,8 @@ const Question4 = () => {
       <Box
         sx={{
           display: "flex",
-          marginTop: "9px",
-          marginBottom: "15px",
+          marginTop: { md: "30px", xs: "25px" },
+          marginBottom: { md: "20px", xs: "15px" },
           alignItems: "center",
         }}
       >
@@ -93,6 +107,7 @@ const Question4 = () => {
             fontSize: "10px",
             alignSelf: "flex-start",
             marginLeft: "6px",
+            marginTop: { md: "15px", xs: "10px" },
           }}
         >
           separate each entry with a comma
