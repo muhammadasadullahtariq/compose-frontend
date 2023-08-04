@@ -4,21 +4,21 @@ import AuthModel from '../auth_model';
 
 const SignUp = (props) => {
 
-    const [open, setOpen] = useState(false)
-    const handleModel = () => setOpen(!open)
-
     return (
         <>
-            { React.cloneElement( props.children, { onClick: handleModel } ) }
+            { React.cloneElement( props.children, { onClick: props.handleModel } ) }
             <AuthModel
-                open={open}
-                handleModel={handleModel}
+                open={props.open}
+                handleModel={props.handleModel}
                 details={{
                     title: "Welcome!",
                     text: 'Sign up to enjoy the best of your personal travel guide.'
                 }}
             >
-                <SignUpPage />
+                <SignUpPage closeModel={props.handleModel} popup={() => {
+                    props.handleModel()
+                    props.popup()
+                }} />
             </AuthModel>
         </>
     )

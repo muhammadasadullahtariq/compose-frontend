@@ -51,7 +51,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function SignIn({ closeModel }) {
+export default function SignIn({ closeModel, popup }) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState("");
@@ -230,10 +230,7 @@ export default function SignIn({ closeModel }) {
               Login
             </Button>
             <Typography as="p" textAlign={"center"}>
-              Don't have an account?{" "}
-              <SignUp close={closeModel}>
-                <a onClick={closeModel}>Signup</a>
-              </SignUp>
+              Don't have an account?{" "}<a onClick={popup}>Signup</a>
             </Typography>
           </Box>
         </Box>

@@ -38,6 +38,11 @@ function ResponsiveAppBar() {
   const [severity, setSeverity] = React.useState("success");
   const auth = getAuth();
 
+  const [iModel, setIModel] = React.useState(false)
+  const iModelHandle = () => setIModel(!iModel)
+  const [uModel, setUModel] = React.useState(false)
+  const uModelHandle = () => setUModel(!uModel)
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -143,7 +148,7 @@ function ResponsiveAppBar() {
               ComposeTrip
             </Typography>
             {!signUpHide && (
-              <SignUp>
+              <SignUp open={iModel} handleModel={iModelHandle} popup={uModelHandle}>
                 <Button
                   sx={{
                     display: { xs: "flex", md: "none" },
@@ -206,7 +211,7 @@ function ResponsiveAppBar() {
                 </MenuItem>
               ))}
               {!signUpHide && (
-                <SignIn>
+                <SignIn open={iModel} handleModel={iModelHandle} popup={uModelHandle}>
                   <MenuItem>
                     <Typography textAlign="center">Login</Typography>
                   </MenuItem>
@@ -232,7 +237,7 @@ function ResponsiveAppBar() {
               </MenuItem>
             ))}
             {!signUpHide && (
-              <SignIn>
+              <SignIn open={uModel} handleModel={uModelHandle} popup={iModelHandle}>
                 <MenuItem>
                   <Typography
                     textAlign="center"
@@ -250,7 +255,7 @@ function ResponsiveAppBar() {
             )}
 
             {!signUpHide && (
-              <SignUp>
+              <SignUp open={iModel} handleModel={iModelHandle} popup={uModelHandle}>
                 <Button
                   sx={{
                     backgroundColor: COLORS.primary,
