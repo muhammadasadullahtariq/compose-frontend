@@ -62,12 +62,20 @@ export default function Layout({ children }) {
     //   });
     // }
     // return () => {};
-    
-    
   }, [Router.events]);
 
   useEffect(() => {
+    //it must run only once
     const savedData = localStorage.getItem("questionaireData");
+    if (savedData) {
+      dispatch({
+        type: "UPDATE_DATA",
+        payload: JSON.parse(savedData),
+      });
+    }
+    return () => {
+      localStorage.removeItem("questionaireData");
+    };
   }, []);
 
   return (

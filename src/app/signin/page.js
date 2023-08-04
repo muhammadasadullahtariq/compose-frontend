@@ -98,26 +98,26 @@ export default function SignIn({ closeModel }) {
         const token = await user.getIdToken();
         setCookie("token", token);
         //router.refresh();
-        window.location.reload();
+        //window.location.reload();
         //router.push("/");
-        //const userExist = await checkUserExist();
-        // if (userExist?.data?.name) {
-        //   setCookie("user", userExist.data);
-        //   setOpen(true);
-        //   setMessage("User Signed In Successfully");
-        //   setSeverity("success");
-        //   closeModel();
-        // } else {
-        //   if (
-        //     user.displayName == null ||
-        //     user.displayName == "" ||
-        //     user.displayName == undefined
-        //   ) {
-        //     await userRegisterHandaler(user.email);
-        //   } else {
-        //     await userRegisterHandaler(user.displayName);
-        //   }
-        // }
+        const userExist = await checkUserExist();
+        if (userExist?.data?.name) {
+          setCookie("user", userExist.data);
+          setOpen(true);
+          setMessage("User Signed In Successfully");
+          setSeverity("success");
+          closeModel();
+        } else {
+          if (
+            user.displayName == null ||
+            user.displayName == "" ||
+            user.displayName == undefined
+          ) {
+            await userRegisterHandaler(user.email);
+          } else {
+            await userRegisterHandaler(user.displayName);
+          }
+        }
       }
     });
   }, []);
@@ -135,10 +135,13 @@ export default function SignIn({ closeModel }) {
         setOpen(true);
         setMessage(userData.message);
         setSeverity("error");
+        closeModel();
       }
     } catch (error) {
-      router.refresh();
-      router.push("/");
+      //router.refresh();
+      //router.push("/");
+      console.log(error);
+      closeModel();
     }
   };
 
