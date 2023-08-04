@@ -140,7 +140,7 @@ function ResponsiveAppBar() {
                 fontSize: "16px",
               }}
             >
-              ComposeTrip
+              COMPOSETRIP
             </Typography>
             {!signUpHide && (
               <SignUp>
