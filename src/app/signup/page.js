@@ -53,7 +53,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function SignUp({ closeModel }) {
+export default function SignUp({ closeModel, popup }) {
   const [fname, setFName] = React.useState("");
   const [lname, setLName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -290,10 +290,7 @@ export default function SignUp({ closeModel }) {
             </Button>
             <Grid container justifyContent="center">
               <Grid item>
-                Already a user?{" "}
-                <SignIn>
-                  <a>Login</a>
-                </SignIn>
+                Already a user?{" "}<a onClick={popup}>Login</a>
               </Grid>
             </Grid>
           </Box>
