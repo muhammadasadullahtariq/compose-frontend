@@ -161,7 +161,7 @@ function ResponsiveAppBar({ ref }) {
                 fontSize: "16px",
               }}
             >
-              ComposeTrip
+              COMPOSETRIP
             </Typography>
             {!signUpHide && (
               <SignUp

@@ -2,11 +2,12 @@ const { useState, useCallback, useEffect } = require("react");
 import Image from "next/image";
 import "./index.css";
 import drop from "../../../assets/images/icons/drop.svg";
-
-const Autocomplete = ({ list, setCountry }) => {
+import { ReactCountryFlag } from "react-country-flag";
+import { Box } from "@mui/material";
+const Autocomplete = ({ list, setCountry, country }) => {
   //const [chosen, setChosen] = useState([]);
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(country || "");
   const [searchText, setSearchText] = useState("");
 
   const filteredCities =
@@ -38,16 +39,20 @@ const Autocomplete = ({ list, setCountry }) => {
   }, []);
 
   useEffect(() => {
-    const array = value.length > 0 ? value.split(", ") : [];
-    setCountry(array);
+    setValue(country);
+  }, [country]);
+
+  useEffect(() => {
+    // const array = value.length > 0 ? value.split(", ") : [];
+    setCountry(value);
     //setChosen(array);
     //console.log(chosen);
-    setSearchText(array[array.length - 1]);
+    setSearchText(value);
   }, [value]);
-
   const handleChange = (event) => {
     setValue(event.target.value);
   };
+
   return (
     <>
       {open && (
@@ -66,13 +71,29 @@ const Autocomplete = ({ list, setCountry }) => {
         {open && (
           <div className="AutocompleteSingle_Dropdown">
             {filteredCities.map((el) => (
-              <p
-                key={el.alpha2Code}
-                style={{}}
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "10px 10px",
+                  width: "100%",
+                  gap: "5px",
+                  cursor: "pointer",
+                }}
                 onClick={() => handleSelection(el.name)}
+                key={el.alpha2Code}
+                className="country-div"
               >
-                {el.name}
-              </p>
+                <Box sx={{ display: "block" }}>
+                  <ReactCountryFlag
+                    countryCode={el.alpha2Code}
+                    style={{
+                      fontSize: "22px",
+                    }}
+                  />
+                </Box>
+                <p style={{}}>{el.name}</p>
+              </Box>
             ))}
           </div>
         )}
