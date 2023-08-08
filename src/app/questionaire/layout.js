@@ -33,37 +33,11 @@ export default function Layout({ children }) {
   });
 
   useEffect(() => {
-    console.log("useEffect checking", data);
+    console.log("useEffect checking before saving", data);
     if (data.questionNumber != 0) {
       localStorage.setItem("questionaireData", JSON.stringify(data));
     }
   }, [data]);
-
-  const removeSpaceFromURL = (url) => {
-    //i got this where%20to and i want it to be where to
-    const newUrl = url.replace(/%20/g, " ");
-    return newUrl;
-  };
-
-  // useEffect(() => {
-  //   console.log("params are", params.question);
-  //   const question = removeSpaceFromURL(params.question);
-  //   const index = questionaires.findIndex((el) => el.navTitle == question);
-  //   if (index != -1) {
-  //     setIndexOfQuestion(index);
-  //     dispatch({
-  //       type: "UPDATE_QUESTION_NUMBER",
-  //       payload: index,
-  //     });
-  //   } else {
-  //     router.push("/questionaire/" + questionaires[0].navTitle);
-  //     dispatch({
-  //       type: "UPDATE_QUESTION_NUMBER",
-  //       payload: 0,
-  //     });
-  //     setIndexOfQuestion(0);
-  //   }
-  // }, [params.question]);
 
   const handelNextQuestion = () => {
     router.push("/questionaire/" + questionaires[indexOfQuestion].navTitle);
@@ -77,7 +51,7 @@ export default function Layout({ children }) {
   useEffect(() => {
     const savedData = localStorage.getItem("questionaireData");
     console.log("useEffect checking", savedData);
-    if (savedData) {
+    if (savedData && savedData.length > 0) {
       dispatch({
         type: "UPDATE_DATA",
         payload: JSON.parse(savedData),
@@ -87,6 +61,13 @@ export default function Layout({ children }) {
         payload: JSON.parse(savedData).questionNumber,
       });
       setIndexOfQuestion(JSON.parse(savedData).questionNumber);
+    } else {
+      console.log("data not found in local storage");
+      dispatch({
+        type: "UPDATE_QUESTION_NUMBER",
+        payload: 0,
+      });
+      setIndexOfQuestion(0);
     }
     return () => {
       localStorage.removeItem("questionaireData");
