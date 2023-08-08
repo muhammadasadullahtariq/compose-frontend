@@ -1,13 +1,16 @@
+"use client";
+import { useState } from "react";
 import { Container, Box, Typography, Grid, Button } from "@mui/material";
 import SavedIcon from "../../assets/images/tripDetails/icons/saved.svg";
 import OpenIcon from "../../assets/images/tripDetails/icons/openLink.svg";
 import LocationIcon from "../../assets/images/tripDetails/icons/location.svg";
 import TimeIcon from "../../assets/images/tripDetails/icons/time.svg";
-import HeroSection from "../../assets/images/tripDetails/day-1-1.png";
 import Image from "next/image";
 import AppBar from "@/components/navbar";
+import Footer from "@/components/footer";
+import Itinerary from "@/components/modals/itinerary";
 import "./style.css";
-import { GifBoxOutlined } from "@mui/icons-material";
+
 const trip = [
   {
     day: "1",
@@ -53,6 +56,8 @@ const trip = [
   },
 ];
 const TripDetail = () => {
+  const [saveModal, setSaveModal] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   return (
     <div>
       <AppBar />
@@ -105,6 +110,7 @@ const TripDetail = () => {
                   padding: "5px 20px",
                   cursor: "pointer",
                 }}
+                onClick={() => setSaveModal(true)}
               >
                 <Image src={SavedIcon} width={11} height={11} alt="save-icon" />
               </Box>
@@ -252,7 +258,8 @@ const TripDetail = () => {
                                     margin: "15px 0",
                                     width: "100%",
                                     height: {
-                                      lg: "314px",
+                                      lg: "401px",
+                                      md: "314",
                                       xs: "214px",
                                     },
                                     overflow: "hidden",
@@ -342,14 +349,14 @@ const TripDetail = () => {
           sx={{
             display: {
               md: "none",
-              xs: "block",
+              xs: "flex",
             },
             width: "100%",
             height: "56px",
             position: "fixed",
             bottom: "0",
             background: "#2B92D5",
-            display: "flex",
+
             padding: "10px",
             justifyContent: "center",
           }}
@@ -362,12 +369,23 @@ const TripDetail = () => {
               border: "1px solid #fff",
               fontSize: "10px",
             }}
+            onClick={() => setOpenModal(true)}
           >
             Regenerate
           </Button>
         </Box>
       </Box>
-      {/* Day 1 Section */}
+      <Footer />
+      <Itinerary
+        open={saveModal}
+        handleModel={() => setSaveModal(!saveModal)}
+        modalFor="save"
+      />
+      <Itinerary
+        open={openModal}
+        handleModel={() => setOpenModal(!openModal)}
+        modalFor="new"
+      />
     </div>
   );
 };
