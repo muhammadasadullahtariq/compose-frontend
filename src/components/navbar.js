@@ -32,7 +32,7 @@ function ResponsiveAppBar({ ref }) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const router = useRouter();
   const [signUpHide, setSignUpHide] = React.useState(false);
-  const [pages, setPages] = React.useState(["Homepage"]);
+  const [pages, setPages] = React.useState([""]);
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState("");
   const [severity, setSeverity] = React.useState("success");
@@ -72,7 +72,7 @@ function ResponsiveAppBar({ ref }) {
           setOpen(true);
           clearToken();
           setSignUpHide(false);
-          setPages(["Homepage"]);
+          setPages([""]);
         })
         .catch((error) => {
           console.log(error);
@@ -92,7 +92,7 @@ function ResponsiveAppBar({ ref }) {
     console.log("hide sign up", userLogedIn, "sign up hide");
     if (userLogedIn) {
       setSignUpHide(true);
-      setPages(["Homepage", "Logout"]);
+      setPages(["Logout"]);
     }
   }, []);
 
@@ -161,25 +161,18 @@ function ResponsiveAppBar({ ref }) {
                     backgroundColor: COLORS.primary,
                     color: "white",
                     borderRadius: "20px",
-                    width: "79px",
+
                     height: "27px",
+                    fontSize: "12px",
+                    fontWeight: "500",
+                    fontFamily: "raleway",
                     alignSelf: "center",
                   }}
                   onMouseOver={(e) => {
                     e.target.style.backgroundColor = COLORS.primary;
                   }}
                 >
-                  <Typography
-                    color="white"
-                    textAlign="center"
-                    sx={{
-                      fontSize: "12px",
-                      fontWeight: "500",
-                      fontFamily: "raleway",
-                    }}
-                  >
-                    Sign up
-                  </Typography>
+                  Get started
                 </Button>
               </SignUp>
             )}
@@ -256,8 +249,8 @@ function ResponsiveAppBar({ ref }) {
                   <Typography
                     textAlign="center"
                     sx={{
-                      fontSize: "18px",
-                      fontWeight: "500",
+                      fontSize: "16px",
+                      fontWeight: "400",
                       fontFamily: "raleway",
                       color: COLORS.black,
                     }}
@@ -279,26 +272,18 @@ function ResponsiveAppBar({ ref }) {
                     backgroundColor: COLORS.primary,
                     color: "white",
                     borderRadius: "20px",
-                    width: "128px",
-                    height: "41px",
+                    padding: "7px 16px",
                     mr: 2,
+                    fontSize: "16px",
+                    fontWeight: "400",
+                    fontFamily: "raleway",
                   }}
                   //hover effect
                   onMouseOver={(e) => {
                     e.target.style.backgroundColor = COLORS.primary;
                   }}
                 >
-                  <Typography
-                    color="white"
-                    textAlign="center"
-                    sx={{
-                      fontSize: "18px",
-                      fontWeight: "500",
-                      fontFamily: "raleway",
-                    }}
-                  >
-                    Sign up
-                  </Typography>
+                  Get Started
                 </Button>
               </SignUp>
             )}

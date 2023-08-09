@@ -45,7 +45,7 @@ const Question4 = () => {
           marginBottom: { md: "20px", xs: "15px" },
         }}
       >
-        Choose upto 5 you'd like
+        Choose up to 5
       </Typography>
       <Box
         sx={{

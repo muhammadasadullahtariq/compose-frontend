@@ -17,52 +17,53 @@ const Question7 = () => {
     setSelected(data.food || "");
   }, []);
   return (
-    <Grid
-      container
-      sx={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        gap: "15px",
-        flexWrap: "wrap",
-        padding: "5px",
-        justifyContent: "flex-start",
-      }}
-    >
-      {fuel.map((el, index) => (
-        <Grid item key={el.name}>
-          <Box
-            onClick={handleButtonClick.bind(this, el.name)}
-            sx={{
-              width: "120px",
-              height: "123px",
-              borderRadius: "10px",
-              background:
-                index % 2 === 0
-                  ? COLORS.questionBlockBlueColor
-                  : COLORS.questionBlockGrayColor,
-              padding: "15px",
-              display: "flex",
-              alignItems: "center",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              border:
-                selected != el.name
-                  ? `2px solid transparent`
-                  : `2px solid ${COLORS.primary}`,
-            }}
-          >
-            <Typography
-              variant="p"
-              sx={{ fontSize: "14px", fontWeight: "600" }}
+    <Box sx={{ height: "100%", width: "100%", overflow: "hidden" }}>
+      <Grid
+        container
+        sx={{
+          gap: "15px",
+
+          padding: "5px",
+        }}
+      >
+        {fuel.map((el, index) => (
+          <Grid item key={el.name}>
+            <Box
+              onClick={handleButtonClick.bind(this, el.name)}
+              sx={{
+                width: "120px",
+                height: "123px",
+                borderRadius: "10px",
+                background: {
+                  md:
+                    index % 2 !== 0
+                      ? COLORS.questionBlockBlueColor
+                      : COLORS.questionBlockGrayColor,
+                  xs: el.color,
+                },
+                padding: "15px",
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                border:
+                  selected != el.name
+                    ? `2px solid transparent`
+                    : `2px solid ${COLORS.primary}`,
+              }}
             >
-              {el.name}
-            </Typography>
-            <Image src={el.image} />
-          </Box>
-        </Grid>
-      ))}
-    </Grid>
+              <Typography
+                variant="p"
+                sx={{ fontSize: "14px", fontWeight: "600" }}
+              >
+                {el.name}
+              </Typography>
+              <Image src={el.image} />
+            </Box>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
   );
 };
 

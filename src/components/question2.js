@@ -17,9 +17,8 @@ const Question2 = () => {
   const [formData, setFormData] = React.useState({
     length: 3,
     month: "",
-    date: { to: "Start date", from: "End date" },
+    date: { to: "", from: "" },
   });
-  console.log(data, "data");
   const handleButtonClick = (value) => {
     setSelectedValue(value);
     dispatch({ type: "UPDATE_DATA", payload: { monthOfTravel: value } });
@@ -27,7 +26,7 @@ const Question2 = () => {
 
   useEffect(() => {
     setFormData({
-      length: data.numberOfDays || 3,
+      length: parseInt(data.numberOfDays) || 3,
       month: data.monthOfTravel || "",
       date: {
         from: data.startDate || "",
@@ -61,7 +60,7 @@ const Question2 = () => {
   }, [formData]);
 
   return (
-    <Box>
+    <Box sx={{ width: "100%" }}>
       <Grid
         container
         sx={{
@@ -80,7 +79,7 @@ const Question2 = () => {
             fontSize: "14px",
           }}
         >
-          Choose a date range or length of stay (up to 7 days)
+          Choose a trip length or exact dates.
         </Typography>
         <Box
           sx={{
@@ -102,9 +101,9 @@ const Question2 = () => {
         </Box>
         <Counter
           value={formData.length}
+          formData={formData}
           handleSetValue={(length) => {
-            console.log("length", length);
-            setFormData({ ...formData, length });
+            setFormData({ ...formData, length: length * 1 });
           }}
         />
 
@@ -122,7 +121,18 @@ const Question2 = () => {
               fontWeight: "600",
             }}
           >
-            During what month
+            During what month?
+          </Typography>
+          <Typography
+            sx={{
+              color: "#9496A1",
+              fontFamily: "Raleway",
+              fontSize: "10px",
+              textAlign: "right",
+              marginLeft: "5px",
+            }}
+          >
+            ( optional )
           </Typography>
         </Box>
         <Box
@@ -141,7 +151,14 @@ const Question2 = () => {
           {months.map((el) => (
             <Box
               key={el.name}
-              onClick={() => setFormData({ ...formData, month: el.name })}
+              onClick={() => {
+                if (
+                  formData.date.from.length > 0 ||
+                  formData.date.to.length > 0
+                )
+                  return;
+                setFormData({ ...formData, month: el.name });
+              }}
               sx={{
                 display: "flex",
                 flexDirection: "column",
@@ -156,6 +173,12 @@ const Question2 = () => {
                     formData.month === el.name ? "2px solid #2b92d5" : "",
                   borderRadius: "12px",
                   marginTop: "2px",
+                  filter:
+                    formData.month === el.name &&
+                    formData.date.from.length === 0 &&
+                    formData.date.to.length === 0
+                      ? ""
+                      : "grayscale(1)",
                 }}
               />
               <Typography
@@ -186,11 +209,12 @@ const Question2 = () => {
               marginLeft: "6px",
             }}
           >
-            Have exact dates in mind
+            Have exact dates in mind?
           </Typography>
         </Box>
-        <Box sx={{}}>
+        <Box>
           <Datepicker
+            tripLength={formData.length}
             date1={formData.date.from}
             date2={formData.date.to}
             handleDate={(date, value) => {

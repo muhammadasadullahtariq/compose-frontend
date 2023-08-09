@@ -1,10 +1,10 @@
-const { useState, useCallback, useEffect } = require("react");
+import { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import "./index.css";
 import drop from "../../../assets/images/icons/drop.svg";
 import { ReactCountryFlag } from "react-country-flag";
 import { Box } from "@mui/material";
-const Autocomplete = ({ list, setCountry, country }) => {
+const Autocomplete = ({ list, setCountry, country, city }) => {
   //const [chosen, setChosen] = useState([]);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(country || "");
@@ -61,11 +61,19 @@ const Autocomplete = ({ list, setCountry, country }) => {
           className="AutocompleteSingle_Backdrop"
         ></div>
       )}
-      <div className="AutocompleteSingle_Main">
+      <Box
+        className="AutocompleteSingle_Main"
+        sx={{
+          background:
+            city.length > 0 && country.length > 0 ? "#f9f9f9" : "#fff",
+          cursor: city.length > 0 && country.length > 0 ? "not-allowed" : "",
+        }}
+      >
         <input
           onChange={handleChange}
           value={value}
           onClick={() => setOpen(true)}
+          disabled={city.length > 0 && country.length > 0 ? true : false}
         />
         <Image src={drop} style={{ rotate: open ? "180deg" : null }} />
         {open && (
@@ -97,7 +105,7 @@ const Autocomplete = ({ list, setCountry, country }) => {
             ))}
           </div>
         )}
-      </div>
+      </Box>
     </>
   );
 };

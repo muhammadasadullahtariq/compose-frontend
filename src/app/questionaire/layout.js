@@ -33,7 +33,6 @@ export default function Layout({ children }) {
   });
 
   useEffect(() => {
-    console.log("useEffect checking before saving", data);
     if (data.questionNumber != 0) {
       localStorage.setItem("questionaireData", JSON.stringify(data));
     }
@@ -50,7 +49,6 @@ export default function Layout({ children }) {
 
   useEffect(() => {
     const savedData = localStorage.getItem("questionaireData");
-    console.log("useEffect checking", savedData);
     if (savedData && savedData.length > 0) {
       dispatch({
         type: "UPDATE_DATA",
@@ -113,13 +111,13 @@ export default function Layout({ children }) {
             borderRadius: { md: "20px", xs: "0" },
             display: "flex",
             flexDirection: "row",
-            overflow: "hidden",
+
             height: { lg: "80%", xs: "100%" },
           }}
         >
           <Box
             sx={{
-              width: { md: "270px" },
+              width: { md: "270px", xs: "60px" },
               display: "flex",
               paddingTop: { md: "60px", xs: "20px" },
               borderRight: 1,
@@ -303,52 +301,66 @@ export default function Layout({ children }) {
               flexDirection: "column",
               position: "relative",
               overflow: "hidden",
-              padding: {
-                md: "30px",
-                xs: "15px",
-              },
               width: "100%",
-
+              gap: "20px",
+              height: "100%",
               justifyContent: "space-between",
             }}
           >
-            <Typography
+            <Box
               sx={{
-                fontSize: "28px",
-                fontWeight: "600",
-                fontFamily: "Raleway",
-                marginBottom: "15px",
-                maxWidth: "394px",
+                width: "100%",
+                flex: "auto",
+                overflow: "auto",
+                padding: {
+                  md: "30px",
+                  xs: "15px",
+                },
               }}
             >
-              {questionaires[indexOfQuestion]?.title}
-            </Typography>
-            <DataContext.Provider
-              value={{
-                data,
-                dispatch,
-              }}
-            >
-              <Box
+              <Typography
                 sx={{
-                  display: "block",
-                  width: "100%",
-                  height: { md: "360px", sm: "50%", xs: "50%" },
-                  overflow: "auto",
-                  flex: "5",
+                  fontSize: {
+                    md: "28px",
+                    xs: "20px",
+                  },
+                  fontWeight: "600",
+                  fontFamily: "Raleway",
+                  marginBottom: "15px",
                 }}
               >
-                {children}
-              </Box>
-            </DataContext.Provider>
-
+                {questionaires[indexOfQuestion]?.title}
+              </Typography>
+              <DataContext.Provider
+                value={{
+                  data,
+                  dispatch,
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "block",
+                    width: "100%",
+                  }}
+                >
+                  {children}
+                </Box>
+              </DataContext.Provider>
+            </Box>
             <Box
               sx={{
                 width: "100%",
                 display: "flex",
+                height: {
+                  md: "20%",
+                  xs: "10%",
+                },
                 justifyContent: "end",
                 alignItems: "center",
-                flex: "1",
+                padding: {
+                  md: "30px",
+                  xs: "15px",
+                },
               }}
             >
               <Button
@@ -394,7 +406,7 @@ export default function Layout({ children }) {
                       handelNextQuestion();
                     } else if (
                       indexOfQuestion == 1 &&
-                      ((data.monthOfTravel && data.numberOfDays) ||
+                      (data.numberOfDays > 0 ||
                         (data.startDate && data.endDate))
                     ) {
                       handelNextQuestion();

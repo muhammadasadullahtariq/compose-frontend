@@ -5,11 +5,10 @@
 .Autocomplete_Backdrop {
   width: 100%;
   height: 100%;
-  
+
   position: absolute;
   top: 0px;
   right: 0px;
-
 }
 
 .Autocomplete_Main input {
@@ -17,7 +16,7 @@
   height: 42px;
   border-radius: 10px;
   border: 1px solid #d2d4da;
-  background: #fff;
+
   width: 100%;
   padding: 12px 8px;
   color: #757780;

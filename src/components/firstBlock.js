@@ -6,7 +6,7 @@ import { Typography } from "@mui/material";
 import Icon from "@mui/material";
 import { useRouter } from "next/navigation";
 import * as COLORS from "@/constants/colors";
-import blockImage from "@/assets/images/firstBlock.svg";
+import blockImage from "@/assets/images/fourthBlock.svg";
 import Image from "next/image";
 import "./styles.css";
 
@@ -53,7 +53,7 @@ function FirstBloack() {
             textAlign: { md: "center", xs: "center", lg: "left" },
           }}
         >
-          Unearth Your&nbsp;
+          YOU ARE 5 &nbsp;
           <Typography
             as="span"
             sx={{
@@ -64,9 +64,9 @@ function FirstBloack() {
               color: COLORS.primary,
             }}
           >
-            Ideal&nbsp;
+            QUESTIONS&nbsp;
           </Typography>
-          Trip
+          AWAY
         </Typography>
         <Typography
           sx={{
@@ -78,10 +78,8 @@ function FirstBloack() {
             width: { xs: "100%", md: "100%", lg: "75%" },
           }}
         >
-          Are you an urban explorer, a nature enthusiast, or a fervent history
-          aficionado? Share with us your travel inclinations and we'll identify
-          the best destinations that align with your preferences. With
-          ComposeTrip, you can design trips that truly resonate with you.
+          Your dream itinerary is waiting for you. Share with us your travel
+          inclinations by answering our questions and we will do the rest.
         </Typography>
       </Box>
       <Box
