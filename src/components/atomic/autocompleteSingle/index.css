@@ -1,6 +1,6 @@
 .AutocompleteSingle_Main {
   position: relative;
-  z-index: 10000000000;
+  z-index: 100;
 }
 
 .AutocompleteSingle_Backdrop {
@@ -16,7 +16,6 @@
   height: 42px;
   border-radius: 10px;
   border: 1px solid #d2d4da;
-  background: #fff;
   width: 100%;
   padding: 12px 8px;
   color: #757780;

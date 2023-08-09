@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <Container>
-        <Grid container spacing={2}>
+        <Grid container spacing={2} sx={{ justifyContent: "space-between" }}>
           <Grid item xs={12} sm={6} md={3}>
             <h5>COMPOSETRIP</h5>
             <p>Your Next Adventure Begins Here</p>
@@ -20,10 +20,10 @@ const Footer = () => {
               }}
               className="plan_button"
             >
-              Plan your journey &nbsp;{">"}
+              Get Started&nbsp;{">"}
             </button>
           </Grid>
-          <Grid item xs={6} md={3}>
+          {/* <Grid item xs={6} md={3}>
             <ul>
               <li>
                 <a href="#">Home</a>
@@ -37,11 +37,8 @@ const Footer = () => {
               <li>
                 <a href="#">Testimonial</a>
               </li>
-              <li>
-                <a href="#">Contact Us</a>
-              </li>
             </ul>
-          </Grid>
+          </Grid> */}
           <Grid item xs={6} md={3}>
             <ul>
               <li>
@@ -53,9 +50,12 @@ const Footer = () => {
               <li>
                 <a href="#">Cookies Policy</a>
               </li>
+              <li>
+                <a href="#">Contact Us</a>
+              </li>
             </ul>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          {/* <Grid item xs={12} sm={6} md={3}>
             <h6>Subscribe to our newsletter</h6>
             <p>
               Stay updated with travel inspirations and ComposeTrip updates.
@@ -65,7 +65,7 @@ const Footer = () => {
               <input placeholder="Email" />
               <button className="sub_button">Subscribe</button>
             </form>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
     </footer>

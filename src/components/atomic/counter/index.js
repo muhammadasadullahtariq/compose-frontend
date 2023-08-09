@@ -2,36 +2,46 @@ import "./index.css";
 import plus from "../../../assets/images/icons/plus.svg";
 import minus from "../../../assets/images/icons/minus.svg";
 import Image from "next/image";
-import { useState } from "react";
 import { Box, Typography } from "@mui/material";
 
-const Counter = ({ value, handleSetValue }) => {
+const Counter = ({ formData, value, handleSetValue }) => {
   const handleValue = (opr) => {
+    if (formData.date.from.length > 0 || formData.date.to.length > 0) return;
+
     if (opr === "+" && value < 7) {
-      handleSetValue(value + 1);
+      handleSetValue(parseInt(value) + 1);
     } else if (opr === "-" && value > 3) {
-      handleSetValue(value - 1);
+      handleSetValue(parseInt(value) - 1);
     }
   };
-  const handleBlur = () => {
-    if (value < 3) handleSetValue(3);
-    if (value > 7) handleSetValue(7);
-  };
+
   return (
     <Box
       className="Counter_Main"
       sx={{
-        width: {
-          md: "80%",
-        },
+        width: "80%",
+        overflow: "hidden",
       }}
     >
-      <Box>
+      <Box
+        sx={{
+          background:
+            formData.date.from.length > 0 || formData.date.to.length > 0
+              ? "#f9f9f9"
+              : "#fff",
+        }}
+      >
         <input
           type="number"
           value={value}
           onChange={(event) => handleSetValue(event.target.value)}
-          onBlur={() => handleBlur()}
+          disabled={
+            formData.date.from.length > 0 || formData.date.to.length > 0
+              ? true
+              : false
+          }
+          min={3}
+          max={7}
         />
         <div className="Counter_Counter">
           <Image onClick={() => handleValue("-")} src={plus} />

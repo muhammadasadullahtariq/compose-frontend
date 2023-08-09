@@ -13,7 +13,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import ProtectedPageRoute, { clearToken } from "@/app/protected-page-route";
 import * as COLORS from "@/constants/colors";
 import Snackbar from "@mui/material/Snackbar";
@@ -32,30 +32,30 @@ function ResponsiveAppBar({ ref }) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const router = useRouter();
   const [signUpHide, setSignUpHide] = React.useState(false);
-  const [pages, setPages] = React.useState(["Homepage"]);
+  const [pages, setPages] = React.useState([""]);
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState("");
   const [severity, setSeverity] = React.useState("success");
   const auth = getAuth();
-
+  const pathName = usePathname();
   const [iModel, setIModel] = React.useState(false);
   const iModelHandle = () => {
-    // const userLogedIn = ProtectedPageRoute();
-    // console.log("hide sign up", userLogedIn, "sign up hide");
-    // if (userLogedIn) {
-    //   setSignUpHide(true);
-    //   setPages(["Homepage", "Logout"]);
-    // }
+    const userLogedIn = ProtectedPageRoute();
+    console.log("hide sign up", userLogedIn, "sign up hide");
+    if (userLogedIn) {
+      setSignUpHide(true);
+      setPages([ "Logout"]);
+    }
     setIModel(!iModel);
   };
   const [uModel, setUModel] = React.useState(false);
   const uModelHandle = () => {
-    // const userLogedIn = ProtectedPageRoute();
-    // console.log("hide sign up", userLogedIn, "sign up hide");
-    // if (userLogedIn) {
-    //   setSignUpHide(true);
-    //   setPages(["Homepage", "Logout"]);
-    // }
+    const userLogedIn = ProtectedPageRoute();
+    console.log("hide sign up", userLogedIn, "sign up hide");
+    if (userLogedIn) {
+      setSignUpHide(true);
+      setPages([ "Logout"]);
+    }
     setUModel(!uModel);
   };
 
@@ -72,7 +72,7 @@ function ResponsiveAppBar({ ref }) {
           setOpen(true);
           clearToken();
           setSignUpHide(false);
-          setPages(["Homepage"]);
+          setPages([""]);
         })
         .catch((error) => {
           console.log(error);
@@ -92,10 +92,10 @@ function ResponsiveAppBar({ ref }) {
     console.log("hide sign up", userLogedIn, "sign up hide");
     if (userLogedIn) {
       setSignUpHide(true);
-      setPages(["Homepage", "Logout"]);
+      setPages(["Logout"]);
     }
   }, []);
-
+  console.log(pathName.includes("questionaire"), "pathName");
   return (
     <AppBar
       position="static"
@@ -149,7 +149,7 @@ function ResponsiveAppBar({ ref }) {
             >
               COMPOSETRIP
             </Typography>
-            {!signUpHide && (
+            {!signUpHide && !pathName.includes("questionaire") && (
               <SignUp
                 open={iModel}
                 handleModel={iModelHandle}
@@ -161,25 +161,18 @@ function ResponsiveAppBar({ ref }) {
                     backgroundColor: COLORS.primary,
                     color: "white",
                     borderRadius: "20px",
-                    width: "79px",
+
                     height: "27px",
+                    fontSize: "12px",
+                    fontWeight: "500",
+                    fontFamily: "raleway",
                     alignSelf: "center",
                   }}
                   onMouseOver={(e) => {
                     e.target.style.backgroundColor = COLORS.primary;
                   }}
                 >
-                  <Typography
-                    color="white"
-                    textAlign="center"
-                    sx={{
-                      fontSize: "12px",
-                      fontWeight: "500",
-                      fontFamily: "raleway",
-                    }}
-                  >
-                    Sign up
-                  </Typography>
+                  Get started
                 </Button>
               </SignUp>
             )}
@@ -256,8 +249,8 @@ function ResponsiveAppBar({ ref }) {
                   <Typography
                     textAlign="center"
                     sx={{
-                      fontSize: "18px",
-                      fontWeight: "500",
+                      fontSize: "16px",
+                      fontWeight: "400",
                       fontFamily: "raleway",
                       color: COLORS.black,
                     }}
@@ -268,7 +261,7 @@ function ResponsiveAppBar({ ref }) {
               </SignIn>
             )}
 
-            {!signUpHide && (
+            {!signUpHide && !pathName.includes("questionaire") && (
               <SignUp
                 open={iModel}
                 handleModel={iModelHandle}
@@ -279,26 +272,18 @@ function ResponsiveAppBar({ ref }) {
                     backgroundColor: COLORS.primary,
                     color: "white",
                     borderRadius: "20px",
-                    width: "128px",
-                    height: "41px",
+                    padding: "7px 16px",
                     mr: 2,
+                    fontSize: "16px",
+                    fontWeight: "400",
+                    fontFamily: "raleway",
                   }}
                   //hover effect
                   onMouseOver={(e) => {
                     e.target.style.backgroundColor = COLORS.primary;
                   }}
                 >
-                  <Typography
-                    color="white"
-                    textAlign="center"
-                    sx={{
-                      fontSize: "18px",
-                      fontWeight: "500",
-                      fontFamily: "raleway",
-                    }}
-                  >
-                    Sign up
-                  </Typography>
+                  Get Started
                 </Button>
               </SignUp>
             )}

@@ -56,7 +56,7 @@ function SecondBlock() {
                 textAlign: { md: "center", xs: "center", lg: "left" },
               }}
             >
-              Tailor Your Travel&nbsp;
+              HASSLE FREE&nbsp;
               <Typography
                 as="span"
                 sx={{
@@ -67,8 +67,9 @@ function SecondBlock() {
                   color: COLORS.primary,
                 }}
               >
-                Experience &nbsp;
+                PLANNING &nbsp;
               </Typography>
+              EXPERIENCE
             </Typography>
             <Typography
               sx={{
@@ -80,10 +81,10 @@ function SecondBlock() {
                 width: { xs: "100%", md: "100%", lg: "100%" },
               }}
             >
-              Customize your voyage to mirror your unique travel style. No
-              matter who your travel companions are, ComposeTrip provides an
-              itinerary as distinctive as you are. Enter your travel duration,
-              purpose, and interests for a one-of-a-kind travel blueprint.
+              Discover your dream trip effortlessly with us! We prioritize
+              relevance to save you time and energy, delivering a stress-free
+              travel planning experience. Don't wait—start your next adventure
+              now!
             </Typography>
           </Box>
           <Box

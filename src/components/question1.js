@@ -17,7 +17,7 @@ const Question1 = () => {
   const [country, setCountry] = React.useState("");
   const [city, setCity] = React.useState("");
   const handleButtonClick = () => {
-    if (country.length != "" || city.length != "") {
+    if (country.length != "" || city.length != 0) {
       dispatch({ type: "UPDATE_DATA", payload: { city: city } });
       dispatch({ type: "UPDATE_DATA", payload: { country: country } });
     }
@@ -67,6 +67,7 @@ const Question1 = () => {
         list={countries}
         setCountry={setCountry}
         country={country}
+        city={city}
       />
 
       <Box
@@ -102,12 +103,7 @@ const Question1 = () => {
           I already know the cities
         </Typography>
       </Box>
-      <CustomAutocomplete
-        cities={city}
-        setCities={setCity}
-        list={citiesList}
-        city={city}
-      />
+      <CustomAutocomplete cities={city} setCities={setCity} list={citiesList} />
     </Box>
   );
 };

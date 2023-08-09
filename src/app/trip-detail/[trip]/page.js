@@ -12,51 +12,48 @@ import Itinerary from "@/components/modals/itinerary";
 import "../style.css";
 import getTripDetailById from "@/apis/getTripDetail";
 import { useParams } from "next/navigation";
+import CircleIcon from "@mui/icons-material/Circle";
 
-// const trip = [
-//   {
-//     day: "1",
-//     location: "Male, Maldives",
-//     activities: [
-//       {
-//         time: "09:00am-01:00 pm",
-//         desc: "Lorem ipsum dolor sit amet consectetur. Habitasse quisque ultrices ac interdum eget eget. Odio nulla volutpat mi dignissim. Dictum consectetur ipsum netus massa sem. Adipiscing adipiscing orci tempor id nunc ut fames. Lorem ipsum dolor sit amet consectetur.",
-//         image: true,
-//       },
-//       {
-//         time: "09:00am-01:00 pm",
-//         desc: "Lorem ipsum dolor sit amet consectetur. Habitasse quisque ultrices ac interdum eget eget. Odio nulla volutpat mi dignissim. Dictum consectetur ipsum netus massa sem. Adipiscing adipiscing orci tempor id nunc ut fames. Lorem ipsum dolor sit amet consectetur.",
-//         image: true,
-//       },
-//       {
-//         time: "09:00am-01:00 pm",
-//         desc: "Lorem ipsum dolor sit amet consectetur. Habitasse quisque ultrices ac interdum eget eget. Odio nulla volutpat mi dignissim. Dictum consectetur ipsum netus massa sem. Adipiscing adipiscing orci tempor id nunc ut fames. Lorem ipsum dolor sit amet consectetur.",
-//         image: true,
-//       },
-//       { time: "09:00am-01:00 pm", desc: "bed time" },
-//     ],
-//   },
-//   {
-//     day: "2",
-//     location: "Male, Maldives",
-//     activities: [
-//       {
-//         time: "09:00am-01:00 pm",
-//         desc: "Lorem ipsum dolor sit amet consectetur. Habitasse quisque ultrices ac interdum eget eget. Odio nulla volutpat mi dignissim. Dictum consectetur ipsum netus massa sem. Adipiscing adipiscing orci tempor id nunc ut fames. Lorem ipsum dolor sit amet consectetur.",
-//         image: true,
-//       },
-//       {
-//         time: "09:00am-01:00 pm",
-//         desc: "Lorem ipsum dolor sit amet consectetur. Habitasse quisque ultrices ac interdum eget eget. Odio nulla volutpat mi dignissim. Dictum consectetur ipsum netus massa sem. Adipiscing adipiscing orci tempor id nunc ut fames. Lorem ipsum dolor sit amet consectetur.",
-//         image: true,
-//       },
-//       {
-//         time: "09:00am-01:00 pm",
-//         desc: "Lorem ipsum dolor sit amet consectetur. Habitasse quisque ultrices ac interdum eget eget. Odio nulla volutpat mi dignissim. Dictum consectetur ipsum netus massa sem. Adipiscing adipiscing orci tempor id nunc ut fames. Lorem ipsum dolor sit amet consectetur.",
-//       },
-//     ],
-//   },
-// ];
+const TextRender = ({ name, description, color }) => {
+  return (
+    <Box
+      sx={{
+        backgroundColor: color,
+        display: "flex",
+        flexDirection: "row",
+        //alignItems: "center",
+        padding: {
+          lg: "0 50px 0 50px",
+          md: "0 30px 0 30px",
+          xs: "0 20px 0 20px",
+        },
+      }}
+    >
+      <Typography
+        sx={{
+          fontSize: "18px",
+          fontWeight: "600",
+          fontFamily: "Raleway",
+          padding: "25px 0 25px 0",
+        }}
+      >
+        {name}
+        <Typography
+          as="span"
+          sx={{
+            fontSize: "16px",
+            fontWeight: "500",
+            fontFamily: "Raleway",
+            padding: "27px 0 27px 0",
+          }}
+        >
+          {description}
+        </Typography>
+      </Typography>
+    </Box>
+  );
+};
+
 const TripDetail = () => {
   const [saveModal, setSaveModal] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -74,13 +71,13 @@ const TripDetail = () => {
   }, []);
 
   useEffect(() => {
-    tripDetail?.trip?.forEach((element) => {
-      element.activities.forEach((activity) => {
-        if (activity.image) {
-          setCityImage(activity.image);
-        }
-      });
-    });
+    // tripDetail?.trip?.forEach((element) => {
+    //   element.activities.forEach((activity) => {
+    //     if (activity.image) {
+    //       setCityImage(activity.image);
+    //     }
+    //   });
+    // });
   }, [tripDetail]);
 
   return (
@@ -91,7 +88,7 @@ const TripDetail = () => {
         sx={{
           width: "100%",
           height: "80vh",
-          background: `url(${cityImage})`,
+          backgroundImage: "url('../cloud.jpeg')",
         }}
       >
         <Container sx={{ height: "100%" }}>
@@ -275,7 +272,14 @@ const TripDetail = () => {
                               >
                                 {activity.startTime + "-" + activity.endTime}
                               </Typography>
-                              <Box sx={{ paddingTop: "15px" }}>
+                              <Box
+                                sx={{
+                                  paddingTop: "15px",
+                                  marginBottom: activity?.image
+                                    ? "0px"
+                                    : "15px",
+                                }}
+                              >
                                 <p>{activity.description}</p>
                               </Box>
                               {activity.image && (
@@ -406,6 +410,271 @@ const TripDetail = () => {
           </Button>
         </Box>
       </Box>
+      <Typography
+        sx={{
+          fontSize: "22px",
+          fontWeight: "700",
+          textAlign: "center",
+          marginBottom: "20px",
+          fontFamily: "Raleway",
+        }}
+      >
+        Resturants
+      </Typography>
+      {tripDetail?.restaurants?.map((item) => {
+        return (
+          <Box
+            sx={{
+              margin: {
+                lg: "0 70px 0 70px",
+                md: "0 50px 0 50px",
+                xs: "0",
+              },
+            }}
+          >
+            <TextRender
+              name="Name:&nbsp;"
+              description={item.restaurant}
+              color="#F9F9F9"
+            ></TextRender>
+            <TextRender
+              name="Location:&nbsp;"
+              description={item.location}
+              color="#FFFFFF"
+            ></TextRender>
+            <TextRender
+              name="Description:&nbsp;"
+              description={item.description}
+              color="#F9F9F9"
+            ></TextRender>
+            <Box
+              sx={{
+                margin: "25px 20 25px 20",
+                height: "50px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Box
+                sx={{
+                  height: "1px",
+                  margin: "0 20px 0 20px",
+                  width: "100%",
+                  background: "#F3F4F8",
+                }}
+              ></Box>
+            </Box>
+          </Box>
+        );
+      })}
+      <Typography
+        sx={{
+          fontSize: "22px",
+          fontWeight: "700",
+          textAlign: "center",
+          marginBottom: "20px",
+          fontFamily: "Raleway",
+        }}
+      >
+        CULTURE
+      </Typography>
+      <Typography
+        sx={{
+          fontSize: "18px",
+          fontWeight: "700",
+          marginBottom: "20px",
+          fontFamily: "Raleway",
+          marginLeft: {
+            lg: "70px",
+            md: "50px",
+            xs: "20px",
+          },
+        }}
+      >
+        Do’s
+      </Typography>
+      {tripDetail?.dosCulture?.map((item, index) => {
+        return (
+          <Box
+            sx={{
+              margin: {
+                lg: "0 70px 0 70px",
+                md: "0 50px 0 50px",
+                xs: "0",
+              },
+            }}
+          >
+            <TextRender
+              name={
+                <CircleIcon
+                  sx={{
+                    height: "10px",
+                    width: "10px",
+                  }}
+                />
+              }
+              description={"  " + item}
+              color={index % 2 == 0 ? "#F9F9F9" : "#FFFFFF"}
+            ></TextRender>
+          </Box>
+        );
+      })}
+      <Typography
+        sx={{
+          fontSize: "18px",
+          fontWeight: "700",
+          marginBottom: "20px",
+          marginTop: "20px",
+          fontFamily: "Raleway",
+          marginLeft: {
+            lg: "70px",
+            md: "50px",
+            xs: "20px",
+          },
+        }}
+      >
+        Dont’s
+      </Typography>
+      {tripDetail?.dontsCulture?.map((item, index) => {
+        return (
+          <Box
+            sx={{
+              margin: {
+                lg: "0 70px 0 70px",
+                md: "0 50px 0 50px",
+                xs: "0",
+              },
+            }}
+          >
+            <TextRender
+              name={
+                <CircleIcon
+                  sx={{
+                    height: "10px",
+                    width: "10px",
+                  }}
+                />
+              }
+              description={"  " + item}
+              color={index % 2 == 0 ? "#F9F9F9" : "#FFFFFF"}
+            ></TextRender>
+          </Box>
+        );
+      })}
+      <Box
+        sx={{
+          margin: "70px 20 70px 20",
+          height: "50px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Box
+          sx={{
+            height: "1px",
+            margin: "0 90px 0 90px",
+            width: "100%",
+            background: "#F3F4F8",
+          }}
+        ></Box>
+      </Box>
+      <Typography
+        sx={{
+          fontSize: "22px",
+          fontWeight: "700",
+          textAlign: "center",
+          marginBottom: "20px",
+          fontFamily: "Raleway",
+        }}
+      >
+        Health
+      </Typography>
+      <Typography
+        sx={{
+          fontSize: "18px",
+          fontWeight: "700",
+          marginBottom: "20px",
+          fontFamily: "Raleway",
+          marginLeft: {
+            lg: "70px",
+            md: "50px",
+            xs: "20px",
+          },
+        }}
+      >
+        Do’s
+      </Typography>
+      {tripDetail?.dosHealth?.map((item, index) => {
+        return (
+          <Box
+            sx={{
+              margin: {
+                lg: "0 70px 0 70px",
+                md: "0 50px 0 50px",
+                xs: "0",
+              },
+            }}
+          >
+            <TextRender
+              name={
+                <CircleIcon
+                  sx={{
+                    height: "10px",
+                    width: "10px",
+                  }}
+                />
+              }
+              description={"  " + item}
+              color={index % 2 == 0 ? "#F9F9F9" : "#FFFFFF"}
+            ></TextRender>
+          </Box>
+        );
+      })}
+      <Typography
+        sx={{
+          fontSize: "18px",
+          fontWeight: "700",
+          marginBottom: "20px",
+          marginTop: "20px",
+          fontFamily: "Raleway",
+          marginLeft: {
+            lg: "70px",
+            md: "50px",
+            xs: "20px",
+          },
+        }}
+      >
+        Dont’s
+      </Typography>
+      {tripDetail?.dontsHealth?.map((item, index) => {
+        return (
+          <Box
+            sx={{
+              margin: {
+                lg: "0 70px 0 70px",
+                md: "0 50px 0 50px",
+                xs: "0",
+              },
+            }}
+          >
+            <TextRender
+              name={
+                <CircleIcon
+                  sx={{
+                    height: "10px",
+                    width: "10px",
+                  }}
+                />
+              }
+              description={"  " + item}
+              color={index % 2 == 0 ? "#F9F9F9" : "#FFFFFF"}
+            ></TextRender>
+          </Box>
+        );
+      })}
+
       <Footer />
       <Itinerary
         open={saveModal}

@@ -15,6 +15,7 @@ import Image from "next/image";
 import headerImage from "@/assets/images/pageMainImage.svg";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Footer from "@/components/footer";
+import blockImage from "@/assets/images/firstBlock.svg";
 import Testimonials from "@/components/testimonials";
 import { removeSpacesFromString } from "../lib/CreateSlug";
 import Recaptchs from "../components/recaptcha_modal/index";
@@ -78,11 +79,7 @@ function ResponsiveAppBar() {
               ComposeTrip&nbsp;
             </Typography>
           </Typography>
-          <Box
-            sx={{
-              height: "10px",
-            }}
-          />
+
           <Typography
             sx={{
               whiteSpace: "pre-wrap",
@@ -95,7 +92,7 @@ function ResponsiveAppBar() {
               lineHeight: "30px",
             }}
           >
-            Your Personal{" "}
+            COMPOSE A{" "}
             <Typography
               as="span"
               sx={{
@@ -107,9 +104,9 @@ function ResponsiveAppBar() {
                 color: COLORS.primary,
               }}
             >
-              Travel{" "}
+              TRIP{" "}
             </Typography>
-            Guide
+            IN MINUTES
           </Typography>
           <Typography
             sx={{
@@ -122,10 +119,8 @@ function ResponsiveAppBar() {
               width: { xs: "100%", md: "100%", lg: "100%" },
             }}
           >
-            Engineered for curious explorers, adventure enthusiasts, history
-            lovers, and relaxation seekers, ComposeTrip utilizes
-            state-of-the-art AI to tailor the perfect itinerary for your next
-            journey.
+            GET A TAILORED ITINERARY SPECIFIC TO YOU AND EXPERIENCE THE MAGIC OF
+            PERSONALIZED ADVENTURES.
           </Typography>
           <Grid container justifyContent={{ xs: "center", lg: "left" }}>
             <Button
@@ -134,25 +129,16 @@ function ResponsiveAppBar() {
                 borderRadius: "30px",
                 border: "none",
                 outline: "none",
-                borderColor: COLORS.buttonMobileColor,
+                borderColor: COLORS.primary,
                 marginTop: "20px",
-                backgroundColor: COLORS.buttonMobileColor,
+                backgroundColor: COLORS.primary,
                 "&:hover": {
-                  backgroundColor: COLORS.buttonMobileColor,
+                  backgroundColor: COLORS.primary,
                   border: "none",
                   outline: "none",
                 },
               }}
               onClick={() => {
-                // console.log("clicked");
-                // const user = ProtectedPageRoute();
-                // console.log(user);
-                // if (!user) {
-                //   router.push("/signup");
-                // } else {
-                //   const firstEl = removeSpacesFromString(questions[0].navTitle);
-                //   router.push("/questionaire/" + firstEl);
-                // }
                 router.push("/questionaire/where to");
               }}
             >
@@ -177,13 +163,13 @@ function ResponsiveAppBar() {
             </Button>
           </Grid>
         </Box>
-        <Image src={headerImage} alt="headerImage" />
+        <Image src={blockImage} alt="headerImage" />
       </Box>
       <FirstBloack />
       <SecondBlock />
-      <ThirdBlock />
-      <FourthBlock />
-      <Testimonials />
+      {/* <ThirdBlock /> */}
+      {/* <FourthBlock /> */}
+      {/* <Testimonials /> */}
       <Footer />
     </Box>
   );

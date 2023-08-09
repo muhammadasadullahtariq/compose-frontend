@@ -1,9 +1,10 @@
-const { useState, useCallback, useEffect } = require("react");
+import { useState, useCallback, useEffect } from "react";
+import { Box } from "@mui/material";
 import Image from "next/image";
 import "./index.css";
 import drop from "../../../assets/images/icons/drop.svg";
 
-const Autocomplete = ({ list, cities, setCities, city }) => {
+const Autocomplete = ({ list, cities, setCities }) => {
   //const [chosen, setChosen] = useState([]);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
@@ -17,7 +18,15 @@ const Autocomplete = ({ list, cities, setCities, city }) => {
       : list;
 
   const handleSelection = (key) => {
-    setValue(key);
+    const array = value.length > 0 ? value.split(", ") : [];
+    array.pop();
+    array.push(key);
+    setValue("");
+    let temp = "";
+    array.map((k) => {
+      temp += k + ", ";
+    });
+    setValue(temp);
     setOpen(false);
   };
 
@@ -38,13 +47,18 @@ const Autocomplete = ({ list, cities, setCities, city }) => {
   }, []);
 
   useEffect(() => {
-    setCities(value);
+    const array = value.length > 0 ? value.split(", ") : [];
+    setCities(array);
     //setChosen(array);
-    setSearchText(value);
+    setSearchText(array[array.length - 1]);
   }, [value]);
+
   useEffect(() => {
-    setValue(city);
-  }, [city]);
+    if (cities.length) {
+      const citiesValue = cities.join(", ");
+      setValue(citiesValue);
+    }
+  }, [cities]);
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -57,7 +71,7 @@ const Autocomplete = ({ list, cities, setCities, city }) => {
           className="Autocomplete_Backdrop"
         ></div>
       )}
-      <div className="Autocomplete_Main">
+      <Box className="Autocomplete_Main">
         <input
           onChange={handleChange}
           value={value}
@@ -77,7 +91,7 @@ const Autocomplete = ({ list, cities, setCities, city }) => {
             ))}
           </div>
         )}
-      </div>
+      </Box>
     </>
   );
 };
