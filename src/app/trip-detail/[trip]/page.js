@@ -4,6 +4,7 @@ import { Container, Box, Typography, Grid, Button } from "@mui/material";
 import SavedIcon from "@/assets/images/tripDetails/icons/saved.svg";
 import OpenIcon from "@/assets/images/tripDetails/icons/openLink.svg";
 import LocationIcon from "@/assets/images/tripDetails/icons/location.svg";
+import StarIcon from "@/assets/images/tripDetails/icons/star.svg";
 import TimeIcon from "@/assets/images/tripDetails/icons/time.svg";
 import Image from "next/image";
 import AppBar from "@/components/navbar";
@@ -71,13 +72,13 @@ const TripDetail = () => {
   }, []);
 
   useEffect(() => {
-    // tripDetail?.trip?.forEach((element) => {
-    //   element.activities.forEach((activity) => {
-    //     if (activity.image) {
-    //       setCityImage(activity.image);
-    //     }
-    //   });
-    // });
+    tripDetail?.trip?.forEach((element) => {
+      element.activities.forEach((activity) => {
+        if (activity.image) {
+          setCityImage(activity.image);
+        }
+      });
+    });
   }, [tripDetail]);
 
   return (
@@ -88,7 +89,10 @@ const TripDetail = () => {
         sx={{
           width: "100%",
           height: "80vh",
-          backgroundImage: "url('../cloud.jpeg')",
+          backgroundImage:
+            cityImage != ""
+              ? `url(${cityImage})`
+              : "url('/assets/img/cloud.jpeg')",
         }}
       >
         <Container sx={{ height: "100%" }}>
@@ -235,8 +239,44 @@ const TripDetail = () => {
                       </Box>
                     </Box>
                   </Box>
+
                   {item.activities.map((activity, index) => (
                     <>
+                      <Box sx={{ width: "100%" }}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "flex-start",
+                            marginBottom: "10px",
+                            gap: "20px",
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              flexDirection: "column",
+                            }}
+                          >
+                            <Image
+                              src={StarIcon}
+                              width="17"
+                              alt="location-icon"
+                            />
+                          </Box>
+                          <Box>
+                            <Box>
+                              <Typography
+                                variant="h4"
+                                sx={{ fontSize: "18px", fontWeight: "200" }}
+                              >
+                                {activity.activity}
+                              </Typography>
+                            </Box>
+                          </Box>
+                        </Box>
+                      </Box>
                       <Box sx={{ width: "100%" }}>
                         <Grid
                           container

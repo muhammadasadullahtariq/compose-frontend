@@ -6,7 +6,7 @@ const getTripDetailById = async (id) => {
     };
 
     const response = await fetch(
-      `http://localhost:3000/api/getTripDetails/${id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}getTripDetails/${id}`,
       requestOptions
     );
     const data = await response.json();
