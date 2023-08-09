@@ -221,10 +221,12 @@ const Question2 = () => {
               if (date === 1) {
                 setFormData({
                   ...formData,
+                  length: 0,
                   date: { ...formData.date, from: value },
                 });
               } else {
                 setFormData({
+                  length: 0,
                   ...formData,
                   date: { ...formData.date, to: value },
                 });

@@ -35,7 +35,7 @@ const Question7 = () => {
                 height: "123px",
                 borderRadius: "10px",
                 background: {
-                  md:
+                  sm:
                     index % 2 !== 0
                       ? COLORS.questionBlockBlueColor
                       : COLORS.questionBlockGrayColor,
