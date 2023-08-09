@@ -88,11 +88,15 @@ export default function Layout({ children }) {
       <AppBar />
       <Recaptchs
         open={recaptchaOpen}
-        handleModel={(value) => {
+        handleModel={async (value) => {
           console.log("handleModel");
           setRecaptchaOpen(false);
           if (value) {
-            createTrip(data);
+            const response = await createTrip(data);
+            console.log("response", response);
+            if (response.message == "Trip created") {
+              router.push("/trip-detail/" + response.data);
+            }
           }
         }}
       />

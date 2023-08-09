@@ -1,63 +1,88 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Box, Typography, Grid, Button } from "@mui/material";
-import SavedIcon from "../../assets/images/tripDetails/icons/saved.svg";
-import OpenIcon from "../../assets/images/tripDetails/icons/openLink.svg";
-import LocationIcon from "../../assets/images/tripDetails/icons/location.svg";
-import TimeIcon from "../../assets/images/tripDetails/icons/time.svg";
+import SavedIcon from "@/assets/images/tripDetails/icons/saved.svg";
+import OpenIcon from "@/assets/images/tripDetails/icons/openLink.svg";
+import LocationIcon from "@/assets/images/tripDetails/icons/location.svg";
+import TimeIcon from "@/assets/images/tripDetails/icons/time.svg";
 import Image from "next/image";
 import AppBar from "@/components/navbar";
 import Footer from "@/components/footer";
 import Itinerary from "@/components/modals/itinerary";
-import "./style.css";
+import "../style.css";
+import getTripDetailById from "@/apis/getTripDetail";
+import { useParams } from "next/navigation";
 
-const trip = [
-  {
-    day: "1",
-    location: "Male, Maldives",
-    activities: [
-      {
-        time: "09:00am-01:00 pm",
-        desc: "Lorem ipsum dolor sit amet consectetur. Habitasse quisque ultrices ac interdum eget eget. Odio nulla volutpat mi dignissim. Dictum consectetur ipsum netus massa sem. Adipiscing adipiscing orci tempor id nunc ut fames. Lorem ipsum dolor sit amet consectetur.",
-        image: true,
-      },
-      {
-        time: "09:00am-01:00 pm",
-        desc: "Lorem ipsum dolor sit amet consectetur. Habitasse quisque ultrices ac interdum eget eget. Odio nulla volutpat mi dignissim. Dictum consectetur ipsum netus massa sem. Adipiscing adipiscing orci tempor id nunc ut fames. Lorem ipsum dolor sit amet consectetur.",
-        image: true,
-      },
-      {
-        time: "09:00am-01:00 pm",
-        desc: "Lorem ipsum dolor sit amet consectetur. Habitasse quisque ultrices ac interdum eget eget. Odio nulla volutpat mi dignissim. Dictum consectetur ipsum netus massa sem. Adipiscing adipiscing orci tempor id nunc ut fames. Lorem ipsum dolor sit amet consectetur.",
-        image: true,
-      },
-      { time: "09:00am-01:00 pm", desc: "bed time" },
-    ],
-  },
-  {
-    day: "2",
-    location: "Male, Maldives",
-    activities: [
-      {
-        time: "09:00am-01:00 pm",
-        desc: "Lorem ipsum dolor sit amet consectetur. Habitasse quisque ultrices ac interdum eget eget. Odio nulla volutpat mi dignissim. Dictum consectetur ipsum netus massa sem. Adipiscing adipiscing orci tempor id nunc ut fames. Lorem ipsum dolor sit amet consectetur.",
-        image: true,
-      },
-      {
-        time: "09:00am-01:00 pm",
-        desc: "Lorem ipsum dolor sit amet consectetur. Habitasse quisque ultrices ac interdum eget eget. Odio nulla volutpat mi dignissim. Dictum consectetur ipsum netus massa sem. Adipiscing adipiscing orci tempor id nunc ut fames. Lorem ipsum dolor sit amet consectetur.",
-        image: true,
-      },
-      {
-        time: "09:00am-01:00 pm",
-        desc: "Lorem ipsum dolor sit amet consectetur. Habitasse quisque ultrices ac interdum eget eget. Odio nulla volutpat mi dignissim. Dictum consectetur ipsum netus massa sem. Adipiscing adipiscing orci tempor id nunc ut fames. Lorem ipsum dolor sit amet consectetur.",
-      },
-    ],
-  },
-];
+// const trip = [
+//   {
+//     day: "1",
+//     location: "Male, Maldives",
+//     activities: [
+//       {
+//         time: "09:00am-01:00 pm",
+//         desc: "Lorem ipsum dolor sit amet consectetur. Habitasse quisque ultrices ac interdum eget eget. Odio nulla volutpat mi dignissim. Dictum consectetur ipsum netus massa sem. Adipiscing adipiscing orci tempor id nunc ut fames. Lorem ipsum dolor sit amet consectetur.",
+//         image: true,
+//       },
+//       {
+//         time: "09:00am-01:00 pm",
+//         desc: "Lorem ipsum dolor sit amet consectetur. Habitasse quisque ultrices ac interdum eget eget. Odio nulla volutpat mi dignissim. Dictum consectetur ipsum netus massa sem. Adipiscing adipiscing orci tempor id nunc ut fames. Lorem ipsum dolor sit amet consectetur.",
+//         image: true,
+//       },
+//       {
+//         time: "09:00am-01:00 pm",
+//         desc: "Lorem ipsum dolor sit amet consectetur. Habitasse quisque ultrices ac interdum eget eget. Odio nulla volutpat mi dignissim. Dictum consectetur ipsum netus massa sem. Adipiscing adipiscing orci tempor id nunc ut fames. Lorem ipsum dolor sit amet consectetur.",
+//         image: true,
+//       },
+//       { time: "09:00am-01:00 pm", desc: "bed time" },
+//     ],
+//   },
+//   {
+//     day: "2",
+//     location: "Male, Maldives",
+//     activities: [
+//       {
+//         time: "09:00am-01:00 pm",
+//         desc: "Lorem ipsum dolor sit amet consectetur. Habitasse quisque ultrices ac interdum eget eget. Odio nulla volutpat mi dignissim. Dictum consectetur ipsum netus massa sem. Adipiscing adipiscing orci tempor id nunc ut fames. Lorem ipsum dolor sit amet consectetur.",
+//         image: true,
+//       },
+//       {
+//         time: "09:00am-01:00 pm",
+//         desc: "Lorem ipsum dolor sit amet consectetur. Habitasse quisque ultrices ac interdum eget eget. Odio nulla volutpat mi dignissim. Dictum consectetur ipsum netus massa sem. Adipiscing adipiscing orci tempor id nunc ut fames. Lorem ipsum dolor sit amet consectetur.",
+//         image: true,
+//       },
+//       {
+//         time: "09:00am-01:00 pm",
+//         desc: "Lorem ipsum dolor sit amet consectetur. Habitasse quisque ultrices ac interdum eget eget. Odio nulla volutpat mi dignissim. Dictum consectetur ipsum netus massa sem. Adipiscing adipiscing orci tempor id nunc ut fames. Lorem ipsum dolor sit amet consectetur.",
+//       },
+//     ],
+//   },
+// ];
 const TripDetail = () => {
   const [saveModal, setSaveModal] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [tripDetail, setTripDetail] = useState({});
+  const [cityImage, setCityImage] = useState("");
+  const { trip } = useParams();
+
+  useEffect(() => {
+    (async () => {
+      console.log("trip detail");
+      const response = await getTripDetailById(trip);
+      console.log("response", response);
+      setTripDetail(response.data.chatGptResponse);
+    })();
+  }, []);
+
+  useEffect(() => {
+    tripDetail?.trip?.forEach((element) => {
+      element.activities.forEach((activity) => {
+        if (activity.image) {
+          setCityImage(activity.image);
+        }
+      });
+    });
+  }, [tripDetail]);
+
   return (
     <div>
       <AppBar />
@@ -66,6 +91,7 @@ const TripDetail = () => {
         sx={{
           width: "100%",
           height: "80vh",
+          background: `url(${cityImage})`,
         }}
       >
         <Container sx={{ height: "100%" }}>
@@ -92,7 +118,7 @@ const TripDetail = () => {
                 variant="h2"
                 sx={{ fontSize: "34px", fontWeight: "700" }}
               >
-                Maldives
+                {tripDetail?.trip ? tripDetail?.trip[0]?.location : ""}
               </Typography>
             </Box>
             <Box
@@ -154,7 +180,7 @@ const TripDetail = () => {
               width: "100%",
             }}
           >
-            {trip.map((item, tripIndex) => (
+            {tripDetail?.trip?.map((item, tripIndex) => (
               <>
                 <Typography
                   variant="h1"
@@ -247,10 +273,10 @@ const TripDetail = () => {
                                 variant="p"
                                 sx={{ fontSize: "16px", fontWeight: "400" }}
                               >
-                                {activity.time}
+                                {activity.startTime + "-" + activity.endTime}
                               </Typography>
                               <Box sx={{ paddingTop: "15px" }}>
-                                <p>{activity.desc}</p>
+                                <p>{activity.description}</p>
                               </Box>
                               {activity.image && (
                                 <Box
@@ -267,7 +293,7 @@ const TripDetail = () => {
 
                                     position: "relative",
 
-                                    backgroundImage: `url('https://picsum.photos/200/300')`,
+                                    backgroundImage: `url(${activity.image})`,
 
                                     backgroundRepeat: "no-repeat",
                                     backgroundSize: "cover",
@@ -292,21 +318,26 @@ const TripDetail = () => {
                                         marginLeft: "20px",
                                       }}
                                     >
-                                      {item.location}
+                                      {activity.activity}
                                     </Typography>
-                                    <Button
-                                      sx={{
-                                        marginRight: "20px",
-                                        borderRadius: "10px",
-                                        color: "#fff",
-                                        fontSize: "10px",
-                                        background: "#2b92d6",
-                                        padding: "9px 12px",
-                                        borderRadius: "20px",
-                                      }}
-                                    >
-                                      Book now
-                                    </Button>
+                                    {activity.url && (
+                                      <Button
+                                        sx={{
+                                          marginRight: "20px",
+                                          borderRadius: "10px",
+                                          color: "#fff",
+                                          fontSize: "10px",
+                                          background: "#2b92d6",
+                                          padding: "9px 12px",
+                                          borderRadius: "20px",
+                                        }}
+                                        onClick={() => {
+                                          window.open(activity.url);
+                                        }}
+                                      >
+                                        Book now
+                                      </Button>
+                                    )}
                                   </Box>
                                 </Box>
                               )}

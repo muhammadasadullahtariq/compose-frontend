@@ -61,7 +61,6 @@ const Itinerary = ({ open, handleModel, modalFor }) => {
                   background: "#2B92D5",
                   fontSize: "12px",
                   borderRadius: "20px",
-                  border: "1px solid ",
                 }}
               >
                 Yes
@@ -73,7 +72,6 @@ const Itinerary = ({ open, handleModel, modalFor }) => {
                   background: "transparent",
                   fontSize: "12px",
                   borderRadius: "20px",
-                  border: "1px solid #757780",
                 }}
               >
                 No
