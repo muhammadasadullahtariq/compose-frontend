@@ -14,6 +14,7 @@ import "../style.css";
 import getTripDetailById from "@/apis/getTripDetail";
 import { useParams } from "next/navigation";
 import CircleIcon from "@mui/icons-material/Circle";
+import saveTrip from "@/apis/saveTrip";
 
 const TextRender = ({ name, description, color }) => {
   return (
@@ -450,17 +451,19 @@ const TripDetail = () => {
           </Button>
         </Box>
       </Box>
-      <Typography
-        sx={{
-          fontSize: "22px",
-          fontWeight: "700",
-          textAlign: "center",
-          marginBottom: "20px",
-          fontFamily: "Raleway",
-        }}
-      >
-        Resturants
-      </Typography>
+      {tripDetail?.restaurants?.length > 0 && (
+        <Typography
+          sx={{
+            fontSize: "22px",
+            fontWeight: "700",
+            textAlign: "center",
+            marginBottom: "20px",
+            fontFamily: "Raleway",
+          }}
+        >
+          Resturants
+        </Typography>
+      )}
       {tripDetail?.restaurants?.map((item) => {
         return (
           <Box
@@ -508,217 +511,245 @@ const TripDetail = () => {
           </Box>
         );
       })}
-      <Typography
-        sx={{
-          fontSize: "22px",
-          fontWeight: "700",
-          textAlign: "center",
-          marginBottom: "20px",
-          fontFamily: "Raleway",
-        }}
-      >
-        CULTURE
-      </Typography>
-      <Typography
-        sx={{
-          fontSize: "18px",
-          fontWeight: "700",
-          marginBottom: "20px",
-          fontFamily: "Raleway",
-          marginLeft: {
-            lg: "70px",
-            md: "50px",
-            xs: "20px",
-          },
-        }}
-      >
-        Do’s
-      </Typography>
-      {tripDetail?.dosCulture?.map((item, index) => {
-        return (
-          <Box
-            sx={{
-              margin: {
-                lg: "0 70px 0 70px",
-                md: "0 50px 0 50px",
-                xs: "0",
-              },
-            }}
-          >
-            <TextRender
-              name={
-                <CircleIcon
-                  sx={{
-                    height: "10px",
-                    width: "10px",
-                  }}
-                />
-              }
-              description={"  " + item}
-              color={index % 2 == 0 ? "#F9F9F9" : "#FFFFFF"}
-            ></TextRender>
+      {tripDetail?.dosCulture?.length > 0 &&
+        tripDetail?.dontsCulture?.length > 0 && (
+          <Box>
+            <Typography
+              sx={{
+                fontSize: "22px",
+                fontWeight: "700",
+                textAlign: "center",
+                marginBottom: "20px",
+                fontFamily: "Raleway",
+              }}
+            >
+              CULTURE
+            </Typography>
+            {tripDetail?.dosCulture?.length > 0 && (
+              <Typography
+                sx={{
+                  fontSize: "18px",
+                  fontWeight: "700",
+                  marginBottom: "20px",
+                  fontFamily: "Raleway",
+                  marginLeft: {
+                    lg: "70px",
+                    md: "50px",
+                    xs: "20px",
+                  },
+                }}
+              >
+                Do’s
+              </Typography>
+            )}
+            {tripDetail?.dosCulture?.length > 0 &&
+              tripDetail?.dosCulture?.map((item, index) => {
+                return (
+                  <Box
+                    sx={{
+                      margin: {
+                        lg: "0 70px 0 70px",
+                        md: "0 50px 0 50px",
+                        xs: "0",
+                      },
+                    }}
+                  >
+                    <TextRender
+                      name={
+                        <CircleIcon
+                          sx={{
+                            height: "10px",
+                            width: "10px",
+                          }}
+                        />
+                      }
+                      description={"  " + item}
+                      color={index % 2 == 0 ? "#F9F9F9" : "#FFFFFF"}
+                    ></TextRender>
+                  </Box>
+                );
+              })}
+            {tripDetail?.dontsCulture?.length > 0 && (
+              <Typography
+                sx={{
+                  fontSize: "18px",
+                  fontWeight: "700",
+                  marginBottom: "20px",
+                  marginTop: "20px",
+                  fontFamily: "Raleway",
+                  marginLeft: {
+                    lg: "70px",
+                    md: "50px",
+                    xs: "20px",
+                  },
+                }}
+              >
+                Dont’s
+              </Typography>
+            )}
+            {tripDetail?.dontsCulture?.length > 0 &&
+              tripDetail?.dontsCulture?.map((item, index) => {
+                return (
+                  <Box
+                    sx={{
+                      margin: {
+                        lg: "0 70px 0 70px",
+                        md: "0 50px 0 50px",
+                        xs: "0",
+                      },
+                    }}
+                  >
+                    <TextRender
+                      name={
+                        <CircleIcon
+                          sx={{
+                            height: "10px",
+                            width: "10px",
+                          }}
+                        />
+                      }
+                      description={"  " + item}
+                      color={index % 2 == 0 ? "#F9F9F9" : "#FFFFFF"}
+                    ></TextRender>
+                  </Box>
+                );
+              })}
+            <Box
+              sx={{
+                margin: "70px 20 70px 20",
+                height: "50px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Box
+                sx={{
+                  height: "1px",
+                  margin: "0 90px 0 90px",
+                  width: "100%",
+                  background: "#F3F4F8",
+                }}
+              ></Box>
+            </Box>
           </Box>
-        );
-      })}
-      <Typography
-        sx={{
-          fontSize: "18px",
-          fontWeight: "700",
-          marginBottom: "20px",
-          marginTop: "20px",
-          fontFamily: "Raleway",
-          marginLeft: {
-            lg: "70px",
-            md: "50px",
-            xs: "20px",
-          },
-        }}
-      >
-        Dont’s
-      </Typography>
-      {tripDetail?.dontsCulture?.map((item, index) => {
-        return (
-          <Box
-            sx={{
-              margin: {
-                lg: "0 70px 0 70px",
-                md: "0 50px 0 50px",
-                xs: "0",
-              },
-            }}
-          >
-            <TextRender
-              name={
-                <CircleIcon
-                  sx={{
-                    height: "10px",
-                    width: "10px",
-                  }}
-                />
-              }
-              description={"  " + item}
-              color={index % 2 == 0 ? "#F9F9F9" : "#FFFFFF"}
-            ></TextRender>
+        )}
+      {tripDetail?.dosHealth?.length > 0 &&
+        tripDetail?.dontsHealth?.length > 0 && (
+          <Box>
+            <Typography
+              sx={{
+                fontSize: "22px",
+                fontWeight: "700",
+                textAlign: "center",
+                marginBottom: "20px",
+                fontFamily: "Raleway",
+              }}
+            >
+              Health
+            </Typography>
+            {tripDetail?.dosHealth?.length > 0 && (
+              <Typography
+                sx={{
+                  fontSize: "18px",
+                  fontWeight: "700",
+                  marginBottom: "20px",
+                  fontFamily: "Raleway",
+                  marginLeft: {
+                    lg: "70px",
+                    md: "50px",
+                    xs: "20px",
+                  },
+                }}
+              >
+                Do’s
+              </Typography>
+            )}
+            {tripDetail?.dosHealth?.length > 0 &&
+              tripDetail?.dosHealth?.map((item, index) => {
+                return (
+                  <Box
+                    sx={{
+                      margin: {
+                        lg: "0 70px 0 70px",
+                        md: "0 50px 0 50px",
+                        xs: "0",
+                      },
+                    }}
+                  >
+                    <TextRender
+                      name={
+                        <CircleIcon
+                          sx={{
+                            height: "10px",
+                            width: "10px",
+                          }}
+                        />
+                      }
+                      description={"  " + item}
+                      color={index % 2 == 0 ? "#F9F9F9" : "#FFFFFF"}
+                    ></TextRender>
+                  </Box>
+                );
+              })}
+            {tripDetail?.dontsHealth?.length > 0 && (
+              <Typography
+                sx={{
+                  fontSize: "18px",
+                  fontWeight: "700",
+                  marginBottom: "20px",
+                  marginTop: "20px",
+                  fontFamily: "Raleway",
+                  marginLeft: {
+                    lg: "70px",
+                    md: "50px",
+                    xs: "20px",
+                  },
+                }}
+              >
+                Dont’s
+              </Typography>
+            )}
+            {tripDetail?.dontsHealth?.length > 0 &&
+              tripDetail?.dontsHealth?.map((item, index) => {
+                return (
+                  <Box
+                    sx={{
+                      margin: {
+                        lg: "0 70px 0 70px",
+                        md: "0 50px 0 50px",
+                        xs: "0",
+                      },
+                    }}
+                  >
+                    <TextRender
+                      name={
+                        <CircleIcon
+                          sx={{
+                            height: "10px",
+                            width: "10px",
+                          }}
+                        />
+                      }
+                      description={"  " + item}
+                      color={index % 2 == 0 ? "#F9F9F9" : "#FFFFFF"}
+                    ></TextRender>
+                  </Box>
+                );
+              })}
           </Box>
-        );
-      })}
-      <Box
-        sx={{
-          margin: "70px 20 70px 20",
-          height: "50px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Box
-          sx={{
-            height: "1px",
-            margin: "0 90px 0 90px",
-            width: "100%",
-            background: "#F3F4F8",
-          }}
-        ></Box>
-      </Box>
-      <Typography
-        sx={{
-          fontSize: "22px",
-          fontWeight: "700",
-          textAlign: "center",
-          marginBottom: "20px",
-          fontFamily: "Raleway",
-        }}
-      >
-        Health
-      </Typography>
-      <Typography
-        sx={{
-          fontSize: "18px",
-          fontWeight: "700",
-          marginBottom: "20px",
-          fontFamily: "Raleway",
-          marginLeft: {
-            lg: "70px",
-            md: "50px",
-            xs: "20px",
-          },
-        }}
-      >
-        Do’s
-      </Typography>
-      {tripDetail?.dosHealth?.map((item, index) => {
-        return (
-          <Box
-            sx={{
-              margin: {
-                lg: "0 70px 0 70px",
-                md: "0 50px 0 50px",
-                xs: "0",
-              },
-            }}
-          >
-            <TextRender
-              name={
-                <CircleIcon
-                  sx={{
-                    height: "10px",
-                    width: "10px",
-                  }}
-                />
-              }
-              description={"  " + item}
-              color={index % 2 == 0 ? "#F9F9F9" : "#FFFFFF"}
-            ></TextRender>
-          </Box>
-        );
-      })}
-      <Typography
-        sx={{
-          fontSize: "18px",
-          fontWeight: "700",
-          marginBottom: "20px",
-          marginTop: "20px",
-          fontFamily: "Raleway",
-          marginLeft: {
-            lg: "70px",
-            md: "50px",
-            xs: "20px",
-          },
-        }}
-      >
-        Dont’s
-      </Typography>
-      {tripDetail?.dontsHealth?.map((item, index) => {
-        return (
-          <Box
-            sx={{
-              margin: {
-                lg: "0 70px 0 70px",
-                md: "0 50px 0 50px",
-                xs: "0",
-              },
-            }}
-          >
-            <TextRender
-              name={
-                <CircleIcon
-                  sx={{
-                    height: "10px",
-                    width: "10px",
-                  }}
-                />
-              }
-              description={"  " + item}
-              color={index % 2 == 0 ? "#F9F9F9" : "#FFFFFF"}
-            ></TextRender>
-          </Box>
-        );
-      })}
+        )}
 
       <Footer />
       <Itinerary
         open={saveModal}
         handleModel={() => setSaveModal(!saveModal)}
+        handerlSave={async (name) => {
+          setOpenModal(false);
+          const response = await saveTrip(trip, name);
+          console.log("response", response);
+          alert(response.message);
+        }}
         modalFor="save"
       />
       <Itinerary

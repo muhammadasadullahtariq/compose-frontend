@@ -17,6 +17,7 @@ const Question2 = () => {
   const [formData, setFormData] = React.useState({
     length: 3,
     month: "",
+    //from set to current date
     date: { to: "", from: "" },
   });
   const handleButtonClick = (value) => {
@@ -225,6 +226,8 @@ const Question2 = () => {
                   date: { ...formData.date, from: value },
                 });
               } else {
+                if (formData.date.from.length === 0) return;
+                if (new Date(formData.date.from) > new Date(value)) return;
                 setFormData({
                   length: 0,
                   ...formData,

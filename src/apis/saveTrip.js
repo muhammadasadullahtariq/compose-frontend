@@ -1,28 +1,27 @@
 import { getCookie } from "cookies-next";
 import checkUserExist from "./checkUserExist";
 
-const createTrip = async (data) => {
+const saveTrip = async (trip, tag) => {
   try {
-    const token = getCookie("token");
     const user = await checkUserExist();
     console.log("user data ", user);
-    const res = await fetch(`http://localhost:3000/api/createTrip`, {
+    const response = await fetch(`http://localhost:3000/api/saveTripWithTag`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "x-access-token": getCookie("token"),
       },
       body: JSON.stringify({
-        ...data,
+        trip,
+        tag,
         userId: user.data._id,
       }),
     });
-    const result = await res.json();
-    console.log("result of trip", result);
-    return result;
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.log(error);
   }
 };
 
-export default createTrip;
+export default saveTrip;

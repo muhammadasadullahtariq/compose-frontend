@@ -27,7 +27,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-function ResponsiveAppBar({ ref }) {
+function ResponsiveAppBar({ userAuthChanged }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const router = useRouter();
@@ -44,9 +44,16 @@ function ResponsiveAppBar({ ref }) {
     console.log("hide sign up", userLogedIn, "sign up hide");
     if (userLogedIn) {
       setSignUpHide(true);
-      setPages([ "Logout"]);
+      if (pathName.includes("saved-itinerary")) {
+        setPages(["Logout"]);
+      } else {
+        setPages(["Saved Trip", "Logout"]);
+      }
     }
     setIModel(!iModel);
+    if (userAuthChanged) {
+      userAuthChanged();
+    }
   };
   const [uModel, setUModel] = React.useState(false);
   const uModelHandle = () => {
@@ -54,9 +61,16 @@ function ResponsiveAppBar({ ref }) {
     console.log("hide sign up", userLogedIn, "sign up hide");
     if (userLogedIn) {
       setSignUpHide(true);
-      setPages([ "Logout"]);
+      if (pathName.includes("saved-itinerary")) {
+        setPages(["Logout"]);
+      } else {
+        setPages(["Saved Trip", "Logout"]);
+      }
     }
     setUModel(!uModel);
+    if (userAuthChanged) {
+      userAuthChanged();
+    }
   };
 
   const handleOpenNavMenu = (event) => {
@@ -81,8 +95,8 @@ function ResponsiveAppBar({ ref }) {
           setOpen(true);
         });
     } else if (page == "Login") {
-    } else if (page == "Homepage") {
-      router.push("/");
+    } else if (page == "Saved Trip") {
+      router.push("/saved-itinerary");
     }
     setAnchorElNav(null);
   };
@@ -92,10 +106,14 @@ function ResponsiveAppBar({ ref }) {
     console.log("hide sign up", userLogedIn, "sign up hide");
     if (userLogedIn) {
       setSignUpHide(true);
-      setPages(["Logout"]);
+      if (pathName.includes("saved-itinerary")) {
+        setPages(["Logout"]);
+      } else {
+        setPages(["Saved Trip", "Logout"]);
+      }
     }
   }, []);
-  console.log(pathName.includes("questionaire"), "pathName");
+
   return (
     <AppBar
       position="static"
@@ -136,7 +154,7 @@ function ResponsiveAppBar({ ref }) {
               variant="h5"
               noWrap
               component="a"
-              href=""
+              href="/"
               sx={{
                 display: { xs: "flex", md: "none" },
                 flexGrow: 1,
