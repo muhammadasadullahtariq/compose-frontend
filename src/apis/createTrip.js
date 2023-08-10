@@ -6,7 +6,7 @@ const createTrip = async (data) => {
     const token = getCookie("token");
     const user = await checkUserExist();
     console.log("user data ", user);
-    const res = await fetch(`http://localhost:3000/api/createTrip`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}createTrip`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

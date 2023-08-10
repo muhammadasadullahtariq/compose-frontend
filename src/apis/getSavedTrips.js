@@ -6,7 +6,7 @@ const getSavedTrips = async () => {
     const user = await checkUserExist();
     console.log("user data ", user);
     const response = await fetch(
-      `http://localhost:3000/api/getTripsByUserId/${user.data._id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}getTripsByUserId/${user.data._id}`,
       {
         method: "GET",
         headers: {
