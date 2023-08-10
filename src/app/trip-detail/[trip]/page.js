@@ -22,7 +22,6 @@ const TextRender = ({ name, description, color }) => {
         backgroundColor: color,
         display: "flex",
         flexDirection: "row",
-        //alignItems: "center",
         padding: {
           lg: "0 50px 0 50px",
           md: "0 30px 0 30px",
@@ -193,7 +192,7 @@ const TripDetail = () => {
                     marginBottom: "15px",
                   }}
                 >
-                  {item.day}
+                  {tripIndex + 1} Day
                 </Typography>
 
                 <Box
@@ -315,6 +314,7 @@ const TripDetail = () => {
                               <Box
                                 sx={{
                                   paddingTop: "15px",
+                                  width: "100%",
                                   marginBottom: activity?.image
                                     ? "0px"
                                     : "15px",

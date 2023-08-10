@@ -13,6 +13,8 @@ import Recaptchs from "@/components/recaptcha_modal";
 import { Router } from "next/router";
 import ProtectedPageRoute from "../protected-page-route";
 import createTrip from "@/apis/createTrip";
+import loadingGif from "@/assets/images/tripDetails/loader.gif";
+import Image from "next/image";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -26,6 +28,7 @@ export default function Layout({ children }) {
   const [message, setMessage] = React.useState("");
   const [severity, setSeverity] = React.useState("success");
   const [recaptchaOpen, setRecaptchaOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   const router = useRouter();
   const [data, dispatch] = useReducer(dataReducer, {
@@ -72,170 +75,99 @@ export default function Layout({ children }) {
     };
   }, []);
 
-  return (
-    <div>
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        onClose={() => setOpen(false)}
-      >
-        <Alert onClose={() => setOpen(false)} severity={severity}>
-          {message}
-        </Alert>
-      </Snackbar>
-      <AppBar />
-      <Recaptchs
-        open={recaptchaOpen}
-        handleModel={async (value) => {
-          console.log("handleModel");
-          setRecaptchaOpen(false);
-          if (value) {
-            const response = await createTrip(data);
-            console.log("response", response);
-            if (response.message == "Trip created") {
-              router.push("/trip-detail/" + response.data);
-            }
-          }
-        }}
-      />
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          height: { md: "90vh", xs: "calc(100vh - 64px)" },
-          backgroundColor: COLORS.primary,
-        }}
-      >
+  if (loading) {
+    return (
+      <div>
+        <AppBar />
         <Box
           sx={{
-            width: { md: "80%", xs: "100%" },
-            backgroundColor: "#F9F9F9",
-            borderRadius: { md: "20px", xs: "0" },
             display: "flex",
-            flexDirection: "row",
-
-            height: { lg: "80%", xs: "100%" },
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            height: { md: "90vh", xs: "calc(100vh - 64px)" },
+            backgroundColor: "#FCFCFF",
+          }}
+        >
+          <Image src={loadingGif} height={200} width={200}></Image>
+          <Typography>Please wait while we are creating your trip</Typography>
+        </Box>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={() => setOpen(false)}
+        >
+          <Alert onClose={() => setOpen(false)} severity={severity}>
+            {message}
+          </Alert>
+        </Snackbar>
+        <AppBar />
+        <Recaptchs
+          open={recaptchaOpen}
+          handleModel={async (value) => {
+            console.log("handleModel");
+            setRecaptchaOpen(false);
+            if (value) {
+              setLoading(true);
+              const response = await createTrip(data);
+              setLoading(false);
+              if (response.message == "Trip created") {
+                router.push("/trip-detail/" + response.data);
+              }
+            }
+          }}
+        />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            height: { md: "90vh", xs: "calc(100vh - 64px)" },
+            backgroundColor: COLORS.primary,
           }}
         >
           <Box
             sx={{
-              width: { md: "270px", xs: "60px" },
+              width: { md: "80%", xs: "100%" },
+              backgroundColor: "#F9F9F9",
+              borderRadius: { md: "20px", xs: "0" },
               display: "flex",
-              paddingTop: { md: "60px", xs: "20px" },
-              borderRight: 1,
-              paddingBottom: { xs: "20px" },
-              paddingX: { md: "0", xs: "20px" },
-              borderColor: "#D2D4DA",
+              flexDirection: "row",
+
+              height: { lg: "80%", xs: "100%" },
             }}
           >
             <Box
               sx={{
-                display: {
-                  md: "none",
-                  xs: "flex",
-                },
-                justifyContent: "start",
-                alignItems: "center",
-                flexDirection: "column",
-                width: "100%",
+                width: { md: "270px", xs: "60px" },
+                display: "flex",
+                paddingTop: { md: "60px", xs: "20px" },
+                borderRight: 1,
+                paddingBottom: { xs: "20px" },
+                paddingX: { md: "0", xs: "20px" },
+                borderColor: "#D2D4DA",
               }}
             >
-              {questionaires.map((question, index) => (
-                <Box
-                  onClick={() => {
-                    if (index <= indexOfQuestion) {
-                      router.push(
-                        "/questionaire/" + questionaires[index].navTitle
-                      );
-                      dispatch({
-                        type: "UPDATE_QUESTION_NUMBER",
-                        payload: index,
-                      });
-                      setIndexOfQuestion(index);
-                    }
-                  }}
-                  sx={{
-                    display: {
-                      md: "none",
-                      xs: "flex",
-                    },
-                    justifyContent: "center",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
-                  key={question.navTitle}
-                >
+              <Box
+                sx={{
+                  display: {
+                    md: "none",
+                    xs: "flex",
+                  },
+                  justifyContent: "start",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  width: "100%",
+                }}
+              >
+                {questionaires.map((question, index) => (
                   <Box
-                    sx={{
-                      display: "flex",
-                      width: "30px",
-                      height: "30px",
-                      borderRadius: "100%",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      border: "1px solid",
-                      borderColor:
-                        indexOfQuestion == index || indexOfQuestion > index
-                          ? "#2B92D5"
-                          : "#D2D4DA",
-                      color:
-                        indexOfQuestion == index || indexOfQuestion > index
-                          ? "#F9F9F9"
-                          : "#D2D4DA",
-                      backgroundColor:
-                        indexOfQuestion == index || indexOfQuestion > index
-                          ? "#2B92D5"
-                          : "transparent",
-                    }}
-                  >
-                    {index < indexOfQuestion ? (
-                      <CheckIcon
-                        fontSize="small"
-                        sx={{
-                          color: COLORS.white,
-                          width: 15,
-                          height: 15,
-                          padding: "1px",
-                        }}
-                      />
-                    ) : (
-                      <p style={{ marginTop: -5 }}>{index + 1}</p>
-                    )}
-                  </Box>
-                  {index < questionaires.length - 1 ? (
-                    <Box
-                      sx={{
-                        width: "1px",
-                        height: "30px",
-                        background:
-                          indexOfQuestion > index ? "#2B92D5" : "#D2D4DA",
-                      }}
-                    />
-                  ) : null}
-                </Box>
-              ))}
-            </Box>
-            <Box
-              sx={{
-                display: { md: "flex", xs: "none" },
-                flexDirection: "column",
-                width: "100%",
-              }}
-            >
-              {questionaires.map((question, index) => {
-                return (
-                  <Box
-                    sx={{
-                      display: { md: "flex", xs: "none" },
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      width: "100%",
-                      backgroundColor: COLORS.answeredQuestionColor,
-                    }}
-                    key={question}
                     onClick={() => {
                       if (index <= indexOfQuestion) {
                         router.push(
@@ -248,40 +180,41 @@ export default function Layout({ children }) {
                         setIndexOfQuestion(index);
                       }
                     }}
+                    sx={{
+                      display: {
+                        md: "none",
+                        xs: "flex",
+                      },
+                      justifyContent: "center",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                    key={question.navTitle}
                   >
-                    <Typography
-                      key={index}
+                    <Box
                       sx={{
-                        fontSize: "18px",
-                        lineHeight: "51px",
-                        fontWeight: "500",
-                        fontFamily: "raleway",
-                        paddingLeft: "30px",
-                        width: "100%",
-                        color: COLORS.questionHeadingColor,
-                        textAlign: "left",
+                        display: "flex",
+                        width: "30px",
+                        height: "30px",
+                        borderRadius: "100%",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        border: "1px solid",
+                        borderColor:
+                          indexOfQuestion == index || indexOfQuestion > index
+                            ? "#2B92D5"
+                            : "#D2D4DA",
+                        color:
+                          indexOfQuestion == index || indexOfQuestion > index
+                            ? "#F9F9F9"
+                            : "#D2D4DA",
                         backgroundColor:
-                          index < indexOfQuestion
-                            ? COLORS.answeredQuestionColor
-                            : indexOfQuestion == index
-                            ? "#E2E8FF"
-                            : "#F9F9F9",
-                        cursor: "pointer",
+                          indexOfQuestion == index || indexOfQuestion > index
+                            ? "#2B92D5"
+                            : "transparent",
                       }}
                     >
-                      {question.navTitle}
-                    </Typography>
-                    {index < indexOfQuestion && (
-                      <Box
-                        sx={{
-                          backgroundColor: COLORS.primary,
-                          borderRadius: 5,
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          marginRight: 1,
-                        }}
-                      >
+                      {index < indexOfQuestion ? (
                         <CheckIcon
                           fontSize="small"
                           sx={{
@@ -291,154 +224,246 @@ export default function Layout({ children }) {
                             padding: "1px",
                           }}
                         />
-                      </Box>
-                    )}
+                      ) : (
+                        <p style={{ marginTop: -5 }}>{index + 1}</p>
+                      )}
+                    </Box>
+                    {index < questionaires.length - 1 ? (
+                      <Box
+                        sx={{
+                          width: "1px",
+                          height: "30px",
+                          background:
+                            indexOfQuestion > index ? "#2B92D5" : "#D2D4DA",
+                        }}
+                      />
+                    ) : null}
                   </Box>
-                );
-              })}
+                ))}
+              </Box>
+              <Box
+                sx={{
+                  display: { md: "flex", xs: "none" },
+                  flexDirection: "column",
+                  width: "100%",
+                }}
+              >
+                {questionaires.map((question, index) => {
+                  return (
+                    <Box
+                      sx={{
+                        display: { md: "flex", xs: "none" },
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        width: "100%",
+                        backgroundColor: COLORS.answeredQuestionColor,
+                      }}
+                      key={question}
+                      onClick={() => {
+                        if (index <= indexOfQuestion) {
+                          router.push(
+                            "/questionaire/" + questionaires[index].navTitle
+                          );
+                          dispatch({
+                            type: "UPDATE_QUESTION_NUMBER",
+                            payload: index,
+                          });
+                          setIndexOfQuestion(index);
+                        }
+                      }}
+                    >
+                      <Typography
+                        key={index}
+                        sx={{
+                          fontSize: "18px",
+                          lineHeight: "51px",
+                          fontWeight: "500",
+                          fontFamily: "raleway",
+                          paddingLeft: "30px",
+                          width: "100%",
+                          color: COLORS.questionHeadingColor,
+                          textAlign: "left",
+                          backgroundColor:
+                            index < indexOfQuestion
+                              ? COLORS.answeredQuestionColor
+                              : indexOfQuestion == index
+                              ? "#E2E8FF"
+                              : "#F9F9F9",
+                          cursor: "pointer",
+                        }}
+                      >
+                        {question.navTitle}
+                      </Typography>
+                      {index < indexOfQuestion && (
+                        <Box
+                          sx={{
+                            backgroundColor: COLORS.primary,
+                            borderRadius: 5,
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            marginRight: 1,
+                          }}
+                        >
+                          <CheckIcon
+                            fontSize="small"
+                            sx={{
+                              color: COLORS.white,
+                              width: 15,
+                              height: 15,
+                              padding: "1px",
+                            }}
+                          />
+                        </Box>
+                      )}
+                    </Box>
+                  );
+                })}
+              </Box>
             </Box>
-          </Box>
-          {/* Web */}
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              position: "relative",
-              overflow: "hidden",
-              width: "100%",
-              gap: "20px",
-              height: "100%",
-              justifyContent: "space-between",
-            }}
-          >
+            {/* Web */}
             <Box
               sx={{
+                display: "flex",
+                flexDirection: "column",
+                position: "relative",
+                overflow: "hidden",
                 width: "100%",
-                flex: "auto",
-                overflow: "auto",
-                padding: {
-                  md: "30px",
-                  xs: "15px",
-                },
+                gap: "20px",
+                height: "100%",
+                justifyContent: "space-between",
               }}
             >
-              <Typography
+              <Box
                 sx={{
-                  fontSize: {
-                    md: "28px",
-                    xs: "20px",
+                  width: "100%",
+                  flex: "auto",
+                  overflow: "auto",
+                  padding: {
+                    md: "30px",
+                    xs: "15px",
                   },
-                  fontWeight: "600",
-                  fontFamily: "Raleway",
-                  marginBottom: "15px",
                 }}
               >
-                {questionaires[indexOfQuestion]?.title}
-              </Typography>
-              <DataContext.Provider
-                value={{
-                  data,
-                  dispatch,
-                }}
-              >
-                <Box
+                <Typography
                   sx={{
-                    display: "block",
-                    width: "100%",
+                    fontSize: {
+                      md: "28px",
+                      xs: "20px",
+                    },
+                    fontWeight: "600",
+                    fontFamily: "Raleway",
+                    marginBottom: "15px",
                   }}
                 >
-                  {children}
-                </Box>
-              </DataContext.Provider>
-            </Box>
-            <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                height: {
-                  md: "20%",
-                  xs: "10%",
-                },
-                justifyContent: "end",
-                alignItems: "center",
-                padding: {
-                  md: "30px",
-                  xs: "15px",
-                },
-              }}
-            >
-              <Button
+                  {questionaires[indexOfQuestion]?.title}
+                </Typography>
+                <DataContext.Provider
+                  value={{
+                    data,
+                    dispatch,
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "block",
+                      width: "100%",
+                    }}
+                  >
+                    {children}
+                  </Box>
+                </DataContext.Provider>
+              </Box>
+              <Box
                 sx={{
-                  color: "#333",
-                  borderRadius: "20px",
-                  width: "128px",
-                  height: "41px",
-                }}
-                onClick={() => {
-                  if (indexOfQuestion >= 1) {
-                    router.push(
-                      "/questionaire/" +
-                        questionaires[indexOfQuestion - 1].navTitle
-                    );
-                    dispatch({
-                      type: "UPDATE_QUESTION_NUMBER",
-                      payload: indexOfQuestion - 1,
-                    });
-                    setIndexOfQuestion(indexOfQuestion - 1);
-                  } else if (indexOfQuestion == 0) {
-                    router.push("/");
-                  }
+                  width: "100%",
+                  display: "flex",
+                  height: {
+                    md: "20%",
+                    xs: "10%",
+                  },
+                  justifyContent: "end",
+                  alignItems: "center",
+                  padding: {
+                    md: "30px",
+                    xs: "15px",
+                  },
                 }}
               >
-                Back
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: COLORS.primary,
-                  color: "white",
-                  borderRadius: "20px",
-                  width: "128px",
-                  height: "41px",
-                }}
-                onMouseOver={(e) => {
-                  e.target.style.backgroundColor = COLORS.primary;
-                }}
-                onClick={() => {
-                  if (indexOfQuestion <= 4) {
-                    if (indexOfQuestion == 0 && (data.country || data.city)) {
-                      handelNextQuestion();
-                    } else if (
-                      indexOfQuestion == 1 &&
-                      (data.numberOfDays > 0 ||
-                        (data.startDate && data.endDate))
-                    ) {
-                      handelNextQuestion();
-                    } else if (indexOfQuestion == 2 && data.travelingWith) {
-                      handelNextQuestion();
-                    } else if (indexOfQuestion == 3 && data.interest) {
-                      handelNextQuestion();
-                    } else if (indexOfQuestion == 4 && data.food) {
-                      console.log("data", data);
-                      const user = ProtectedPageRoute();
-                      if (user) {
-                        setRecaptchaOpen(true);
-                      } else {
-                        document.getElementById("loginButton").click();
-                      }
-                    } else {
-                      setOpen(true);
-                      setMessage("Please answer the question");
-                      setSeverity("error");
+                <Button
+                  sx={{
+                    color: "#333",
+                    borderRadius: "20px",
+                    width: "128px",
+                    height: "41px",
+                  }}
+                  onClick={() => {
+                    if (indexOfQuestion >= 1) {
+                      router.push(
+                        "/questionaire/" +
+                          questionaires[indexOfQuestion - 1].navTitle
+                      );
+                      dispatch({
+                        type: "UPDATE_QUESTION_NUMBER",
+                        payload: indexOfQuestion - 1,
+                      });
+                      setIndexOfQuestion(indexOfQuestion - 1);
+                    } else if (indexOfQuestion == 0) {
+                      router.push("/");
                     }
-                  }
-                }}
-              >
-                {indexOfQuestion == 4 ? "Submit" : "Next"}
-              </Button>
+                  }}
+                >
+                  Back
+                </Button>
+                <Button
+                  sx={{
+                    backgroundColor: COLORS.primary,
+                    color: "white",
+                    borderRadius: "20px",
+                    width: "128px",
+                    height: "41px",
+                  }}
+                  onMouseOver={(e) => {
+                    e.target.style.backgroundColor = COLORS.primary;
+                  }}
+                  onClick={() => {
+                    if (indexOfQuestion <= 4) {
+                      if (indexOfQuestion == 0 && (data.country || data.city)) {
+                        handelNextQuestion();
+                      } else if (
+                        indexOfQuestion == 1 &&
+                        (data.numberOfDays > 0 ||
+                          (data.startDate && data.endDate))
+                      ) {
+                        handelNextQuestion();
+                      } else if (indexOfQuestion == 2 && data.travelingWith) {
+                        handelNextQuestion();
+                      } else if (indexOfQuestion == 3 && data.interest) {
+                        handelNextQuestion();
+                      } else if (indexOfQuestion == 4 && data.food) {
+                        console.log("data", data);
+                        const user = ProtectedPageRoute();
+                        if (user) {
+                          setRecaptchaOpen(true);
+                        } else {
+                          document.getElementById("loginButton").click();
+                        }
+                      } else {
+                        setOpen(true);
+                        setMessage("Please answer the question");
+                        setSeverity("error");
+                      }
+                    }
+                  }}
+                >
+                  {indexOfQuestion == 4 ? "Submit" : "Next"}
+                </Button>
+              </Box>
             </Box>
           </Box>
         </Box>
-      </Box>
-    </div>
-  );
+      </div>
+    );
+  }
 }
