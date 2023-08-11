@@ -19,9 +19,10 @@ import * as COLORS from "@/constants/colors";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { signOut, getAuth } from "firebase/auth";
-import { firebase_app } from "@/app/config";
+import { firebase_app, auth } from "@/app/config";
 import SignIn from "@/components/signin";
 import SignUp from "@/components/signup";
+import { setCookie } from "cookies-next";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -102,8 +103,20 @@ function ResponsiveAppBar({ userAuthChanged }) {
   };
 
   React.useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const token = await user.getIdToken();
+        setCookie("token", token);
+        userSessionHandler();
+      } else {
+        setSignUpHide(false);
+        setPages(["Login"]);
+      }
+    });
+  }, []);
+
+  const userSessionHandler = () => {
     const userLogedIn = ProtectedPageRoute();
-    console.log("hide sign up", userLogedIn, "sign up hide");
     if (userLogedIn) {
       setSignUpHide(true);
       if (pathName.includes("saved-itinerary")) {
@@ -112,7 +125,7 @@ function ResponsiveAppBar({ userAuthChanged }) {
         setPages(["Saved Trip", "Logout"]);
       }
     }
-  }, []);
+  };
 
   return (
     <AppBar

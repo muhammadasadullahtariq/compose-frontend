@@ -10,7 +10,6 @@ import { DataContext, dataReducer } from "@/app/questionaire/context";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import Recaptchs from "@/components/recaptcha_modal";
-import { Router } from "next/router";
 import ProtectedPageRoute from "../protected-page-route";
 import createTrip from "@/apis/createTrip";
 import loadingGif from "@/assets/images/tripDetails/loader.gif";
