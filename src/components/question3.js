@@ -67,8 +67,8 @@ const Question2 = () => {
 
                   borderRadius: "20px",
                   padding: "0px",
-                  width: isSmall ? "120px" : "150px",
-                  height: isSmall ? "120px" : "150px",
+                  width: isSmall ? "116px" : "116px",
+                  height: isSmall ? "119px" : "119px",
                 }}
                 src={item.image}
                 alt={item}
