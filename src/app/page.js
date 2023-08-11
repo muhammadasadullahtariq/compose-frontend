@@ -55,30 +55,7 @@ function ResponsiveAppBar() {
           }}
           alignItems={{ xs: "center", md: "center", lg: "flex-start" }}
         >
-          <Typography
-            sx={{
-              fontSize: { xs: "22px", md: "32px", lg: "32px" },
-              fontWeight: "700",
-              fontFamily: "raleway",
-              textTransform: "uppercase",
-              color: COLORS.black,
-              textAlign: { md: "center", xs: "center", lg: "left" },
-            }}
-          >
-            Welcome to&nbsp;
-            <Typography
-              as="span"
-              sx={{
-                fontSize: { xs: "22px", md: "32px", lg: "32px" },
-                fontWeight: "700",
-                fontFamily: "raleway",
-                textTransform: "uppercase",
-                color: COLORS.primary,
-              }}
-            >
-              ComposeTrip&nbsp;
-            </Typography>
-          </Typography>
+          {/*  */}
 
           <Typography
             sx={{

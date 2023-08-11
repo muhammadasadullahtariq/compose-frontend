@@ -192,7 +192,6 @@ function ResponsiveAppBar({ userAuthChanged }) {
                     backgroundColor: COLORS.primary,
                     color: "white",
                     borderRadius: "20px",
-
                     height: "27px",
                     fontSize: "12px",
                     fontWeight: "500",

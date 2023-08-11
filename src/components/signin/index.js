@@ -15,6 +15,7 @@ const Login = (props) => {
                     text: 'Sign in to enjoy the best of your personal travel guide.  '
                 }}
             >
+                
                 <SignIn closeModel={props.handleModel} popup={() => {
                     props.handleModel()
                     props.popup()
