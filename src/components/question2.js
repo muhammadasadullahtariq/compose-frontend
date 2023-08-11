@@ -194,7 +194,7 @@ const Question2 = () => {
             </Box>
           ))}
         </Box>
-        <Or />
+        <Or margin={{ lg: '0px 0px', md: "10px 0 ", xs: "5px 0" }} />
         <Box
           sx={{
             display: "flex",
