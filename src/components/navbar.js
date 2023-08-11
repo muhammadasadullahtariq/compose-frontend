@@ -47,6 +47,8 @@ function ResponsiveAppBar({ userAuthChanged }) {
       setSignUpHide(true);
       if (pathName.includes("saved-itinerary")) {
         setPages(["Logout"]);
+      } else if (pathName.includes("questionaire")) {
+        document.getElementById("submitFormButton").click();
       } else {
         setPages(["Saved Trip", "Logout"]);
       }
@@ -64,6 +66,8 @@ function ResponsiveAppBar({ userAuthChanged }) {
       setSignUpHide(true);
       if (pathName.includes("saved-itinerary")) {
         setPages(["Logout"]);
+      } else if (pathName.includes("questionaire")) {
+        document.getElementById("submitFormButton").click();
       } else {
         setPages(["Saved Trip", "Logout"]);
       }
@@ -110,7 +114,7 @@ function ResponsiveAppBar({ userAuthChanged }) {
         userSessionHandler();
       } else {
         setSignUpHide(false);
-        setPages(["Login"]);
+        setPages([""]);
       }
     });
   }, []);
@@ -132,6 +136,8 @@ function ResponsiveAppBar({ userAuthChanged }) {
       position="static"
       sx={{
         backgroundColor: "white",
+        position: "fixed",
+        zIndex: 1,
       }}
     >
       <Snackbar
@@ -181,30 +187,33 @@ function ResponsiveAppBar({ userAuthChanged }) {
               COMPOSETRIP
             </Typography>
             {!signUpHide && !pathName.includes("questionaire") && (
-              <SignUp
-                open={iModel}
-                handleModel={iModelHandle}
-                popup={uModelHandle}
+              // <SignUp
+              //   open={iModel}
+              //   handleModel={iModelHandle}
+              //   popup={uModelHandle}
+              // >
+              <Button
+                sx={{
+                  display: { xs: "flex", md: "none" },
+                  backgroundColor: COLORS.primary,
+                  color: "white",
+                  borderRadius: "20px",
+                  height: "27px",
+                  fontSize: "12px",
+                  fontWeight: "500",
+                  fontFamily: "raleway",
+                  alignSelf: "center",
+                }}
+                onClick={() => {
+                  router.push("/questionaire/where to");
+                }}
+                onMouseOver={(e) => {
+                  e.target.style.backgroundColor = COLORS.primary;
+                }}
               >
-                <Button
-                  sx={{
-                    display: { xs: "flex", md: "none" },
-                    backgroundColor: COLORS.primary,
-                    color: "white",
-                    borderRadius: "20px",
-                    height: "27px",
-                    fontSize: "12px",
-                    fontWeight: "500",
-                    fontFamily: "raleway",
-                    alignSelf: "center",
-                  }}
-                  onMouseOver={(e) => {
-                    e.target.style.backgroundColor = COLORS.primary;
-                  }}
-                >
-                  Get started
-                </Button>
-              </SignUp>
+                Get started
+              </Button>
+              // </SignUp>
             )}
             <IconButton
               size="large"
@@ -292,30 +301,32 @@ function ResponsiveAppBar({ userAuthChanged }) {
             )}
 
             {!signUpHide && !pathName.includes("questionaire") && (
-              <SignUp
-                open={iModel}
-                handleModel={iModelHandle}
-                popup={uModelHandle}
+              // <SignUp
+              //   open={iModel}
+              //   handleModel={iModelHandle}
+              //   popup={uModelHandle}
+              // >
+              <Button
+                sx={{
+                  backgroundColor: COLORS.primary,
+                  color: "white",
+                  borderRadius: "20px",
+                  padding: "7px 16px",
+                  mr: 2,
+                  fontSize: "16px",
+                  fontWeight: "400",
+                  fontFamily: "raleway",
+                }}
+                onClick={() => {
+                  router.push("/questionaire/where to");
+                }}
+                onMouseOver={(e) => {
+                  e.target.style.backgroundColor = COLORS.primary;
+                }}
               >
-                <Button
-                  sx={{
-                    backgroundColor: COLORS.primary,
-                    color: "white",
-                    borderRadius: "20px",
-                    padding: "7px 16px",
-                    mr: 2,
-                    fontSize: "16px",
-                    fontWeight: "400",
-                    fontFamily: "raleway",
-                  }}
-                  //hover effect
-                  onMouseOver={(e) => {
-                    e.target.style.backgroundColor = COLORS.primary;
-                  }}
-                >
-                  Get Started
-                </Button>
-              </SignUp>
+                Get Started
+              </Button>
+              // </SignUp>
             )}
           </Box>
         </Toolbar>

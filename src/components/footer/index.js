@@ -55,17 +55,27 @@ const Footer = () => {
               </li>
             </ul>
           </Grid>
-          {/* <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={12} sm={6} md={3}>
             <h6>Subscribe to our newsletter</h6>
             <p>
               Stay updated with travel inspirations and ComposeTrip updates.
             </p>
             <form>
-              <input placeholder="Name" />
-              <input placeholder="Email" />
+              <input
+                placeholder="Name"
+                style={{
+                  color: "white",
+                }}
+              />
+              <input
+                placeholder="Email"
+                style={{
+                  color: "white",
+                }}
+              />
               <button className="sub_button">Subscribe</button>
             </form>
-          </Grid> */}
+          </Grid>
         </Grid>
       </Container>
     </footer>

@@ -4,25 +4,25 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import AppBar from "@/components/navbar";
 import { Button, Typography } from "@mui/material";
-import ProtectedPageRoute from "./protected-page-route";
 import { useRouter } from "next/navigation";
 import * as COLORS from "@/constants/colors";
 import FirstBloack from "@/components/firstBlock";
 import SecondBlock from "@/components/secondBlock";
-import ThirdBlock from "@/components/thirdBlock";
-import FourthBlock from "@/components/fourthBlock";
 import Image from "next/image";
-import headerImage from "@/assets/images/pageMainImage.svg";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Footer from "@/components/footer";
 import blockImage from "@/assets/images/firstBlock.svg";
-import Testimonials from "@/components/testimonials";
-import { removeSpacesFromString } from "../lib/CreateSlug";
-import Recaptchs from "../components/recaptcha_modal/index";
+import { setCookie,hasCookie } from "cookies-next";
+
 function ResponsiveAppBar() {
-  const [questions, setQuestions] = useState([]);
   const router = useRouter();
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (!hasCookie('userForm')) {
+      setCookie('userForm',false)
+    }
+
+
+  }, []);
 
   return (
     <Box

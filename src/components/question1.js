@@ -101,6 +101,18 @@ const Question1 = () => {
           }}
         >
           I already know the cities
+          <Typography
+            as="span"
+            sx={{
+              color: "#9496A1",
+              fontFamily: "Raleway",
+              fontSize: "10px",
+              alignSelf: "center",
+              marginLeft: "6px",
+            }}
+          >
+            (comma separated)
+          </Typography>
         </Typography>
       </Box>
       <CustomAutocomplete cities={city} setCities={setCity} list={citiesList} />

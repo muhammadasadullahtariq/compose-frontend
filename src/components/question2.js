@@ -2,18 +2,22 @@ import { Grid, Box, Typography } from "@mui/material";
 import Image from "next/image";
 import { questions3 } from "@/constants/questions";
 import { DataContext } from "@/app/questionaire/context";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import * as COLORS from "@/constants/colors";
 import tripLength from "../assets/images/icons/tripLength.svg";
 import Counter from "./atomic/counter";
 import { months } from "@/constants/months";
 import Or from "./Or";
 import calender from "../assets/images/icons/calender.svg";
-import { Datepicker } from "./atomic/datepicker/datepicker";
+import { DateRangePicker } from "react-date-range";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+import "./qtStyles.css";
 
 const Question2 = () => {
   const { data, dispatch } = useContext(DataContext);
-  const [selectedValue, setSelectedValue] = React.useState(null);
+  const [value, onChange] = useState([new Date(), new Date()]);
+
   const [formData, setFormData] = React.useState({
     length: 3,
     month: "",
@@ -21,7 +25,6 @@ const Question2 = () => {
     date: { to: "", from: "" },
   });
   const handleButtonClick = (value) => {
-    setSelectedValue(value);
     dispatch({ type: "UPDATE_DATA", payload: { monthOfTravel: value } });
   };
 
@@ -194,7 +197,7 @@ const Question2 = () => {
             </Box>
           ))}
         </Box>
-        <Or margin={{ lg: '0px 0px', md: "10px 0 ", xs: "5px 0" }} />
+        <Or margin={{ lg: "0px 0px", md: "10px 0 ", xs: "5px 0" }} />
         <Box
           sx={{
             display: "flex",
@@ -214,27 +217,43 @@ const Question2 = () => {
           </Typography>
         </Box>
         <Box>
-          <Datepicker
-            tripLength={formData.length}
-            date1={formData.date.from}
-            date2={formData.date.to}
-            handleDate={(date, value) => {
-              if (date === 1) {
-                setFormData({
-                  ...formData,
-                  length: 0,
-                  date: { ...formData.date, from: value },
-                });
-              } else {
-                if (formData.date.from.length === 0) return;
-                if (new Date(formData.date.from) > new Date(value)) return;
-                setFormData({
-                  length: 0,
-                  ...formData,
-                  date: { ...formData.date, to: value },
-                });
-              }
+          <DateRangePicker
+            ranges={[
+              {
+                startDate: formData.date.from,
+                endDate: formData.date.to,
+                key: "selection",
+              },
+            ]}
+            onChange={(item) => {
+              console.log(item);
+              setFormData({
+                ...formData,
+                date: {
+                  from: item.selection.startDate,
+                  to: item.selection.endDate,
+                },
+              });
             }}
+            months={1}
+            direction="horizontal"
+            editableDateInputs={true}
+            showSelectionPreview={true}
+            rangeColors={[COLORS.primary]}
+            minDate={new Date()}
+            maxDate={
+              formData.date.from !== ""
+                ? new Date(
+                    formData.date.from.getFullYear(),
+                    formData.date.from.getMonth(),
+                    formData.date.from.getDate() + 7
+                  )
+                : new Date(
+                    new Date().getFullYear(),
+                    new Date().getMonth(),
+                    new Date().getDate() + 7
+                  )
+            }
           />
         </Box>
       </Grid>

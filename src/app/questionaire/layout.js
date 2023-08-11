@@ -14,14 +14,13 @@ import ProtectedPageRoute from "../protected-page-route";
 import createTrip from "@/apis/createTrip";
 import loadingGif from "@/assets/images/tripDetails/loader.gif";
 import Image from "next/image";
+import { getCookie, hasCookie, setCookie } from "cookies-next";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 export default function Layout({ children }) {
-  const params = useParams();
-  const signInRef = useRef();
   const [indexOfQuestion, setIndexOfQuestion] = useState(0);
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState("");
@@ -74,6 +73,15 @@ export default function Layout({ children }) {
     };
   }, []);
 
+  const handleCreateTrip = async () => {
+    setLoading(true);
+    const response = await createTrip(data);
+    setLoading(false);
+    if (response.message == "Trip created") {
+      router.push("/trip-detail/" + response.data);
+    }
+  };
+
   if (loading) {
     return (
       <div>
@@ -112,12 +120,7 @@ export default function Layout({ children }) {
             console.log("handleModel");
             setRecaptchaOpen(false);
             if (value) {
-              setLoading(true);
-              const response = await createTrip(data);
-              setLoading(false);
-              if (response.message == "Trip created") {
-                router.push("/trip-detail/" + response.data);
-              }
+              handleCreateTrip();
             }
           }}
         />
@@ -416,6 +419,7 @@ export default function Layout({ children }) {
                   Back
                 </Button>
                 <Button
+                  id="submitFormButton"
                   sx={{
                     backgroundColor: COLORS.primary,
                     color: "white",
@@ -444,7 +448,18 @@ export default function Layout({ children }) {
                         console.log("data", data);
                         const user = ProtectedPageRoute();
                         if (user) {
-                          setRecaptchaOpen(true);
+                          if (!hasCookie("userForm")) {
+                            setRecaptchaOpen(true);
+                            setCookie("userForm", false);
+                          } else {
+                            if (getCookie("userForm") == true) {
+                              setCookie("userForm", false);
+                              setRecaptchaOpen(true);
+                            } else {
+                              handleCreateTrip();
+                              setCookie("userForm", true);
+                            }
+                          }
                         } else {
                           document.getElementById("loginButton").click();
                         }
