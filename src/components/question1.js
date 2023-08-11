@@ -19,7 +19,7 @@ const Question1 = () => {
   const handleButtonClick = () => {
     if (country.length != "" || city.length != 0) {
       dispatch({ type: "UPDATE_DATA", payload: { city: city } });
-      if (country.length >= 1) {
+      if (country.length > 1) {
         dispatch({ type: "UPDATE_DATA", payload: { country: country } });
       }
     }
