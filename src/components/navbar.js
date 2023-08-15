@@ -306,8 +306,9 @@ function ResponsiveAppBar({ userAuthChanged }) {
             >
               <MenuItem
                 sx={{
-                  display: "none",
+                  display: 'none',
                 }}
+                
               />
             </SignUp>
 

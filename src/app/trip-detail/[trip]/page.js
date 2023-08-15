@@ -73,6 +73,7 @@ const TripDetail = () => {
   const [loadingMessage, setLoadingMessage] = useState(
     "Please wait while we are getting your trip"
   );
+  const [cityCountry, setCityCountry] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -82,6 +83,10 @@ const TripDetail = () => {
       setLoading(false);
       console.log("response", response);
       setTripDetail(response.data.chatGptResponse);
+      setCityCountry({
+        city: response.data.city,
+        country: response.data.country,
+      });
       setTripId(response.data._id);
     })();
   }, []);
@@ -156,7 +161,9 @@ const TripDetail = () => {
                   variant="h2"
                   sx={{ fontSize: "34px", fontWeight: "700" }}
                 >
-                  {tripDetail?.trip ? tripDetail?.trip[0]?.location : ""}
+                  {cityCountry?.city?.length > 0
+                    ? cityCountry?.city.join(", ")
+                    : cityCountry?.country}{" "}
                 </Typography>
               </Box>
               <Box
@@ -864,8 +871,7 @@ const TripDetail = () => {
                 endTime,
                 url,
               });
-            }
-            else {
+            } else {
               newTrip.trip[index].activities.push({
                 description,
                 activity,
