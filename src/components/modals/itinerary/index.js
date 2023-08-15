@@ -1,7 +1,14 @@
 import { useState } from "react";
 import { Box, Modal, Typography, Button } from "@mui/material";
 import Input from "@/components/atomic/input";
-const Itinerary = ({ open, handleModel, modalFor, handerlSave }) => {
+const Itinerary = ({
+  open,
+  handleModel,
+  modalFor,
+  handerlSave,
+  handelCloseModal,
+  handelYesModal,
+}) => {
   const [itinerary, setItinerary] = useState("");
   return (
     <Modal
@@ -62,6 +69,7 @@ const Itinerary = ({ open, handleModel, modalFor, handerlSave }) => {
                   fontSize: "12px",
                   borderRadius: "20px",
                 }}
+                onClick={handelYesModal}
               >
                 Yes
               </Button>
@@ -73,6 +81,7 @@ const Itinerary = ({ open, handleModel, modalFor, handerlSave }) => {
                   fontSize: "12px",
                   borderRadius: "20px",
                 }}
+                onClick={handelCloseModal}
               >
                 No
               </Button>

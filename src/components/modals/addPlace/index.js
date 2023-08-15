@@ -122,6 +122,7 @@ const AddPlace = ({ open, handleModel, modalFor, handerlSave }) => {
                 color: "#757780",
               }}
             >
+              {" "}
               (optional)
             </Typography>
           </Typography>

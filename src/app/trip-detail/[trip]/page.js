@@ -20,6 +20,7 @@ import * as COLORS from "@/constants/colors";
 import AddIcon from "@mui/icons-material/Add";
 import AddPlace from "@/components/modals/addPlace";
 import updateTrip from "@/apis/updateTrip";
+import RegenerateTrip from "@/apis/regenerate";
 
 const TextRender = ({ name, description, color }) => {
   return (
@@ -203,8 +204,14 @@ const TripDetail = () => {
                     cursor: "pointer",
                   }}
                   onClick={() => {
-                    alert("Link copied to clipboard");
-                    navigator.clipboard.writeText(window.location.href);
+                    navigator.clipboard
+                      .writeText(window.location.href)
+                      .then(() => {
+                        alert("Copied to clipboard");
+                      })
+                      .catch((err) => {
+                        alert("Failed to copy to clipboard" + err);
+                      });
                   }}
                 >
                   <Image
@@ -844,6 +851,22 @@ const TripDetail = () => {
         <Itinerary
           open={openModal}
           handleModel={() => setOpenModal(!openModal)}
+          handelCloseModal={() => {
+            setOpenModal(false);
+          }}
+          handelYesModal={async () => {
+            setOpenModal(false);
+            setLoading(true);
+            setLoadingMessage("Please wait while we are regenereting you plan");
+            const response = await RegenerateTrip(tripId);
+            setLoading(false);
+            setTripDetail(response.data.chatGptResponse);
+            setCityCountry({
+              city: response.data.city,
+              country: response.data.country,
+            });
+            setTripId(response.data._id);
+          }}
           modalFor="new"
         />
         <AddPlace
@@ -863,7 +886,7 @@ const TripDetail = () => {
             setLoading(true);
             setLoadingMessage("Please wait while we are adding your activity");
             const newTrip = { ...tripDetail };
-            if (image) {
+            if (url) {
               newTrip.trip[index].activities.push({
                 description,
                 activity,
@@ -879,9 +902,8 @@ const TripDetail = () => {
                 endTime,
               });
             }
-
-            await updateTrip(tripId, newTrip);
             setTripDetail(() => newTrip);
+            await updateTrip(tripId, newTrip);
             setLoading(false);
             console.log("New trip details", newTrip);
           }}
