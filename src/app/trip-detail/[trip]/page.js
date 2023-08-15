@@ -16,6 +16,10 @@ import { useParams } from "next/navigation";
 import CircleIcon from "@mui/icons-material/Circle";
 import saveTrip from "@/apis/saveTrip";
 import loadingGif from "@/assets/images/tripDetails/loader.gif";
+import * as COLORS from "@/constants/colors";
+import AddIcon from "@mui/icons-material/Add";
+import AddPlace from "@/components/modals/addPlace";
+import updateTrip from "@/apis/updateTrip";
 
 const TextRender = ({ name, description, color }) => {
   return (
@@ -63,6 +67,12 @@ const TripDetail = () => {
   const [cityImage, setCityImage] = useState("");
   const [loading, setLoading] = useState(true);
   const { trip } = useParams();
+  const [addPlaceOpen, setAddPlaceOpen] = useState(false);
+  const [index, setIndex] = useState(0);
+  const [tripId, setTripId] = useState("");
+  const [loadingMessage, setLoadingMessage] = useState(
+    "Please wait while we are getting your trip"
+  );
 
   useEffect(() => {
     (async () => {
@@ -72,6 +82,7 @@ const TripDetail = () => {
       setLoading(false);
       console.log("response", response);
       setTripDetail(response.data.chatGptResponse);
+      setTripId(response.data._id);
     })();
   }, []);
 
@@ -97,10 +108,11 @@ const TripDetail = () => {
             alignItems: "center",
             height: { md: "90vh", xs: "calc(100vh - 64px)" },
             backgroundColor: "#FCFCFF",
+            marginTop: "60px",
           }}
         >
           <Image src={loadingGif} height={200} width={200}></Image>
-          <Typography>Please wait while we are getting your trip</Typography>
+          <Typography>{loadingMessage}</Typography>
         </Box>
       </div>
     );
@@ -117,6 +129,7 @@ const TripDetail = () => {
               cityImage != ""
                 ? `url(${cityImage})`
                 : "url('/assets/img/cloud.jpeg')",
+            marginTop: "60px",
           }}
         >
           <Container sx={{ height: "100%" }}>
@@ -430,6 +443,38 @@ const TripDetail = () => {
                         </Box>
                       </>
                     ))}
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        alignItems: "center",
+                        flexDirection: "row",
+                        marginLeft: "35px",
+                      }}
+                      onClick={() => {
+                        setIndex(tripIndex);
+                        setAddPlaceOpen(true);
+                      }}
+                    >
+                      <AddIcon
+                        sx={{
+                          fontSize: "16px",
+                          color: COLORS.primary,
+                        }}
+                      />
+                      <Typography
+                        sx={{
+                          fontSize: "16px",
+                          color: COLORS.primary,
+                          fontWeight: "500",
+                          cursor: "pointer",
+                          fontFamily: "Raleway",
+                          position: "relative",
+                        }}
+                      >
+                        add a place
+                      </Typography>
+                    </Box>
                   </Box>
                   {tripIndex != trip.length - 1 ? (
                     <Box
@@ -453,7 +498,6 @@ const TripDetail = () => {
                       }}
                     />
                   )}
-
                   <Box />
                 </>
               ))}
@@ -794,6 +838,48 @@ const TripDetail = () => {
           open={openModal}
           handleModel={() => setOpenModal(!openModal)}
           modalFor="new"
+        />
+        <AddPlace
+          open={addPlaceOpen}
+          handleModel={() => setAddPlaceOpen(!addPlaceOpen)}
+          handerlSave={async (
+            activity,
+            startTime,
+            endTime,
+            description,
+            url
+          ) => {
+            setAddPlaceOpen(false);
+            console.log("index", index);
+            console.log("tripDetail.trip", tripDetail.trip);
+            console.log("tripDetail.trip[index]", tripDetail.trip[index]);
+            setLoading(true);
+            setLoadingMessage("Please wait while we are adding your activity");
+            const newTrip = { ...tripDetail };
+            if (image) {
+              newTrip.trip[index].activities.push({
+                description,
+                activity,
+                startTime,
+                endTime,
+                url,
+              });
+            }
+            else {
+              newTrip.trip[index].activities.push({
+                description,
+                activity,
+                startTime,
+                endTime,
+              });
+            }
+
+            await updateTrip(tripId, newTrip);
+            setTripDetail(() => newTrip);
+            setLoading(false);
+            console.log("New trip details", newTrip);
+          }}
+          modalFor="save"
         />
       </div>
     );

@@ -66,15 +66,8 @@ export default function SignUp({ closeModel, popup }) {
 
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
-      console.log("user is", user);
-      //closeModel();
       if (user) {
-        console.log("user is", user);
         const token = await user.getIdToken();
-        setCookie("token", token);
-        //window.location.reload();
-        //router.refresh();
-        //router.push("/");
         try {
           const userExist = await checkUserExist();
           if (userExist?.message == "User found") {
@@ -96,10 +89,9 @@ export default function SignUp({ closeModel, popup }) {
             }
           }
         } catch (e) {
-          window.location.reload();
-          //router.refresh();
-          //router.push("/");
-          console.log("error is", e);
+          setOpen(true);
+          setMessage(e.message);
+          setSeverity("error");
         }
       }
     });
@@ -123,7 +115,9 @@ export default function SignUp({ closeModel, popup }) {
         closeModel();
       }
     } catch (e) {
-      router.refresh();
+      setOpen(true);
+      setMessage(e.message);
+      setSeverity("error");
     }
   };
 
@@ -173,14 +167,12 @@ export default function SignUp({ closeModel, popup }) {
           setOpen(true);
           setMessage(e.message);
           setSeverity("error");
-          closeModel();
         }
       })
       .catch((error) => {
         setOpen(true);
         setMessage(error.message);
         setSeverity("error");
-        console.log(error);
       });
   };
 

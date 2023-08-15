@@ -16,7 +16,7 @@ import "./qtStyles.css";
 
 const Question2 = () => {
   const { data, dispatch } = useContext(DataContext);
-  const [value, onChange] = useState([new Date(), new Date()]);
+  const [showCalender, setShowCalender] = useState(false);
 
   const [formData, setFormData] = React.useState({
     length: 3,
@@ -62,6 +62,10 @@ const Question2 = () => {
       });
     }
   }, [formData]);
+
+  const handelOpenClose = () => {
+    setShowCalender(!showCalender);
+  };
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -216,7 +220,30 @@ const Question2 = () => {
             Have exact dates in mind?
           </Typography>
         </Box>
-        <Box>
+        <Box
+          onClick={() => {
+            setShowCalender(true);
+          }}
+          display={!showCalender ? "block" : "none"}
+          sx={{
+            border: `2px solid ${COLORS.primary}`,
+            padding: "10px",
+            borderRadius: "12px",
+            cursor: "pointer",
+            width: { md: "40%", xs: "50%", lg: "20%" },
+          }}
+        >
+          <Typography>
+            {formData.date.from !== "" && formData.date.to !== ""
+              ? `${formData.date.from.getDate()} ${
+                  months[formData.date.from.getMonth()].name
+                } - ${formData.date.to.getDate()} ${
+                  months[formData.date.to.getMonth()].name
+                }`
+              : "Please Select Dates"}
+          </Typography>
+        </Box>
+        <Box display={showCalender ? "block" : "none"}>
           <DateRangePicker
             ranges={[
               {
@@ -226,7 +253,6 @@ const Question2 = () => {
               },
             ]}
             onChange={(item) => {
-              console.log(item);
               setFormData({
                 ...formData,
                 date: {

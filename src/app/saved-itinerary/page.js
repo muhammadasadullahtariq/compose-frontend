@@ -53,6 +53,7 @@ const SavedItinerary = () => {
             alignItems: "center",
             height: { md: "90vh", xs: "calc(100vh - 64px)" },
             backgroundColor: "#FCFCFF",
+            marginTop: "60px",
           }}
         >
           <Image src={loadingGif} height={200} width={200}></Image>
@@ -70,7 +71,11 @@ const SavedItinerary = () => {
             setSavedTrips(response.data);
           }}
         />
-        <Container>
+        <Container
+          sx={{
+            marginTop: "60px",
+          }}
+        >
           <Box sx={{ padding: "20px 0" }}>
             <Typography
               variant="h3"

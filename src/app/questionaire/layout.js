@@ -27,7 +27,6 @@ export default function Layout({ children }) {
   const [severity, setSeverity] = React.useState("success");
   const [recaptchaOpen, setRecaptchaOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-
   const router = useRouter();
   const [data, dispatch] = useReducer(dataReducer, {
     questionNumber: 0,
@@ -94,6 +93,7 @@ export default function Layout({ children }) {
             alignItems: "center",
             height: { md: "90vh", xs: "calc(100vh - 64px)" },
             backgroundColor: "#FCFCFF",
+            marginTop: "60px",
           }}
         >
           <Image src={loadingGif} height={200} width={200}></Image>
@@ -132,6 +132,7 @@ export default function Layout({ children }) {
             alignItems: "center",
             height: { md: "90vh", xs: "calc(100vh - 64px)" },
             backgroundColor: COLORS.primary,
+            marginTop: "60px",
           }}
         >
           <Box
@@ -141,7 +142,6 @@ export default function Layout({ children }) {
               borderRadius: { md: "20px", xs: "0" },
               display: "flex",
               flexDirection: "row",
-
               height: { lg: "80%", xs: "100%" },
             }}
           >
@@ -450,14 +450,15 @@ export default function Layout({ children }) {
                         if (user) {
                           if (!hasCookie("userForm")) {
                             setRecaptchaOpen(true);
-                            setCookie("userForm", false);
+                            setCookie("userForm", 0);
                           } else {
-                            if (getCookie("userForm") == true) {
-                              setCookie("userForm", false);
+                            const userForm = getCookie("userForm");
+                            if (userForm % 3 == 0) {
+                              setCookie("userForm", userForm + 1);
                               setRecaptchaOpen(true);
                             } else {
                               handleCreateTrip();
-                              setCookie("userForm", true);
+                              setCookie("userForm", userForm + 1);
                             }
                           }
                         } else {

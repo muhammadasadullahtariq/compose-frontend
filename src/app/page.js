@@ -12,16 +12,14 @@ import Image from "next/image";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Footer from "@/components/footer";
 import blockImage from "@/assets/images/firstBlock.svg";
-import { setCookie,hasCookie } from "cookies-next";
+import { setCookie, hasCookie, deleteCookie } from "cookies-next";
 
 function ResponsiveAppBar() {
   const router = useRouter();
   useEffect(() => {
-    if (!hasCookie('userForm')) {
-      setCookie('userForm',false)
+    if (!hasCookie("userForm")) {
+      setCookie("userForm", false);
     }
-
-
   }, []);
 
   return (
@@ -52,6 +50,7 @@ function ResponsiveAppBar() {
           sx={{
             width: { xs: "100%", md: "100%", lg: "55%" },
             padding: { sm: "0", xs: "16px" },
+            marginTop: "64px",
           }}
           alignItems={{ xs: "center", md: "center", lg: "flex-start" }}
         >
@@ -116,6 +115,7 @@ function ResponsiveAppBar() {
                 },
               }}
               onClick={() => {
+                deleteCookie("questionaireData");
                 router.push("/questionaire/where to");
               }}
             >

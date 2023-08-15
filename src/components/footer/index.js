@@ -1,6 +1,7 @@
 import { Grid, Container } from "@mui/material";
 import "./footer.css";
 import { useRouter } from "next/navigation";
+import { deleteCookie } from "cookies-next";
 
 const Footer = () => {
   const router = useRouter();
@@ -16,6 +17,7 @@ const Footer = () => {
                 cursor: "pointer",
               }}
               onClick={() => {
+                deleteCookie("questionaireData");
                 router.push("/questionaire/where to");
               }}
               className="plan_button"

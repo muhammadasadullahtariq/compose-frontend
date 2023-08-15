@@ -69,9 +69,6 @@ export default function SignIn({ closeModel, popup }) {
       const user = userCredential.user;
       const token = await user.getIdToken();
       setCookie("token", token);
-      //router.refresh();
-      //window.location.reload();
-      //router.push("/");
       const userExist = await checkUserExist();
       console.log(userExist);
       if (userExist?.message == "User found") {
@@ -89,7 +86,6 @@ export default function SignIn({ closeModel, popup }) {
       setOpen(true);
       setMessage(error.message);
       setSeverity("error");
-      closeModel();
     }
   };
 
@@ -97,7 +93,7 @@ export default function SignIn({ closeModel, popup }) {
     auth.onAuthStateChanged(async (user) => {
       if (user) {
         const token = await user.getIdToken();
-        setCookie("token", token);  
+        setCookie("token", token);
         const userExist = await checkUserExist();
         if (userExist?.data?.name) {
           setCookie("user", userExist.data);
@@ -136,8 +132,6 @@ export default function SignIn({ closeModel, popup }) {
         closeModel();
       }
     } catch (error) {
-      //router.refresh();
-      //router.push("/");
       console.log(error);
       closeModel();
     }
@@ -228,7 +222,7 @@ export default function SignIn({ closeModel, popup }) {
               Login
             </Button>
             <Typography as="p" textAlign={"center"}>
-              Don't have an account?{" "}<a onClick={popup}>Signup</a>
+              Don't have an account? <a onClick={popup}>Signup</a>
             </Typography>
           </Box>
         </Box>

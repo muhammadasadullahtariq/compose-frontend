@@ -22,7 +22,7 @@ import { signOut, getAuth } from "firebase/auth";
 import { firebase_app, auth } from "@/app/config";
 import SignIn from "@/components/signin";
 import SignUp from "@/components/signup";
-import { setCookie } from "cookies-next";
+import { setCookie, deleteCookie } from "cookies-next";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -133,11 +133,10 @@ function ResponsiveAppBar({ userAuthChanged }) {
 
   return (
     <AppBar
-      position="static"
       sx={{
         backgroundColor: "white",
         position: "fixed",
-        zIndex: 1,
+        boxShadow: "none",
       }}
     >
       <Snackbar
@@ -205,6 +204,7 @@ function ResponsiveAppBar({ userAuthChanged }) {
                   alignSelf: "center",
                 }}
                 onClick={() => {
+                  deleteCookie("questionaireData");
                   router.push("/questionaire/where to");
                 }}
                 onMouseOver={(e) => {
@@ -299,13 +299,19 @@ function ResponsiveAppBar({ userAuthChanged }) {
                 </MenuItem>
               </SignIn>
             )}
+            <SignUp
+              open={iModel}
+              handleModel={iModelHandle}
+              popup={uModelHandle}
+            >
+              <MenuItem
+                sx={{
+                  display: "none",
+                }}
+              />
+            </SignUp>
 
             {!signUpHide && !pathName.includes("questionaire") && (
-              // <SignUp
-              //   open={iModel}
-              //   handleModel={iModelHandle}
-              //   popup={uModelHandle}
-              // >
               <Button
                 sx={{
                   backgroundColor: COLORS.primary,
@@ -318,6 +324,7 @@ function ResponsiveAppBar({ userAuthChanged }) {
                   fontFamily: "raleway",
                 }}
                 onClick={() => {
+                  deleteCookie("questionaireData");
                   router.push("/questionaire/where to");
                 }}
                 onMouseOver={(e) => {
