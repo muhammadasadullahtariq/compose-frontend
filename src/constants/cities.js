@@ -58,7 +58,6 @@ export const citiesList = [
   { name: "Rio de Janeiro" },
   { name: "Cape Town" },
   { name: "Marrakech" },
-  { name: "Dubai" },
   { name: "Phuket" },
   { name: "Bali" },
   { name: "Honolulu" },

@@ -204,6 +204,7 @@ function ResponsiveAppBar({ userAuthChanged }) {
                   alignSelf: "center",
                 }}
                 onClick={() => {
+                  setCookie("questionaireData", {});
                   deleteCookie("questionaireData");
                   router.push("/questionaire/where to");
                 }}
@@ -306,9 +307,8 @@ function ResponsiveAppBar({ userAuthChanged }) {
             >
               <MenuItem
                 sx={{
-                  display: 'none',
+                  display: "none",
                 }}
-                
               />
             </SignUp>
 
@@ -325,6 +325,7 @@ function ResponsiveAppBar({ userAuthChanged }) {
                   fontFamily: "raleway",
                 }}
                 onClick={() => {
+                  setCookie("questionaireData", {});
                   deleteCookie("questionaireData");
                   router.push("/questionaire/where to");
                 }}

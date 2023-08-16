@@ -97,7 +97,14 @@ export default function Layout({ children }) {
           }}
         >
           <Image src={loadingGif} height={200} width={200}></Image>
-          <Typography>
+          <Typography
+            sx={{
+              textAlign: "center",
+              paddingTop: "20px",
+              paddingRight: "20px",
+              paddingLeft: "20px",
+            }}
+          >
             Hold up, we're composing your trip. 1 to 2 mins tops!🚀🌈
           </Typography>
         </Box>

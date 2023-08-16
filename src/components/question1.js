@@ -102,19 +102,8 @@ const Question1 = () => {
             marginLeft: "6px",
           }}
         >
-          I already know the cities
-          <Typography
-            as="span"
-            sx={{
-              color: "#9496A1",
-              fontFamily: "Raleway",
-              fontSize: "10px",
-              alignSelf: "center",
-              marginLeft: "6px",
-            }}
-          >
-            (comma separated)
-          </Typography>
+          Enter the country or the cities you are going to, separated by comma
+          
         </Typography>
       </Box>
       <CustomAutocomplete cities={city} setCities={setCity} list={citiesList} />

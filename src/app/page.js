@@ -115,6 +115,7 @@ function ResponsiveAppBar() {
                 },
               }}
               onClick={() => {
+                setCookie("questionaireData", {});
                 deleteCookie("questionaireData");
                 router.push("/questionaire/where to");
               }}
