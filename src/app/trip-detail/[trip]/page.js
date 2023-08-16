@@ -21,6 +21,11 @@ import AddIcon from "@mui/icons-material/Add";
 import AddPlace from "@/components/modals/addPlace";
 import updateTrip from "@/apis/updateTrip";
 import RegenerateTrip from "@/apis/regenerate";
+import ProtectedPageRoute from "@/app/protected-page-route";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const TextRender = ({ name, description, color }) => {
   return (
@@ -163,7 +168,8 @@ const TripDetail = () => {
                   sx={{ fontSize: "34px", fontWeight: "700" }}
                 >
                   {cityCountry?.city?.length > 0
-                    ? cityCountry?.city.join(", ")
+                    ? //remove last in join at the end
+                      cityCountry?.city?.join(", ").replace(/, $/, "")
                     : cityCountry?.country}{" "}
                 </Typography>
               </Box>
@@ -182,7 +188,14 @@ const TripDetail = () => {
                     padding: "5px 20px",
                     cursor: "pointer",
                   }}
-                  onClick={() => setSaveModal(true)}
+                  onClick={() => {
+                    const user = ProtectedPageRoute();
+                    if (user) {
+                      setSaveModal(true);
+                    } else {
+                      alert("Please login to save trip");
+                    }
+                  }}
                 >
                   <Image
                     src={SavedIcon}
@@ -198,33 +211,112 @@ const TripDetail = () => {
                     background: "#fff",
                   }}
                 ></Box>
+                <CopyToClipboard
+                  text={`${window.location.origin}/trip-detail/${tripId}`}
+                  onCopy={() => {
+                    alert("Copied to clipboard");
+                  }}
+                >
+                  <Box
+                    sx={{
+                      padding: "5px 20px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <ContentCopyIcon
+                      sx={{
+                        width: "14px",
+                        height: "14px",
+                      }}
+                    />
+                  </Box>
+                </CopyToClipboard>
+              </Box>
+              <Box
+                sx={{
+                  height: "5px",
+                }}
+              />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  background: "#D9D9D980",
+                  borderRadius: "10px",
+                  overflow: "hidden",
+                }}
+              >
                 <Box
                   sx={{
                     padding: "5px 20px",
                     cursor: "pointer",
                   }}
                   onClick={() => {
-                    navigator.clipboard
-                      .writeText(window.location.href)
-                      .then(() => {
-                        alert("Copied to clipboard");
-                      })
-                      .catch((err) => {
-                        alert("Failed to copy to clipboard" + err);
-                      });
+                    //open whatsapp to share this link on mobile
+                    window.open(
+                      `https://api.whatsapp.com/send?text=${window.location.href}`,
+                      "_blank"
+                    );
                   }}
                 >
-                  <Image
-                    src={OpenIcon}
-                    width={14}
-                    height={11}
-                    alt="open-icon"
+                  <WhatsAppIcon
+                    sx={{
+                      width: "14px",
+                      height: "14px",
+                    }}
+                  />
+                </Box>
+                <Box
+                  sx={{
+                    width: "1px",
+                    height: "100%",
+                    background: "#fff",
+                  }}
+                ></Box>
+                <Box
+                  sx={{
+                    padding: "5px 20px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    //open facebook to share this link on mobile
+                    window.open(
+                      `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`,
+                      "_blank"
+                    );
+                  }}
+                >
+                  <FacebookIcon
+                    sx={{
+                      width: "14px",
+                      height: "14px",
+                    }}
                   />
                 </Box>
               </Box>
             </Box>
           </Container>
         </Box>
+        {
+          <Button
+            sx={{
+              color: "#fff",
+              width: "100%",
+              padding: "7px 13px",
+              border: "1px solid #fff",
+              fontSize: "18px",
+              backgroundColor: COLORS.primary,
+              display: {
+                md: "flex",
+                xs: "none",
+              },
+            }}
+            onClick={() => setOpenModal(true)}
+          >
+            Regenerate
+          </Button>
+        }
         {/* Day 1 Section */}
         <Box
           sx={{
@@ -403,7 +495,7 @@ const TripDetail = () => {
 
                                       position: "relative",
 
-                                      backgroundImage: `url(${activity.image})`,
+                                      backgroundImage: `url("${activity.image}")`,
 
                                       backgroundRepeat: "no-repeat",
                                       backgroundSize: "cover",
@@ -466,8 +558,15 @@ const TripDetail = () => {
                         marginLeft: "35px",
                       }}
                       onClick={() => {
-                        setIndex(tripIndex);
-                        setAddPlaceOpen(true);
+                        const user = ProtectedPageRoute();
+                        if (!user) {
+                          alert(
+                            "You need to login to add a place to your trip"
+                          );
+                        } else {
+                          setIndex(tripIndex);
+                          setAddPlaceOpen(true);
+                        }
                       }}
                     >
                       <AddIcon
@@ -877,22 +976,19 @@ const TripDetail = () => {
             startTime,
             endTime,
             description,
-            url
+            image
           ) => {
             setAddPlaceOpen(false);
-            console.log("index", index);
-            console.log("tripDetail.trip", tripDetail.trip);
-            console.log("tripDetail.trip[index]", tripDetail.trip[index]);
             setLoading(true);
             setLoadingMessage("Please wait while we are adding your activity");
             const newTrip = { ...tripDetail };
-            if (url) {
+            if (image) {
               newTrip.trip[index].activities.push({
                 description,
                 activity,
                 startTime,
                 endTime,
-                url,
+                image,
               });
             } else {
               newTrip.trip[index].activities.push({
@@ -903,7 +999,8 @@ const TripDetail = () => {
               });
             }
             setTripDetail(() => newTrip);
-            await updateTrip(tripId, newTrip);
+            const response = await updateTrip(tripId, newTrip);
+            alert(response.message);
             setLoading(false);
             console.log("New trip details", newTrip);
           }}
