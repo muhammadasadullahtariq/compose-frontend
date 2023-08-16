@@ -25,7 +25,10 @@ import ProtectedPageRoute from "@/app/protected-page-route";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import InstagramIcon from "@mui/icons-material/Instagram";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import EmailIcon from "@mui/icons-material/Email";
 
 const TextRender = ({ name, description, color }) => {
   return (
@@ -232,7 +235,7 @@ const TripDetail = () => {
                   </Box>
                 </CopyToClipboard>
               </Box>
-              <Box
+              {/* <Box
                 sx={{
                   height: "5px",
                 }}
@@ -294,29 +297,10 @@ const TripDetail = () => {
                     }}
                   />
                 </Box>
-              </Box>
+              </Box> */}
             </Box>
           </Container>
         </Box>
-        {
-          <Button
-            sx={{
-              color: "#fff",
-              width: "100%",
-              padding: "7px 13px",
-              border: "1px solid #fff",
-              fontSize: "18px",
-              backgroundColor: COLORS.primary,
-              display: {
-                md: "flex",
-                xs: "none",
-              },
-            }}
-            onClick={() => setOpenModal(true)}
-          >
-            Regenerate
-          </Button>
-        }
         {/* Day 1 Section */}
         <Box
           sx={{
@@ -618,32 +602,78 @@ const TripDetail = () => {
           </Container>
           <Box
             sx={{
-              display: {
-                md: "none",
-                xs: "flex",
-              },
               width: "100%",
               height: "56px",
               position: "fixed",
               bottom: "0",
               background: "#2B92D5",
-
               padding: "10px",
               justifyContent: "center",
+              alignItems: "center",
+              display: "flex",
+              flexDirection: "row",
             }}
           >
-            <Button
+            <WhatsAppIcon
               sx={{
+                fontSize: "24px",
                 color: "#fff",
-                borderRadius: "20px",
-                padding: "7px 13px",
-                border: "1px solid #fff",
-                fontSize: "10px",
+                marginRight: "15px",
               }}
-              onClick={() => setOpenModal(true)}
-            >
-              Regenerate
-            </Button>
+              onClick={() => {
+                window.open(
+                  `https://api.whatsapp.com/send?text=${window.location.href}`
+                );
+              }}
+            />
+            <FacebookIcon
+              sx={{
+                fontSize: "24px",
+                color: "#fff",
+                marginRight: "15px",
+              }}
+              onClick={() => {
+                window.open(
+                  `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`
+                );
+              }}
+            />
+            <InstagramIcon
+              sx={{
+                fontSize: "24px",
+                color: "#fff",
+                marginRight: "15px",
+              }}
+              onClick={() => {
+                window.open(
+                  `https://www.instagram.com/sharer/sharer.php?u=${window.location.href}`
+                );
+              }}
+            />
+            <TwitterIcon
+              sx={{
+                fontSize: "24px",
+                color: "#fff",
+                marginRight: "15px",
+              }}
+              onClick={() => {
+                window.open(
+                  `https://twitter.com/intent/tweet?text=${window.location.href}`
+                );
+              }}
+            />
+            <EmailIcon
+              sx={{
+                fontSize: "24px",
+                color: "#fff",
+                marginRight: "15px",
+              }}
+              onClick={() => {
+                window.open(
+                  `mailto:?subject=Check out this trip on TripUs&body=${window.location.href}`
+                );
+              }}
+            />
           </Box>
         </Box>
         {tripDetail?.restaurants?.length > 0 && (

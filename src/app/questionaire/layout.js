@@ -97,7 +97,9 @@ export default function Layout({ children }) {
           }}
         >
           <Image src={loadingGif} height={200} width={200}></Image>
-          <Typography>Please wait while we are creating your trip</Typography>
+          <Typography>
+            Hold up, we're composing your trip. 1 to 2 mins tops!🚀🌈
+          </Typography>
         </Box>
       </div>
     );
