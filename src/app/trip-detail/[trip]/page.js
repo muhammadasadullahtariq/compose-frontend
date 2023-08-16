@@ -622,7 +622,13 @@ const TripDetail = () => {
               }}
               onClick={() => {
                 window.open(
-                  `https://api.whatsapp.com/send?text=${window.location.href}`
+                  `https://api.whatsapp.com/send?text=
+                 I just created my personalized trip plan to ${
+                   cityCountry?.city?.length > 0
+                     ? cityCountry?.city?.join(", ").replace(/, $/, "")
+                     : cityCountry?.country
+                 } using Composetrip : 
+                  ${window.location.href}`
                 );
               }}
             />
@@ -634,7 +640,12 @@ const TripDetail = () => {
               }}
               onClick={() => {
                 window.open(
-                  `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`
+                  `https://www.facebook.com/sharer/sharer.php?u=I just created my personalized trip plan to ${
+                    cityCountry?.city?.length > 0
+                      ? cityCountry?.city?.join(", ").replace(/, $/, "")
+                      : cityCountry?.country
+                  } using Composetrip : 
+                  ${window.location.href}`
                 );
               }}
             />
@@ -646,7 +657,12 @@ const TripDetail = () => {
               }}
               onClick={() => {
                 window.open(
-                  `https://www.instagram.com/sharer/sharer.php?u=${window.location.href}`
+                  `https://www.instagram.com/sharer/sharer.php?u=I just created my personalized trip plan to ${
+                    cityCountry?.city?.length > 0
+                      ? cityCountry?.city?.join(", ").replace(/, $/, "")
+                      : cityCountry?.country
+                  } using Composetrip : 
+                  ${window.location.href}`
                 );
               }}
             />
@@ -658,7 +674,12 @@ const TripDetail = () => {
               }}
               onClick={() => {
                 window.open(
-                  `https://twitter.com/intent/tweet?text=${window.location.href}`
+                  `https://twitter.com/intent/tweet?text=I just created my personalized trip plan to ${
+                    cityCountry?.city?.length > 0
+                      ? cityCountry?.city?.join(", ").replace(/, $/, "")
+                      : cityCountry?.country
+                  } using Composetrip : 
+                  ${window.location.href}`
                 );
               }}
             />
@@ -670,7 +691,12 @@ const TripDetail = () => {
               }}
               onClick={() => {
                 window.open(
-                  `mailto:?subject=Check out this trip on TripUs&body=${window.location.href}`
+                  `mailto:?subject=Check out this trip on Composetrip&body=I just created my personalized trip plan to ${
+                    cityCountry?.city?.length > 0
+                      ? cityCountry?.city?.join(", ").replace(/, $/, "")
+                      : cityCountry?.country
+                  } using Composetrip : 
+                  ${window.location.href}`
                 );
               }}
             />

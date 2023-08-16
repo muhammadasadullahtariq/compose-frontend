@@ -43,7 +43,7 @@ const Question1 = () => {
         },
       }}
     >
-      <Box
+      {/* <Box
         sx={{
           display: "flex",
           alignItems: "center",
@@ -81,7 +81,7 @@ const Question1 = () => {
         }}
       >
         <Or />
-      </Box>
+      </Box> */}
 
       <Box
         sx={{
