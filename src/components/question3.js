@@ -57,22 +57,28 @@ const Question2 = () => {
                 alignItems: "center",
               }}
             >
-              <Image
-                style={{
-                  //border shadow
-                  boxShadow:
-                    selectedValue == item.title
-                      ? `0 0 0 3px ${COLORS.primary}`
-                      : "none",
-
-                  borderRadius: "20px",
-                  padding: "0px",
+              <Box
+                sx={{
                   width: isSmall ? "116px" : "116px",
                   height: isSmall ? "119px" : "119px",
+                  borderRadius: "10px",
+                  padding: "0px",
+                  outline:
+                    selectedValue != item.title
+                      ? ``
+                      : `2px solid ${COLORS.primary}`,
+                  backgroundImage: `url(${item.image})`,
                 }}
-                src={item.image}
-                alt={item}
-              />
+              >
+                {/* <Image
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                  }}
+                  src={item.image}
+                  alt={item}
+                /> */}
+              </Box>
 
               <Typography
                 as="p"

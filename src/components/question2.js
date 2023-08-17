@@ -174,19 +174,21 @@ const Question2 = () => {
                 cursor: "pointer",
               }}
             >
-              <Image
-                src={el.image}
-                style={{
+              <Box
+                sx={{
                   outline:
                     formData.month === el.name ? "2px solid #2b92d5" : "",
-                  borderRadius: "12px",
+                  borderRadius: "10px",
                   marginTop: "2px",
-                  filter:
-                    formData.month === el.name &&
-                    formData.date.from.length === 0 &&
-                    formData.date.to.length === 0
-                      ? ""
-                      : "grayscale(1)",
+                  width: {
+                    md: "60px",
+                    xs: "60px",
+                  },
+                  height: {
+                    md: "60px",
+                    xs: "60px",
+                  },
+                  backgroundImage: `url(${el.image})`,
                 }}
               />
               <Typography
@@ -245,6 +247,9 @@ const Question2 = () => {
         </Box>
         <Box display={showCalender ? "block" : "none"}>
           <DateRangePicker
+            style={{
+              width: "100%",
+            }}
             ranges={[
               {
                 startDate: formData.date.from,
@@ -267,19 +272,7 @@ const Question2 = () => {
             showSelectionPreview={true}
             rangeColors={[COLORS.primary]}
             minDate={new Date()}
-            maxDate={
-              formData.date.from !== ""
-                ? new Date(
-                    formData.date.from.getFullYear(),
-                    formData.date.from.getMonth(),
-                    formData.date.from.getDate() + 7
-                  )
-                : new Date(
-                    new Date().getFullYear(),
-                    new Date().getMonth(),
-                    new Date().getDate() + 7
-                  )
-            }
+            
           />
         </Box>
       </Grid>

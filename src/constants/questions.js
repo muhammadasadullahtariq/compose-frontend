@@ -7,10 +7,6 @@ import business from "@/assets/images/Business.svg";
 import getLost from "@/assets/images/questionaires/getLost.svg";
 import knowCountry from "@/assets/images/questionaires/knowCountry.svg";
 import mainCity from "@/assets/images/questionaires/mainCity.svg";
-import Solo from "@/assets/images/questionaires/solo-trip.svg";
-import Friends from "@/assets/images/questionaires/friend-trip.svg";
-import Family from "@/assets/images/questionaires/family-trip.svg";
-import Couple from "@/assets/images/questionaires/couple-trip.svg";
 import Business from "@/assets/images/questionaires/business.svg";
 import Multiple from "@/assets/images/questionaires/multiple-city.svg";
 import Single from "@/assets/images/questionaires/single-city.svg";
@@ -148,10 +144,10 @@ export const questions2 = [
 ];
 
 export const questions3 = [
-  { title: "Solo", image: Solo },
-  { title: "Friends", image: Friends },
-  { title: "Couple", image: Couple },
-  { title: "Family", image: Family },
+  { title: "Solo", image: "/assets/img/solo-trip.svg" },
+  { title: "Friends", image: "/assets/img/friend-trip.svg" },
+  { title: "Couple", image: "/assets/img/couple-trip.svg" },
+  { title: "Family", image: "/assets/img/family-trip.svg" },
 ];
 
 export const questions4 = [

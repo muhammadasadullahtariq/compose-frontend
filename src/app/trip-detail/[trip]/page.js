@@ -996,7 +996,7 @@ const TripDetail = () => {
           open={saveModal}
           handleModel={() => setSaveModal(!saveModal)}
           handerlSave={async (name) => {
-            setOpenModal(false);
+            setSaveModal(false);
             const response = await saveTrip(trip, name);
             console.log("response", response);
             alert(response.message);

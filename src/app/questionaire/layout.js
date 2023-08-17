@@ -342,15 +342,15 @@ export default function Layout({ children }) {
                 overflow: "hidden",
                 width: "100%",
                 gap: "20px",
-                height: "100%",
-                justifyContent: "space-between",
+                // height: "100%",
+                // justifyContent: "space-between",
               }}
             >
               <Box
                 sx={{
                   width: "100%",
-                  flex: "auto",
-                  overflow: "auto",
+                  flex: { lg: "auto", md: "", xs: "" },
+                  overflow: { lg: "auto", md: "", xs: "" },
                   padding: {
                     md: "30px",
                     xs: "15px",
@@ -388,6 +388,9 @@ export default function Layout({ children }) {
               </Box>
               <Box
                 sx={{
+                  marginTop: {
+                    xs: "30px",
+                  },
                   width: "100%",
                   display: "flex",
                   height: {

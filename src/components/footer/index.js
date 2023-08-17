@@ -1,10 +1,15 @@
+"use client";
 import { Grid, Container } from "@mui/material";
 import "./footer.css";
 import { useRouter } from "next/navigation";
 import { deleteCookie } from "cookies-next";
+import sendMail from "@/apis/sendMail";
+import { useState } from "react";
 
 const Footer = () => {
   const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   return (
     <footer className="footer">
       <Container>
@@ -64,18 +69,35 @@ const Footer = () => {
             </p>
             <form>
               <input
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+                value={name}
                 placeholder="Name"
                 style={{
                   color: "white",
                 }}
               />
               <input
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                value={email}
                 placeholder="Email"
                 style={{
                   color: "white",
                 }}
               />
-              <button className="sub_button">Subscribe</button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  alert("Thank you for subscribing");
+                  sendMail(name, email);
+                }}
+                className="sub_button"
+              >
+                Subscribe
+              </button>
             </form>
           </Grid>
         </Grid>
