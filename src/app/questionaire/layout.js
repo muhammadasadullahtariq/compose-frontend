@@ -339,10 +339,10 @@ export default function Layout({ children }) {
                 display: "flex",
                 flexDirection: "column",
                 position: "relative",
-                overflow: "hidden",
+                overflow: "scroll",
                 width: "100%",
                 gap: "20px",
-                // height: "100%",
+                height: "100%",
                 // justifyContent: "space-between",
               }}
             >

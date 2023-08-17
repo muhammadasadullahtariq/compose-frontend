@@ -232,7 +232,9 @@ const Question2 = () => {
             padding: "10px",
             borderRadius: "12px",
             cursor: "pointer",
-            width: { md: "40%", xs: "50%", lg: "20%" },
+            //width: { md: "40%", xs: "50%", lg: "20%" },
+            //only ocupy content width
+            width: "fit-content",
           }}
         >
           <Typography>
