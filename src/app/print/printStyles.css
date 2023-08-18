@@ -1,0 +1,18 @@
+.hero-section {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.dashed-line {
+    width: 2px;
+    height: 100%;
+    background-image: linear-gradient(1800deg,
+            transparent,
+            transparent 50%,
+            #fff 50%,
+            #fff 100%),
+        linear-gradient(180deg, #2b92d6, #2b92d6, #2b92d6, #2b92d6, #2b92d6);
+    background-size: 3px 20px, 100% 20px;
+    border: none;
+}

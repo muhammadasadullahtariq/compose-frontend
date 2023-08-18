@@ -20,7 +20,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function Layout({ children }) {
+export default function Layout({ children, ...props }) {
   const [indexOfQuestion, setIndexOfQuestion] = useState(0);
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState("");
@@ -49,6 +49,7 @@ export default function Layout({ children }) {
 
   useEffect(() => {
     const savedData = localStorage.getItem("questionaireData");
+    console.log("shallow", savedData);
     if (savedData && savedData.length > 0) {
       dispatch({
         type: "UPDATE_DATA",
@@ -75,9 +76,13 @@ export default function Layout({ children }) {
   const handleCreateTrip = async () => {
     setLoading(true);
     const response = await createTrip(data);
-    setLoading(false);
     if (response.message == "Trip created") {
       router.push("/trip-detail/" + response.data);
+    } else {
+      setLoading(false);
+      setOpen(true);
+      setMessage(response.message);
+      setSeverity("error");
     }
   };
 
@@ -446,11 +451,7 @@ export default function Layout({ children }) {
                     if (indexOfQuestion <= 4) {
                       if (indexOfQuestion == 0 && (data.country || data.city)) {
                         handelNextQuestion();
-                      } else if (
-                        indexOfQuestion == 1 &&
-                        (data.numberOfDays > 0 ||
-                          (data.startDate && data.endDate))
-                      ) {
+                      } else if (indexOfQuestion == 1 && data.startDate) {
                         handelNextQuestion();
                       } else if (indexOfQuestion == 2 && data.travelingWith) {
                         handelNextQuestion();

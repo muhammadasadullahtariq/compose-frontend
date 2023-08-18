@@ -33,7 +33,7 @@ function ResponsiveAppBar({ userAuthChanged }) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const router = useRouter();
   const [signUpHide, setSignUpHide] = React.useState(false);
-  const [pages, setPages] = React.useState([""]);
+  const [pages, setPages] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState("");
   const [severity, setSeverity] = React.useState("success");
@@ -91,7 +91,7 @@ function ResponsiveAppBar({ userAuthChanged }) {
           setOpen(true);
           clearToken();
           setSignUpHide(false);
-          setPages([""]);
+          setPages([]);
         })
         .catch((error) => {
           console.log(error);
@@ -114,7 +114,7 @@ function ResponsiveAppBar({ userAuthChanged }) {
         userSessionHandler();
       } else {
         setSignUpHide(false);
-        setPages([""]);
+        setPages([]);
       }
     });
   }, []);
@@ -206,7 +206,10 @@ function ResponsiveAppBar({ userAuthChanged }) {
                 onClick={() => {
                   setCookie("questionaireData", {});
                   deleteCookie("questionaireData");
-                  router.push("/questionaire/where to");
+                  //pass props to questionaire
+                  router.push("/questionaire/where to", undefined, {
+                    shallow: true,
+                  });
                 }}
                 onMouseOver={(e) => {
                   e.target.style.backgroundColor = COLORS.primary;
@@ -327,7 +330,9 @@ function ResponsiveAppBar({ userAuthChanged }) {
                 onClick={() => {
                   setCookie("questionaireData", {});
                   deleteCookie("questionaireData");
-                  router.push("/questionaire/where to");
+                  router.push("/questionaire/where to", undefined, {
+                    shallow: true,
+                  });
                 }}
                 onMouseOver={(e) => {
                   e.target.style.backgroundColor = COLORS.primary;

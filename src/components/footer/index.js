@@ -90,6 +90,10 @@ const Footer = () => {
               />
               <button
                 onClick={(e) => {
+                  if (!name || !email) {
+                    alert("Please fill all the fields");
+                    return;
+                  }
                   e.preventDefault();
                   alert("Thank you for subscribing");
                   sendMail(name, email);

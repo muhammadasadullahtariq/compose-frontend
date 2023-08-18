@@ -17,6 +17,7 @@ import { setCookie, hasCookie, deleteCookie } from "cookies-next";
 function ResponsiveAppBar() {
   const router = useRouter();
   useEffect(() => {
+    localStorage.removeItem("questionaireData");
     if (!hasCookie("userForm")) {
       setCookie("userForm", false);
     }
@@ -115,8 +116,6 @@ function ResponsiveAppBar() {
                 },
               }}
               onClick={() => {
-                setCookie("questionaireData", {});
-                deleteCookie("questionaireData");
                 router.push("/questionaire/where to");
               }}
             >

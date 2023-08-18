@@ -6,8 +6,6 @@ import { Box, Typography } from "@mui/material";
 
 const Counter = ({ formData, value, handleSetValue }) => {
   const handleValue = (opr) => {
-    if (formData.date.from.length > 0 || formData.date.to.length > 0) return;
-
     if (opr === "+" && value < 7) {
       handleSetValue(parseInt(value) + 1);
     } else if (opr === "-" && value > 3) {
@@ -25,21 +23,13 @@ const Counter = ({ formData, value, handleSetValue }) => {
     >
       <Box
         sx={{
-          background:
-            formData.date.from.length > 0 || formData.date.to.length > 0
-              ? "#f9f9f9"
-              : "#fff",
+          background: "#fff",
         }}
       >
         <input
           type="number"
           value={value}
           onChange={(event) => handleSetValue(event.target.value)}
-          disabled={
-            formData.date.from.length > 0 || formData.date.to.length > 0
-              ? true
-              : false
-          }
           min={3}
           max={7}
         />

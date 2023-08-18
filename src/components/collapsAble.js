@@ -1,0 +1,269 @@
+"use client";
+import { Box, Typography, Grid, Button } from "@mui/material";
+
+import LocationIcon from "@/assets/images/tripDetails/icons/location.svg";
+import StarIcon from "@/assets/images/tripDetails/icons/star.svg";
+import TimeIcon from "@/assets/images/tripDetails/icons/time.svg";
+import Image from "next/image";
+import * as COLORS from "@/constants/colors";
+import AddIcon from "@mui/icons-material/Add";
+import ProtectedPageRoute from "@/app/protected-page-route";
+import { useCollapse } from "react-collapsed";
+
+const CollapsibleField = ({ item, tripIndex, tripLength }) => {
+  const { getCollapseProps, getToggleProps } = useCollapse();
+  return (
+    <>
+      <Typography
+        variant="h1"
+        sx={{
+          fontSize: "22px",
+          fontWeight: "700",
+          width: "100%",
+          textAlign: "center",
+          marginBottom: "15px",
+        }}
+        {...getToggleProps()}
+      >
+        Day {tripIndex + 1}
+      </Typography>
+
+      <Box
+        {...getCollapseProps()}
+        sx={{
+          display: "flex",
+          justifyContent: "flex-start",
+          alignItem: "flex-start",
+          flexDirection: "column",
+        }}
+      >
+        <Box sx={{ width: "100%" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-start",
+              marginBottom: "10px",
+              gap: "20px",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Image src={LocationIcon} width="15" alt="location-icon" />
+            </Box>
+            <Box>
+              <Box>
+                <Typography
+                  variant="h4"
+                  sx={{ fontSize: "18px", fontWeight: "500" }}
+                >
+                  {item.location}
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+
+        {item.activities.map((activity, index) => (
+          <>
+            <Box sx={{ width: "100%" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  marginBottom: "10px",
+                  gap: "20px",
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "column",
+                  }}
+                >
+                  <Image src={StarIcon} width="17" alt="location-icon" />
+                </Box>
+                <Box>
+                  <Box>
+                    <Typography
+                      variant="h4"
+                      sx={{ fontSize: "18px", fontWeight: "200" }}
+                    >
+                      {activity.activity}
+                    </Typography>
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
+            <Box sx={{ width: "100%" }}>
+              <Grid
+                container
+                sx={{
+                  gap: "20px",
+                  flexWrap: "nowrap",
+                }}
+              >
+                <Grid
+                  item
+                  sx={{
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    display: "flex",
+                    paddingTop: "3px",
+                  }}
+                >
+                  <Image src={TimeIcon} width="15" alt="location-icon" />
+                  {index < item.activities.length - 1 && (
+                    <Box className="dashed-line" />
+                  )}
+                </Grid>
+                <Grid item sx={{ width: "100%" }}>
+                  <Box sx={{ width: "100%" }}>
+                    <Typography
+                      variant="p"
+                      sx={{ fontSize: "16px", fontWeight: "400" }}
+                    >
+                      {activity.startTime + "-" + activity.endTime}
+                    </Typography>
+                    <Box
+                      sx={{
+                        paddingTop: "15px",
+                        width: "100%",
+                        marginBottom: activity?.image ? "0px" : "15px",
+                      }}
+                    >
+                      <p>{activity.description}</p>
+                    </Box>
+                    {activity.image && (
+                      <Box
+                        sx={{
+                          margin: "15px 0",
+                          width: "100%",
+                          height: {
+                            lg: "401px",
+                            md: "314",
+                            xs: "214px",
+                          },
+                          overflow: "hidden",
+                          borderRadius: "10px",
+
+                          position: "relative",
+
+                          backgroundImage: `url("${activity.image}")`,
+
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "cover",
+                          backgroundPosition: "center",
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            bottom: "15px",
+                            display: "flex",
+                            width: "100%",
+                            justifyContent: "space-between",
+                            alignItems: "flex-end",
+                          }}
+                        >
+                          <Typography
+                            sx={{
+                              fontSize: "16px",
+                              fontWeight: "500",
+                              color: "#fff",
+                              marginLeft: "20px",
+                            }}
+                          >
+                            {activity.activity}
+                          </Typography>
+                          {activity.url && (
+                            <Button
+                              sx={{
+                                marginRight: "20px",
+                                borderRadius: "10px",
+                                color: "#fff",
+                                fontSize: "10px",
+                                background: "#2b92d6",
+                                padding: "9px 12px",
+                                borderRadius: "20px",
+                              }}
+                              onClick={() => {
+                                window.open(activity.url);
+                              }}
+                            >
+                              Book now
+                            </Button>
+                          )}
+                        </Box>
+                      </Box>
+                    )}
+                  </Box>
+                </Grid>
+              </Grid>
+            </Box>
+          </>
+        ))}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            flexDirection: "row",
+            marginLeft: "35px",
+          }}
+          onClick={() => {
+            const user = ProtectedPageRoute();
+            if (!user) {
+              alert("You need to login to add a place to your trip");
+            } else {
+              setIndex(tripIndex);
+              setAddPlaceOpen(true);
+            }
+          }}
+        >
+          <AddIcon
+            sx={{
+              fontSize: "16px",
+              color: COLORS.primary,
+            }}
+          />
+          <Typography
+            sx={{
+              fontSize: "16px",
+              color: COLORS.primary,
+              fontWeight: "500",
+              cursor: "pointer",
+              fontFamily: "Raleway",
+              position: "relative",
+            }}
+          >
+            add a place
+          </Typography>
+        </Box>
+      </Box>
+      {tripIndex != tripLength - 1 ? (
+        <Box
+          style={{
+            width: "100%",
+            height: "1px",
+            background: "#F3F4F8",
+            margin: "15px 0",
+          }}
+        />
+      ) : (
+        <Box />
+      )}
+      <Box />
+    </>
+  );
+};
+
+export default CollapsibleField;
