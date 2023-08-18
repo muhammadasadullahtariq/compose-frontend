@@ -358,6 +358,7 @@ const TripDetail = () => {
               }}
             />
             {/* );
+            //pm2 start app.js --interpreter=nodem -- -r dotenv/config
               }}
               content={() => componentRef.current}
             /> */}

@@ -13,16 +13,18 @@ import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import "./qtStyles.css";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 
 const Question2 = () => {
   const { data, dispatch } = useContext(DataContext);
 
   const [formData, setFormData] = React.useState({
     length: 3,
-    date: "",
+    date: null,
   });
 
   useEffect(() => {
@@ -89,19 +91,22 @@ const Question2 = () => {
         </Box>
 
         <Box>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              label="Please select start date"
-              value={formData.date === "" ? null : formData.date}
-              onError={console.log}
-              minDate={new Date()}
-              onChange={(newValue) => {
-                setFormData({
-                  ...formData,
-                  date: newValue,
-                });
-              }}
-            />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={["DatePicker"]}>
+              <DatePicker
+                label="Please select start date"
+                value={formData.date == "" ? dayjs() : dayjs(formData.date)}
+                onError={console.log}
+                minDate={dayjs()}
+                onChange={(newValue) => {
+                  setFormData({
+                    ...formData,
+                    date: newValue,
+                  });
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </DemoContainer>
           </LocalizationProvider>
         </Box>
         <Box
