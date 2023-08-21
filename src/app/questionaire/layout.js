@@ -467,7 +467,6 @@ export default function Layout({ children, ...props }) {
                       } else if (indexOfQuestion == 3 && data.interest) {
                         handelNextQuestion();
                       } else if (indexOfQuestion == 4 && data.food) {
-                        console.log("data", data);
                         const user = ProtectedPageRoute();
                         if (user) {
                           if (!hasCookie("userForm")) {
