@@ -42,7 +42,7 @@ const Question4 = () => {
         sx={{
           fontFamily: "Raleway",
           fontSize: "14px",
-          marginBottom: { md: "20px", xs: "15px" },
+          marginBottom: { md: "20px", xs: "5px" },
         }}
       >
         Choose up to 5
@@ -67,8 +67,8 @@ const Question4 = () => {
       <Box
         sx={{
           display: "flex",
-          marginTop: { md: "30px", xs: "25px" },
-          marginBottom: { md: "20px", xs: "15px" },
+          marginTop: { md: "30px", xs: "5px" },
+          marginBottom: { md: "20px", xs: "5px" },
           alignItems: "center",
         }}
       >

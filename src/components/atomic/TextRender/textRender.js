@@ -20,7 +20,7 @@ const TextRender = ({ name, description, color }) => {
           fontSize: "18px",
           fontWeight: "600",
           fontFamily: "Raleway",
-          padding: "25px 0 25px 0",
+          padding: "10px 0 10px 0",
         }}
       >
         {name}

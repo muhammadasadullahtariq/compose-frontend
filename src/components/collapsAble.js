@@ -9,25 +9,59 @@ import * as COLORS from "@/constants/colors";
 import AddIcon from "@mui/icons-material/Add";
 import ProtectedPageRoute from "@/app/protected-page-route";
 import { useCollapse } from "react-collapsed";
+import KeyboardArrowDownSharpIcon from "@mui/icons-material/KeyboardArrowDownSharp";
+import KeyboardArrowUpSharpIcon from "@mui/icons-material/KeyboardArrowUpSharp";
 
 const CollapsibleField = ({ item, tripIndex, tripLength }) => {
-  const { getCollapseProps, getToggleProps } = useCollapse();
+  const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
   return (
-    <>
-      <Typography
-        variant="h1"
-        sx={{
-          fontSize: "22px",
-          fontWeight: "700",
-          width: "100%",
-          textAlign: "center",
-          marginBottom: "15px",
+    <Box
+      sx={{
+        width: "100%",
+        backgroundColor: COLORS.white,
+        marginBottom: "20px",
+        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+        paddingRight: "20px",
+        paddingLeft: "10px",
+        paddingTop: "10px",
+        paddingBottom: isExpanded ? "0px" : "10px",
+      }}
+    >
+      <Box
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
         }}
-        {...getToggleProps()}
       >
-        Day {tripIndex + 1}
-      </Typography>
-
+        <Typography
+          variant="h1"
+          sx={{
+            fontSize: "22px",
+            fontWeight: "600",
+            width: "100%",
+            cursor: "pointer",
+          }}
+          {...getToggleProps()}
+        >
+          {item.day.substring(item.day.indexOf(" ") + 1)}
+        </Typography>
+        {isExpanded ? (
+          <KeyboardArrowUpSharpIcon />
+        ) : (
+          <KeyboardArrowDownSharpIcon />
+        )}
+      </Box>
+      {isExpanded && (
+        <Box
+          style={{
+            width: "100%",
+            height: "1px",
+            background: "#F3F4F8",
+            margin: "15px 0",
+          }}
+        />
+      )}
       <Box
         {...getCollapseProps()}
         sx={{
@@ -249,20 +283,8 @@ const CollapsibleField = ({ item, tripIndex, tripLength }) => {
           </Typography>
         </Box>
       </Box>
-      {tripIndex != tripLength - 1 ? (
-        <Box
-          style={{
-            width: "100%",
-            height: "1px",
-            background: "#F3F4F8",
-            margin: "15px 0",
-          }}
-        />
-      ) : (
-        <Box />
-      )}
       <Box />
-    </>
+    </Box>
   );
 };
 

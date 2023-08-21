@@ -2,6 +2,7 @@
 import { initializeApp, getApps } from "firebase/app";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
+import "firebase/compat/analytics";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -21,4 +22,5 @@ provider.setCustomParameters({ prompt: "select_account" });
 const signIn = () => auth.signInWithPopup(provider);
 
 export default firebaseConfig;
-export { signIn, auth };
+const analytics = firebase.analytics();
+export { signIn, auth, analytics };

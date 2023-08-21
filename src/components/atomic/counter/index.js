@@ -8,7 +8,7 @@ const Counter = ({ formData, value, handleSetValue }) => {
   const handleValue = (opr) => {
     if (opr === "+" && value < 7) {
       handleSetValue(parseInt(value) + 1);
-    } else if (opr === "-" && value > 3) {
+    } else if (opr === "-" && value > 1) {
       handleSetValue(parseInt(value) - 1);
     }
   };
@@ -28,15 +28,32 @@ const Counter = ({ formData, value, handleSetValue }) => {
       >
         <input
           type="number"
+          disabled
           value={value}
           onChange={(event) => handleSetValue(event.target.value)}
-          min={3}
+          min={1}
           max={7}
         />
         <div className="Counter_Counter">
-          <Image onClick={() => handleValue("-")} src={plus} />
+          <Image
+            onClick={() => handleValue("-")}
+            style={{
+              cursor: "pointer",
+              backgroundColor: "#fff",
+              borderRadius: "50%",
+            }}
+            src={plus}
+          />
           <p>{value ? value : 0}</p>
-          <Image onClick={() => handleValue("+")} src={minus} />
+          <Image
+            onClick={() => handleValue("+")}
+            style={{
+              cursor: "pointer",
+              backgroundColor: "#fff",
+              borderRadius: "50%",
+            }}
+            src={minus}
+          />
         </div>
       </Box>
 

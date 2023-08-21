@@ -3,43 +3,91 @@ import { Box, Typography } from "@mui/material";
 import { useCollapse } from "react-collapsed";
 import CircleIcon from "@mui/icons-material/Circle";
 import TextRender from "@/components/atomic/TextRender/textRender";
+import KeyboardArrowDownSharpIcon from "@mui/icons-material/KeyboardArrowDownSharp";
+import KeyboardArrowUpSharpIcon from "@mui/icons-material/KeyboardArrowUpSharp";
+import * as COLORS from "@/constants/colors";
+import Image from "next/image";
+import Do from "@/assets/images/tripDetails/do.svg";
+import Dont from "@/assets/images/tripDetails/dont.svg";
 
 const Culture = ({ dosCulture, dontsCulture }) => {
-  const { getCollapseProps, getToggleProps } = useCollapse();
+  const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
   return (
-    <>
+    <Box
+      sx={{
+        width: "100%",
+        backgroundColor: COLORS.white,
+        marginBottom: "20px",
+        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+        paddingRight: "20px",
+        paddingLeft: "10px",
+        paddingTop: "10px",
+        paddingBottom: isExpanded ? "0px" : "10px",
+      }}
+    >
       {dosCulture?.length > 0 && dontsCulture?.length > 0 && (
         <Box>
-          <Typography
-            sx={{
-              fontSize: "22px",
-              fontWeight: "700",
-              textAlign: "center",
-              marginBottom: "20px",
-              marginTop: "20px",
-              fontFamily: "Raleway",
+          <Box
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              cursor: "pointer",
             }}
             {...getToggleProps()}
           >
-            Culture
-          </Typography>
+            <Typography
+              sx={{
+                fontSize: "22px",
+                fontWeight: "700",
+                fontFamily: "Raleway",
+              }}
+            >
+              Culture
+            </Typography>
+            {isExpanded ? (
+              <KeyboardArrowUpSharpIcon />
+            ) : (
+              <KeyboardArrowDownSharpIcon />
+            )}
+          </Box>
+          {isExpanded && (
+            <Box
+              style={{
+                width: "100%",
+                height: "1px",
+                background: "#F3F4F8",
+                margin: "15px 0",
+              }}
+            />
+          )}
           <Box {...getCollapseProps()}>
             {dosCulture?.length > 0 && (
-              <Typography
+              <Box
                 sx={{
-                  fontSize: "18px",
-                  fontWeight: "700",
-                  marginBottom: "20px",
-                  fontFamily: "Raleway",
-                  marginLeft: {
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingLeft: {
                     lg: "70px",
                     md: "50px",
                     xs: "20px",
                   },
                 }}
               >
-                Do’s
-              </Typography>
+                <Image src={Do} alt="Do" />
+                <Typography
+                  sx={{
+                    fontSize: "18px",
+                    fontWeight: "700",
+                    fontFamily: "Raleway",
+                    marginLeft: "10px",
+                  }}
+                >
+                  Do’s
+                </Typography>
+              </Box>
             )}
             {dosCulture?.length > 0 &&
               dosCulture?.map((item, index) => {
@@ -63,29 +111,44 @@ const Culture = ({ dosCulture, dontsCulture }) => {
                         />
                       }
                       description={"  " + item}
-                      color={index % 2 == 0 ? "#F9F9F9" : "#FFFFFF"}
+                      color={"#FFFFFF"}
                     ></TextRender>
                   </Box>
                 );
               })}
+            <Box
+              sx={{
+                width: "100%",
+                height: "20px",
+              }}
+            />
             {dontsCulture?.length > 0 && (
-              <Typography
+              <Box
                 sx={{
-                  fontSize: "18px",
-                  fontWeight: "700",
-                  marginBottom: "20px",
-                  marginTop: "20px",
-                  fontFamily: "Raleway",
-                  marginLeft: {
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingLeft: {
                     lg: "70px",
                     md: "50px",
                     xs: "20px",
                   },
                 }}
               >
-                Dont’s
-              </Typography>
+                <Image src={Dont} alt="Dont's" />
+                <Typography
+                  sx={{
+                    fontSize: "18px",
+                    fontWeight: "700",
+                    fontFamily: "Raleway",
+                    marginLeft: "10px",
+                  }}
+                >
+                  Dont’s
+                </Typography>
+              </Box>
             )}
+
             {dontsCulture?.length > 0 &&
               dontsCulture?.map((item, index) => {
                 return (
@@ -108,7 +171,7 @@ const Culture = ({ dosCulture, dontsCulture }) => {
                         />
                       }
                       description={"  " + item}
-                      color={index % 2 == 0 ? "#F9F9F9" : "#FFFFFF"}
+                      color={"#FFFFFF"}
                     ></TextRender>
                   </Box>
                 );
@@ -121,20 +184,11 @@ const Culture = ({ dosCulture, dontsCulture }) => {
                 justifyContent: "center",
                 alignItems: "center",
               }}
-            >
-              <Box
-                sx={{
-                  height: "1px",
-                  margin: "0 90px 0 90px",
-                  width: "100%",
-                  background: "#F3F4F8",
-                }}
-              ></Box>
-            </Box>
+            ></Box>
           </Box>
         </Box>
       )}
-    </>
+    </Box>
   );
 };
 

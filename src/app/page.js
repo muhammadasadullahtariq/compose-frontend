@@ -144,9 +144,6 @@ function ResponsiveAppBar() {
       </Box>
       <FirstBloack />
       <SecondBlock />
-      {/* <ThirdBlock /> */}
-      {/* <FourthBlock /> */}
-      {/* <Testimonials /> */}
       <Footer />
     </Box>
   );

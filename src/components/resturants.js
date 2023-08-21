@@ -1,32 +1,131 @@
 "use client";
 import { Box, Typography, Grid, Button } from "@mui/material";
 import LocationIcon from "@/assets/images/tripDetails/icons/location.svg";
-import StarIcon from "@/assets/images/tripDetails/icons/star.svg";
-import TimeIcon from "@/assets/images/tripDetails/icons/time.svg";
-import Image from "next/image";
+import Resturant from "@/assets/images/tripDetails/resturantName.svg";
+import Detail from "@/assets/images/tripDetails/detail.svg";
 import * as COLORS from "@/constants/colors";
-import AddIcon from "@mui/icons-material/Add";
-import ProtectedPageRoute from "@/app/protected-page-route";
 import { useCollapse } from "react-collapsed";
-import TextRender from "@/components/atomic/TextRender/textRender";
+import Image from "next/image";
+import KeyboardArrowDownSharpIcon from "@mui/icons-material/KeyboardArrowDownSharp";
+import KeyboardArrowUpSharpIcon from "@mui/icons-material/KeyboardArrowUpSharp";
+import "./resturantStyle.css";
+
+const TextRender = ({ name, location, description }) => {
+  return (
+    <Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
+        <Image src={Resturant} width="15" alt="name-icon" />
+        <Box sx={{ width: "100%", marginLeft: "10px" }}>
+          <Typography variant="p" sx={{ fontSize: "16px", fontWeight: "400" }}>
+            {name}
+          </Typography>
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          height: "20px",
+          margin: "5px 0 2px 6px",
+          display: "flex",
+        }}
+      >
+        <Box className="dashed-linex" />
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
+        <Image src={LocationIcon} width="15" alt="name-icon" />
+        <Box sx={{ width: "100%", marginLeft: "10px" }}>
+          <Typography variant="p" sx={{ fontSize: "16px", fontWeight: "400" }}>
+            {location}
+          </Typography>
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          height: "20px",
+          margin: "5px 0 2px 6px",
+          display: "flex",
+        }}
+      >
+        <Box className="dashed-linex" />
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
+        <Image src={Detail} width="15" alt="name-icon" />
+        <Box sx={{ width: "100%", marginLeft: "10px" }}>
+          <Typography variant="p" sx={{ fontSize: "16px", fontWeight: "400" }}>
+            {description}
+          </Typography>
+        </Box>
+      </Box>
+    </Box>
+  );
+};
 
 const ResturantCollaspible = ({ restaurants }) => {
-  const { getCollapseProps, getToggleProps } = useCollapse();
+  const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
   return (
-    <>
-      {restaurants?.length > 0 && (
-        <Typography
-          {...getToggleProps()}
-          sx={{
-            fontSize: "22px",
-            fontWeight: "700",
-            textAlign: "center",
-            marginBottom: "20px",
-            fontFamily: "Raleway",
+    <Box
+      sx={{
+        width: "100%",
+        backgroundColor: COLORS.white,
+        marginBottom: "20px",
+        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+        paddingRight: "20px",
+        paddingLeft: "10px",
+        paddingTop: "10px",
+        paddingBottom: isExpanded ? "0px" : "10px",
+      }}
+    >
+      <Box
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          cursor: "pointer",
+        }}
+        {...getToggleProps()}
+      >
+        {restaurants?.length > 0 && (
+          <Typography
+            {...getToggleProps()}
+            sx={{
+              fontSize: "22px",
+              fontWeight: "700",
+              fontFamily: "Raleway",
+            }}
+          >
+            Restaurants
+          </Typography>
+        )}
+        {isExpanded ? (
+          <KeyboardArrowUpSharpIcon />
+        ) : (
+          <KeyboardArrowDownSharpIcon />
+        )}
+      </Box>
+      {isExpanded && (
+        <Box
+          style={{
+            width: "100%",
+            height: "1px",
+            background: "#F3F4F8",
+            margin: "15px 0",
           }}
-        >
-          Resturants
-        </Typography>
+        />
       )}
       <Box {...getCollapseProps()}>
         {restaurants?.map((item) => {
@@ -41,19 +140,9 @@ const ResturantCollaspible = ({ restaurants }) => {
               }}
             >
               <TextRender
-                name="Name:&nbsp;"
-                description={item.restaurant}
-                color="#F9F9F9"
-              ></TextRender>
-              <TextRender
-                name="Location:&nbsp;"
-                description={item.location}
-                color="#FFFFFF"
-              ></TextRender>
-              <TextRender
-                name="Description:&nbsp;"
+                name={item.restaurant}
                 description={item.description}
-                color="#F9F9F9"
+                location={item.location}
               ></TextRender>
               <Box
                 sx={{
@@ -77,7 +166,7 @@ const ResturantCollaspible = ({ restaurants }) => {
           );
         })}
       </Box>
-    </>
+    </Box>
   );
 };
 

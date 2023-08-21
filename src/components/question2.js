@@ -23,21 +23,18 @@ const Question2 = () => {
   const { data, dispatch } = useContext(DataContext);
 
   const [formData, setFormData] = React.useState({
-    length: 3,
+    length: 1,
     date: null,
   });
 
   useEffect(() => {
-    console.log(data.startDate);
     setFormData({
-      length: parseInt(data.numberOfDays) || 3,
-      date: data.startDate || "",
+      length: parseInt(data.numberOfDays) || 1,
+      date: data.startDate || dayjs(),
     });
   }, []);
 
   useEffect(() => {
-    console.log(formData);
-    console.log(new Date(formData.date));
     if (formData.date !== "") {
       dispatch({
         type: "UPDATE_DATA",
@@ -97,6 +94,8 @@ const Question2 = () => {
                 label="Please select start date"
                 value={formData.date == "" ? dayjs() : dayjs(formData.date)}
                 onError={console.log}
+                views={["year", "month", "day"]}
+                maxDate={dayjs().add(5, "year")}
                 minDate={dayjs()}
                 onChange={(newValue) => {
                   setFormData({

@@ -2,11 +2,21 @@
 import "./globals.css";
 import { Raleway } from "next/font/google";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
-import Footer from "@/components/footer";
+import { useEffect } from "react";
+import { analytics } from "./config";
 
 const raleway = Raleway({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      analytics.logEvent("page_view", {
+        page_location: window.location.href,
+        page_path: window.location.pathname,
+        page_title: document.title,
+      });
+    }
+  }, []);
   return (
     <GoogleReCaptchaProvider
       reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY}

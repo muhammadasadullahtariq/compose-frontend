@@ -394,7 +394,7 @@ export default function Layout({ children, ...props }) {
               <Box
                 sx={{
                   marginTop: {
-                    xs: "30px",
+                    xs: "10px",
                   },
                   width: "100%",
                   display: "flex",

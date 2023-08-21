@@ -26,22 +26,10 @@ import CollapsibleField from "@/components/collapsAble";
 import ResturantCollaspible from "@/components/resturants";
 import Culture from "@/components/cultures";
 import Health from "@/components/health";
-import ReactToPrint from "react-to-print";
+import ReactToPrint, { useReactToPrint } from "react-to-print";
 import PrintIcon from "@mui/icons-material/Print";
-
-const getPrintableComponent = () => {
-  const container = document.createElement("div");
-  container.style.display = "none";
-
-  const reactToPrintComponent = document.createElement("div");
-  container.appendChild(reactToPrintComponent);
-
-  const root = ReactDOM.createRoot(reactToPrintComponent); // Use createRoot
-
-  root.render(<ReactToPrint content={() => <PrintScreen />} />);
-
-  return container;
-};
+import PrintScreen from "@/components/page";
+import Xlogo from "@/assets/images/tripDetails/x.svg";
 
 const TripDetail = () => {
   const [saveModal, setSaveModal] = useState(false);
@@ -86,19 +74,17 @@ const TripDetail = () => {
     });
   }, [tripDetail]);
 
-  const handlePrint = async () => {
-    const printableComponent = getPrintableComponent();
-    document.body.appendChild(printableComponent);
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
-    await new Promise((resolve) => setTimeout(resolve, 100));
+  function shareOnFacebook(textToShare) {
+    const encodedText = encodeURIComponent(textToShare);
+    console.log(encodedText);
+    const shareURL = `https://www.facebook.com/sharer/sharer.php?u=${encodedText}`;
+    window.open(shareURL, "Share on Facebook", "width=600,height=400");
+  }
 
-    const reactToPrintButton = printableComponent.querySelector("button");
-    if (reactToPrintButton) {
-      reactToPrintButton.click(); // Trigger printing
-    }
-
-    document.body.removeChild(printableComponent);
-  };
   if (loading) {
     return (
       <div>
@@ -231,7 +217,6 @@ const TripDetail = () => {
         <Box
           sx={{
             width: "100%",
-
             position: "relative",
           }}
         >
@@ -299,8 +284,8 @@ const TripDetail = () => {
                 marginRight: "15px",
               }}
               onClick={() => {
-                window.open(
-                  `https://www.facebook.com/sharer/sharer.php?u=I just created my personalized trip plan to ${
+                shareOnFacebook(
+                  `I just created my personalized trip plan to ${
                     cityCountry?.city?.length > 0
                       ? cityCountry?.city?.join(", ").replace(/, $/, "")
                       : cityCountry?.country
@@ -309,23 +294,27 @@ const TripDetail = () => {
                 );
               }}
             />
-            <TwitterIcon
+            <Box
               sx={{
-                fontSize: "24px",
                 color: "#fff",
                 marginRight: "15px",
               }}
-              onClick={() => {
-                window.open(
-                  `https://twitter.com/intent/tweet?text=I just created my personalized trip plan to ${
-                    cityCountry?.city?.length > 0
-                      ? cityCountry?.city?.join(", ").replace(/, $/, "")
-                      : cityCountry?.country
-                  } using Composetrip : 
+            >
+              <Image
+                src={Xlogo}
+                width={20}
+                onClick={() => {
+                  window.open(
+                    `https://twitter.com/intent/tweet?text=I just created my personalized trip plan to ${
+                      cityCountry?.city?.length > 0
+                        ? cityCountry?.city?.join(", ").replace(/, $/, "")
+                        : cityCountry?.country
+                    } using Composetrip : 
                   ${window.location.href}`
-                );
-              }}
-            />
+                  );
+                }}
+              />
+            </Box>
             <EmailIcon
               sx={{
                 fontSize: "24px",
@@ -334,38 +323,31 @@ const TripDetail = () => {
               }}
               onClick={() => {
                 window.open(
-                  `https://twitter.com/intent/tweet?text=I just created my personalized trip plan to ${
+                  `mailto:?subject= Trip plan to ${
                     cityCountry?.city?.length > 0
                       ? cityCountry?.city?.join(", ").replace(/, $/, "")
                       : cityCountry?.country
-                  } using Composetrip : 
-                  ${window.location.href}`
+                  }
+                  &body=I just created my personalized trip plan to ${
+                    cityCountry?.city?.length > 0
+                      ? cityCountry?.city?.join(", ").replace(/, $/, "")
+                      : cityCountry?.country
+                  } using Composetrip: ${window.location.href}`
                 );
               }}
             />
-            {/* <ReactToPrint
-              trigger={() => {
-                console.log("ref", componentRef);
-                return ( */}
             <PrintIcon
               sx={{
                 fontSize: "24px",
                 color: "#fff",
                 marginRight: "15px",
               }}
-              onClick={() => {
-                alert("Print functionality is under development");
-              }}
+              onClick={handlePrint}
             />
-            {/* );
-            //pm2 start app.js --interpreter=nodem -- -r dotenv/config
-              }}
-              content={() => componentRef.current}
-            /> */}
           </Box>
         </Box>
-        <ResturantCollaspible restaurants={tripDetail?.restaurants} />
-        <Box sx={{ padding: { xs: "0px 15px", lg: "0px 140px" } }}>
+        <Container>
+          <ResturantCollaspible restaurants={tripDetail?.restaurants} />
           <Box
             sx={{
               width: "100%",
@@ -373,12 +355,10 @@ const TripDetail = () => {
               background: "#F3F4F8",
             }}
           />
-        </Box>
-        <Culture
-          dosCulture={tripDetail?.dosCulture}
-          dontsCulture={tripDetail?.dontsCulture}
-        />
-        <Box sx={{ padding: { xs: "0px 15px", lg: "0px 140px" } }}>
+          <Culture
+            dosCulture={tripDetail?.dosCulture}
+            dontsCulture={tripDetail?.dontsCulture}
+          />
           <Box
             sx={{
               width: "100%",
@@ -386,11 +366,11 @@ const TripDetail = () => {
               background: "#F3F4F8",
             }}
           />
-        </Box>
-        <Health
-          dosHealth={tripDetail?.dosHealth}
-          dontsHealth={tripDetail?.dontsHealth}
-        />
+          <Health
+            dosHealth={tripDetail?.dosHealth}
+            dontsHealth={tripDetail?.dontsHealth}
+          />
+        </Container>
 
         <Footer />
         <Itinerary
@@ -463,6 +443,18 @@ const TripDetail = () => {
           }}
           modalFor="save"
         />
+        <span
+          style={{
+            display: "none",
+          }}
+        >
+          <PrintScreen
+            ref={componentRef}
+            tripDetail={tripDetail}
+            cityCountry={cityCountry}
+            cityImage={cityImage}
+          />
+        </span>
       </div>
     );
   }
