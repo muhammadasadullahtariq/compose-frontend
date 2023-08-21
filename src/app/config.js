@@ -22,5 +22,5 @@ provider.setCustomParameters({ prompt: "select_account" });
 const signIn = () => auth.signInWithPopup(provider);
 
 export default firebaseConfig;
-const analytics = firebase.analytics();
-export { signIn, auth, analytics };
+//const analytics = firebase.analytics();
+export { signIn, auth, firebase };

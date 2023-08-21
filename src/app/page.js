@@ -13,18 +13,12 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Footer from "@/components/footer";
 import blockImage from "@/assets/images/firstBlock.svg";
 import { setCookie, hasCookie, deleteCookie } from "cookies-next";
-import { analytics } from "./config";
+//import { analytics } from "./config";
 
 function ResponsiveAppBar() {
   const router = useRouter();
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      analytics.logEvent("page_view", {
-        page_location: window.location.href,
-        page_path: window.location.pathname,
-        page_title: document.title,
-      });
-    }
+ 
     localStorage.removeItem("questionaireData");
     if (!hasCookie("userForm")) {
       setCookie("userForm", false);

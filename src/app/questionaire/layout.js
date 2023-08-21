@@ -15,6 +15,7 @@ import createTrip from "@/apis/createTrip";
 import loadingGif from "@/assets/images/tripDetails/loader.gif";
 import Image from "next/image";
 import { getCookie, hasCookie, setCookie } from "cookies-next";
+import { firebase } from "@/app/config";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -33,6 +34,14 @@ export default function Layout({ children, ...props }) {
   });
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const analytics = firebase.analytics();
+      analytics.logEvent("page_view", {
+        page_location: window.location.href,
+        page_path: window.location.pathname,
+        page_title: document.title,
+      });
+    }
     if (data.questionNumber != 0) {
       localStorage.setItem("questionaireData", JSON.stringify(data));
     }
