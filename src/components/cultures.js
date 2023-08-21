@@ -38,9 +38,11 @@ const Culture = ({ dosCulture, dontsCulture }) => {
             {...getToggleProps()}
           >
             <Typography
+              variant="h1"
               sx={{
                 fontSize: "22px",
-                fontWeight: "700",
+                fontWeight: "600",
+                width: "100%",
                 fontFamily: "Raleway",
               }}
             >

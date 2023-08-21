@@ -104,7 +104,8 @@ const ResturantCollaspible = ({ restaurants }) => {
             {...getToggleProps()}
             sx={{
               fontSize: "22px",
-              fontWeight: "700",
+              fontWeight: "600",
+              width: "100%",
               fontFamily: "Raleway",
             }}
           >

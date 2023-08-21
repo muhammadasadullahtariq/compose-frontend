@@ -12,8 +12,13 @@ import { useCollapse } from "react-collapsed";
 import KeyboardArrowDownSharpIcon from "@mui/icons-material/KeyboardArrowDownSharp";
 import KeyboardArrowUpSharpIcon from "@mui/icons-material/KeyboardArrowUpSharp";
 
-const CollapsibleField = ({ item, tripIndex, tripLength }) => {
+const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
+  console.log("startDate", startDate);
+  var date = new Date(startDate);
+
+  date = new Date(date.setDate(date.getDate() + tripIndex));
+
   return (
     <Box
       sx={{
@@ -40,11 +45,15 @@ const CollapsibleField = ({ item, tripIndex, tripLength }) => {
             fontSize: "22px",
             fontWeight: "600",
             width: "100%",
-            cursor: "pointer",
+            fontFamily: "Raleway",
           }}
           {...getToggleProps()}
         >
-          {item.day.substring(item.day.indexOf(" ") + 1)}
+          {date.toLocaleDateString("en-US", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          })}
         </Typography>
         {isExpanded ? (
           <KeyboardArrowUpSharpIcon />

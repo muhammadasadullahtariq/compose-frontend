@@ -38,9 +38,11 @@ const Health = ({ dosHealth, dontsHealth }) => {
             {...getToggleProps()}
           >
             <Typography
+              variant="h1"
               sx={{
                 fontSize: "22px",
                 fontWeight: "600",
+                width: "100%",
                 fontFamily: "Raleway",
               }}
             >

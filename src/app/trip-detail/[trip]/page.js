@@ -26,7 +26,7 @@ import CollapsibleField from "@/components/collapsAble";
 import ResturantCollaspible from "@/components/resturants";
 import Culture from "@/components/cultures";
 import Health from "@/components/health";
-import ReactToPrint, { useReactToPrint } from "react-to-print";
+import { useReactToPrint } from "react-to-print";
 import PrintIcon from "@mui/icons-material/Print";
 import PrintScreen from "@/components/page";
 import Xlogo from "@/assets/images/tripDetails/x.svg";
@@ -59,6 +59,7 @@ const TripDetail = () => {
       setCityCountry({
         city: response.data.city,
         country: response.data.country,
+        date: response.data.startDate,
       });
       setTripId(response.data._id);
     })();
@@ -241,6 +242,7 @@ const TripDetail = () => {
                   item={item}
                   tripIndex={tripIndex}
                   tripLength={trip.length}
+                  startDate={cityCountry?.date}
                 />
               ))}
             </Box>
