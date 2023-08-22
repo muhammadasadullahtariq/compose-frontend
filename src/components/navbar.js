@@ -207,7 +207,7 @@ function ResponsiveAppBar({ userAuthChanged }) {
                   setCookie("questionaireData", {});
                   deleteCookie("questionaireData");
                   //pass props to questionaire
-                  router.push("/questionaire/where to", undefined, {
+                  router.push("/questionaire/whereto", undefined, {
                     shallow: true,
                   });
                 }}
@@ -330,7 +330,7 @@ function ResponsiveAppBar({ userAuthChanged }) {
                 onClick={() => {
                   setCookie("questionaireData", {});
                   deleteCookie("questionaireData");
-                  router.push("/questionaire/where to", undefined, {
+                  router.push("/questionaire/whereto", undefined, {
                     shallow: true,
                   });
                 }}

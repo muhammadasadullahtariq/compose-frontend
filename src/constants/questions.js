@@ -46,26 +46,31 @@ export const questionsHedaing = [
 export const questionaires = [
   {
     navTitle: "Where to",
+    url: "whereto",
     title: "Where do you want to go?",
     dbAttribute: "country",
   },
   {
     navTitle: "When to go",
+    url: "whento",
     title: "When do you want to go?",
     dbAttribute: "monthOfTravel",
   },
   {
     navTitle: "Who's travelling",
+    url: "withwho",
     title: "Who is coming with you?",
     dbAttribute: "travelingWith",
   },
   {
     navTitle: "Interests",
+    url: "interests",
     title: "What do you want to do?",
     dbAttribute: "interest",
   },
   {
     navTitle: "Food",
+    url: "food",
     title: "What’s your fuel?",
     dbAttribute: "food",
   },

@@ -118,7 +118,7 @@ function ResponsiveAppBar() {
                 },
               }}
               onClick={() => {
-                router.push("/questionaire/where to");
+                router.push("/questionaire/whereto");
               }}
             >
               <Typography

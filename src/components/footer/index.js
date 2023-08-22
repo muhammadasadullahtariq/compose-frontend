@@ -22,8 +22,8 @@ const Footer = () => {
                 cursor: "pointer",
               }}
               onClick={() => {
-                deleteCookie("questionaireData");
-                router.push("/questionaire/where to");
+                localStorage.removeItem("questionaireData");
+                router.push("/questionaire/whereto");
               }}
               className="plan_button"
             >

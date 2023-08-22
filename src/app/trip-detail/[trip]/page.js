@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Container, Box, Typography, Grid, Button } from "@mui/material";
 import SavedIcon from "@/assets/images/tripDetails/icons/saved.svg";
+import OpenLink from "@/assets/images/tripDetails/icons/openLink.svg";
 import Image from "next/image";
 import AppBar from "@/components/navbar";
 import Footer from "@/components/footer";
@@ -15,12 +16,6 @@ import AddPlace from "@/components/modals/addPlace";
 import updateTrip from "@/apis/updateTrip";
 import RegenerateTrip from "@/apis/regenerate";
 import ProtectedPageRoute from "@/app/protected-page-route";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import EmailIcon from "@mui/icons-material/Email";
 import { useCollapse } from "react-collapsed";
 import CollapsibleField from "@/components/collapsAble";
 import ResturantCollaspible from "@/components/resturants";
@@ -30,6 +25,13 @@ import { useReactToPrint } from "react-to-print";
 import PrintIcon from "@mui/icons-material/Print";
 import PrintScreen from "@/components/page";
 import Xlogo from "@/assets/images/tripDetails/x.svg";
+import Share from "@/components/modals/share";
+import RegenerateIcon from "@/assets/images/tripDetails/icons/regenerate.svg";
+import * as COLORS from "@/constants/colors";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import EmailIcon from "@mui/icons-material/Email";
 
 const TripDetail = () => {
   const [saveModal, setSaveModal] = useState(false);
@@ -39,7 +41,6 @@ const TripDetail = () => {
   const [loading, setLoading] = useState(true);
   const { trip } = useParams();
   const [addPlaceOpen, setAddPlaceOpen] = useState(false);
-  const [index, setIndex] = useState(0);
   const [tripId, setTripId] = useState("");
   const [loadingMessage, setLoadingMessage] = useState(
     "Please wait while we are getting your trip"
@@ -47,6 +48,7 @@ const TripDetail = () => {
   const [cityCountry, setCityCountry] = useState("");
   const [hidePrint, setHidePrint] = useState(false);
   const componentRef = useRef();
+  const [shareModal, setShareModal] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -191,7 +193,23 @@ const TripDetail = () => {
                     background: "#fff",
                   }}
                 ></Box>
-                <CopyToClipboard
+                <Box
+                  sx={{
+                    padding: "5px 20px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    setShareModal(true);
+                  }}
+                >
+                  <Image
+                    src={OpenLink}
+                    width={11}
+                    height={11}
+                    alt="save-icon"
+                  />
+                </Box>
+                {/* <CopyToClipboard
                   text={`${window.location.origin}/trip-detail/${tripId}`}
                   onCopy={() => {
                     alert("Copied to clipboard");
@@ -210,7 +228,7 @@ const TripDetail = () => {
                       }}
                     />
                   </Box>
-                </CopyToClipboard>
+                </CopyToClipboard> */}
               </Box>
             </Box>
           </Container>
@@ -372,6 +390,110 @@ const TripDetail = () => {
             dosHealth={tripDetail?.dosHealth}
             dontsHealth={tripDetail?.dontsHealth}
           />
+          {/* <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              cursor: "pointer",
+              flexDirection: "row",
+              backgroundColor: COLORS.primary,
+              padding: "8px 15px",
+              borderRadius: "161px",
+              margin: "20px 0px",
+            }}
+            onClick={() => {
+              setOpenModal(true);
+            }}
+          >
+            <Typography
+              sx={{
+                color: "#fff",
+                fontSize: "12px",
+                fontWeight: "600",
+              }}
+            >
+              View List of hotels nearby
+            </Typography>
+          </Box> */}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              cursor: "pointer",
+              flexDirection: "row",
+              borderWidth: "1px",
+              padding: "8px 15px",
+              borderRadius: "161px",
+              margin: "20px 0px",
+              backgroundColor: COLORS.primary,
+            }}
+            onClick={() => {
+              setOpenModal(true);
+            }}
+          >
+            <Box
+              sx={{
+                color: "#fff",
+                marginRight: "5px",
+              }}
+            >
+              <Image src={RegenerateIcon} width={20} />
+            </Box>
+            <Typography
+              sx={{
+                color: "#fff",
+                fontSize: "12px",
+                fontWeight: "600",
+              }}
+            >
+              Regenerate
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              cursor: "pointer",
+              flexDirection: "row",
+              padding: "8px 15px",
+              borderRadius: "161px",
+              minWidth: "120px",
+              backgroundColor: COLORS.primary,
+              marginBottom: "20px",
+            }}
+            onClick={handlePrint}
+          >
+            <PrintIcon
+              sx={{
+                fontSize: "24px",
+                color: "#fff",
+                marginRight: "5px",
+              }}
+            />
+            <Typography
+              sx={{
+                color: "#fff",
+                fontSize: "12px",
+                fontWeight: "600",
+              }}
+            >
+              Print
+            </Typography>
+          </Box>
+          <Box>
+            <div
+              className="eg-widget"
+              data-widget="search"
+              data-program="us-expedia"
+              data-lobs="stays,flights"
+              data-network="pz"
+              data-camref="1100lGndQ"
+              data-pubref="composando"
+            ></div>
+          </Box>
         </Container>
 
         <Footer />
@@ -394,20 +516,33 @@ const TripDetail = () => {
           }}
           handelYesModal={async () => {
             setOpenModal(false);
-            setLoading(true);
-            setLoadingMessage("Please wait while we are regenereting you plan");
-            const response = await RegenerateTrip(tripId);
-            setLoading(false);
-            setTripDetail(response.data.chatGptResponse);
-            setCityCountry({
-              city: response.data.city,
-              country: response.data.country,
-            });
-            setTripId(response.data._id);
+            const user = ProtectedPageRoute();
+            if (user) {
+              setLoading(true);
+              setLoadingMessage(
+                "Please wait while we are regenereting you plan"
+              );
+              const response = await RegenerateTrip(tripId);
+              setLoading(false);
+              setTripDetail(response.data.chatGptResponse);
+              setCityCountry({
+                city: response.data.city,
+                country: response.data.country,
+                date: response.data.startDate,
+              });
+              setTripId(response.data._id);
+            } else {
+              alert("Please login to regenerate your trip");
+            }
           }}
           modalFor="new"
         />
-        <AddPlace
+        <Share
+          open={shareModal}
+          handleModel={() => setShareModal(!shareModal)}
+          cityCountry={cityCountry}
+        />
+        {/* <AddPlace
           open={addPlaceOpen}
           handleModel={() => setAddPlaceOpen(!addPlaceOpen)}
           handerlSave={async (
@@ -422,7 +557,7 @@ const TripDetail = () => {
             setLoadingMessage("Please wait while we are adding your activity");
             const newTrip = { ...tripDetail };
             if (image) {
-              newTrip.trip[index].activities.push({
+              newTrip.trip[0].activities.push({
                 description,
                 activity,
                 startTime,
@@ -430,7 +565,7 @@ const TripDetail = () => {
                 image,
               });
             } else {
-              newTrip.trip[index].activities.push({
+              newTrip.trip[0].activities.push({
                 description,
                 activity,
                 startTime,
@@ -444,7 +579,7 @@ const TripDetail = () => {
             console.log("New trip details", newTrip);
           }}
           modalFor="save"
-        />
+        /> */}
         <span
           style={{
             display: "none",

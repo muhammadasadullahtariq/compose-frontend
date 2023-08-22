@@ -5,7 +5,6 @@ const createTrip = async (data) => {
   try {
     const token = getCookie("token");
     const user = await checkUserExist();
-    console.log("user data ", user);
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}createTrip`, {
       method: "POST",
       headers: {
@@ -18,7 +17,6 @@ const createTrip = async (data) => {
       }),
     });
     const result = await res.json();
-    console.log("result of trip", result);
     return result;
   } catch (error) {
     console.log(error);

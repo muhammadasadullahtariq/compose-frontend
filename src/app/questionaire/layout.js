@@ -48,11 +48,11 @@ export default function Layout({ children, ...props }) {
   }, [data]);
 
   const handelNextQuestion = () => {
-    router.push("/questionaire/" + questionaires[indexOfQuestion].navTitle);
     dispatch({
       type: "UPDATE_QUESTION_NUMBER",
       payload: indexOfQuestion + 1,
     });
+    router.push("/questionaire/" + questionaires[indexOfQuestion + 1].url);
     setIndexOfQuestion(indexOfQuestion + 1);
   };
 
@@ -430,7 +430,7 @@ export default function Layout({ children, ...props }) {
                     if (indexOfQuestion >= 1) {
                       router.push(
                         "/questionaire/" +
-                          questionaires[indexOfQuestion - 1].navTitle
+                          questionaires[indexOfQuestion - 1].url
                       );
                       dispatch({
                         type: "UPDATE_QUESTION_NUMBER",

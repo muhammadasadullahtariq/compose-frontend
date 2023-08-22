@@ -254,7 +254,7 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
             </Box>
           </>
         ))}
-        <Box
+        {/* <Box
           sx={{
             display: "flex",
             justifyContent: "flex-start",
@@ -290,7 +290,7 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
           >
             add a place
           </Typography>
-        </Box>
+        </Box> */}
       </Box>
       <Box />
     </Box>
