@@ -9,7 +9,7 @@ import Footer from "@/components/footer";
 import Itinerary from "@/components/modals/itinerary";
 import "../style.css";
 import getTripDetailById from "@/apis/getTripDetail";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import saveTrip from "@/apis/saveTrip";
 import loadingGif from "@/assets/images/tripDetails/loader.gif";
 import AddPlace from "@/components/modals/addPlace";
@@ -49,6 +49,7 @@ const TripDetail = () => {
   const [hidePrint, setHidePrint] = useState(false);
   const componentRef = useRef();
   const [shareModal, setShareModal] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     (async () => {
@@ -65,13 +66,13 @@ const TripDetail = () => {
       });
       setTripId(response.data._id);
     })();
-   try {
-     const analytics = firebase.analytics();
-     analytics.logEvent("page_view", {
-       page_path: router.pathname,
-     });
-     console.log("analytics", analytics);
-   } catch (error) {}
+    try {
+      const analytics = firebase.analytics();
+      analytics.logEvent("page_view", {
+        page_path: router.pathname,
+      });
+      console.log("analytics", analytics);
+    } catch (error) {}
   }, []);
 
   useEffect(() => {
