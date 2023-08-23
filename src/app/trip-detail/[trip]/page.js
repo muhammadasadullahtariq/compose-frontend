@@ -30,8 +30,8 @@ import RegenerateIcon from "@/assets/images/tripDetails/icons/regenerate.svg";
 import * as COLORS from "@/constants/colors";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
 import EmailIcon from "@mui/icons-material/Email";
+import { firebase } from "@/app/config";
 
 const TripDetail = () => {
   const [saveModal, setSaveModal] = useState(false);
@@ -65,6 +65,16 @@ const TripDetail = () => {
       });
       setTripId(response.data._id);
     })();
+    try {
+      if (typeof window !== "undefined") {
+        const analytics = firebase.analytics();
+        analytics.logEvent("page_view", {
+          page_location: window.location.href,
+          page_path: window.location.pathname,
+          page_title: document.title,
+        });
+      }
+    } catch (error) {}
   }, []);
 
   useEffect(() => {

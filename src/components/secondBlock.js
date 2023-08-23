@@ -67,7 +67,8 @@ function SecondBlock() {
                   color: COLORS.primary,
                 }}
               >
-                PLANNING &nbsp;
+                PLANNING
+                <br />
               </Typography>
               EXPERIENCE
             </Typography>

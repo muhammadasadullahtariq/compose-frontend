@@ -10,6 +10,7 @@ const Footer = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+
   return (
     <footer className="footer">
       <Container>
@@ -30,27 +31,12 @@ const Footer = () => {
               Get Started&nbsp;{">"}
             </button>
           </Grid>
-          {/* <Grid item xs={6} md={3}>
-            <ul>
-              <li>
-                <a href="#">Home</a>
-              </li>
-              <li>
-                <a href="#">About Us</a>
-              </li>
-              <li>
-                <a href="#">How it works</a>
-              </li>
-              <li>
-                <a href="#">Testimonial</a>
-              </li>
-            </ul>
-          </Grid> */}
+          
           <Grid item xs={6} md={3}>
             <ul>
               <li>
                 <a href="https://sites.google.com/ripeseed.io/privacypolices/home">
-                  Terms & Conditions
+                  Terms of Services
                 </a>
               </li>
               <li>
@@ -59,10 +45,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#">Cookies Policy</a>
-              </li>
-              <li>
-                <a href="#">Contact Us</a>
+                <a href="mailto:Info@composetrip.com">Contact Us</a>
               </li>
             </ul>
           </Grid>

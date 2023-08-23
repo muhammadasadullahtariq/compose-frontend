@@ -29,11 +29,27 @@ export default function Layout({ children, ...props }) {
   const [recaptchaOpen, setRecaptchaOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const router = useRouter();
+  const { question } = useParams();
   const [data, dispatch] = useReducer(dataReducer, {
     questionNumber: 0,
   });
 
   useEffect(() => {
+     try {
+       if (typeof window !== "undefined") {
+         const analytics = firebase.analytics();
+         analytics.logEvent("page_view", {
+           page_location: window.location.href,
+           page_path: window.location.pathname,
+           page_title: document.title,
+         });
+         console.log("analytics", {
+           page_location: window.location.href,
+           page_path: window.location.pathname,
+           page_title: document.title,
+         });
+       }
+     } catch (error) {}
     if (data.questionNumber != 0) {
       localStorage.setItem("questionaireData", JSON.stringify(data));
     }
@@ -49,16 +65,7 @@ export default function Layout({ children, ...props }) {
   };
 
   useEffect(() => {
-    try {
-      const analytics = firebase.analytics();
-      analytics.logEvent("page_view", {
-        page_path: router.pathname,
-      });
-      console.log("analytics", analytics);
-    } catch (error) {
-      alert("error", error);
-      console.log("error", error);
-    }
+   
     const savedData = localStorage.getItem("questionaireData");
     if (savedData && savedData.length > 0) {
       dispatch({
