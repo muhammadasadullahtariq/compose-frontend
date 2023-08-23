@@ -65,16 +65,13 @@ const TripDetail = () => {
       });
       setTripId(response.data._id);
     })();
-    try {
-      if (typeof window !== "undefined") {
-        const analytics = firebase.analytics();
-        analytics.logEvent("page_view", {
-          page_location: window.location.href,
-          page_path: window.location.pathname,
-          page_title: document.title,
-        });
-      }
-    } catch (error) {}
+   try {
+     const analytics = firebase.analytics();
+     analytics.logEvent("page_view", {
+       page_path: router.pathname,
+     });
+     console.log("analytics", analytics);
+   } catch (error) {}
   }, []);
 
   useEffect(() => {

@@ -35,21 +35,15 @@ export default function Layout({ children, ...props }) {
   });
 
   useEffect(() => {
-     try {
-       if (typeof window !== "undefined") {
-         const analytics = firebase.analytics();
-         analytics.logEvent("page_view", {
-           page_location: window.location.href,
-           page_path: window.location.pathname,
-           page_title: document.title,
-         });
-         console.log("analytics", {
-           page_location: window.location.href,
-           page_path: window.location.pathname,
-           page_title: document.title,
-         });
-       }
-     } catch (error) {}
+      try {
+        const analytics = firebase.analytics();
+        analytics.logEvent("page_view", {
+          page_path: router.pathname,
+        });
+        console.log("analytics", analytics);
+      } catch (error) {
+       
+      }
     if (data.questionNumber != 0) {
       localStorage.setItem("questionaireData", JSON.stringify(data));
     }
