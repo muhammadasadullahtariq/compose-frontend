@@ -4,7 +4,7 @@ import React, { useEffect, useReducer, useState, useRef } from "react";
 import * as COLORS from "@/constants/colors";
 import AppBar from "@/components/navbar";
 import { useParams, useRouter } from "next/navigation";
-import { questionsHedaing, questionaires } from "@/constants/questions";
+import { questionaires } from "@/constants/questions";
 import CheckIcon from "@mui/icons-material/Check";
 import { DataContext, dataReducer } from "@/app/questionaire/context";
 import Snackbar from "@mui/material/Snackbar";
@@ -35,15 +35,19 @@ export default function Layout({ children, ...props }) {
   });
 
   useEffect(() => {
-      try {
-        const analytics = firebase.analytics();
+    try {
+      const analytics = firebase.analytics();
+      analytics.logEvent("page_view", {
+        page_path: router.pathname,
+      });
+      if (typeof window !== "undefined") {
         analytics.logEvent("page_view", {
-          page_path: router.pathname,
+          page_path: window.location.pathname,
+          page_location: window.location.href,
         });
-        console.log("analytics", analytics);
-      } catch (error) {
-       
       }
+      console.log("analytics", analytics);
+    } catch (error) {}
     if (data.questionNumber != 0) {
       localStorage.setItem("questionaireData", JSON.stringify(data));
     }
@@ -59,7 +63,6 @@ export default function Layout({ children, ...props }) {
   };
 
   useEffect(() => {
-   
     const savedData = localStorage.getItem("questionaireData");
     if (savedData && savedData.length > 0) {
       dispatch({

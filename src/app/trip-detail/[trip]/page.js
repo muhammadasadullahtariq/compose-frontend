@@ -71,6 +71,12 @@ const TripDetail = () => {
       analytics.logEvent("page_view", {
         page_path: router.pathname,
       });
+      if (typeof window !== "undefined") {
+        analytics.logEvent("page_view", {
+          page_path: window.location.pathname,
+          page_location: window.location.href,
+        });
+      }
       console.log("analytics", analytics);
     } catch (error) {}
   }, []);
