@@ -1,11 +1,11 @@
 "use client";
 import { Box, Typography } from "@mui/material";
 
-const TextRender = ({ name, description, color }) => {
+const TextRender = ({ name, description }) => {
   return (
     <Box
       sx={{
-        backgroundColor: color,
+        backgroundColor: "#fff",
         display: "flex",
         flexDirection: "row",
         padding: {

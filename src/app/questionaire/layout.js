@@ -34,14 +34,6 @@ export default function Layout({ children, ...props }) {
   });
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const analytics = firebase.analytics();
-      analytics.logEvent("page_view", {
-        page_location: window.location.href,
-        page_path: window.location.pathname,
-        page_title: document.title,
-      });
-    }
     if (data.questionNumber != 0) {
       localStorage.setItem("questionaireData", JSON.stringify(data));
     }
@@ -57,8 +49,17 @@ export default function Layout({ children, ...props }) {
   };
 
   useEffect(() => {
+    try {
+      const analytics = firebase.analytics();
+      analytics.logEvent("page_view", {
+        page_path: router.pathname,
+      });
+      console.log("analytics", analytics);
+    } catch (error) {
+      alert("error", error);
+      console.log("error", error);
+    }
     const savedData = localStorage.getItem("questionaireData");
-    console.log("shallow", savedData);
     if (savedData && savedData.length > 0) {
       dispatch({
         type: "UPDATE_DATA",

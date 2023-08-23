@@ -520,7 +520,7 @@ const TripDetail = () => {
             if (user) {
               setLoading(true);
               setLoadingMessage(
-                "Please wait while we are regenereting you plan"
+                "Please wait while we are regenerating you plan.1 to 2 mins tops!🚀🌈"
               );
               const response = await RegenerateTrip(tripId);
               setLoading(false);
@@ -590,6 +590,7 @@ const TripDetail = () => {
             tripDetail={tripDetail}
             cityCountry={cityCountry}
             cityImage={cityImage}
+            datee={new Date(cityCountry?.date)}
           />
         </span>
       </div>

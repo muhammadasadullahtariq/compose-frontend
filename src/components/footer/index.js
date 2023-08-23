@@ -49,10 +49,14 @@ const Footer = () => {
           <Grid item xs={6} md={3}>
             <ul>
               <li>
-                <a href="#">Terms & Conditions</a>
+                <a href="https://sites.google.com/ripeseed.io/privacypolices/home">
+                  Terms & Conditions
+                </a>
               </li>
               <li>
-                <a href="#">Privacy Policy</a>
+                <a href="https://sites.google.com/ripeseed.io/privacy-policy/home">
+                  Privacy Policy
+                </a>
               </li>
               <li>
                 <a href="#">Cookies Policy</a>

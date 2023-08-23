@@ -1,57 +1,102 @@
 "use client";
 import { useState, useEffect, forwardRef, useRef } from "react";
 import { Container, Box, Typography, Grid, Button } from "@mui/material";
-import LocationIcon from "@/assets/images/tripDetails/icons/location.svg";
-import StarIcon from "@/assets/images/tripDetails/icons/star.svg";
-import TimeIcon from "@/assets/images/tripDetails/icons/time.svg";
+import LocationIcon from "@/assets/images/tripDetails/location.png";
+import Resturant from "@/assets/images/tripDetails/resturant.png";
+import Detail from "@/assets/images/tripDetails/detail.png";
+import StarIcon from "@/assets/images/tripDetails/star.png";
+import TimeIcon from "@/assets/images/tripDetails/time.png";
 import Image from "next/image";
 import "./printStyles.css";
 import CircleIcon from "@mui/icons-material/Circle";
+import TextRender from "./atomic/TextRender/textRender";
+import Do from "@/assets/images/tripDetails/do.png";
+import Dont from "@/assets/images/tripDetails/dont.png";
+import * as COLORS from "@/constants/colors";
 
-
-const TextRender = ({ name, description, color }) => {
+const TextRenderOfResturant = ({ name, location, description }) => {
   return (
-    <Box
-      sx={{
-        backgroundColor: color,
-        display: "flex",
-        flexDirection: "row",
-        padding: {
-          lg: "0 50px 0 50px",
-          md: "0 30px 0 30px",
-          xs: "0 20px 0 20px",
-        },
-      }}
-    >
-      <Typography
+    <Box>
+      <Box
         sx={{
-          fontSize: "18px",
-          fontWeight: "600",
-          fontFamily: "Raleway",
-          padding: "25px 0 25px 0",
+          display: "flex",
+          flexDirection: "row",
         }}
       >
-        {name}
-        <Typography
-          as="span"
-          sx={{
-            fontSize: "16px",
-            fontWeight: "500",
-            fontFamily: "Raleway",
-            padding: "27px 0 27px 0",
-          }}
-        >
-          {description}
-        </Typography>
-      </Typography>
+        <Box
+          component={"img"}
+          src={`${process.env.NEXT_PUBLIC_API_URL}assets/resturant.png`}
+          alt="name-icon"
+          sx={{ height: "15px", width: "15px" }}
+        />
+        <Box sx={{ width: "100%", marginLeft: "10px" }}>
+          <Typography variant="p" sx={{ fontSize: "16px", fontWeight: "400" }}>
+            {name}
+          </Typography>
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          height: "20px",
+          margin: "5px 0 2px 6px",
+          display: "flex",
+        }}
+      >
+        <Box className="dashed-linex" />
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
+        <Box
+          component={"img"}
+          src={`${process.env.NEXT_PUBLIC_API_URL}assets/location.png`}
+          alt="name-icon"
+          sx={{ height: "15px", width: "15px" }}
+        />
+        <Box sx={{ width: "100%", marginLeft: "10px" }}>
+          <Typography variant="p" sx={{ fontSize: "16px", fontWeight: "400" }}>
+            {location}
+          </Typography>
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          height: "20px",
+          margin: "5px 0 2px 6px",
+          display: "flex",
+        }}
+      >
+        <Box className="dashed-linex" />
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
+        <Box
+          component={"img"}
+          src={`${process.env.NEXT_PUBLIC_API_URL}assets/detail.png`}
+          alt="name-icon"
+          sx={{ height: "15px", width: "15px" }}
+        />
+        <Box sx={{ width: "100%", marginLeft: "10px" }}>
+          <Typography variant="p" sx={{ fontSize: "16px", fontWeight: "400" }}>
+            {description}
+          </Typography>
+        </Box>
+      </Box>
     </Box>
   );
 };
 
 const PrintScreen = forwardRef(
-  ({ cityCountry, tripDetail, cityImage }, ref) => {
+  ({ cityCountry, tripDetail, cityImage, datee }, ref) => {
     return (
-      <div ref={ref} >
+      <div ref={ref}>
         <Box
           className="hero-section"
           sx={{
@@ -111,540 +156,652 @@ const PrintScreen = forwardRef(
             <Box
               sx={{
                 display: "flex",
-                justifyContent: "center",
                 alignItems: "flex-start",
                 flexDirection: "column",
                 width: "100%",
               }}
             >
-              {tripDetail?.trip?.map((item, tripIndex) => (
-                <>
+              {tripDetail?.trip?.map((item, tripIndex) => {
+                const date = new Date(datee.setDate(datee.getDate() + tripIndex));
+                return (
+                  <>
+                    <Typography
+                      variant="h1"
+                      sx={{
+                        fontSize: "22px",
+                        fontWeight: "700",
+                        width: "100%",
+                        textAlign: "center",
+                        marginBottom: "15px",
+                      }}
+                    >
+                      {date.toLocaleDateString("en-US", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </Typography>
+
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        alignItem: "flex-start",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <Box sx={{ width: "100%" }}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "flex-start",
+                            marginBottom: "10px",
+                            gap: "20px",
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              flexDirection: "column",
+                            }}
+                          >
+                            <Box
+                              component={"img"}
+                              src={`${process.env.NEXT_PUBLIC_API_URL}assets/location.png`}
+                              alt="name-icon"
+                              sx={{ height: "15px", width: "15px" }}
+                            />
+                          </Box>
+                          <Box>
+                            <Box>
+                              <Typography
+                                variant="h4"
+                                sx={{ fontSize: "18px", fontWeight: "500" }}
+                              >
+                                {item.location}
+                              </Typography>
+                            </Box>
+                          </Box>
+                        </Box>
+                      </Box>
+
+                      {item.activities.map((activity, index) => (
+                        <>
+                          <Box sx={{ width: "100%" }}>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "flex-start",
+                                marginBottom: "10px",
+                                gap: "20px",
+                              }}
+                            >
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <Box
+                                  component={"img"}
+                                  src={`${process.env.NEXT_PUBLIC_API_URL}assets/star.png`}
+                                  alt="name-icon"
+                                  sx={{ height: "15px", width: "15px" }}
+                                />
+                              </Box>
+                              <Box>
+                                <Box>
+                                  <Typography
+                                    variant="h4"
+                                    sx={{ fontSize: "18px", fontWeight: "200" }}
+                                  >
+                                    {activity.activity}
+                                  </Typography>
+                                </Box>
+                              </Box>
+                            </Box>
+                          </Box>
+                          <Box sx={{ width: "100%" }}>
+                            <Grid
+                              container
+                              sx={{
+                                gap: "20px",
+                                flexWrap: "nowrap",
+                              }}
+                            >
+                              <Grid
+                                item
+                                sx={{
+                                  justifyContent: "flex-start",
+                                  alignItems: "center",
+                                  flexDirection: "column",
+                                  display: "flex",
+                                  paddingTop: "3px",
+                                }}
+                              >
+                                <Box
+                                  component={"img"}
+                                  src={`${process.env.NEXT_PUBLIC_API_URL}assets/time.png`}
+                                  alt="name-icon"
+                                  sx={{ height: "15px", width: "15px" }}
+                                />
+                                {index < item.activities.length - 1 && (
+                                  <Box className="dashed-line" />
+                                )}
+                              </Grid>
+                              <Grid item sx={{ width: "100%" }}>
+                                <Box sx={{ width: "100%" }}>
+                                  <Typography
+                                    variant="p"
+                                    sx={{ fontSize: "16px", fontWeight: "400" }}
+                                  >
+                                    {activity.startTime +
+                                      "-" +
+                                      activity.endTime}
+                                  </Typography>
+                                  <Box
+                                    sx={{
+                                      paddingTop: "15px",
+                                      width: "100%",
+                                      marginBottom: activity?.image
+                                        ? "0px"
+                                        : "15px",
+                                    }}
+                                  >
+                                    <p>{activity.description}</p>
+                                  </Box>
+                                  {activity.image && (
+                                    <Box
+                                      sx={{
+                                        margin: "15px 0",
+                                        width: "100%",
+                                        height: {
+                                          lg: "401px",
+                                          md: "314",
+                                          xs: "214px",
+                                        },
+                                        overflow: "hidden",
+                                        borderRadius: "10px",
+
+                                        position: "relative",
+
+                                        backgroundImage: `url("${activity.image}")`,
+
+                                        backgroundRepeat: "no-repeat",
+                                        backgroundSize: "cover",
+                                        backgroundPosition: "center",
+                                      }}
+                                    >
+                                      <Box
+                                        sx={{
+                                          position: "absolute",
+                                          bottom: "15px",
+                                          display: "flex",
+                                          width: "100%",
+                                          justifyContent: "space-between",
+                                          alignItems: "flex-end",
+                                        }}
+                                      >
+                                        <Typography
+                                          sx={{
+                                            fontSize: "16px",
+                                            fontWeight: "500",
+                                            color: "#fff",
+                                            marginLeft: "20px",
+                                          }}
+                                        >
+                                          {activity.activity}
+                                        </Typography>
+                                        {activity.url && (
+                                          <Button
+                                            sx={{
+                                              marginRight: "20px",
+                                              borderRadius: "10px",
+                                              color: "#fff",
+                                              fontSize: "10px",
+                                              background: "#2b92d6",
+                                              padding: "9px 12px",
+                                              borderRadius: "20px",
+                                            }}
+                                            onClick={() => {
+                                              window.open(activity.url);
+                                            }}
+                                          >
+                                            Book now
+                                          </Button>
+                                        )}
+                                      </Box>
+                                    </Box>
+                                  )}
+                                </Box>
+                              </Grid>
+                            </Grid>
+                          </Box>
+                        </>
+                      ))}
+                    </Box>
+                    {tripIndex != tripDetail.length - 1 ? (
+                      <Box
+                        style={{
+                          width: "100%",
+                          height: "1px",
+                          background: "#F3F4F8",
+                          margin: "15px 0",
+                        }}
+                      />
+                    ) : (
+                      <Box
+                        sx={{
+                          width: "100%",
+                          height: "60px",
+                          marginBottom: "15px",
+                          display: {
+                            md: "none",
+                            xs: "block",
+                          },
+                        }}
+                      />
+                    )}
+                    <Box />
+                  </>
+                );
+              })}
+            </Box>
+          </Container>
+        </Box>
+        <Container>
+          <Box
+            sx={{
+              width: "100%",
+              backgroundColor: COLORS.white,
+              marginBottom: "20px",
+              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+              paddingRight: "20px",
+              paddingLeft: "10px",
+              paddingTop: "10px",
+            }}
+          >
+            <Box
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
+            >
+              {tripDetail?.restaurants?.length > 0 && (
+                <Typography
+                  sx={{
+                    fontSize: "22px",
+                    fontWeight: "600",
+                    width: "100%",
+                    fontFamily: "Raleway",
+                  }}
+                >
+                  Restaurants
+                </Typography>
+              )}
+            </Box>
+
+            <Box>
+              {tripDetail?.restaurants?.map((item) => {
+                return (
+                  <Box
+                    sx={{
+                      margin: {
+                        lg: "0 70px 0 70px",
+                        md: "0 50px 0 50px",
+                        xs: "0",
+                      },
+                    }}
+                  >
+                    <TextRenderOfResturant
+                      name={item.restaurant}
+                      description={item.description}
+                      location={item.location}
+                    ></TextRenderOfResturant>
+                    <Box
+                      sx={{
+                        margin: "25px 20 25px 20",
+                        height: "50px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          height: "1px",
+                          margin: "0 20px 0 20px",
+                          width: "100%",
+                          background: "#F3F4F8",
+                        }}
+                      ></Box>
+                    </Box>
+                  </Box>
+                );
+              })}
+            </Box>
+          </Box>
+          {tripDetail?.dosCulture?.length > 0 &&
+            tripDetail?.dontsCulture?.length > 0 && (
+              <Box>
+                <Box
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    cursor: "pointer",
+                  }}
+                >
                   <Typography
                     variant="h1"
                     sx={{
                       fontSize: "22px",
-                      fontWeight: "700",
+                      fontWeight: "600",
                       width: "100%",
-                      textAlign: "center",
-                      marginBottom: "15px",
+                      fontFamily: "Raleway",
                     }}
                   >
-                    Day {tripIndex + 1}
+                    Culture
                   </Typography>
+                </Box>
 
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "flex-start",
-                      alignItem: "flex-start",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <Box sx={{ width: "100%" }}>
+                <Box>
+                  {tripDetail?.dosCulture?.length > 0 && (
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        paddingLeft: {
+                          lg: "70px",
+                          md: "50px",
+                          xs: "20px",
+                        },
+                      }}
+                    >
                       <Box
+                        component={"img"}
+                        src={`${process.env.NEXT_PUBLIC_API_URL}assets/do.png`}
+                        alt="name-icon"
+                        sx={{ height: "15px", width: "15px" }}
+                      />
+                      <Typography
                         sx={{
-                          display: "flex",
-                          justifyContent: "flex-start",
-                          marginBottom: "10px",
-                          gap: "20px",
+                          fontSize: "18px",
+                          fontWeight: "700",
+                          fontFamily: "Raleway",
+                          marginLeft: "10px",
                         }}
                       >
+                        Do’s
+                      </Typography>
+                    </Box>
+                  )}
+                  {tripDetail?.dosCulture?.length > 0 &&
+                    tripDetail?.dosCulture?.map((item, index) => {
+                      return (
                         <Box
                           sx={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            flexDirection: "column",
+                            margin: {
+                              lg: "0 70px 0 70px",
+                              md: "0 50px 0 50px",
+                              xs: "0",
+                            },
                           }}
                         >
-                          <Image
-                            src={LocationIcon}
-                            width="15"
-                            alt="location-icon"
-                          />
-                        </Box>
-                        <Box>
-                          <Box>
-                            <Typography
-                              variant="h4"
-                              sx={{ fontSize: "18px", fontWeight: "500" }}
-                            >
-                              {item.location}
-                            </Typography>
-                          </Box>
-                        </Box>
-                      </Box>
-                    </Box>
-
-                    {item.activities.map((activity, index) => (
-                      <>
-                        <Box sx={{ width: "100%" }}>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              justifyContent: "flex-start",
-                              marginBottom: "10px",
-                              gap: "20px",
-                            }}
-                          >
-                            <Box
-                              sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                flexDirection: "column",
-                              }}
-                            >
-                              <Image
-                                src={StarIcon}
-                                width="17"
-                                alt="location-icon"
+                          <TextRender
+                            name={
+                              <CircleIcon
+                                sx={{
+                                  height: "10px",
+                                  width: "10px",
+                                }}
                               />
-                            </Box>
-                            <Box>
-                              <Box>
-                                <Typography
-                                  variant="h4"
-                                  sx={{ fontSize: "18px", fontWeight: "200" }}
-                                >
-                                  {activity.activity}
-                                </Typography>
-                              </Box>
-                            </Box>
-                          </Box>
+                            }
+                            description={"  " + item}
+                            color={"#FFFFFF"}
+                          ></TextRender>
                         </Box>
-                        <Box sx={{ width: "100%" }}>
-                          <Grid
-                            container
-                            sx={{
-                              gap: "20px",
-                              flexWrap: "nowrap",
-                            }}
-                          >
-                            <Grid
-                              item
-                              sx={{
-                                justifyContent: "flex-start",
-                                alignItems: "center",
-                                flexDirection: "column",
-                                display: "flex",
-                                paddingTop: "3px",
-                              }}
-                            >
-                              <Image
-                                src={TimeIcon}
-                                width="15"
-                                alt="location-icon"
-                              />
-                              {index < item.activities.length - 1 && (
-                                <Box className="dashed-line" />
-                              )}
-                            </Grid>
-                            <Grid item sx={{ width: "100%" }}>
-                              <Box sx={{ width: "100%" }}>
-                                <Typography
-                                  variant="p"
-                                  sx={{ fontSize: "16px", fontWeight: "400" }}
-                                >
-                                  {activity.startTime + "-" + activity.endTime}
-                                </Typography>
-                                <Box
-                                  sx={{
-                                    paddingTop: "15px",
-                                    width: "100%",
-                                    marginBottom: activity?.image
-                                      ? "0px"
-                                      : "15px",
-                                  }}
-                                >
-                                  <p>{activity.description}</p>
-                                </Box>
-                                {activity.image && (
-                                  <Box
-                                    sx={{
-                                      margin: "15px 0",
-                                      width: "100%",
-                                      height: {
-                                        lg: "401px",
-                                        md: "314",
-                                        xs: "214px",
-                                      },
-                                      overflow: "hidden",
-                                      borderRadius: "10px",
-
-                                      position: "relative",
-
-                                      backgroundImage: `url("${activity.image}")`,
-
-                                      backgroundRepeat: "no-repeat",
-                                      backgroundSize: "cover",
-                                      backgroundPosition: "center",
-                                    }}
-                                  >
-                                    <Box
-                                      sx={{
-                                        position: "absolute",
-                                        bottom: "15px",
-                                        display: "flex",
-                                        width: "100%",
-                                        justifyContent: "space-between",
-                                        alignItems: "flex-end",
-                                      }}
-                                    >
-                                      <Typography
-                                        sx={{
-                                          fontSize: "16px",
-                                          fontWeight: "500",
-                                          color: "#fff",
-                                          marginLeft: "20px",
-                                        }}
-                                      >
-                                        {activity.activity}
-                                      </Typography>
-                                      {activity.url && (
-                                        <Button
-                                          sx={{
-                                            marginRight: "20px",
-                                            borderRadius: "10px",
-                                            color: "#fff",
-                                            fontSize: "10px",
-                                            background: "#2b92d6",
-                                            padding: "9px 12px",
-                                            borderRadius: "20px",
-                                          }}
-                                          onClick={() => {
-                                            window.open(activity.url);
-                                          }}
-                                        >
-                                          Book now
-                                        </Button>
-                                      )}
-                                    </Box>
-                                  </Box>
-                                )}
-                              </Box>
-                            </Grid>
-                          </Grid>
-                        </Box>
-                      </>
-                    ))}
-                  </Box>
-                  {tripIndex != tripDetail.length - 1 ? (
-                    <Box
-                      style={{
-                        width: "100%",
-                        height: "1px",
-                        background: "#F3F4F8",
-                        margin: "15px 0",
-                      }}
-                    />
-                  ) : (
+                      );
+                    })}
+                  <Box
+                    sx={{
+                      width: "100%",
+                      height: "20px",
+                    }}
+                  />
+                  {tripDetail?.dontsCulture?.length > 0 && (
                     <Box
                       sx={{
-                        width: "100%",
-                        height: "60px",
-                        marginBottom: "15px",
-                        display: {
-                          md: "none",
-                          xs: "block",
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        paddingLeft: {
+                          lg: "70px",
+                          md: "50px",
+                          xs: "20px",
                         },
                       }}
-                    />
+                    >
+                      <Box
+                        component={"img"}
+                        src={`${process.env.NEXT_PUBLIC_API_URL}assets/dont.png`}
+                        alt="name-icon"
+                        sx={{ height: "15px", width: "15px" }}
+                      />
+                      <Typography
+                        sx={{
+                          fontSize: "18px",
+                          fontWeight: "700",
+                          fontFamily: "Raleway",
+                          marginLeft: "10px",
+                        }}
+                      >
+                        Dont’s
+                      </Typography>
+                    </Box>
                   )}
-                  <Box />
-                </>
-              ))}
-            </Box>
-          </Container>
-        </Box>
-        {tripDetail?.restaurants?.length > 0 && (
-          <Typography
-            sx={{
-              fontSize: "22px",
-              fontWeight: "700",
-              textAlign: "center",
-              marginBottom: "20px",
-              fontFamily: "Raleway",
-            }}
-          >
-            Resturants
-          </Typography>
-        )}
-        {tripDetail?.restaurants?.map((item) => {
-          return (
-            <Box
-              sx={{
-                margin: {
-                  lg: "0 70px 0 70px",
-                  md: "0 50px 0 50px",
-                  xs: "0",
-                },
-              }}
-            >
-              <TextRender
-                name="Name:&nbsp;"
-                description={item.restaurant}
-                color="#F9F9F9"
-              ></TextRender>
-              <TextRender
-                name="Location:&nbsp;"
-                description={item.location}
-                color="#FFFFFF"
-              ></TextRender>
-              <TextRender
-                name="Description:&nbsp;"
-                description={item.description}
-                color="#F9F9F9"
-              ></TextRender>
-              <Box
-                sx={{
-                  margin: "25px 20 25px 20",
-                  height: "50px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Box
-                  sx={{
-                    height: "1px",
-                    margin: "0 20px 0 20px",
-                    width: "100%",
-                    background: "#F3F4F8",
-                  }}
-                ></Box>
+
+                  {tripDetail?.dontsCulture?.length > 0 &&
+                    tripDetail?.dontsCulture?.map((item, index) => {
+                      return (
+                        <Box
+                          sx={{
+                            margin: {
+                              lg: "0 70px 0 70px",
+                              md: "0 50px 0 50px",
+                              xs: "0",
+                            },
+                          }}
+                        >
+                          <TextRender
+                            name={
+                              <CircleIcon
+                                sx={{
+                                  height: "10px",
+                                  width: "10px",
+                                }}
+                              />
+                            }
+                            description={"  " + item}
+                            color={"#FFFFFF"}
+                          ></TextRender>
+                        </Box>
+                      );
+                    })}
+                  <Box
+                    sx={{
+                      margin: "70px 20 70px 20",
+                      height: "50px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  ></Box>
+                </Box>
               </Box>
-            </Box>
-          );
-        })}
-        {tripDetail?.dosCulture?.length > 0 &&
-          tripDetail?.dontsCulture?.length > 0 && (
-            <Box>
-              <Typography
-                sx={{
-                  fontSize: "22px",
-                  fontWeight: "700",
-                  textAlign: "center",
-                  marginBottom: "20px",
-                  fontFamily: "Raleway",
-                }}
-              >
-                CULTURE
-              </Typography>
-              {tripDetail?.dosCulture?.length > 0 && (
-                <Typography
-                  sx={{
-                    fontSize: "18px",
-                    fontWeight: "700",
-                    marginBottom: "20px",
-                    fontFamily: "Raleway",
-                    marginLeft: {
-                      lg: "70px",
-                      md: "50px",
-                      xs: "20px",
-                    },
-                  }}
-                >
-                  Do’s
-                </Typography>
-              )}
-              {tripDetail?.dosCulture?.length > 0 &&
-                tripDetail?.dosCulture?.map((item, index) => {
-                  return (
-                    <Box
-                      sx={{
-                        margin: {
-                          lg: "0 70px 0 70px",
-                          md: "0 50px 0 50px",
-                          xs: "0",
-                        },
-                      }}
-                    >
-                      <TextRender
-                        name={
-                          <CircleIcon
-                            sx={{
-                              height: "10px",
-                              width: "10px",
-                            }}
-                          />
-                        }
-                        description={"  " + item}
-                        color={index % 2 == 0 ? "#F9F9F9" : "#FFFFFF"}
-                      ></TextRender>
-                    </Box>
-                  );
-                })}
-              {tripDetail?.dontsCulture?.length > 0 && (
-                <Typography
-                  sx={{
-                    fontSize: "18px",
-                    fontWeight: "700",
-                    marginBottom: "20px",
-                    marginTop: "20px",
-                    fontFamily: "Raleway",
-                    marginLeft: {
-                      lg: "70px",
-                      md: "50px",
-                      xs: "20px",
-                    },
-                  }}
-                >
-                  Dont’s
-                </Typography>
-              )}
-              {tripDetail?.dontsCulture?.length > 0 &&
-                tripDetail?.dontsCulture?.map((item, index) => {
-                  return (
-                    <Box
-                      sx={{
-                        margin: {
-                          lg: "0 70px 0 70px",
-                          md: "0 50px 0 50px",
-                          xs: "0",
-                        },
-                      }}
-                    >
-                      <TextRender
-                        name={
-                          <CircleIcon
-                            sx={{
-                              height: "10px",
-                              width: "10px",
-                            }}
-                          />
-                        }
-                        description={"  " + item}
-                        color={index % 2 == 0 ? "#F9F9F9" : "#FFFFFF"}
-                      ></TextRender>
-                    </Box>
-                  );
-                })}
-              <Box
-                sx={{
-                  margin: "70px 20 70px 20",
-                  height: "50px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
+            )}
+          {tripDetail?.dosHealth?.length > 0 &&
+            tripDetail?.dontsHealth?.length > 0 && (
+              <Box>
                 <Box
-                  sx={{
-                    height: "1px",
-                    margin: "0 90px 0 90px",
-                    width: "100%",
-                    background: "#F3F4F8",
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    cursor: "pointer",
                   }}
-                ></Box>
+                >
+                  <Typography
+                    variant="h1"
+                    sx={{
+                      fontSize: "22px",
+                      fontWeight: "600",
+                      width: "100%",
+                      fontFamily: "Raleway",
+                    }}
+                  >
+                    Health
+                  </Typography>
+                </Box>
+
+                <Box>
+                  {tripDetail?.dosHealth?.length > 0 && (
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        paddingLeft: {
+                          lg: "70px",
+                          md: "50px",
+                          xs: "20px",
+                        },
+                      }}
+                    >
+                      <Box
+                        component={"img"}
+                        src={`${process.env.NEXT_PUBLIC_API_URL}assets/do.png`}
+                        alt="name-icon"
+                        sx={{ height: "15px", width: "15px" }}
+                      />
+                      <Typography
+                        sx={{
+                          fontSize: "18px",
+                          fontWeight: "700",
+                          fontFamily: "Raleway",
+                          marginLeft: "10px",
+                        }}
+                      >
+                        Do’s
+                      </Typography>
+                    </Box>
+                  )}
+                  {tripDetail?.dosHealth?.length > 0 &&
+                    tripDetail?.dosHealth?.map((item, index) => {
+                      return (
+                        <Box
+                          sx={{
+                            margin: {
+                              lg: "0 70px 0 70px",
+                              md: "0 50px 0 50px",
+                              xs: "0",
+                            },
+                          }}
+                        >
+                          <TextRender
+                            name={
+                              <CircleIcon
+                                sx={{
+                                  height: "10px",
+                                  width: "10px",
+                                }}
+                              />
+                            }
+                            description={"  " + item}
+                            color={"#FFFFFF"}
+                          ></TextRender>
+                        </Box>
+                      );
+                    })}
+                  <Box
+                    style={{
+                      width: "100%",
+                      height: "20px",
+                    }}
+                  />
+                  {tripDetail?.dontsHealth?.length > 0 && (
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        paddingLeft: {
+                          lg: "70px",
+                          md: "50px",
+                          xs: "20px",
+                        },
+                      }}
+                    >
+                      <Box
+                        component={"img"}
+                        src={`${process.env.NEXT_PUBLIC_API_URL}assets/dont.png`}
+                        alt="name-icon"
+                        sx={{ height: "15px", width: "15px" }}
+                      />
+                      <Typography
+                        sx={{
+                          fontSize: "18px",
+                          fontWeight: "700",
+                          fontFamily: "Raleway",
+                          marginLeft: "10px",
+                        }}
+                      >
+                        Dont’s
+                      </Typography>
+                    </Box>
+                  )}
+
+                  {tripDetail?.dontsHealth?.length > 0 &&
+                    tripDetail?.dontsHealth?.map((item, index) => {
+                      return (
+                        <Box
+                          sx={{
+                            margin: {
+                              lg: "0 70px 0 70px",
+                              md: "0 50px 0 50px",
+                              xs: "0",
+                            },
+                          }}
+                        >
+                          <TextRender
+                            name={
+                              <CircleIcon
+                                sx={{
+                                  height: "10px",
+                                  width: "10px",
+                                }}
+                              />
+                            }
+                            description={"  " + item}
+                            color={"#FFFFFF"}
+                          ></TextRender>
+                        </Box>
+                      );
+                    })}
+                </Box>
               </Box>
-            </Box>
-          )}
-        {tripDetail?.dosHealth?.length > 0 &&
-          tripDetail?.dontsHealth?.length > 0 && (
-            <Box>
-              <Typography
-                sx={{
-                  fontSize: "22px",
-                  fontWeight: "700",
-                  textAlign: "center",
-                  marginBottom: "20px",
-                  fontFamily: "Raleway",
-                }}
-              >
-                Health
-              </Typography>
-              {tripDetail?.dosHealth?.length > 0 && (
-                <Typography
-                  sx={{
-                    fontSize: "18px",
-                    fontWeight: "700",
-                    marginBottom: "20px",
-                    fontFamily: "Raleway",
-                    marginLeft: {
-                      lg: "70px",
-                      md: "50px",
-                      xs: "20px",
-                    },
-                  }}
-                >
-                  Do’s
-                </Typography>
-              )}
-              {tripDetail?.dosHealth?.length > 0 &&
-                tripDetail?.dosHealth?.map((item, index) => {
-                  return (
-                    <Box
-                      sx={{
-                        margin: {
-                          lg: "0 70px 0 70px",
-                          md: "0 50px 0 50px",
-                          xs: "0",
-                        },
-                      }}
-                    >
-                      <TextRender
-                        name={
-                          <CircleIcon
-                            sx={{
-                              height: "10px",
-                              width: "10px",
-                            }}
-                          />
-                        }
-                        description={"  " + item}
-                        color={index % 2 == 0 ? "#F9F9F9" : "#FFFFFF"}
-                      ></TextRender>
-                    </Box>
-                  );
-                })}
-              {tripDetail?.dontsHealth?.length > 0 && (
-                <Typography
-                  sx={{
-                    fontSize: "18px",
-                    fontWeight: "700",
-                    marginBottom: "20px",
-                    marginTop: "20px",
-                    fontFamily: "Raleway",
-                    marginLeft: {
-                      lg: "70px",
-                      md: "50px",
-                      xs: "20px",
-                    },
-                  }}
-                >
-                  Dont’s
-                </Typography>
-              )}
-              {tripDetail?.dontsHealth?.length > 0 &&
-                tripDetail?.dontsHealth?.map((item, index) => {
-                  return (
-                    <Box
-                      sx={{
-                        margin: {
-                          lg: "0 70px 0 70px",
-                          md: "0 50px 0 50px",
-                          xs: "0",
-                        },
-                      }}
-                    >
-                      <TextRender
-                        name={
-                          <CircleIcon
-                            sx={{
-                              height: "10px",
-                              width: "10px",
-                            }}
-                          />
-                        }
-                        description={"  " + item}
-                        color={index % 2 == 0 ? "#F9F9F9" : "#FFFFFF"}
-                      ></TextRender>
-                    </Box>
-                  );
-                })}
-            </Box>
-          )}
+            )}
+        </Container>
       </div>
     );
   }
