@@ -36,7 +36,7 @@ const Footer = () => {
             <ul>
               <li>
                 <a href="https://sites.google.com/ripeseed.io/privacypolices/home">
-                  Terms of Services
+                  Terms of Service
                 </a>
               </li>
               <li>

@@ -115,6 +115,8 @@ const TripDetail = () => {
             height: { md: "90vh", xs: "calc(100vh - 64px)" },
             backgroundColor: "#FCFCFF",
             marginTop: "60px",
+            padding: "20px",
+            textAlign: "center",
           }}
         >
           <Image src={loadingGif} height={200} width={200}></Image>
@@ -534,7 +536,7 @@ const TripDetail = () => {
             if (user) {
               setLoading(true);
               setLoadingMessage(
-                "Please wait while we are regenerating you plan.1 to 2 mins tops!🚀🌈"
+                "Please wait while we are regenerating your plan. 1 to 2 mins tops!🚀🌈"
               );
               const response = await RegenerateTrip(tripId);
               setLoading(false);
