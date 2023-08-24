@@ -2,6 +2,7 @@
 import "./globals.css";
 import { Raleway } from "next/font/google";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
+import Head from "next/head";
 
 const raleway = Raleway({ subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({ children }) {
     >
       <html lang="en">
         <head>
+          <link rel="icon" href="/favicon.ico" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
           <link
