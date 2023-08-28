@@ -32,6 +32,7 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import EmailIcon from "@mui/icons-material/Email";
 import { firebase } from "@/app/config";
+import { FacebookShareButton } from "next-share";
 
 const TripDetail = () => {
   const [saveModal, setSaveModal] = useState(false);
@@ -98,7 +99,7 @@ const TripDetail = () => {
   function shareOnFacebook(textToShare) {
     const encodedText = encodeURIComponent(textToShare);
     console.log(encodedText);
-    const shareURL = `https://www.facebook.com/sharer/sharer.php?u=${encodedText}`;
+    const shareURL = `https://www.facebook.com/sharer/sharer.php?u=asad%20ullah%20tariq`;
     window.open(shareURL, "Share on Facebook", "width=600,height=400");
   }
 
@@ -313,23 +314,25 @@ const TripDetail = () => {
                 );
               }}
             />
-            <FacebookIcon
-              sx={{
-                fontSize: "24px",
-                color: "#fff",
-                marginRight: "15px",
-              }}
-              onClick={() => {
-                shareOnFacebook(
-                  `I just created my personalized trip plan to ${
-                    cityCountry?.city?.length > 0
-                      ? cityCountry?.city?.join(", ").replace(/, $/, "")
-                      : cityCountry?.country
-                  } using Composetrip : 
-                  ${window.location.href}`
-                );
-              }}
-            />
+            <FacebookShareButton
+              url={router.asPath}
+              quote={`I just created my personalized trip plan to ${
+                cityCountry?.city?.length > 0
+                  ? cityCountry?.city?.join(", ").replace(/, $/, "")
+                  : cityCountry?.country
+              } using Composetrip : 
+                  ${router.asPath}`}
+              hashtag="#composetrip"
+            >
+              <FacebookIcon
+                sx={{
+                  fontSize: "24px",
+                  color: "#fff",
+                  marginRight: "15px",
+                }}
+              />
+            </FacebookShareButton>
+
             <Box
               sx={{
                 color: "#fff",
@@ -406,7 +409,7 @@ const TripDetail = () => {
             dosHealth={tripDetail?.dosHealth}
             dontsHealth={tripDetail?.dontsHealth}
           />
-          {/* <Box
+          <Box
             sx={{
               display: "flex",
               justifyContent: "center",
@@ -417,9 +420,10 @@ const TripDetail = () => {
               padding: "8px 15px",
               borderRadius: "161px",
               margin: "20px 0px",
+              height: "40px",
             }}
             onClick={() => {
-              setOpenModal(true);
+              window.open("https://expedia.com/affiliate/pllQpyu", "_blank");
             }}
           >
             <Typography
@@ -431,7 +435,7 @@ const TripDetail = () => {
             >
               View List of hotels nearby
             </Typography>
-          </Box> */}
+          </Box>
           <Box
             sx={{
               display: "flex",
