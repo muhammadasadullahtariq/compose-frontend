@@ -32,8 +32,9 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import EmailIcon from "@mui/icons-material/Email";
 import { firebase } from "@/app/config";
-import { FacebookShareButton } from "next-share";
 import ExpediaWidget from "@/components/expedia";
+//import facebook sahre from react-facebook
+//import { FacebookProvider, useShare } from "react-facebook";
 
 const TripDetail = () => {
   const [saveModal, setSaveModal] = useState(false);
@@ -52,6 +53,7 @@ const TripDetail = () => {
   const componentRef = useRef();
   const [shareModal, setShareModal] = useState(false);
   const router = useRouter();
+  //const { share } = useShare();
 
   useEffect(() => {
     (async () => {
@@ -96,6 +98,12 @@ const TripDetail = () => {
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
+
+  // const shareHandeling = () => {
+  //   share({
+  //     href: `${window.location.origin}/trip-detail/${tripId}`,
+  //   });
+  // };
 
   if (loading) {
     return (
@@ -308,7 +316,7 @@ const TripDetail = () => {
                 );
               }}
             />
-            <FacebookShareButton
+            {/* <FacebookShareButton
               url={router.asPath}
               quote={`I just created my personalized trip plan to ${
                 cityCountry?.city?.length > 0
@@ -317,15 +325,21 @@ const TripDetail = () => {
               } using Composetrip : 
                   ${router.asPath}`}
               hashtag="#composetrip"
-            >
-              <FacebookIcon
-                sx={{
-                  fontSize: "24px",
-                  color: "#fff",
-                  marginRight: "15px",
-                }}
-              />
-            </FacebookShareButton>
+            > */}
+            <FacebookIcon
+              onClick={() => {
+                window.open(
+                  `https://www.facebook.com/sharer/sharer.php?u=www.composetrip.com/trip-detail/${tripId}`,
+                  "_blank"
+                );
+              }}
+              sx={{
+                fontSize: "24px",
+                color: "#fff",
+                marginRight: "15px",
+              }}
+            />
+            {/* </FacebookShareButton> */}
 
             <Box
               sx={{
