@@ -9,7 +9,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import * as COLORS from "@/constants/colors";
 
-const Share = ({ open, handleModel, cityCountry }) => {
+const Share = ({ open, handleModel, cityCountry, tripId }) => {
   return (
     <Modal
       open={open}
@@ -76,13 +76,8 @@ const Share = ({ open, handleModel, cityCountry }) => {
                 marginRight: "15px",
               }}
               onClick={() => {
-                shareOnFacebook(
-                  `I just created my personalized trip plan to ${
-                    cityCountry?.city?.length > 0
-                      ? cityCountry?.city?.join(", ").replace(/, $/, "")
-                      : cityCountry?.country
-                  } using Composetrip : 
-                  ${window.location.href}`
+                window.open(
+                  `https://www.facebook.com/sharer/sharer.php?u=www.composetrip.com/trip-detail/${tripId}`
                 );
                 handleModel();
               }}

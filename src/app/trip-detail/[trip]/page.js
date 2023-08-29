@@ -33,8 +33,6 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import EmailIcon from "@mui/icons-material/Email";
 import { firebase } from "@/app/config";
 import ExpediaWidget from "@/components/expedia";
-//import facebook sahre from react-facebook
-//import { FacebookProvider, useShare } from "react-facebook";
 
 const TripDetail = () => {
   const [saveModal, setSaveModal] = useState(false);
@@ -531,6 +529,7 @@ const TripDetail = () => {
         <Share
           open={shareModal}
           handleModel={() => setShareModal(!shareModal)}
+          tripId={tripId}
           cityCountry={cityCountry}
         />
         {/* <AddPlace
