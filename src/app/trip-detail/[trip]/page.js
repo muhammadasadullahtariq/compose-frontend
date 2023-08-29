@@ -33,6 +33,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import EmailIcon from "@mui/icons-material/Email";
 import { firebase } from "@/app/config";
 import { FacebookShareButton } from "next-share";
+import ExpediaWidget from "@/components/expedia";
 
 const TripDetail = () => {
   const [saveModal, setSaveModal] = useState(false);
@@ -95,13 +96,6 @@ const TripDetail = () => {
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
-
-  function shareOnFacebook(textToShare) {
-    const encodedText = encodeURIComponent(textToShare);
-    console.log(encodedText);
-    const shareURL = `https://www.facebook.com/sharer/sharer.php?u=asad%20ullah%20tariq`;
-    window.open(shareURL, "Share on Facebook", "width=600,height=400");
-  }
 
   if (loading) {
     return (
@@ -409,33 +403,7 @@ const TripDetail = () => {
             dosHealth={tripDetail?.dosHealth}
             dontsHealth={tripDetail?.dontsHealth}
           />
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              cursor: "pointer",
-              flexDirection: "row",
-              backgroundColor: COLORS.primary,
-              padding: "8px 15px",
-              borderRadius: "161px",
-              margin: "20px 0px",
-              height: "40px",
-            }}
-            onClick={() => {
-              window.open("https://expedia.com/affiliate/pllQpyu", "_blank");
-            }}
-          >
-            <Typography
-              sx={{
-                color: "#fff",
-                fontSize: "12px",
-                fontWeight: "600",
-              }}
-            >
-              View List of hotels nearby
-            </Typography>
-          </Box>
+          <ExpediaWidget />
           <Box
             sx={{
               display: "flex",
@@ -502,17 +470,6 @@ const TripDetail = () => {
             >
               Print
             </Typography>
-          </Box>
-          <Box>
-            <div
-              className="eg-widget"
-              data-widget="search"
-              data-program="us-expedia"
-              data-lobs="stays,flights"
-              data-network="pz"
-              data-camref="1100lGndQ"
-              data-pubref="composando"
-            ></div>
           </Box>
         </Container>
 

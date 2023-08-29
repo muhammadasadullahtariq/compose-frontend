@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: ["tripimages1.s3.amazonaws.com", "composetrip.com", "localhost",],
+    domains: ["tripimages1.s3.amazonaws.com", "composetrip.com", "localhost"],
   },
 };
 

@@ -2,7 +2,6 @@
 import "./globals.css";
 import { Raleway } from "next/font/google";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
-import Head from "next/head";
 
 const raleway = Raleway({ subsets: ["latin"] });
 
