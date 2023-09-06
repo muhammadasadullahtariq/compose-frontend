@@ -33,6 +33,8 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import EmailIcon from "@mui/icons-material/Email";
 import { firebase } from "@/app/config";
 import ExpediaWidget from "@/components/expedia";
+import { GTM_ID, pageview, trackConversion } from "@/app/gtm";
+import { loadFacebookPixel } from "@/app/facebookPixel";
 
 const TripDetail = () => {
   const [saveModal, setSaveModal] = useState(false);
@@ -81,6 +83,9 @@ const TripDetail = () => {
       }
       console.log("analytics", analytics);
     } catch (error) {}
+    pageview();
+    trackConversion();
+    loadFacebookPixel();
   }, []);
 
   useEffect(() => {

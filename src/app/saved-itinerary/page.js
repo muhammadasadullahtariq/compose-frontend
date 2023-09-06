@@ -19,6 +19,7 @@ import getSavedTrips from "@/apis/getSavedTrips";
 import ProtectedPageRoute from "../protected-page-route";
 import loadingGif from "@/assets/images/tripDetails/loader.gif";
 import deleteTrip from "@/apis/deleteTrip";
+import { GTM_ID, pageview, trackConversion } from "../gtm";
 
 const SavedItinerary = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -55,6 +56,8 @@ const SavedItinerary = () => {
       console.log("response", response);
       setSavedTrips(response.data);
     })();
+    pageview();
+    trackConversion();
   }, []);
 
   if (loading) {

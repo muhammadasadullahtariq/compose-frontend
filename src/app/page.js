@@ -14,15 +14,19 @@ import Footer from "@/components/footer";
 import blockImage from "@/assets/images/firstBlock.svg";
 import { setCookie, hasCookie, deleteCookie } from "cookies-next";
 //import { analytics } from "./config";
+import { pageview, trackConversion } from "./gtm";
+import { loadFacebookPixel } from "./facebookPixel";
 
 function ResponsiveAppBar() {
   const router = useRouter();
   useEffect(() => {
- 
     localStorage.removeItem("questionaireData");
     if (!hasCookie("userForm")) {
       setCookie("userForm", false);
     }
+    pageview();
+    trackConversion();
+    loadFacebookPixel();
   }, []);
 
   return (

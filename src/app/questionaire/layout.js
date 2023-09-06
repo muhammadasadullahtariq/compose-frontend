@@ -16,6 +16,8 @@ import loadingGif from "@/assets/images/tripDetails/loader.gif";
 import Image from "next/image";
 import { getCookie, hasCookie, setCookie } from "cookies-next";
 import { firebase } from "@/app/config";
+import { GTM_ID, pageview, trackConversion } from "../gtm";
+import { loadFacebookPixel } from "../facebookPixel";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -51,6 +53,9 @@ export default function Layout({ children, ...props }) {
     if (data.questionNumber != 0) {
       localStorage.setItem("questionaireData", JSON.stringify(data));
     }
+    pageview();
+    trackConversion();
+    loadFacebookPixel();
   }, [data]);
 
   const handelNextQuestion = () => {
