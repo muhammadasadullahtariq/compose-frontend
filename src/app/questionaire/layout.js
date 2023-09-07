@@ -39,9 +39,6 @@ export default function Layout({ children, ...props }) {
   useEffect(() => {
     try {
       const analytics = firebase.analytics();
-      // analytics.logEvent("page_view", {
-      //   page_path: router.pathname,
-      // });
       if (typeof window !== "undefined") {
         analytics.logEvent("page_view", {
           page_path: window.location.pathname,

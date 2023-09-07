@@ -53,9 +53,11 @@ const TripDetail = () => {
   const componentRef = useRef();
   const [shareModal, setShareModal] = useState(false);
   const router = useRouter();
-  //const { share } = useShare();
 
   useEffect(() => {
+    pageview();
+    trackConversion();
+    loadFacebookPixel();
     (async () => {
       console.log("trip detail");
       setLoading(true);
@@ -72,9 +74,6 @@ const TripDetail = () => {
     })();
     try {
       const analytics = firebase.analytics();
-      // analytics.logEvent("page_view", {
-      //   page_path: router.pathname,
-      // });
       if (typeof window !== "undefined") {
         analytics.logEvent("page_view", {
           page_path: window.location.pathname,
@@ -83,9 +82,6 @@ const TripDetail = () => {
       }
       console.log("analytics", analytics);
     } catch (error) {}
-    pageview();
-    trackConversion();
-    loadFacebookPixel();
   }, []);
 
   useEffect(() => {
