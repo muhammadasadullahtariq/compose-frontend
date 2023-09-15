@@ -126,7 +126,7 @@ export default function Layout({ children, ...props }) {
               paddingLeft: "20px",
             }}
           >
-            Hold up, we're composing your trip. 1 to 2 mins tops!🚀🌈
+            Hold up, we're composing your trip. 15 to 20 secs tops!🚀🌈
           </Typography>
         </Box>
       </div>
