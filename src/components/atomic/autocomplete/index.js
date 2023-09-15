@@ -5,7 +5,6 @@ import "./index.css";
 import drop from "../../../assets/images/icons/drop.svg";
 
 const Autocomplete = ({ list, cities, setCities }) => {
-  //const [chosen, setChosen] = useState([]);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [searchText, setSearchText] = useState("");
@@ -18,13 +17,13 @@ const Autocomplete = ({ list, cities, setCities }) => {
       : list;
 
   const handleSelection = (key) => {
-    const array = value.length > 0 ? value.split(", ") : [];
+    const array = value.length > 0 ? [value] : [];
     array.pop();
     array.push(key);
     setValue("");
     let temp = "";
     array.map((k) => {
-      temp += k + ", ";
+      temp += k 
     });
     setValue(temp);
     setOpen(false);
@@ -47,7 +46,7 @@ const Autocomplete = ({ list, cities, setCities }) => {
   }, []);
 
   useEffect(() => {
-    const array = value.length > 0 ? value.split(", ") : [];
+    const array = value.length > 0 ? [value] : [];
     setCities(array);
     //setChosen(array);
     setSearchText(array[array.length - 1]);
@@ -55,7 +54,7 @@ const Autocomplete = ({ list, cities, setCities }) => {
 
   useEffect(() => {
     if (cities.length) {
-      const citiesValue = cities.join(", ");
+      const citiesValue = cities[0];
       setValue(citiesValue);
     }
   }, [cities]);

@@ -174,7 +174,7 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
                       variant="p"
                       sx={{ fontSize: "16px", fontWeight: "400" }}
                     >
-                      {activity.startTime + "-" + activity.endTime}
+                      {activity.time}
                     </Typography>
                     <Box
                       sx={{

@@ -59,11 +59,9 @@ const TripDetail = () => {
     trackConversion();
     loadFacebookPixel();
     (async () => {
-      console.log("trip detail");
       setLoading(true);
       const response = await getTripDetailById(trip);
       setLoading(false);
-      console.log("response", response);
       setTripDetail(response.data.chatGptResponse);
       setCityCountry({
         city: response.data.city,
@@ -97,12 +95,6 @@ const TripDetail = () => {
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
-
-  // const shareHandeling = () => {
-  //   share({
-  //     href: `${window.location.origin}/trip-detail/${tripId}`,
-  //   });
-  // };
 
   if (loading) {
     return (
@@ -227,26 +219,7 @@ const TripDetail = () => {
                     alt="save-icon"
                   />
                 </Box>
-                {/* <CopyToClipboard
-                  text={`${window.location.origin}/trip-detail/${tripId}`}
-                  onCopy={() => {
-                    alert("Copied to clipboard");
-                  }}
-                >
-                  <Box
-                    sx={{
-                      padding: "5px 20px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <ContentCopyIcon
-                      sx={{
-                        width: "14px",
-                        height: "14px",
-                      }}
-                    />
-                  </Box>
-                </CopyToClipboard> */}
+                
               </Box>
             </Box>
           </Container>
@@ -315,16 +288,6 @@ const TripDetail = () => {
                 );
               }}
             />
-            {/* <FacebookShareButton
-              url={router.asPath}
-              quote={`I just created my personalized trip plan to ${
-                cityCountry?.city?.length > 0
-                  ? cityCountry?.city?.join(", ").replace(/, $/, "")
-                  : cityCountry?.country
-              } using Composetrip : 
-                  ${router.asPath}`}
-              hashtag="#composetrip"
-            > */}
             <FacebookIcon
               onClick={() => {
                 window.open(
@@ -533,44 +496,6 @@ const TripDetail = () => {
           tripId={tripId}
           cityCountry={cityCountry}
         />
-        {/* <AddPlace
-          open={addPlaceOpen}
-          handleModel={() => setAddPlaceOpen(!addPlaceOpen)}
-          handerlSave={async (
-            activity,
-            startTime,
-            endTime,
-            description,
-            image
-          ) => {
-            setAddPlaceOpen(false);
-            setLoading(true);
-            setLoadingMessage("Please wait while we are adding your activity");
-            const newTrip = { ...tripDetail };
-            if (image) {
-              newTrip.trip[0].activities.push({
-                description,
-                activity,
-                startTime,
-                endTime,
-                image,
-              });
-            } else {
-              newTrip.trip[0].activities.push({
-                description,
-                activity,
-                startTime,
-                endTime,
-              });
-            }
-            setTripDetail(() => newTrip);
-            const response = await updateTrip(tripId, newTrip);
-            alert(response.message);
-            setLoading(false);
-            console.log("New trip details", newTrip);
-          }}
-          modalFor="save"
-        /> */}
         <span
           style={{
             display: "none",
