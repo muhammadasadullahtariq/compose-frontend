@@ -473,7 +473,7 @@ const TripDetail = () => {
             if (user) {
               setLoading(true);
               setLoadingMessage(
-                "Please wait while we are regenerating your plan.  15 to 20 secs tops!🚀🌈"
+                "Please wait while we are regenerating your plan. 15 to 20 secs tops!🚀🌈"
               );
               const response = await RegenerateTrip(tripId);
               setLoading(false);
