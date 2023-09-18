@@ -1,5 +1,5 @@
 "use client";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, CircularProgress } from "@mui/material";
 import { useCollapse } from "react-collapsed";
 import CircleIcon from "@mui/icons-material/Circle";
 import TextRender from "@/components/atomic/TextRender/textRender";
@@ -25,7 +25,7 @@ const Health = ({ dosHealth, dontsHealth }) => {
         paddingBottom: isExpanded ? "0px" : "10px",
       }}
     >
-      {dosHealth?.length > 0 && dontsHealth?.length > 0 && (
+      {dosHealth?.length > 0 && dontsHealth?.length > 0 ? (
         <Box>
           <Box
             style={{
@@ -179,6 +179,51 @@ const Health = ({ dosHealth, dontsHealth }) => {
                 );
               })}
           </Box>
+        </Box>
+      ) : (
+        <Box
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            cursor: "pointer",
+            paddingBottom: "10px",
+          }}
+          {...getToggleProps()}
+        >
+          <dev
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Typography
+              variant="h1"
+              sx={{
+                fontSize: "22px",
+                fontWeight: "600",
+                width: "100%",
+                fontFamily: "Raleway",
+                marginRight: "10px",
+              }}
+            >
+              Health
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+              }}
+            >
+              <CircularProgress size={30} />
+            </Box>
+          </dev>
+          {isExpanded ? (
+            <KeyboardArrowUpSharpIcon />
+          ) : (
+            <KeyboardArrowDownSharpIcon />
+          )}
         </Box>
       )}
     </Box>

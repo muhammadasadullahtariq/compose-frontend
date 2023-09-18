@@ -1,8 +1,11 @@
+//import { getCookie } from "cookies-next";
+
 const getTripDoDonts = async (id) => {
   try {
     var requestOptions = {
       method: "GET",
       redirect: "follow",
+      //"x-access-token": getCookie("token"),
     };
 
     const response = await fetch(

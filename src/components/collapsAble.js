@@ -6,15 +6,15 @@ import StarIcon from "@/assets/images/tripDetails/icons/star.svg";
 import TimeIcon from "@/assets/images/tripDetails/icons/time.svg";
 import Image from "next/image";
 import * as COLORS from "@/constants/colors";
-import AddIcon from "@mui/icons-material/Add";
-import ProtectedPageRoute from "@/app/protected-page-route";
 import { useCollapse } from "react-collapsed";
 import KeyboardArrowDownSharpIcon from "@mui/icons-material/KeyboardArrowDownSharp";
 import KeyboardArrowUpSharpIcon from "@mui/icons-material/KeyboardArrowUpSharp";
 
 const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
-  const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
-  console.log("startDate", startDate);
+  const { getCollapseProps, getToggleProps, isExpanded } = useCollapse({
+    isExpanded: tripIndex === 0,
+  });
+  console.log("startDate", tripIndex);
   var date = new Date(startDate);
 
   date = new Date(date.setDate(date.getDate() + tripIndex));
@@ -30,6 +30,7 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
         paddingLeft: "10px",
         paddingTop: "10px",
         paddingBottom: isExpanded ? "0px" : "10px",
+        cursor: "pointer",
       }}
     >
       <Box

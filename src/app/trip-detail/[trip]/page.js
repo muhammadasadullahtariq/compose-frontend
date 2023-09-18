@@ -12,11 +12,8 @@ import getTripDetailById from "@/apis/getTripDetail";
 import { useParams, useRouter } from "next/navigation";
 import saveTrip from "@/apis/saveTrip";
 import loadingGif from "@/assets/images/tripDetails/loader.gif";
-import AddPlace from "@/components/modals/addPlace";
-import updateTrip from "@/apis/updateTrip";
 import RegenerateTrip from "@/apis/regenerate";
 import ProtectedPageRoute from "@/app/protected-page-route";
-import { useCollapse } from "react-collapsed";
 import CollapsibleField from "@/components/collapsAble";
 import ResturantCollaspible from "@/components/resturants";
 import Culture from "@/components/cultures";
@@ -35,6 +32,7 @@ import { firebase } from "@/app/config";
 import ExpediaWidget from "@/components/expedia";
 import { GTM_ID, pageview, trackConversion } from "@/app/gtm";
 import { loadFacebookPixel } from "@/app/facebookPixel";
+import getTripDoDonts from "@/apis/generateDoDonts";
 
 const TripDetail = () => {
   const [saveModal, setSaveModal] = useState(false);
@@ -43,7 +41,6 @@ const TripDetail = () => {
   const [cityImage, setCityImage] = useState("");
   const [loading, setLoading] = useState(true);
   const { trip } = useParams();
-  const [addPlaceOpen, setAddPlaceOpen] = useState(false);
   const [tripId, setTripId] = useState("");
   const [loadingMessage, setLoadingMessage] = useState(
     "Please wait while we are getting your trip"
@@ -63,6 +60,13 @@ const TripDetail = () => {
       const response = await getTripDetailById(trip);
       setLoading(false);
       setTripDetail(response.data.chatGptResponse);
+      console.log("doDont", !response.data.chatGptResponse?.restaurants);
+      if (!response.data.chatGptResponse?.restaurants) {
+        console.log("doDont", response.data._id);
+        const doDont = await getTripDoDonts(response.data._id);
+        console.log("doDont", doDont);
+        setTripDetail(doDont.data.chatGptResponse);
+      }
       setCityCountry({
         city: response.data.city,
         country: response.data.country,
@@ -219,7 +223,6 @@ const TripDetail = () => {
                     alt="save-icon"
                   />
                 </Box>
-                
               </Box>
             </Box>
           </Container>

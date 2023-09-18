@@ -1,5 +1,5 @@
 "use client";
-import { Box, Typography, Grid, Button } from "@mui/material";
+import { Box, Typography, Grid, Button, CircularProgress } from "@mui/material";
 import LocationIcon from "@/assets/images/tripDetails/icons/location.svg";
 import Resturant from "@/assets/images/tripDetails/resturantName.svg";
 import Detail from "@/assets/images/tripDetails/detail.svg";
@@ -99,7 +99,13 @@ const ResturantCollaspible = ({ restaurants }) => {
         }}
         {...getToggleProps()}
       >
-        {restaurants?.length > 0 && (
+        <dev
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
           <Typography
             {...getToggleProps()}
             sx={{
@@ -107,11 +113,21 @@ const ResturantCollaspible = ({ restaurants }) => {
               fontWeight: "600",
               width: "100%",
               fontFamily: "Raleway",
+              marginRight: "10px",
             }}
           >
             Restaurants
           </Typography>
-        )}
+          {!(restaurants?.length > 0) && (
+            <Box
+              sx={{
+                display: "flex",
+              }}
+            >
+              <CircularProgress size={30} />
+            </Box>
+          )}
+        </dev>
         {isExpanded ? (
           <KeyboardArrowUpSharpIcon />
         ) : (
