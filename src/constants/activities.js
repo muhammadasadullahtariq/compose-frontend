@@ -28,11 +28,7 @@ const activities = [
   { name: "Adventure and Sports", image: adventure_and_sports },
   { name: "Nightlife", image: nightlife },
   { name: "Spa", image: spa },
-
-  { name: "Wellbeing", image: wellbeing },
-
   { name: "Nature", image: nature },
-
   { name: "Local Market", image: local_market },
   { name: "Shopping", image: shopping },
   { name: "Outdoors", image: outdoors },

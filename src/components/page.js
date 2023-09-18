@@ -162,7 +162,9 @@ const PrintScreen = forwardRef(
               }}
             >
               {tripDetail?.trip?.map((item, tripIndex) => {
-                const date = new Date(datee.setDate(datee.getDate() + tripIndex));
+                const date = new Date(
+                  datee.setDate(datee.getDate() + tripIndex)
+                );
                 return (
                   <>
                     <Typography
@@ -299,9 +301,7 @@ const PrintScreen = forwardRef(
                                     variant="p"
                                     sx={{ fontSize: "16px", fontWeight: "400" }}
                                   >
-                                    {activity.startTime +
-                                      "-" +
-                                      activity.endTime}
+                                    {activity.time}
                                   </Typography>
                                   <Box
                                     sx={{

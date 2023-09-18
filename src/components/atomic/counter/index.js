@@ -6,7 +6,7 @@ import { Box, Typography } from "@mui/material";
 
 const Counter = ({ formData, value, handleSetValue }) => {
   const handleValue = (opr) => {
-    if (opr === "+" && value < 7) {
+    if (opr === "+" && value < 14) {
       handleSetValue(parseInt(value) + 1);
     } else if (opr === "-" && value > 1) {
       handleSetValue(parseInt(value) - 1);
@@ -32,7 +32,7 @@ const Counter = ({ formData, value, handleSetValue }) => {
           value={value}
           onChange={(event) => handleSetValue(event.target.value)}
           min={1}
-          max={7}
+          max={14}
         />
         <div className="Counter_Counter">
           <Image
@@ -66,7 +66,7 @@ const Counter = ({ formData, value, handleSetValue }) => {
           textAlign: "right",
         }}
       >
-        7 days maximum
+        14 days maximum
       </Typography>
     </Box>
   );

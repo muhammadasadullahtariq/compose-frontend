@@ -95,7 +95,7 @@ const Question2 = () => {
                 value={formData.date == "" ? dayjs() : dayjs(formData.date)}
                 onError={console.log}
                 views={["year", "month", "day"]}
-                maxDate={dayjs().add(5, "year")}
+                maxDate={dayjs().add(2, "year")}
                 minDate={dayjs()}
                 onChange={(newValue) => {
                   setFormData({
