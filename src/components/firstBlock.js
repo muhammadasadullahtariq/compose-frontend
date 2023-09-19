@@ -44,6 +44,9 @@ function FirstBloack() {
         }}
       >
         <Typography
+          onClick={() => {
+            router.push("/questionaire/whereto");
+          }}
           sx={{
             fontSize: { xs: "22px", md: "32px", lg: "32px" },
             fontWeight: "800",
@@ -51,6 +54,7 @@ function FirstBloack() {
             textTransform: "uppercase",
             color: COLORS.black,
             textAlign: { md: "center", xs: "center", lg: "left" },
+            cursor: "pointer",
           }}
         >
           YOU ARE 5&nbsp;
