@@ -240,7 +240,9 @@ const SavedItinerary = () => {
                           borderRadius: "20px",
                         }}
                         onClick={() => {
-                          window.location.href = `/trip-detail/${trip._id}`;
+                          //replace all the spaces with -
+                          const tag=trip.tag.replace(/\s+/g, '-').toLowerCase();                        
+                          window.location.href = `/${trip.tag}/${trip._id}`;
                         }}
                       >
                         View

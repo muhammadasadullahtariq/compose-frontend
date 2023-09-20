@@ -4,15 +4,30 @@ import "./footer.css";
 import { useRouter } from "next/navigation";
 import { deleteCookie } from "cookies-next";
 import sendMail from "@/apis/sendMail";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import getLatestTrips from "@/apis/getLatestTrip";
 
-const Footer = () => {
+const Footer = ({ paddingBottom }) => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [latestTrip, setGetLatestTrip] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const responce = await getLatestTrips();
+      console.log(responce);
+      setGetLatestTrip(responce.data);
+    })();
+  }, []);
 
   return (
-    <footer className="footer">
+    <footer
+      className="footer"
+      style={{
+        paddingBottom: paddingBottom ? 90 : 0,
+      }}
+    >
       <Container>
         <Grid container spacing={2} sx={{ justifyContent: "space-between" }}>
           <Grid item xs={12} sm={6} md={3}>
@@ -31,7 +46,6 @@ const Footer = () => {
               Get Started&nbsp;{">"}
             </button>
           </Grid>
-          
           <Grid item xs={6} md={3}>
             <ul>
               <li>
@@ -47,6 +61,23 @@ const Footer = () => {
               <li>
                 <a href="mailto:Info@composetrip.com">Contact Us</a>
               </li>
+            </ul>
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <ul>
+              {latestTrip?.map((item, index) => {
+                return (
+                  <li key={index}>
+                    <a
+                      href={`/${item.city[0]
+                        .replace(/\s+/g, "-")
+                        .toLowerCase()}/${item._id}`}
+                    >
+                      {item.city[0]}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </Grid>
           <Grid item xs={12} sm={6} md={3}>

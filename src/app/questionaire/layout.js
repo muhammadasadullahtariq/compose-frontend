@@ -93,7 +93,17 @@ export default function Layout({ children, ...props }) {
     setLoading(true);
     const response = await createTrip(data);
     if (response.message == "Trip created") {
-      router.push("/trip-detail/" + response.data);
+      console.log(
+        "trip detail",
+        `/${response.data.city.replace(/\s+/g, "-").toLowerCase()}/${
+          response.data.id
+        }`
+      );
+      router.push(
+        `/${response.data.city.replace(/\s+/g, "-").toLowerCase()}/${
+          response.data.id
+        }`
+      );
     } else {
       setLoading(false);
       setOpen(true);

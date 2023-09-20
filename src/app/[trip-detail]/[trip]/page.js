@@ -61,12 +61,12 @@ const TripDetail = () => {
       setLoading(false);
       setTripDetail(response.data.chatGptResponse);
       console.log("doDont", !response.data.chatGptResponse?.restaurants);
-      if (!response.data.chatGptResponse?.restaurants) {
-        console.log("doDont", response.data._id);
-        const doDont = await getTripDoDonts(response.data._id);
-        console.log("doDont", doDont);
-        setTripDetail(doDont.data.chatGptResponse);
-      }
+      // if (!response.data.chatGptResponse?.restaurants) {
+      //   console.log("doDont", response.data._id);
+      //   const doDont = await getTripDoDonts(response.data._id);
+      //   console.log("doDont", doDont);
+      //   setTripDetail(doDont.data.chatGptResponse);
+      // }
       setCityCountry({
         city: response.data.city,
         country: response.data.country,
@@ -264,7 +264,7 @@ const TripDetail = () => {
               width: "100%",
               height: "56px",
               position: "fixed",
-              bottom: "0",
+              bottom: "0px",
               background: "#2B92D5",
               padding: "10px",
               justifyContent: "center",
@@ -452,7 +452,7 @@ const TripDetail = () => {
           </Box>
         </Container>
 
-        <Footer />
+        <Footer paddingBottom={true} />
         <Itinerary
           open={saveModal}
           handleModel={() => setSaveModal(!saveModal)}
