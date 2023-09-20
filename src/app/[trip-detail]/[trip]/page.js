@@ -60,18 +60,15 @@ const TripDetail = () => {
       const response = await getTripDetailById(trip);
       setLoading(false);
       setTripDetail(response.data.chatGptResponse);
-      console.log("doDont", !response.data.chatGptResponse?.restaurants);
-      if (!response.data.chatGptResponse?.restaurants) {
-        console.log("doDont", response.data._id);
-        const doDont = await getTripDoDonts(response.data._id);
-        console.log("doDont", doDont);
-        setTripDetail(doDont.data.chatGptResponse);
-      }
       setCityCountry({
         city: response.data.city,
         country: response.data.country,
         date: response.data.startDate,
       });
+      if (!response.data.chatGptResponse?.restaurants) {
+        const doDont = await getTripDoDonts(response.data._id);
+        setTripDetail(doDont.data.chatGptResponse);
+      }
       setTripId(response.data._id);
     })();
     try {

@@ -14,7 +14,6 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse({
     defaultExpanded: tripIndex === 0,
   });
-  console.log("startDate", tripIndex);
   var date = new Date(startDate);
 
   date = new Date(date.setDate(date.getDate() + tripIndex));
