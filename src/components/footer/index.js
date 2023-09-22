@@ -65,11 +65,12 @@ const Footer = ({ paddingBottom }) => {
           </Grid>
           <Grid item xs={6} md={3}>
             <ul>
+              <h6>Latest Trips</h6>
               {latestTrip?.map((item, index) => {
                 return (
                   <li key={index}>
                     <a
-                      href={`/${item.city[0]
+                      href={`/itinerary/${item.numberOfDays}-days/${item.city[0]
                         .replace(/\s+/g, "-")
                         .toLowerCase()}/${item._id}`}
                     >

@@ -8,9 +8,7 @@ const Recaptchs = ({ open, handleModel }) => {
   const recaptchaRef = createRef();
   const onChange = async (value) => {
     const reponce = await verifyRecaptcha(value);
-    console.log("recpta called", reponce);
     handleModel(reponce.message);
-    alert(reponce.message);
   };
   return (
     <Modal

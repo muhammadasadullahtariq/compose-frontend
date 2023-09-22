@@ -33,6 +33,7 @@ import ExpediaWidget from "@/components/expedia";
 import { GTM_ID, pageview, trackConversion } from "@/app/gtm";
 import { loadFacebookPixel } from "@/app/facebookPixel";
 import getTripDoDonts from "@/apis/generateDoDonts";
+import SuggestionCollaspible from "@/components/suggestion";
 
 const TripDetail = () => {
   const [saveModal, setSaveModal] = useState(false);
@@ -379,6 +380,11 @@ const TripDetail = () => {
             dosHealth={tripDetail?.dosHealth}
             dontsHealth={tripDetail?.dontsHealth}
           />
+
+          {(
+            tripDetail?.dosHealth?.length > 0 &&
+            tripDetail?.suggestions
+          ) && <SuggestionCollaspible suggestion={tripDetail?.suggestions} />}
           <ExpediaWidget />
           <Box
             sx={{

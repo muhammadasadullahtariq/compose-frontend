@@ -12,7 +12,7 @@ import KeyboardArrowUpSharpIcon from "@mui/icons-material/KeyboardArrowUpSharp";
 
 const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse({
-    defaultExpanded: tripIndex === 0,
+    defaultExpanded: true,
   });
   var date = new Date(startDate);
 

@@ -23,13 +23,13 @@ const Question2 = () => {
   const { data, dispatch } = useContext(DataContext);
 
   const [formData, setFormData] = React.useState({
-    length: 1,
+    length: 7,
     date: null,
   });
 
   useEffect(() => {
     setFormData({
-      length: parseInt(data.numberOfDays) || 1,
+      length: parseInt(data.numberOfDays) || 7,
       date: data.startDate || dayjs(),
     });
   }, []);

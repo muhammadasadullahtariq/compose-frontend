@@ -241,8 +241,10 @@ const SavedItinerary = () => {
                         }}
                         onClick={() => {
                           //replace all the spaces with -
-                          const tag=trip.tag.replace(/\s+/g, '-').toLowerCase();                        
-                          window.location.href = `/${trip.tag}/${trip._id}`;
+                          const tag = trip.tag
+                            .replace(/\s+/g, "-")
+                            .toLowerCase();
+                          window.location.href = `/itinerary/${trip.numberOfDays}-days/${tag}/${trip._id}`;
                         }}
                       >
                         View

@@ -95,14 +95,14 @@ export default function Layout({ children, ...props }) {
     if (response.message == "Trip created") {
       console.log(
         "trip detail",
-        `/${response.data.city.replace(/\s+/g, "-").toLowerCase()}/${
-          response.data.id
-        }`
+        `/itinerary/${response.data.numberOfDays}-days/${response.data.city
+          .replace(/\s+/g, "-")
+          .toLowerCase()}/${response.data.id}`
       );
       router.push(
-        `/${response.data.city.replace(/\s+/g, "-").toLowerCase()}/${
-          response.data.id
-        }`
+        `/itinerary/${response.data.numberOfDays}-days/${response.data.city
+          .replace(/\s+/g, "-")
+          .toLowerCase()}/${response.data.id}`
       );
     } else {
       setLoading(false);
