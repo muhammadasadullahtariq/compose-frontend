@@ -1,0 +1,45 @@
+.landing img {
+  width: 500px;
+  height: 348px;
+}
+
+/* Question 6 image styling
+.trip img {
+  width: 22px;
+  height: 22px;
+}
+
+@media (max-width: 400px) {
+  .trip img {
+    width: 11px;
+    height: 11px;
+  }
+}
+
+
+@media screen and (max-width: 560px) {
+  .landing img {
+    width: 100%;
+  }
+} */
+
+/* trip class image width and height */
+.trip img {
+  width: 22px;
+  height: 22px;
+}
+
+@media (max-width: 400px) {
+  .trip img {
+    width: 11px;
+    height: 11px;
+  }
+}
+
+@media (max-width: 560px) {
+  .trip img {
+    width: 11px;
+    height: 11px;
+  }
+}
+

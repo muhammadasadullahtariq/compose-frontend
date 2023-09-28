@@ -5,7 +5,6 @@ const TextRender = ({ name, description }) => {
   return (
     <Box
       sx={{
-        backgroundColor: "#fff",
         display: "flex",
         flexDirection: "row",
         padding: {

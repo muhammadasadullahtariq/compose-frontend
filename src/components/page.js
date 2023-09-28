@@ -1,17 +1,9 @@
 "use client";
-import { useState, useEffect, forwardRef, useRef } from "react";
+import {  forwardRef} from "react";
 import { Container, Box, Typography, Grid, Button } from "@mui/material";
-import LocationIcon from "@/assets/images/tripDetails/location.png";
-import Resturant from "@/assets/images/tripDetails/resturant.png";
-import Detail from "@/assets/images/tripDetails/detail.png";
-import StarIcon from "@/assets/images/tripDetails/star.png";
-import TimeIcon from "@/assets/images/tripDetails/time.png";
-import Image from "next/image";
 import "./printStyles.css";
 import CircleIcon from "@mui/icons-material/Circle";
 import TextRender from "./atomic/TextRender/textRender";
-import Do from "@/assets/images/tripDetails/do.png";
-import Dont from "@/assets/images/tripDetails/dont.png";
 import * as COLORS from "@/constants/colors";
 
 const TextRenderOfResturant = ({ name, location, description }) => {

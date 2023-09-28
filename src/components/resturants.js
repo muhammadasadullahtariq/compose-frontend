@@ -1,18 +1,30 @@
 "use client";
 import { Box, Typography, Grid, Button, CircularProgress } from "@mui/material";
-import LocationIcon from "@/assets/images/tripDetails/icons/location.svg";
-import Resturant from "@/assets/images/tripDetails/resturantName.svg";
-import Detail from "@/assets/images/tripDetails/detail.svg";
+import LocationIcon from "@/assets/images/tripDetails/icons/locationResturant.svg";
+import Resturant from "@/assets/images/tripDetails/icons/resturant.svg";
+import Detail from "@/assets/images/tripDetails/icons/detail.svg";
 import * as COLORS from "@/constants/colors";
 import { useCollapse } from "react-collapsed";
 import Image from "next/image";
-import KeyboardArrowDownSharpIcon from "@mui/icons-material/KeyboardArrowDownSharp";
-import KeyboardArrowUpSharpIcon from "@mui/icons-material/KeyboardArrowUpSharp";
 import "./resturantStyle.css";
 
-const TextRender = ({ name, location, description }) => {
+const background = [
+  "/assets/img/resturant-1.svg",
+  "/assets/img/resturant-2.svg",
+  "/assets/img/resturant-3.svg",
+];
+
+const TextRender = ({ name, location, description, index }) => {
   return (
-    <Box>
+    <Box
+      sx={{
+        backgroundImage: `url(${background[index % 3]})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        padding: "20px",
+        borderRadius: "20px",
+      }}
+    >
       <Box
         sx={{
           display: "flex",
@@ -21,20 +33,21 @@ const TextRender = ({ name, location, description }) => {
       >
         <Image src={Resturant} width="15" alt="name-icon" />
         <Box sx={{ width: "100%", marginLeft: "10px" }}>
-          <Typography variant="p" sx={{ fontSize: "16px", fontWeight: "400" }}>
+          <Typography
+            variant="p"
+            sx={{ fontSize: "16px", fontWeight: "400", color: COLORS.white }}
+          >
             {name}
           </Typography>
         </Box>
       </Box>
       <Box
         sx={{
-          height: "20px",
+          height: "5px",
           margin: "5px 0 2px 6px",
           display: "flex",
         }}
-      >
-        <Box className="dashed-linex" />
-      </Box>
+      ></Box>
       <Box
         sx={{
           display: "flex",
@@ -43,19 +56,34 @@ const TextRender = ({ name, location, description }) => {
       >
         <Image src={LocationIcon} width="15" alt="name-icon" />
         <Box sx={{ width: "100%", marginLeft: "10px" }}>
-          <Typography variant="p" sx={{ fontSize: "16px", fontWeight: "400" }}>
+          <Typography
+            variant="p"
+            sx={{ fontSize: "16px", fontWeight: "400", color: COLORS.white }}
+          >
             {location}
           </Typography>
         </Box>
       </Box>
       <Box
         sx={{
-          height: "20px",
-          margin: "5px 0 2px 6px",
+          height: "1px",
+          margin: "10px 0 10px 6px",
           display: "flex",
+          width: "100%",
+          alignSelf: "center",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        <Box className="dashed-linex" />
+        <Box
+          sx={{
+            height: "1px",
+            display: "flex",
+            background: COLORS.white,
+            width: "100%",
+            alignSelf: "center",
+          }}
+        ></Box>
       </Box>
       <Box
         sx={{
@@ -65,7 +93,10 @@ const TextRender = ({ name, location, description }) => {
       >
         <Image src={Detail} width="15" alt="name-icon" />
         <Box sx={{ width: "100%", marginLeft: "10px" }}>
-          <Typography variant="p" sx={{ fontSize: "16px", fontWeight: "400" }}>
+          <Typography
+            variant="p"
+            sx={{ fontSize: "16px", fontWeight: "400", color: COLORS.white }}
+          >
             {description}
           </Typography>
         </Box>
@@ -75,18 +106,13 @@ const TextRender = ({ name, location, description }) => {
 };
 
 const ResturantCollaspible = ({ restaurants }) => {
-  const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
   return (
     <Box
       sx={{
         width: "100%",
         backgroundColor: COLORS.white,
         marginBottom: "20px",
-        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-        paddingRight: "20px",
-        paddingLeft: "10px",
         paddingTop: "10px",
-        paddingBottom: isExpanded ? "0px" : "10px",
       }}
     >
       <Box
@@ -95,9 +121,7 @@ const ResturantCollaspible = ({ restaurants }) => {
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
-          cursor: "pointer",
         }}
-        {...getToggleProps()}
       >
         <dev
           style={{
@@ -107,13 +131,13 @@ const ResturantCollaspible = ({ restaurants }) => {
           }}
         >
           <Typography
-            {...getToggleProps()}
             sx={{
               fontSize: "22px",
               fontWeight: "600",
               width: "100%",
               fontFamily: "Raleway",
               marginRight: "10px",
+              color: COLORS.primary,
             }}
           >
             Restaurants
@@ -128,38 +152,29 @@ const ResturantCollaspible = ({ restaurants }) => {
             </Box>
           )}
         </dev>
-        {isExpanded ? (
-          <KeyboardArrowUpSharpIcon />
-        ) : (
-          <KeyboardArrowDownSharpIcon />
-        )}
       </Box>
-      {isExpanded && (
-        <Box
-          style={{
-            width: "100%",
-            height: "1px",
-            background: "#F3F4F8",
-            margin: "15px 0",
-          }}
-        />
-      )}
-      <Box {...getCollapseProps()}>
-        {restaurants?.map((item) => {
+
+      <Box
+        style={{
+          width: "100%",
+          height: "1px",
+          background: "#F3F4F8",
+          margin: "15px 0",
+        }}
+      />
+      <Box>
+        {restaurants?.map((item, index) => {
           return (
             <Box
               sx={{
-                margin: {
-                  lg: "0 70px 0 70px",
-                  md: "0 50px 0 50px",
-                  xs: "0",
-                },
+                margin: "0 10px 0 10px",
               }}
             >
               <TextRender
                 name={item.restaurant}
                 description={item.description}
                 location={item.location}
+                index={index}
               ></TextRender>
               <Box
                 sx={{
@@ -169,16 +184,7 @@ const ResturantCollaspible = ({ restaurants }) => {
                   justifyContent: "center",
                   alignItems: "center",
                 }}
-              >
-                <Box
-                  sx={{
-                    height: "1px",
-                    margin: "0 20px 0 20px",
-                    width: "100%",
-                    background: "#F3F4F8",
-                  }}
-                ></Box>
-              </Box>
+              ></Box>
             </Box>
           );
         })}

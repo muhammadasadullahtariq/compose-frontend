@@ -18,11 +18,8 @@ const Health = ({ dosHealth, dontsHealth }) => {
         width: "100%",
         backgroundColor: COLORS.white,
         marginBottom: "20px",
-        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
         paddingRight: "20px",
-        paddingLeft: "10px",
         paddingTop: "10px",
-        paddingBottom: isExpanded ? "0px" : "10px",
       }}
     >
       {dosHealth?.length > 0 && dontsHealth?.length > 0 ? (
@@ -33,9 +30,7 @@ const Health = ({ dosHealth, dontsHealth }) => {
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "center",
-              cursor: "pointer",
             }}
-            {...getToggleProps()}
           >
             <Typography
               variant="h1"
@@ -44,82 +39,88 @@ const Health = ({ dosHealth, dontsHealth }) => {
                 fontWeight: "600",
                 width: "100%",
                 fontFamily: "Raleway",
+                color: COLORS.primary,
               }}
             >
               Health
             </Typography>
-            {isExpanded ? (
-              <KeyboardArrowUpSharpIcon />
-            ) : (
-              <KeyboardArrowDownSharpIcon />
-            )}
           </Box>
-          {isExpanded && (
-            <Box
-              style={{
-                width: "100%",
-                height: "1px",
-                background: "#F3F4F8",
-                margin: "15px 0",
-              }}
-            />
-          )}
-          <Box {...getCollapseProps()}>
+
+          <Box
+            style={{
+              width: "100%",
+              height: "1px",
+              background: "#F3F4F8",
+              margin: "15px 0",
+            }}
+          />
+          <Box>
             {dosHealth?.length > 0 && (
               <Box
                 sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  paddingLeft: {
-                    lg: "70px",
-                    md: "50px",
-                    xs: "20px",
-                  },
+                  backgroundImage: `url(${"/assets/img/doBackground.svg"})`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                  padding: "20px 0",
+                  borderRadius: "20px",
                 }}
               >
-                <Image src={Do} alt="Do" />
-                <Typography
+                <Box
                   sx={{
-                    fontSize: "18px",
-                    fontWeight: "700",
-                    fontFamily: "Raleway",
-                    marginLeft: "10px",
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    paddingLeft: {
+                      lg: "10px",
+                      md: "10px",
+                      xs: "20px",
+                    },
                   }}
                 >
-                  Do’s
-                </Typography>
-              </Box>
-            )}
-            {dosHealth?.length > 0 &&
-              dosHealth?.map((item, index) => {
-                return (
-                  <Box
+                  <Image src={Do} alt="Do" />
+                  <Typography
                     sx={{
-                      margin: {
-                        lg: "0 70px 0 70px",
-                        md: "0 50px 0 50px",
-                        xs: "0",
-                      },
+                      fontSize: "18px",
+                      fontWeight: "700",
+                      fontFamily: "Raleway",
+                      marginLeft: "10px",
                     }}
                   >
-                    <TextRender
-                      name={
-                        <CircleIcon
-                          sx={{
-                            height: "10px",
-                            width: "10px",
-                          }}
-                        />
-                      }
-                      description={"  " + item}
-                      color={"#FFFFFF"}
-                    ></TextRender>
-                  </Box>
-                );
-              })}
+                    Do’s
+                  </Typography>
+                </Box>
+                {dosHealth?.length > 0 &&
+                  dosHealth?.map((item, index) => {
+                    return (
+                      <Box
+                        sx={{
+                          margin: {
+                            lg: "0 10px 0 10px",
+                            md: "0 10px 0 10px",
+                            xs: "0",
+                          },
+                        }}
+                      >
+                        <TextRender
+                          name={
+                            <CircleIcon
+                              sx={{
+                                height: "10px",
+                                width: "10px",
+                              }}
+                            />
+                          }
+                          description={"  " + item}
+                          color={"#FFFFFF"}
+                        ></TextRender>
+                      </Box>
+                    );
+                  })}
+              </Box>
+            )}
+
             <Box
-              style={{
+              sx={{
                 width: "100%",
                 height: "20px",
               }}
@@ -127,57 +128,66 @@ const Health = ({ dosHealth, dontsHealth }) => {
             {dontsHealth?.length > 0 && (
               <Box
                 sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  paddingLeft: {
-                    lg: "70px",
-                    md: "50px",
-                    xs: "20px",
-                  },
+                  backgroundImage: `url(${"/assets/img/dontBackground.svg"})`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                  padding: "20px 0",
+                  borderRadius: "20px",
                 }}
               >
-                <Image src={Dont} alt="Dont's" />
-                <Typography
+                <Box
                   sx={{
-                    fontSize: "18px",
-                    fontWeight: "700",
-                    fontFamily: "Raleway",
-                    marginLeft: "10px",
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    paddingLeft: {
+                      lg: "10px",
+                      md: "10px",
+                      xs: "20px",
+                    },
                   }}
                 >
-                  Dont’s
-                </Typography>
-              </Box>
-            )}
-
-            {dontsHealth?.length > 0 &&
-              dontsHealth?.map((item, index) => {
-                return (
-                  <Box
+                  <Image src={Dont} alt="Dont's" />
+                  <Typography
                     sx={{
-                      margin: {
-                        lg: "0 70px 0 70px",
-                        md: "0 50px 0 50px",
-                        xs: "0",
-                      },
+                      fontSize: "18px",
+                      fontWeight: "700",
+                      fontFamily: "Raleway",
+                      marginLeft: "10px",
                     }}
                   >
-                    <TextRender
-                      name={
-                        <CircleIcon
-                          sx={{
-                            height: "10px",
-                            width: "10px",
-                          }}
-                        />
-                      }
-                      description={"  " + item}
-                      color={"#FFFFFF"}
-                    ></TextRender>
-                  </Box>
-                );
-              })}
+                    Dont’s
+                  </Typography>
+                </Box>
+                {dontsHealth?.length > 0 &&
+                  dontsHealth?.map((item, index) => {
+                    return (
+                      <Box
+                        sx={{
+                          margin: {
+                            lg: "0 10px 0 10px",
+                            md: "0 10px 0 10px",
+                            xs: "0",
+                          },
+                        }}
+                      >
+                        <TextRender
+                          name={
+                            <CircleIcon
+                              sx={{
+                                height: "10px",
+                                width: "10px",
+                              }}
+                            />
+                          }
+                          description={"  " + item}
+                          color={"#FFFFFF"}
+                        ></TextRender>
+                      </Box>
+                    );
+                  })}
+              </Box>
+            )}
           </Box>
         </Box>
       ) : (
@@ -190,7 +200,6 @@ const Health = ({ dosHealth, dontsHealth }) => {
             cursor: "pointer",
             paddingBottom: "10px",
           }}
-          {...getToggleProps()}
         >
           <dev
             style={{
@@ -207,6 +216,7 @@ const Health = ({ dosHealth, dontsHealth }) => {
                 width: "100%",
                 fontFamily: "Raleway",
                 marginRight: "10px",
+                color: COLORS.primary,
               }}
             >
               Health
@@ -219,11 +229,6 @@ const Health = ({ dosHealth, dontsHealth }) => {
               <CircularProgress size={30} />
             </Box>
           </dev>
-          {isExpanded ? (
-            <KeyboardArrowUpSharpIcon />
-          ) : (
-            <KeyboardArrowDownSharpIcon />
-          )}
         </Box>
       )}
     </Box>

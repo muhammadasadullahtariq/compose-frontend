@@ -11,18 +11,14 @@ import KeyboardArrowUpSharpIcon from "@mui/icons-material/KeyboardArrowUpSharp";
 import "./resturantStyle.css";
 
 const SuggestionCollaspible = ({ suggestion }) => {
-  const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
   return (
     <Box
       sx={{
         width: "100%",
         backgroundColor: COLORS.white,
         marginBottom: "20px",
-        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
         paddingRight: "20px",
-        paddingLeft: "10px",
         paddingTop: "10px",
-        paddingBottom: isExpanded ? "0px" : "10px",
       }}
     >
       <Box
@@ -33,7 +29,6 @@ const SuggestionCollaspible = ({ suggestion }) => {
           alignItems: "center",
           cursor: "pointer",
         }}
-        {...getToggleProps()}
       >
         <dev
           style={{
@@ -43,13 +38,13 @@ const SuggestionCollaspible = ({ suggestion }) => {
           }}
         >
           <Typography
-            {...getToggleProps()}
             sx={{
               fontSize: "22px",
               fontWeight: "600",
               width: "100%",
               fontFamily: "Raleway",
               marginRight: "10px",
+              color: COLORS.primary,
             }}
           >
             Suggestions
@@ -64,13 +59,9 @@ const SuggestionCollaspible = ({ suggestion }) => {
             </Box>
           )}
         </dev>
-        {isExpanded ? (
-          <KeyboardArrowUpSharpIcon />
-        ) : (
-          <KeyboardArrowDownSharpIcon />
-        )}
+        
       </Box>
-      {isExpanded && (
+     
         <Box
           style={{
             width: "100%",
@@ -79,13 +70,12 @@ const SuggestionCollaspible = ({ suggestion }) => {
             margin: "15px 0",
           }}
         />
-      )}
-      <Box {...getCollapseProps()}>
+      <Box >
         <Box
           sx={{
             margin: {
-              lg: "0 70px 0px 70px",
-              md: "0 50px 0 50px",
+              lg: "0 10px 0px 10px",
+              md: "0 10px 0 10px",
               xs: "0",
             },
             paddingBottom: "20px",
