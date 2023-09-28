@@ -70,7 +70,7 @@ export default function SignIn({ closeModel, popup }) {
       const token = await user.getIdToken();
       setCookie("token", token);
       const userExist = await checkUserExist();
-      console.log(userExist);
+     // console.log(userExist);
       if (userExist?.message == "User found") {
         setCookie("uid", userExist.data._id);
         setCookie("user", userExist.data);
@@ -79,7 +79,7 @@ export default function SignIn({ closeModel, popup }) {
         setSeverity("success");
         closeModel();
       } else {
-        console.log("user not exist");
+       // console.log("user not exist");
       }
     } catch (error) {
       console.log(error);

@@ -4,7 +4,7 @@ import checkUserExist from "./checkUserExist";
 const getSavedTrips = async () => {
   try {
     const user = await checkUserExist();
-    console.log("user data ", user);
+    //console.log("user data ", user);
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}getTripsByUserId/${user.data._id}`,
       {

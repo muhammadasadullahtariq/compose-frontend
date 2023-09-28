@@ -15,9 +15,9 @@ const uploadImage = async (file) => {
       Key: iname,
       Body: file,
     };
-    console.log(uploadParams);
+   // console.log(uploadParams);
     const res = await s3.send(new PutObjectCommand(uploadParams));
-    console.log("https://tripimages1.s3.amazonaws.com/" + iname);
+    //console.log("https://tripimages1.s3.amazonaws.com/" + iname);
     return {
       data: "https://tripimages1.s3.amazonaws.com/" + iname,
       message: "Success",

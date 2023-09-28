@@ -83,7 +83,7 @@ const TripDetail = () => {
           page_location: window.location.href,
         });
       }
-      console.log("analytics", analytics);
+      //console.log("analytics", analytics);
     } catch (error) {}
   }, []);
 
@@ -598,7 +598,7 @@ const TripDetail = () => {
           handerlSave={async (name) => {
             setSaveModal(false);
             const response = await saveTrip(trip, name);
-            console.log("response", response);
+           // console.log("response", response);
             alert(response.message);
           }}
           modalFor="save"

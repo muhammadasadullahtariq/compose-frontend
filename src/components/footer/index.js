@@ -16,7 +16,7 @@ const Footer = ({ paddingBottom }) => {
   useEffect(() => {
     (async () => {
       const responce = await getLatestTrips();
-      console.log(responce);
+     // console.log(responce);
       setGetLatestTrip(responce.data);
     })();
   }, []);

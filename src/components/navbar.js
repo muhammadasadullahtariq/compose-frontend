@@ -42,7 +42,7 @@ function ResponsiveAppBar({ userAuthChanged }) {
   const [iModel, setIModel] = React.useState(false);
   const iModelHandle = () => {
     const userLogedIn = ProtectedPageRoute();
-    console.log("hide sign up", userLogedIn, "sign up hide");
+    //console.log("hide sign up", userLogedIn, "sign up hide");
     if (userLogedIn) {
       setSignUpHide(true);
       if (pathName.includes("saved-itinerary")) {
@@ -61,7 +61,7 @@ function ResponsiveAppBar({ userAuthChanged }) {
   const [uModel, setUModel] = React.useState(false);
   const uModelHandle = () => {
     const userLogedIn = ProtectedPageRoute();
-    console.log("hide sign up", userLogedIn, "sign up hide");
+   // console.log("hide sign up", userLogedIn, "sign up hide");
     if (userLogedIn) {
       setSignUpHide(true);
       if (pathName.includes("saved-itinerary")) {

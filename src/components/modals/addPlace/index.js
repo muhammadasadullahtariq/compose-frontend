@@ -151,7 +151,7 @@ const AddPlace = ({ open, handleModel, modalFor, handerlSave }) => {
                   setLoading(true);
                   const responce = await uploadImage(e.target.files[0]);
                   setLoading(false);
-                  console.log(responce);
+                 // console.log(responce);
                   if (responce.data) {
                     setImage(responce.data);
                   }

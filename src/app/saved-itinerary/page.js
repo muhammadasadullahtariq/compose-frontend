@@ -31,7 +31,7 @@ const SavedItinerary = () => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = (id) => {
-    console.log("handleClose", id);
+   // console.log("handleClose", id);
     if (id) {
       (async () => {
         setLoading(true);
@@ -39,7 +39,7 @@ const SavedItinerary = () => {
         await deleteTrip(id);
         setLoadingMessage("Please wait while we are getting your updated trip");
         const response = await getSavedTrips();
-        console.log("response", response);
+        //console.log("response", response);
         setLoading(false);
         setSavedTrips(response.data);
       })();
@@ -53,7 +53,7 @@ const SavedItinerary = () => {
       setLoadingMessage("Please wait while we are getting your trips");
       const response = await getSavedTrips();
       setLoading(false);
-      console.log("response", response);
+     // console.log("response", response);
       setSavedTrips(response.data);
     })();
     pageview();
@@ -97,7 +97,7 @@ const SavedItinerary = () => {
         <AppBar
           userAuthChanged={async () => {
             const response = await getSavedTrips();
-            console.log("response", response);
+           // console.log("response", response);
             setSavedTrips(response.data);
           }}
         />

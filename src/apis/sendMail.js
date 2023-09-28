@@ -14,7 +14,7 @@ const sendMail = async (name, mail) => {
       }),
     });
     const result = await res.json();
-    console.log("result of trip", result);
+    //("result of trip", result);
     return result;
   } catch (error) {
     console.log(error);

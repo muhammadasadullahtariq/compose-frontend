@@ -100,8 +100,8 @@ export default function SignUp({ closeModel, popup }) {
   const userRegisterHandaler = async (name) => {
     try {
       const userData = await registerUser(name);
-      console.log("user not exist extra user called");
-      console.log(userData);
+      //console.log("user not exist extra user called");
+      //console.log(userData);
       if (userData?.message == "User Created") {
         setCookie("user", userData.data);
         setOpen(true);
@@ -148,7 +148,7 @@ export default function SignUp({ closeModel, popup }) {
         setCookie("token", token);
         try {
           const userData = await registerUser(fname + " " + lname);
-          console.log(userData);
+         //console.log(userData);
           if (userData?.message == "User Created") {
             setCookie("user", userData.data);
             setOpen(true);
@@ -156,8 +156,8 @@ export default function SignUp({ closeModel, popup }) {
             setSeverity("success");
             closeModel();
           } else {
-            console.log("user not created called");
-            console.log(userData);
+            //console.log("user not created called");
+            //console.log(userData);
             setOpen(true);
             setMessage(userData.message);
             setSeverity("error");

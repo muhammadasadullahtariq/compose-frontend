@@ -22,7 +22,7 @@ const Question4 = () => {
       setSelected((curr) => [...curr, name]);
     }
   };
-  console.log(data, "data_4");
+  //console.log(data, "data_4");
   useEffect(() => {
     setSelected(data.interest || []);
     setOthers(data.otherInterest || "");
