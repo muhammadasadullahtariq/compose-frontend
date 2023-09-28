@@ -11,8 +11,24 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
   var date = new Date(startDate);
 
   date = new Date(date.setDate(date.getDate() + tripIndex));
-  // var startDatee = new Date(date.setDate(date.getDate() + tripIndex));
-  // var endDate = new Date(startDatee.setDate(startDatee.getDate() + tripLength - 1));
+
+  var startDatee = new Date(startDate);
+
+  startDatee =
+    startDatee.getFullYear() +
+    "-" +
+    (startDatee.getMonth() + 1) +
+    "-" +
+    startDatee.getDate();
+  var endDate = new Date(
+    new Date(startDate).setDate(new Date(startDate).getDate() + tripLength)
+  );
+  endDate =
+    endDate.getFullYear() +
+    "-" +
+    (endDate.getMonth() + 1) +
+    "-" +
+    endDate.getDate();
 
   return (
     <Box
@@ -346,7 +362,7 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
         </Box>
       </Box>
       <a
-        href={`https://www.kayak.com/in?a=kan_272633_583230&url=/hotels/${item.location}/${startDate}`}
+        href={`https://www.kayak.com/in?a=kan_272633_583230&url=/hotels/${item.location}/${startDatee}/${endDate}`}
         target="_blank"
         rel="nofollow"
       >
