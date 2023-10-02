@@ -142,56 +142,74 @@ const TripDetail = () => {
             marginTop: "60px",
           }}
         >
-          <Container sx={{ height: "100%" }}>
-            <Box
+          <Box
+            sx={{
+              display: "flex",
+              height: "100%",
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "rgba(0,0,0,0.5)",
+            }}
+          >
+            <Container
               sx={{
-                width: "100%",
                 height: "100%",
                 display: "flex",
-                justifyContent: "center",
-                color: "#fff",
-                flexDirection: "column",
+                width: "100%",
               }}
             >
               <Box
                 sx={{
-                  marginBottom: {
-                    md: "30px",
-                    xs: "25px",
-                  },
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  flexDirection: "column",
                 }}
               >
-                <Typography
-                  variant="h4"
-                  sx={{ fontSize: "24px", fontWeight: "700", fontFamily: "" }}
-                >
-                  YOUR TRIP TO
-                </Typography>
-                <Typography
-                  variant="h2"
+                <Box
                   sx={{
-                    fontSize: { lg: "76px", xs: "34px" },
-                    fontWeight: "700",
+                    marginBottom: {
+                      md: "30px",
+                      xs: "25px",
+                    },
                   }}
                 >
-                  {cityCountry?.city?.length > 0
-                    ? cityCountry?.city
-                        ?.join(", ")
-                        .replace(/, $/, "")
-                        .toUpperCase()
-                    : cityCountry?.country?.toUpperCase()}
-                </Typography>
-                <Typography
-                  variant="h2"
-                  sx={{
-                    fontSize: { lg: "24px", xs: "18px" },
-                    fontWeight: "500",
-                  }}
-                >
-                  {tripDetail?.aboutCity}
-                </Typography>
-              </Box>
-              {/* <Box
+                  <Typography
+                    variant="h4"
+                    color={COLORS.white}
+                    sx={{ fontSize: "24px", fontWeight: "700", fontFamily: "" }}
+                  >
+                    YOUR TRIP TO
+                  </Typography>
+                  <Typography
+                    variant="h2"
+                    color={COLORS.white}
+                    sx={{
+                      fontSize: { lg: "76px", xs: "34px" },
+                      fontWeight: "700",
+                    }}
+                  >
+                    {cityCountry?.city?.length > 0
+                      ? cityCountry?.city
+                          ?.join(", ")
+                          .replace(/, $/, "")
+                          .toUpperCase()
+                      : cityCountry?.country?.toUpperCase()}
+                  </Typography>
+                  <Typography
+                    variant="h2"
+                    color={COLORS.white}
+                    sx={{
+                      fontSize: { lg: "24px", xs: "20px" },
+                      fontWeight: "500",
+                    }}
+                  >
+                    {tripDetail?.aboutCity}
+                  </Typography>
+                </Box>
+                {/* <Box
                 className="print-component"
                 sx={{
                   display: "flex",
@@ -248,8 +266,9 @@ const TripDetail = () => {
                   />
                 </Box>
               </Box> */}
-            </Box>
-          </Container>
+              </Box>
+            </Container>
+          </Box>
         </Box>
         <Container
           sx={{
@@ -268,7 +287,7 @@ const TripDetail = () => {
           >
             <Grid item md={3} xs={12}>
               <TripDetailItem
-                heading={"Adventure Begins"}
+                heading={"Adventure begins"}
                 subHeading={new Date(cityCountry.date).toLocaleDateString(
                   "en-US",
                   {
@@ -410,6 +429,22 @@ const TripDetail = () => {
               ))}
             </Box>
           </Container>
+          <Typography
+            sx={{
+              color: COLORS.white,
+              fontSize: "18px",
+              fontWeight: "600",
+              fontFamily: "Raleway",
+              textAlign: "center",
+              padding: "10px",
+              position: "fixed",
+              bottom: "5px",
+              left: "10px",
+              zIndex: "100",
+            }}
+          >
+            Share your trip with friends
+          </Typography>
           <Box
             sx={{
               width: "100%",
@@ -428,7 +463,7 @@ const TripDetail = () => {
               sx={{
                 fontSize: "24px",
                 color: "#fff",
-                marginRight: "15px",
+                marginRight: "12px",
               }}
               onClick={() => {
                 window.open(
@@ -497,14 +532,14 @@ const TripDetail = () => {
                 );
               }}
             />
-            <PrintIcon
+            {/* <PrintIcon
               sx={{
                 fontSize: "24px",
                 color: "#fff",
                 marginRight: "15px",
               }}
               onClick={handlePrint}
-            />
+            /> */}
           </Box>
         </Box>
         <Container>
@@ -554,7 +589,7 @@ const TripDetail = () => {
                 fontWeight: "600",
               }}
             >
-              Regenerate
+              Start over
             </Typography>
           </Box>
           <Box
@@ -586,7 +621,7 @@ const TripDetail = () => {
                 fontWeight: "600",
               }}
             >
-              Print
+              Export to PDF
             </Typography>
           </Box>
         </Container>
@@ -598,7 +633,6 @@ const TripDetail = () => {
           handerlSave={async (name) => {
             setSaveModal(false);
             const response = await saveTrip(trip, name);
-           // console.log("response", response);
             alert(response.message);
           }}
           modalFor="save"
@@ -611,24 +645,25 @@ const TripDetail = () => {
           }}
           handelYesModal={async () => {
             setOpenModal(false);
-            const user = ProtectedPageRoute();
-            if (user) {
-              setLoading(true);
-              setLoadingMessage(
-                "Please wait while we are regenerating your plan. 2 to 5 secs tops!🚀🌈"
-              );
-              const response = await RegenerateTrip(tripId);
-              setLoading(false);
-              setTripDetail(response.data.chatGptResponse);
-              setCityCountry({
-                city: response.data.city,
-                country: response.data.country,
-                date: response.data.startDate,
-              });
-              setTripId(response.data._id);
-            } else {
-              alert("Please login to regenerate your trip");
-            }
+            router.push("/questionaire/whereto");
+            // const user = ProtectedPageRoute();
+            // if (user) {
+            //   setLoading(true);
+            //   setLoadingMessage(
+            //     "Please wait while we are regenerating your plan. 2 to 5 secs tops!🚀🌈"
+            //   );
+            //   const response = await RegenerateTrip(tripId);
+            //   setLoading(false);
+            //   setTripDetail(response.data.chatGptResponse);
+            //   setCityCountry({
+            //     city: response.data.city,
+            //     country: response.data.country,
+            //     date: response.data.startDate,
+            //   });
+            //   setTripId(response.data._id);
+            // } else {
+            //   alert("Please login to regenerate your trip");
+            // }
           }}
           modalFor="new"
         />
@@ -646,6 +681,7 @@ const TripDetail = () => {
           <PrintScreen
             ref={componentRef}
             tripDetail={tripDetail}
+            trip={trip}
             cityCountry={cityCountry}
             cityImage={cityImage}
             datee={new Date(cityCountry?.date)}

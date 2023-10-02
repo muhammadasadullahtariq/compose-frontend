@@ -178,8 +178,8 @@ const ResturantCollaspible = ({ restaurants }) => {
               ></TextRender>
               <Box
                 sx={{
-                  margin: "25px 20 25px 20",
-                  height: "50px",
+                  margin: "0px 0px 0px 0px",
+                  height: "15px",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",

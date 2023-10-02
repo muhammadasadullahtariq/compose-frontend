@@ -40,7 +40,7 @@ const TripDetailItem = ({ heading, subHeading, image }) => {
           sx={{
             fontWeight: "600",
             fontSize: { lg: "24px", xs: "18px" },
-            fontFamily: "popins",
+            fontFamily: heading == "Travel type" ? "Raleway" : "popins",
             color: COLORS.textDark,
             paddingLeft: image ? "5px" : "0px",
           }}

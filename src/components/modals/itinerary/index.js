@@ -51,7 +51,7 @@ const Itinerary = ({
                 textAlign: "center",
               }}
             >
-              Are you sure you want to discard previous itinerary?
+              Are you sure you want to Start a new itinerary?s
             </Typography>
             <Box
               sx={{

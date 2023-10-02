@@ -9,6 +9,8 @@ import Image from "next/image";
 import KeyboardArrowDownSharpIcon from "@mui/icons-material/KeyboardArrowDownSharp";
 import KeyboardArrowUpSharpIcon from "@mui/icons-material/KeyboardArrowUpSharp";
 import "./resturantStyle.css";
+import TextRender from "@/components/atomic/TextRender/textRender";
+import CircleIcon from "@mui/icons-material/Circle";
 
 const SuggestionCollaspible = ({ suggestion }) => {
   return (
@@ -59,18 +61,17 @@ const SuggestionCollaspible = ({ suggestion }) => {
             </Box>
           )}
         </dev>
-        
       </Box>
-     
-        <Box
-          style={{
-            width: "100%",
-            height: "1px",
-            background: "#F3F4F8",
-            margin: "15px 0",
-          }}
-        />
-      <Box >
+
+      <Box
+        style={{
+          width: "100%",
+          height: "1px",
+          background: "#F3F4F8",
+          margin: "15px 0",
+        }}
+      />
+      <Box>
         <Box
           sx={{
             margin: {
@@ -81,18 +82,33 @@ const SuggestionCollaspible = ({ suggestion }) => {
             paddingBottom: "20px",
           }}
         >
-          <Typography
-            as="span"
-            sx={{
-              fontSize: "16px",
-              fontWeight: "500",
-              fontFamily: "Raleway",
-              padding: "27px 0 27px 0",
-              textAlign: "center",
-            }}
-          >
-            {suggestion}
-          </Typography>
+          {suggestion?.length > 0 &&
+            suggestion.map((item, index) => {
+              return (
+                <Box
+                  sx={{
+                    margin: {
+                      lg: "0 10px 0 10px",
+                      md: "0 10px 0 10px",
+                      xs: "0",
+                    },
+                  }}
+                >
+                  <TextRender
+                    name={
+                      <CircleIcon
+                        sx={{
+                          height: "10px",
+                          width: "10px",
+                        }}
+                      />
+                    }
+                    description={"  " + item}
+                    color={"#FFFFFF"}
+                  ></TextRender>
+                </Box>
+              );
+            })}
         </Box>
       </Box>
     </Box>

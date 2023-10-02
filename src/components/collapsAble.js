@@ -90,6 +90,7 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
                 flexDirection: {
                   lg: "row",
                   md: "row",
+                  sm: "row",
                   xs: "column",
                 },
               }}
@@ -105,6 +106,7 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
                       lg: "600px",
                       md: "500px",
                       xs: "100%",
+                      sm: "300px",
                     },
                     marginRight: "20px",
                     display: "flex",
@@ -114,6 +116,7 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
                     borderRadius: "10px",
                     padding: "20px",
                     marginBottom: { xs: "20px" },
+                    backgroundColor: COLORS.primary,
                   }}
                 >
                   <Typography
@@ -286,6 +289,9 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
                       fontWeight: "500",
                       color: "#fff",
                       marginLeft: "20px",
+                      backdropFilter: "blur(4px)",
+                      WebkitBackdropFilter: "blur(4px)",
+                      padding: "10px",
                     }}
                   >
                     {activity.activity}
@@ -299,6 +305,8 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
                         background: COLORS.primary,
                         borderRadius: "20px",
                         padding: "10px 25px",
+                        //add shadow
+                        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                       }}
                       onClick={() => {
                         window.open(activity.url);
@@ -381,7 +389,10 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
           <Typography
             variant="span"
             sx={{
-              fontSize: "16px",
+              fontSize: {
+                lg: "22px",
+                md: "18px",
+              },
               fontWeight: "500",
             }}
           >
@@ -389,7 +400,10 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
           </Typography>
           <Typography
             sx={{
-              fontSize: "16px",
+              fontSize: {
+                lg: "22px",
+                md: "18px",
+              },
               fontWeight: "500",
               color: COLORS.primary,
             }}
