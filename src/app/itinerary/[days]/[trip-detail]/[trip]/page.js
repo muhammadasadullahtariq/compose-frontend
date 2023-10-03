@@ -443,7 +443,7 @@ const TripDetail = () => {
               zIndex: "100",
             }}
           >
-            Share your trip with friends
+            Share your trip
           </Typography>
           <Box
             sx={{
@@ -451,12 +451,12 @@ const TripDetail = () => {
               height: "56px",
               position: "fixed",
               bottom: "0px",
-              background: "#2B92D5",
+              background: COLORS.primary,
               padding: "10px",
-              justifyContent: "center",
+              justifyContent: { lg: "center", sm: "flex-end" },
               alignItems: "center",
               display: "flex",
-              flexDirection: "row",
+              flexDirection: "row-reverse",
             }}
           >
             <WhatsAppIcon
