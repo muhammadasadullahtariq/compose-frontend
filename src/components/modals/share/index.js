@@ -77,7 +77,7 @@ const Share = ({ open, handleModel, cityCountry, tripId }) => {
               }}
               onClick={() => {
                 window.open(
-                  `https://www.facebook.com/sharer/sharer.php?u=www.composetrip.com/trip-detail/${tripId}`
+                  `https://www.facebook.com/sharer/sharer.php?u=www.composetrip.com/itinerary/${cityCountry.numberOfDays}-days/${cityCountry.city[0]}/${tripId}`
                 );
                 handleModel();
               }}

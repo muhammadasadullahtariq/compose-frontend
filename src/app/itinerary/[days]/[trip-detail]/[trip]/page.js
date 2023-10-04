@@ -479,8 +479,15 @@ const TripDetail = () => {
             />
             <FacebookIcon
               onClick={() => {
+                const tripId = window.location.href.split("/").pop();
+                const city =
+                  cityCountry?.city?.length > 0
+                    ? cityCountry?.city[0]
+                    : cityCountry?.country;
+                const numberOfDays = cityCountry?.numberOfDays;
+
                 window.open(
-                  `https://www.facebook.com/sharer/sharer.php?u=www.composetrip.com/trip-detail/${tripId}`,
+                  `https://www.facebook.com/sharer/sharer.php?u=www.composetrip.com/itinerary/${cityCountry.numberOfDays}-days/${cityCountry.city[0]}/${tripId}`,
                   "_blank"
                 );
               }}
