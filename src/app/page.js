@@ -93,7 +93,7 @@ function ResponsiveAppBar() {
                   fontWeight: "700",
                   fontFamily: "raleway",
                   textTransform: "uppercase",
-                  color: COLORS.primary,
+                  color: COLORS.black,
                 }}
               >
                 TRIP{" "}
@@ -111,8 +111,8 @@ function ResponsiveAppBar() {
                 width: { xs: "100%", md: "100%", lg: "100%" },
               }}
             >
-              GET A TAILORED ITINERARY SPECIFIC TO YOU AND EXPERIENCE THE MAGIC
-              OF PERSONALIZED ADVENTURES.
+              Get a tailored itinerary specific to you and experience the magic
+              of personalized adventures.
             </Typography>
             <Grid container justifyContent={{ xs: "center", lg: "left" }}>
               <Button
@@ -129,6 +129,8 @@ function ResponsiveAppBar() {
                     border: "none",
                     outline: "none",
                   },
+                  textTransform: "unset",
+                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                 }}
                 onClick={() => {
                   router.push("/questionaire/whereto");
@@ -137,7 +139,7 @@ function ResponsiveAppBar() {
                 <Typography
                   sx={{
                     fontSize: { lg: "18px", md: "16px", xs: "14px" },
-                    fontWeight: "500",
+                    fontWeight: "800",
                     fontFamily: "raleway",
                     padding: "5px 30px",
                     color: COLORS.white,

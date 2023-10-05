@@ -12,7 +12,10 @@ import "./resturantStyle.css";
 import TextRender from "@/components/atomic/TextRender/textRender";
 import CircleIcon from "@mui/icons-material/Circle";
 
-const SuggestionCollaspible = ({ suggestion }) => {
+const SuggestionCollaspible = ({
+  natureRelatedSuggestions,
+  locationSuggestions,
+}) => {
   return (
     <Box
       sx={{
@@ -51,7 +54,10 @@ const SuggestionCollaspible = ({ suggestion }) => {
           >
             Suggestions
           </Typography>
-          {!(suggestion?.length > 0) && (
+          {!(
+            locationSuggestions?.length > 0 ||
+            natureRelatedSuggestions.length > 0
+          ) && (
             <Box
               sx={{
                 display: "flex",
@@ -71,19 +77,31 @@ const SuggestionCollaspible = ({ suggestion }) => {
           margin: "15px 0",
         }}
       />
-      <Box>
-        <Box
-          sx={{
-            margin: {
-              lg: "0 10px 0px 10px",
-              md: "0 10px 0 10px",
-              xs: "0",
-            },
-            paddingBottom: "20px",
-          }}
-        >
-          {suggestion?.length > 0 &&
-            suggestion.map((item, index) => {
+      {locationSuggestions?.length > 0 && (
+        <Box>
+          <Typography
+            sx={{
+              fontSize: "20px",
+              fontWeight: "500",
+              width: "100%",
+              fontFamily: "Raleway",
+              marginRight: "10px",
+              color: COLORS.primary,
+            }}
+          >
+            Location suggestions
+          </Typography>
+          <Box
+            sx={{
+              margin: {
+                lg: "0 10px 0px 10px",
+                md: "0 10px 0 10px",
+                xs: "0",
+              },
+              paddingBottom: "20px",
+            }}
+          >
+            {locationSuggestions.map((item, index) => {
               return (
                 <Box
                   sx={{
@@ -109,8 +127,62 @@ const SuggestionCollaspible = ({ suggestion }) => {
                 </Box>
               );
             })}
+          </Box>
         </Box>
-      </Box>
+      )}
+      {natureRelatedSuggestions?.length > 0 && (
+        <Box>
+          <Typography
+            sx={{
+              fontSize: "20px",
+              fontWeight: "500",
+              width: "100%",
+              fontFamily: "Raleway",
+              marginRight: "10px",
+              color: COLORS.primary,
+            }}
+          >
+            Nature related suggestions
+          </Typography>
+          <Box
+            sx={{
+              margin: {
+                lg: "0 10px 0px 10px",
+                md: "0 10px 0 10px",
+                xs: "0",
+              },
+              paddingBottom: "20px",
+            }}
+          >
+            {natureRelatedSuggestions.map((item, index) => {
+              return (
+                <Box
+                  sx={{
+                    margin: {
+                      lg: "0 10px 0 10px",
+                      md: "0 10px 0 10px",
+                      xs: "0",
+                    },
+                  }}
+                >
+                  <TextRender
+                    name={
+                      <CircleIcon
+                        sx={{
+                          height: "10px",
+                          width: "10px",
+                        }}
+                      />
+                    }
+                    description={"  " + item}
+                    color={"#FFFFFF"}
+                  ></TextRender>
+                </Box>
+              );
+            })}
+          </Box>
+        </Box>
+      )}
     </Box>
   );
 };

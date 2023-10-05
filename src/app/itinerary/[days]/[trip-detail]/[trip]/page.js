@@ -198,7 +198,7 @@ const TripDetail = () => {
                           .toUpperCase()
                       : cityCountry?.country?.toUpperCase()}
                   </Typography>
-                  <Typography
+                  {/* <Typography
                     variant="h2"
                     color={COLORS.white}
                     sx={{
@@ -207,7 +207,7 @@ const TripDetail = () => {
                     }}
                   >
                     {tripDetail?.aboutCity}
-                  </Typography>
+                  </Typography> */}
                 </Box>
                 {/* <Box
                 className="print-component"
@@ -350,6 +350,8 @@ const TripDetail = () => {
                     marginRight: "20px",
                     padding: "5px 20px",
                     width: { xs: "100%" },
+                    fontFamily: "Raleway",
+                    textTransform: "unset",
                   }}
                   onClick={() => {
                     const user = ProtectedPageRoute();
@@ -379,6 +381,8 @@ const TripDetail = () => {
                     padding: "5px 20px",
                     backgroundColor: COLORS.primary,
                     width: { xs: "100%" },
+                    fontFamily: "Raleway",
+                    textTransform: "unset",
                   }}
                   onClick={() => {
                     setShareModal(true);
@@ -560,9 +564,14 @@ const TripDetail = () => {
             dosHealth={tripDetail?.dosHealth}
             dontsHealth={tripDetail?.dontsHealth}
           />
-          {tripDetail?.dosHealth?.length > 0 && tripDetail?.suggestions && (
-            <SuggestionCollaspible suggestion={tripDetail?.suggestions} />
-          )}
+          {tripDetail?.dosHealth?.length > 0 &&
+            (tripDetail?.locationSuggestions ||
+              tripDetail.natureRelatedSuggestions) && (
+              <SuggestionCollaspible
+                natureRelatedSuggestions={tripDetail?.natureRelatedSuggestions}
+                locationSuggestions={tripDetail?.locationSuggestions}
+              />
+            )}
           <ExpediaWidget />
           <Box
             sx={{

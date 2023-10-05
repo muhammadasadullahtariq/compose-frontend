@@ -139,7 +139,6 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
                       alignItems: "center",
                     }}
                   >
-                    <Image src={LocationIcon} width="15" alt="location-icon" />
                     <Typography
                       variant="h4"
                       sx={{
@@ -307,6 +306,7 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
                         padding: "10px 25px",
                         //add shadow
                         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                        textTransform:"unset"
                       }}
                       onClick={() => {
                         window.open(activity.url);

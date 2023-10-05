@@ -16,7 +16,7 @@ const Footer = ({ paddingBottom }) => {
   useEffect(() => {
     (async () => {
       const responce = await getLatestTrips();
-     // console.log(responce);
+      // console.log(responce);
       setGetLatestTrip(responce.data);
     })();
   }, []);
@@ -31,9 +31,9 @@ const Footer = ({ paddingBottom }) => {
       <Container>
         <Grid container spacing={2} sx={{ justifyContent: "space-between" }}>
           <Grid item xs={12} sm={6} md={3}>
-            <h5>COMPOSETRIP</h5>
-            <p>Your Next Adventure Begins Here</p>
-            <button
+            <h5>ComposeTrip</h5>
+            <p>Your next adventure begins here</p>
+            {/* <button
               style={{
                 cursor: "pointer",
               }}
@@ -44,24 +44,7 @@ const Footer = ({ paddingBottom }) => {
               className="plan_button"
             >
               Get Started&nbsp;{">"}
-            </button>
-          </Grid>
-          <Grid item xs={6} md={3}>
-            <ul>
-              <li>
-                <a href="https://sites.google.com/ripeseed.io/privacypolices/home">
-                  Terms of Service
-                </a>
-              </li>
-              <li>
-                <a href="https://sites.google.com/ripeseed.io/privacy-policy/home">
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a href="mailto:Info@composetrip.com">Contact Us</a>
-              </li>
-            </ul>
+            </button> */}
           </Grid>
           <Grid item xs={6} md={3}>
             <ul>
@@ -122,6 +105,24 @@ const Footer = ({ paddingBottom }) => {
                 Subscribe
               </button>
             </form>
+          </Grid>
+          <Grid item xs={12} md={3} sx={{ paddingTop: "5!important" }}>
+            <h6>
+              <a href="https://sites.google.com/ripeseed.io/privacypolices/home">
+                Terms of Service
+              </a>
+            </h6>
+            <ul>
+              <li>
+                <a href="https://sites.google.com/ripeseed.io/privacy-policy/home">
+                  Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a href="mailto:Info@composetrip.com">Contact Us</a>
+              </li>
+              <li>Copyright &copy; ComposeTrip 2023</li>
+            </ul>
           </Grid>
         </Grid>
       </Container>

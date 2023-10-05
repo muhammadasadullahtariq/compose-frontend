@@ -91,7 +91,6 @@ const Question2 = () => {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={["DatePicker"]}>
               <DatePicker
-                label="Please select start date"
                 value={formData.date == "" ? dayjs() : dayjs(formData.date)}
                 onError={console.log}
                 views={["year", "month", "day"]}

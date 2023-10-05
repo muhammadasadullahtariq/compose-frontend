@@ -23,17 +23,8 @@ const Counter = ({ formData, value, handleSetValue }) => {
     >
       <Box
         sx={{
-          background: "#fff",
         }}
       >
-        <input
-          type="number"
-          disabled
-          value={value}
-          onChange={(event) => handleSetValue(event.target.value)}
-          min={1}
-          max={14}
-        />
         <div className="Counter_Counter">
           <Image
             onClick={() => handleValue("-")}
@@ -56,6 +47,11 @@ const Counter = ({ formData, value, handleSetValue }) => {
           />
         </div>
       </Box>
+      <Box
+        sx={{
+          height: "5px",
+        }}
+      />
 
       <Typography
         sx={{
@@ -63,7 +59,6 @@ const Counter = ({ formData, value, handleSetValue }) => {
           fontFamily: "Raleway",
           fontSize: "10px",
           marginTop: "48px",
-          textAlign: "right",
         }}
       >
         14 days maximum

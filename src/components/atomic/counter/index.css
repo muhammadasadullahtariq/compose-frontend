@@ -1,27 +1,29 @@
 .Counter_Main {
   position: relative;
+  
 }
 
 .Counter_Main input {
-  border-radius: 10px;
-  border: 1px solid #d2d4da;
+  
 
   position: absolute;
   height: 42px;
   width: 100%;
   padding: 12px 8px;
-  color: #757780;
   font-family: Raleway;
   font-size: 14px;
 }
 
 .Counter_Counter {
-  right: 10px;
+  left: 0px;
   top: 10px;
   display: flex;
   z-index: 1000;
   position: absolute;
   align-items: flex-end;
+  border-radius: 5px;
+    border: 1px solid #d2d4da;
+    padding: 10px 15px;
 }
 
 .Counter_Counter img {

@@ -164,7 +164,7 @@ const PrintScreen = forwardRef(
                           .toUpperCase()
                       : cityCountry?.country?.toUpperCase()}
                   </Typography>
-                  <Typography
+                  {/* <Typography
                     variant="h2"
                     color={COLORS.white}
                     sx={{
@@ -173,7 +173,7 @@ const PrintScreen = forwardRef(
                     }}
                   >
                     {tripDetail?.aboutCity}
-                  </Typography>
+                  </Typography> */}
                 </Box>
               </Box>
             </Container>

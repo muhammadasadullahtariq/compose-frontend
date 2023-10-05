@@ -68,16 +68,9 @@ const Question2 = () => {
                       ? ``
                       : `2px solid ${COLORS.primary}`,
                   backgroundImage: `url(${item.image})`,
+                  backgroundSize: "cover",
                 }}
               >
-                {/* <Image
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                  }}
-                  src={item.image}
-                  alt={item}
-                /> */}
               </Box>
 
               <Typography

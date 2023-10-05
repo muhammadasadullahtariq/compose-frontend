@@ -61,7 +61,7 @@ function ResponsiveAppBar({ userAuthChanged }) {
   const [uModel, setUModel] = React.useState(false);
   const uModelHandle = () => {
     const userLogedIn = ProtectedPageRoute();
-   // console.log("hide sign up", userLogedIn, "sign up hide");
+    // console.log("hide sign up", userLogedIn, "sign up hide");
     if (userLogedIn) {
       setSignUpHide(true);
       if (pathName.includes("saved-itinerary")) {
@@ -165,7 +165,7 @@ function ResponsiveAppBar({ userAuthChanged }) {
               flexGrow: 1,
             }}
           >
-            COMPOSETRIP
+            ComposeTrip
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <Typography
@@ -185,7 +185,8 @@ function ResponsiveAppBar({ userAuthChanged }) {
             >
               COMPOSETRIP
             </Typography>
-            {!signUpHide && !pathName.includes("questionaire") && (
+            {!pathName.includes("questionaire") && (
+              //!signUpHide &&
               // <SignUp
               //   open={iModel}
               //   handleModel={iModelHandle}
@@ -193,7 +194,7 @@ function ResponsiveAppBar({ userAuthChanged }) {
               // >
               <Button
                 sx={{
-                  display: { xs: "flex", md: "none" },
+                  display: { xs: "flex", md: "flex" },
                   backgroundColor: COLORS.primary,
                   color: "white",
                   borderRadius: "20px",

@@ -45,7 +45,7 @@ export default function Layout({ children, ...props }) {
           page_location: window.location.href,
         });
       }
-     // console.log("analytics", analytics);
+      // console.log("analytics", analytics);
     } catch (error) {}
     if (data.questionNumber != 0) {
       localStorage.setItem("questionaireData", JSON.stringify(data));
@@ -77,7 +77,7 @@ export default function Layout({ children, ...props }) {
       });
       setIndexOfQuestion(JSON.parse(savedData).questionNumber);
     } else {
-    //  console.log("data not found in local storage");
+      //  console.log("data not found in local storage");
       dispatch({
         type: "UPDATE_QUESTION_NUMBER",
         payload: 0,
@@ -157,7 +157,7 @@ export default function Layout({ children, ...props }) {
         <Recaptchs
           open={recaptchaOpen}
           handleModel={async (value) => {
-           // console.log("handleModel");
+            // console.log("handleModel");
             setRecaptchaOpen(false);
             if (value) {
               handleCreateTrip();
@@ -442,7 +442,11 @@ export default function Layout({ children, ...props }) {
                     borderRadius: "20px",
                     width: "128px",
                     height: "41px",
+                    textTransform: "unset",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    marginRight: "20px",
                   }}
+                  disableRipple
                   onClick={() => {
                     if (indexOfQuestion >= 1) {
                       router.push(
@@ -469,6 +473,8 @@ export default function Layout({ children, ...props }) {
                     borderRadius: "20px",
                     width: "128px",
                     height: "41px",
+                    textTransform: "unset",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                   }}
                   onMouseOver={(e) => {
                     e.target.style.backgroundColor = COLORS.primary;
