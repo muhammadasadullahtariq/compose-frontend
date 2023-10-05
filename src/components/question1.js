@@ -102,7 +102,7 @@ const Question1 = () => {
             marginLeft: "6px",
           }}
         >
-          Enter the country or the city you are going to         
+          Enter the city you are going to         
         </Typography>
       </Box>
       <CustomAutocomplete cities={city} setCities={setCity} list={citiesList} />

@@ -15,6 +15,7 @@ import CircleIcon from "@mui/icons-material/Circle";
 const SuggestionCollaspible = ({
   natureRelatedSuggestions,
   locationSuggestions,
+  travelingWith,
 }) => {
   return (
     <Box
@@ -89,7 +90,7 @@ const SuggestionCollaspible = ({
               color: COLORS.primary,
             }}
           >
-            Location suggestions
+            Based on your travel type ({travelingWith})
           </Typography>
           <Box
             sx={{
@@ -142,7 +143,7 @@ const SuggestionCollaspible = ({
               color: COLORS.primary,
             }}
           >
-            Nature related suggestions
+            Based on your interests
           </Typography>
           <Box
             sx={{

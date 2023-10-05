@@ -352,6 +352,7 @@ const TripDetail = () => {
                     width: { xs: "100%" },
                     fontFamily: "Raleway",
                     textTransform: "unset",
+                    borderRadius: "161px",
                   }}
                   onClick={() => {
                     const user = ProtectedPageRoute();
@@ -383,6 +384,7 @@ const TripDetail = () => {
                     width: { xs: "100%" },
                     fontFamily: "Raleway",
                     textTransform: "unset",
+                    borderRadius: "161px",
                   }}
                   onClick={() => {
                     setShareModal(true);
@@ -543,14 +545,6 @@ const TripDetail = () => {
                 );
               }}
             />
-            {/* <PrintIcon
-              sx={{
-                fontSize: "24px",
-                color: "#fff",
-                marginRight: "15px",
-              }}
-              onClick={handlePrint}
-            /> */}
           </Box>
         </Box>
         <Container>
@@ -570,6 +564,7 @@ const TripDetail = () => {
               <SuggestionCollaspible
                 natureRelatedSuggestions={tripDetail?.natureRelatedSuggestions}
                 locationSuggestions={tripDetail?.locationSuggestions}
+                travelingWith={cityCountry?.travelingWith}
               />
             )}
           <ExpediaWidget />

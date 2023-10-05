@@ -6,6 +6,7 @@ import { deleteCookie } from "cookies-next";
 import sendMail from "@/apis/sendMail";
 import { useState, useEffect } from "react";
 import getLatestTrips from "@/apis/getLatestTrip";
+import { Instagram } from "@mui/icons-material";
 
 const Footer = ({ paddingBottom }) => {
   const router = useRouter();
@@ -33,6 +34,19 @@ const Footer = ({ paddingBottom }) => {
           <Grid item xs={12} sm={6} md={3}>
             <h5>ComposeTrip</h5>
             <p>Your next adventure begins here</p>
+            <Instagram
+              onClick={() => {
+                window.open(
+                  "https://instagram.com/composetripai?igshid=NzZhOTFlYzFmZQ=="
+                );
+              }}
+              style={{
+                cursor: "pointer",
+                fontSize: 30,
+                color: "white",
+                marginTop: 10,
+              }}
+            />
             {/* <button
               style={{
                 cursor: "pointer",
