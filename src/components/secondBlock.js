@@ -51,26 +51,24 @@ function SecondBlock() {
                 fontSize: { xs: "22px", md: "32px", lg: "32px" },
                 fontWeight: "800",
                 fontFamily: "raleway",
-                textTransform: "uppercase",
                 color: COLORS.black,
                 textAlign: { md: "center", xs: "center", lg: "left" },
               }}
             >
-              HASSLE FREE&nbsp;
+              Hassle free&nbsp;
               <Typography
                 as="span"
                 sx={{
                   fontSize: { xs: "22px", md: "32px", lg: "32px" },
                   fontWeight: "700",
                   fontFamily: "raleway",
-                  textTransform: "uppercase",
                   color: COLORS.primary,
                 }}
               >
-                PLANNING
+                planning
                 <br />
               </Typography>
-              EXPERIENCE
+              experience
             </Typography>
             <Typography
               sx={{

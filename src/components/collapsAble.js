@@ -130,7 +130,7 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
                       color: "#fff",
                     }}
                   >
-                    Day{tripIndex + 1}
+                    Day {tripIndex + 1}
                   </Typography>
                   <Box
                     sx={{
@@ -142,7 +142,12 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
                     <Typography
                       variant="h4"
                       sx={{
-                        fontSize: "18px",
+                        fontSize: {
+                          lg: "24px",
+                          md: "24px",
+                          sm: "20px",
+                          
+                        },
                         fontWeight: "500",
                         color: COLORS.white,
                       }}
@@ -306,7 +311,7 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
                         padding: "10px 25px",
                         //add shadow
                         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                        textTransform:"unset"
+                        textTransform: "unset",
                       }}
                       onClick={() => {
                         window.open(activity.url);

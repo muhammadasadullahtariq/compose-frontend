@@ -60,6 +60,7 @@ const TripDetail = () => {
     (async () => {
       setLoading(true);
       const response = await getTripDetailById(trip);
+      console.log("response", response);
       setLoading(false);
       setTripDetail(response.data.chatGptResponse);
       setCityCountry({
@@ -68,6 +69,7 @@ const TripDetail = () => {
         date: response.data.startDate,
         travelingWith: response.data.travelingWith,
         numberOfDays: response.data.numberOfDays,
+        interest: response.data.interest,
       });
       if (!response.data.chatGptResponse?.restaurants) {
         const doDont = await getTripDoDonts(response.data._id);
@@ -133,72 +135,85 @@ const TripDetail = () => {
         <Box
           className="hero-section"
           sx={{
-            width: "100%",
-            height: "80vh",
-            backgroundImage:
-              cityImage != ""
-                ? `url(${cityImage})`
-                : "url('/assets/img/cloud.jpeg')",
             marginTop: "60px",
+            height: "80vh",
+            relative: "relative",
           }}
         >
           <Box
             sx={{
-              display: "flex",
-              height: "100%",
               width: "100%",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "rgba(0,0,0,0.5)",
+              height: "90%",
+              //background repeat
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundImage:
+                cityImage != ""
+                  ? `url(${cityImage})`
+                  : "url('/assets/img/cloud.jpeg')",
             }}
           >
-            <Container
+            <Box
               sx={{
-                height: "100%",
                 display: "flex",
+                height: "100%",
                 width: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "rgba(0,0,0,0.5)",
               }}
             >
-              <Box
+              <Container
                 sx={{
-                  width: "100%",
                   height: "100%",
                   display: "flex",
-                  justifyContent: "center",
-                  flexDirection: "column",
+                  width: "100%",
                 }}
               >
                 <Box
                   sx={{
-                    marginBottom: {
-                      md: "30px",
-                      xs: "25px",
-                    },
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    flexDirection: "column",
                   }}
                 >
-                  <Typography
-                    variant="h4"
-                    color={COLORS.white}
-                    sx={{ fontSize: "24px", fontWeight: "700", fontFamily: "" }}
-                  >
-                    YOUR TRIP TO
-                  </Typography>
-                  <Typography
-                    variant="h2"
-                    color={COLORS.white}
+                  <Box
                     sx={{
-                      fontSize: { lg: "76px", xs: "34px" },
-                      fontWeight: "700",
+                      marginBottom: {
+                        md: "30px",
+                        xs: "25px",
+                      },
                     }}
                   >
-                    {cityCountry?.city?.length > 0
-                      ? cityCountry?.city
-                          ?.join(", ")
-                          .replace(/, $/, "")
-                          .toUpperCase()
-                      : cityCountry?.country?.toUpperCase()}
-                  </Typography>
-                  {/* <Typography
+                    <Typography
+                      variant="h4"
+                      color={COLORS.white}
+                      sx={{
+                        fontSize: "24px",
+                        fontWeight: "700",
+                        fontFamily: "",
+                      }}
+                    >
+                      YOUR TRIP TO
+                    </Typography>
+                    <Typography
+                      variant="h2"
+                      color={COLORS.white}
+                      sx={{
+                        fontSize: { lg: "76px", xs: "34px" },
+                        fontWeight: "700",
+                      }}
+                    >
+                      {cityCountry?.city?.length > 0
+                        ? cityCountry?.city
+                            ?.join(", ")
+                            .replace(/, $/, "")
+                            .toUpperCase()
+                        : cityCountry?.country?.toUpperCase()}
+                    </Typography>
+                    {/* <Typography
                     variant="h2"
                     color={COLORS.white}
                     sx={{
@@ -208,8 +223,8 @@ const TripDetail = () => {
                   >
                     {tripDetail?.aboutCity}
                   </Typography> */}
-                </Box>
-                {/* <Box
+                  </Box>
+                  {/* <Box
                 className="print-component"
                 sx={{
                   display: "flex",
@@ -266,147 +281,153 @@ const TripDetail = () => {
                   />
                 </Box>
               </Box> */}
-              </Box>
-            </Container>
+                </Box>
+              </Container>
+            </Box>
           </Box>
-        </Box>
-        <Container
-          sx={{
-            backgroundColor: COLORS.white,
-            position: "relative",
-            transform: "translateY(-40%)",
-            boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
-            borderRadius: "20px",
-          }}
-        >
-          <Grid
-            container
+          <Container
             sx={{
-              padding: "10px",
+              backgroundColor: COLORS.white,
+              position: "absolute",
+              left: "50%",
+              transform: "translateX(-50%)",
+              boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
+              borderRadius: "20px",
+              zIndex: "100",
+              bottom: "100px",
             }}
           >
-            <Grid item md={3} xs={12}>
-              <TripDetailItem
-                heading={"Adventure begins"}
-                subHeading={new Date(cityCountry.date).toLocaleDateString(
-                  "en-US",
-                  {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  }
-                )}
-                image={false}
-              />
-            </Grid>
-            <Grid item md={3} xs={6}>
-              <TripDetailItem
-                heading={"Duration"}
-                subHeading={cityCountry.numberOfDays}
-                image={true}
-              />
-            </Grid>
-            <Grid item md={3} xs={6}>
-              <TripDetailItem
-                heading={"Travel type"}
-                subHeading={cityCountry.travelingWith}
-                image={true}
-              />
-            </Grid>
-            <Grid item md={3} xs={12}>
-              <Box
-                sx={{
-                  height: {
-                    lg: "0px",
-                    xs: "1px",
-                  },
-                  width: "100%",
-                  backgroundColor: COLORS.gray,
-                  marginTop: {
-                    lg: "0px",
-                    xs: "10px",
-                  },
-                }}
-              />
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "100%",
-                  margin: {
-                    xs: "0px 0px 20px 0",
-                  },
-                }}
-              >
-                <Button
-                  variant="outlined"
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    flexDirection: "row",
-                    marginRight: "20px",
-                    padding: "5px 20px",
-                    width: { xs: "100%" },
-                    fontFamily: "Raleway",
-                    textTransform: "unset",
-                    borderRadius: "161px",
-                  }}
-                  onClick={() => {
-                    const user = ProtectedPageRoute();
-                    if (user) {
-                      setSaveModal(true);
-                    } else {
-                      alert("Please login to save trip");
+            <Grid
+              container
+              sx={{
+                padding: "20px",
+              }}
+            >
+              <Grid item md={3} xs={12}>
+                <TripDetailItem
+                  heading={"Adventure begins"}
+                  subHeading={new Date(cityCountry.date).toLocaleDateString(
+                    "en-US",
+                    {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
                     }
+                  )}
+                  image={false}
+                />
+              </Grid>
+              <Grid item md={3} xs={6}>
+                <TripDetailItem
+                  heading={"Duration"}
+                  subHeading={cityCountry.numberOfDays}
+                  image={true}
+                />
+              </Grid>
+              <Grid item md={3} xs={6}>
+                <TripDetailItem
+                  heading={"Travel type"}
+                  subHeading={cityCountry.travelingWith}
+                  image={true}
+                />
+              </Grid>
+              <Grid item md={3} xs={12}>
+                <Box
+                  sx={{
+                    height: {
+                      lg: "0px",
+                      xs: "1px",
+                    },
+                    width: "100%",
+                    backgroundColor: COLORS.gray,
+                    marginTop: {
+                      lg: "0px",
+                      xs: "10px",
+                    },
                   }}
-                >
-                  <Image
-                    src={SavedIcon}
-                    width={11}
-                    height={11}
-                    alt="save-icon"
-                    style={{ marginRight: "5px" }}
-                  />
-                  Save
-                </Button>
-                <Button
-                  variant="contained"
+                />
+                <Box
                   sx={{
                     display: "flex",
+                    flexDirection: "row",
                     justifyContent: "center",
                     alignItems: "center",
-                    flexDirection: "row",
-                    padding: "5px 20px",
-                    backgroundColor: COLORS.primary,
-                    width: { xs: "100%" },
-                    fontFamily: "Raleway",
-                    textTransform: "unset",
-                    borderRadius: "161px",
-                  }}
-                  onClick={() => {
-                    setShareModal(true);
+                    height: "100%",
+                    margin: {
+                      xs: "0px 0px 20px 0",
+                    },
                   }}
                 >
-                  <Image
-                    src={OpenLink}
-                    width={11}
-                    height={11}
-                    alt="share-icon"
-                    style={{ marginRight: "5px" }}
-                  />
-                  Share
-                </Button>
-              </Box>
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      flexDirection: "row",
+                      marginRight: "20px",
+                      padding: "5px 20px",
+                      width: { xs: "100%" },
+                      fontFamily: "Raleway",
+                      textTransform: "unset",
+                      borderRadius: "161px",
+                    }}
+                    onClick={() => {
+                      const user = ProtectedPageRoute();
+                      if (user) {
+                        setSaveModal(true);
+                      } else {
+                        alert("Please login to save trip");
+                      }
+                    }}
+                  >
+                    <Image
+                      src={SavedIcon}
+                      width={11}
+                      height={11}
+                      alt="save-icon"
+                      style={{ marginRight: "5px" }}
+                    />
+                    Save
+                  </Button>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      flexDirection: "row",
+                      padding: "5px 20px",
+                      backgroundColor: COLORS.primary,
+                      width: { xs: "100%" },
+                      fontFamily: "Raleway",
+                      textTransform: "unset",
+                      borderRadius: "161px",
+                    }}
+                    onClick={() => {
+                      setShareModal(true);
+                    }}
+                  >
+                    <Image
+                      src={OpenLink}
+                      width={11}
+                      height={11}
+                      alt="share-icon"
+                      style={{ marginRight: "5px" }}
+                    />
+                    Share
+                  </Button>
+                </Box>
+              </Grid>
             </Grid>
-          </Grid>
-        </Container>
+          </Container>
+        </Box>
+
         <Box
           sx={{
             width: "100%",
             position: "relative",
+            marginTop: "20px",
           }}
         >
           <Container>
@@ -419,12 +440,12 @@ const TripDetail = () => {
                 width: "100%",
               }}
             >
-              <Box
+              {/* <Box
                 sx={{
                   display: "flex",
                   height: "20px",
                 }}
-              />
+              /> */}
               {tripDetail?.trip?.map((item, tripIndex) => (
                 <CollapsibleField
                   item={item}
@@ -554,10 +575,10 @@ const TripDetail = () => {
             dosCulture={tripDetail?.dosCulture}
             dontsCulture={tripDetail?.dontsCulture}
           />
-          <Health
+          {/* <Health
             dosHealth={tripDetail?.dosHealth}
             dontsHealth={tripDetail?.dontsHealth}
-          />
+          /> */}
           {tripDetail?.dosHealth?.length > 0 &&
             (tripDetail?.locationSuggestions ||
               tripDetail.natureRelatedSuggestions) && (
@@ -565,6 +586,7 @@ const TripDetail = () => {
                 natureRelatedSuggestions={tripDetail?.natureRelatedSuggestions}
                 locationSuggestions={tripDetail?.locationSuggestions}
                 travelingWith={cityCountry?.travelingWith}
+                interest={cityCountry?.interest}
               />
             )}
           <ExpediaWidget />

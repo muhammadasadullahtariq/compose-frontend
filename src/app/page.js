@@ -78,13 +78,12 @@ function ResponsiveAppBar() {
                 fontSize: { xs: "30px", md: "40px", lg: "68px" },
                 fontWeight: "800",
                 fontFamily: "raleway",
-                textTransform: "uppercase",
                 color: COLORS.black,
                 textAlign: { md: "center", xs: "center", lg: "left" },
                 lineHeight: "30px",
               }}
             >
-              COMPOSE A{" "}
+              Compose a{" "}
               <Typography
                 as="span"
                 sx={{
@@ -92,13 +91,12 @@ function ResponsiveAppBar() {
                   fontSize: { xs: "30px", md: "40px", lg: "68px" },
                   fontWeight: "700",
                   fontFamily: "raleway",
-                  textTransform: "uppercase",
-                  color: COLORS.black,
+                  color: COLORS.primary,
                 }}
               >
-                TRIP{" "}
+                trip{" "}
               </Typography>
-              IN MINUTES
+              in minutes
             </Typography>
             <Typography
               sx={{
@@ -145,7 +143,7 @@ function ResponsiveAppBar() {
                     color: COLORS.white,
                   }}
                 >
-                  Get Started
+                  Get started
                 </Typography>
                 <ArrowForwardIosIcon
                   sx={{

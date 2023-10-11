@@ -8,18 +8,14 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import { useRouter, usePathname } from "next/navigation";
 import ProtectedPageRoute, { clearToken } from "@/app/protected-page-route";
 import * as COLORS from "@/constants/colors";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { signOut, getAuth } from "firebase/auth";
-import { firebase_app, auth } from "@/app/config";
 import SignIn from "@/components/signin";
 import SignUp from "@/components/signup";
 import { setCookie, deleteCookie } from "cookies-next";
@@ -183,7 +179,7 @@ function ResponsiveAppBar({ userAuthChanged }) {
                 fontSize: "16px",
               }}
             >
-              COMPOSETRIP
+              ComposeTrip
             </Typography>
             {!pathName.includes("questionaire") && (
               //!signUpHide &&
@@ -203,6 +199,7 @@ function ResponsiveAppBar({ userAuthChanged }) {
                   fontWeight: "500",
                   fontFamily: "raleway",
                   alignSelf: "center",
+                  textTransform: "unset",
                 }}
                 onClick={() => {
                   setCookie("questionaireData", {});
@@ -339,7 +336,7 @@ function ResponsiveAppBar({ userAuthChanged }) {
                   e.target.style.backgroundColor = COLORS.primary;
                 }}
               >
-                Get Started
+                Get started
               </Button>
               // </SignUp>
             )}

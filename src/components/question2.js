@@ -28,6 +28,7 @@ const Question2 = () => {
   });
 
   useEffect(() => {
+    console.log("data is", data);
     setFormData({
       length: parseInt(data.numberOfDays) || 7,
       date: data.startDate || dayjs(),

@@ -4,7 +4,7 @@ import Image from "next/image";
 import "./index.css";
 import drop from "../../../assets/images/icons/drop.svg";
 
-const Autocomplete = ({ list, cities, setCities }) => {
+const Autocomplete = ({ list, cities, setCities, setDestinationId }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [searchText, setSearchText] = useState("");
@@ -18,12 +18,13 @@ const Autocomplete = ({ list, cities, setCities }) => {
 
   const handleSelection = (key) => {
     const array = value.length > 0 ? [value] : [];
+    setDestinationId(key.destId);
     array.pop();
-    array.push(key);
+    array.push(key.name);
     setValue("");
     let temp = "";
     array.map((k) => {
-      temp += k 
+      temp += k;
     });
     setValue(temp);
     setOpen(false);
@@ -48,7 +49,6 @@ const Autocomplete = ({ list, cities, setCities }) => {
   useEffect(() => {
     const array = value.length > 0 ? [value] : [];
     setCities(array);
-    //setChosen(array);
     setSearchText(array[array.length - 1]);
   }, [value]);
 
@@ -83,7 +83,7 @@ const Autocomplete = ({ list, cities, setCities }) => {
               <p
                 key={el.alpha2Code}
                 style={{}}
-                onClick={() => handleSelection(el.name)}
+                onClick={() => handleSelection(el)}
               >
                 {el.name}
               </p>

@@ -3,7 +3,6 @@ import checkUserExist from "./checkUserExist";
 
 const createTrip = async (data) => {
   try {
-    const token = getCookie("token");
     const user = await checkUserExist();
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}createTrip`, {
       method: "POST",

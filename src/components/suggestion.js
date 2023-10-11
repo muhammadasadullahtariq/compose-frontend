@@ -9,14 +9,22 @@ import Image from "next/image";
 import KeyboardArrowDownSharpIcon from "@mui/icons-material/KeyboardArrowDownSharp";
 import KeyboardArrowUpSharpIcon from "@mui/icons-material/KeyboardArrowUpSharp";
 import "./resturantStyle.css";
-import TextRender from "@/components/atomic/TextRender/textRender";
+import TextRender from "@/components/atomic/TextRenderForSuggestion/textRender";
 import CircleIcon from "@mui/icons-material/Circle";
+import { useEffect } from "react";
+import interestImage from "@/assets/images/tripDetails/interest.png";
+import travelingImage from "@/assets/images/tripDetails/travelingWith.png";
 
 const SuggestionCollaspible = ({
   natureRelatedSuggestions,
   locationSuggestions,
   travelingWith,
+  interest,
 }) => {
+  useEffect(() => {
+    console.log("interest", interest);
+  }, []);
+
   return (
     <Box
       sx={{
@@ -80,107 +88,214 @@ const SuggestionCollaspible = ({
       />
       {locationSuggestions?.length > 0 && (
         <Box>
-          <Typography
-            sx={{
-              fontSize: "20px",
-              fontWeight: "500",
-              width: "100%",
-              fontFamily: "Raleway",
-              marginRight: "10px",
-              color: COLORS.primary,
-            }}
-          >
-            Based on your travel type ({travelingWith})
-          </Typography>
           <Box
             sx={{
+              display: "flex",
+              flexDirection: {
+                xs: "column",
+                md: "row",
+                lg: "row",
+              },
+              alignItems: "center",
+              justifyContent: "space-evenly",
               margin: {
                 lg: "0 10px 0px 10px",
                 md: "0 10px 0 10px",
                 xs: "0",
               },
-              paddingBottom: "20px",
             }}
           >
-            {locationSuggestions.map((item, index) => {
-              return (
-                <Box
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: "20px",
+                  fontWeight: "500",
+                  width: "100%",
+                  fontFamily: "Raleway",
+                  marginRight: "10px",
+                  color: COLORS.primary,
+                  textAlign: "center",
+                  marginBottom: "10px",
+                }}
+              >
+                Based on your travel type <br />
+                <Typography
                   sx={{
-                    margin: {
-                      lg: "0 10px 0 10px",
-                      md: "0 10px 0 10px",
-                      xs: "0",
-                    },
+                    color: "black",
                   }}
                 >
-                  <TextRender
-                    name={
-                      <CircleIcon
-                        sx={{
-                          height: "10px",
-                          width: "10px",
-                        }}
-                      />
-                    }
-                    description={"  " + item}
-                    color={"#FFFFFF"}
-                  ></TextRender>
-                </Box>
-              );
-            })}
-          </Box>
-        </Box>
-      )}
-      {natureRelatedSuggestions?.length > 0 && (
-        <Box>
-          <Typography
-            sx={{
-              fontSize: "20px",
-              fontWeight: "500",
-              width: "100%",
-              fontFamily: "Raleway",
-              marginRight: "10px",
-              color: COLORS.primary,
-            }}
-          >
-            Based on your interests
-          </Typography>
-          <Box
-            sx={{
-              margin: {
-                lg: "0 10px 0px 10px",
-                md: "0 10px 0 10px",
-                xs: "0",
-              },
-              paddingBottom: "20px",
-            }}
-          >
-            {natureRelatedSuggestions.map((item, index) => {
-              return (
-                <Box
+                  ({travelingWith})
+                </Typography>
+              </Typography>
+              <Box
+                sx={{
+                  margin: {
+                    lg: "0 10px 0px 10px",
+                    md: "0 10px 0 10px",
+                    xs: "0",
+                  },
+                  backgroundImage: `url(/assets/img/travelingWith.svg)`,
+                  borderRadius: "10px",
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  padding: "20px 0",
+                  height: {
+                    lg: "450px",
+                    md: "450px",
+                    sm: "100%",
+                  },
+                }}
+              >
+                <Image
+                  src={travelingImage}
+                  width={100}
+                  height={100}
+                  alt="travelingWith"
+                  style={{
+                    marginBottom: "10px",
+                  }}
+                />
+                {locationSuggestions.map((item, index) => {
+                  return (
+                    <Box
+                      sx={{
+                        margin: {
+                          lg: "0 10px 0 10px",
+                          md: "0 10px 0 10px",
+                          xs: "0",
+                        },
+                      }}
+                    >
+                      <TextRender
+                        name={
+                          <CircleIcon
+                            sx={{
+                              height: "10px",
+                              width: "10px",
+                            }}
+                          />
+                        }
+                        description={"  " + item}
+                        color={"#FFFFFF"}
+                      ></TextRender>
+                    </Box>
+                  );
+                })}
+              </Box>
+            </Box>
+            <Box
+              sx={{
+                height: { lg: "450px", md: "450px", sm: "0" },
+                width: { lg: "3px", md: "3px", sm: "0" },
+                backgroundColor: COLORS.textColor,
+                alignSelf: "flex-end",
+              }}
+            />
+            <Box
+              sx={{
+                marginTop: {
+                  lg: "0px",
+                  sm: "20px",
+                  xs: "20px",
+                },
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: "20px",
+                  fontWeight: "500",
+                  width: "100%",
+                  fontFamily: "Raleway",
+                  marginRight: "10px",
+                  color: COLORS.primary,
+                  textAlign: "center",
+                  marginBottom: "10px",
+                }}
+              >
+                Based on your interests
+                <br />
+                <Typography
                   sx={{
-                    margin: {
-                      lg: "0 10px 0 10px",
-                      md: "0 10px 0 10px",
-                      xs: "0",
-                    },
+                    color: "black",
                   }}
                 >
-                  <TextRender
-                    name={
-                      <CircleIcon
-                        sx={{
-                          height: "10px",
-                          width: "10px",
-                        }}
-                      />
-                    }
-                    description={"  " + item}
-                    color={"#FFFFFF"}
-                  ></TextRender>
-                </Box>
-              );
-            })}
+                  {interest?.length > 0 && "(" + interest.join(", ") + ")"}{" "}
+                </Typography>
+              </Typography>
+              <Box
+                sx={{
+                  margin: {
+                    lg: "0 10px 0px 10px",
+                    md: "0 10px 0 10px",
+                    xs: "0",
+                  },
+                  backgroundImage: `url(/assets/img/interest.svg)`,
+                  borderRadius: "10px",
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  padding: "20px 0",
+                  height: {
+                    lg: "450px",
+                    md: "450px",
+                    sm: "100%",
+                  },
+                }}
+              >
+                <Image
+                  src={interestImage}
+                  width={100}
+                  height={100}
+                  alt="interest"
+                  style={{
+                    marginBottom: "10px",
+                    content: "center",
+                  }}
+                />
+                {natureRelatedSuggestions.map((item, index) => {
+                  return (
+                    <Box
+                      sx={{
+                        margin: {
+                          lg: "0 10px 0 10px",
+                          md: "0 10px 0 10px",
+                          xs: "0",
+                        },
+                      }}
+                    >
+                      <TextRender
+                        name={
+                          <CircleIcon
+                            sx={{
+                              height: "10px",
+                              width: "10px",
+                            }}
+                          />
+                        }
+                        description={"  " + item}
+                        color={"#FFFFFF"}
+                      ></TextRender>
+                    </Box>
+                  );
+                })}
+              </Box>
+            </Box>
           </Box>
         </Box>
       )}

@@ -8,29 +8,34 @@ import CustomAutocomplete from "./atomic/autocomplete";
 import countryIcon from "../assets/images/questionaires/country.svg";
 import cities from "../assets/images/icons/cities.svg";
 import { citiesList } from "@/constants/cities";
-import { countries } from "../constants/countries.js";
-import Or from "./Or";
-import Autocomplete from "./atomic/autocompleteSingle";
+import getAllDestinations from "@/apis/getListOfCities";
 
 const Question1 = () => {
   const { data, dispatch } = useContext(DataContext);
-  const [country, setCountry] = React.useState("");
   const [city, setCity] = React.useState("");
+  const [countries, setCountries] = React.useState(citiesList);
+  const [destinationId, setDestinationId] = React.useState("");
   const handleButtonClick = () => {
-    if (country.length != "" || city.length != 0) {
-      dispatch({ type: "UPDATE_DATA", payload: { city: city } });
-      if (country.length > 1) {
-        dispatch({ type: "UPDATE_DATA", payload: { country: country } });
-      }
+    if (city.length != 0) {
+      console.log(city);
+      console.log(destinationId);
+      dispatch({
+        type: "UPDATE_DATA",
+        payload: { city: city, destinationId: destinationId },
+      });
     }
   };
   useEffect(() => {
-    setCountry(data.country || "");
     setCity(data.city || "");
+    (async () => {
+      const data = await getAllDestinations();
+      console.log(data);
+      setCountries(data.data);
+    })();
   }, []);
   React.useEffect(() => {
     handleButtonClick();
-  }, [city, country]);
+  }, [city, destinationId]);
 
   return (
     <Box
@@ -102,10 +107,15 @@ const Question1 = () => {
             marginLeft: "6px",
           }}
         >
-          Enter the city you are going to         
+          Enter the city you are going to
         </Typography>
       </Box>
-      <CustomAutocomplete cities={city} setCities={setCity} list={citiesList} />
+      <CustomAutocomplete
+        cities={city}
+        setDestinationId={setDestinationId}
+        setCities={setCity}
+        list={countries}
+      />
     </Box>
   );
 };

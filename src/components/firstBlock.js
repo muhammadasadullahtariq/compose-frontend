@@ -51,26 +51,24 @@ function FirstBloack() {
             fontSize: { xs: "22px", md: "32px", lg: "32px" },
             fontWeight: "800",
             fontFamily: "raleway",
-            textTransform: "uppercase",
             color: COLORS.black,
             textAlign: { md: "center", xs: "center", lg: "left" },
             cursor: "pointer",
           }}
         >
-          YOU ARE 5&nbsp;
+          You are 5&nbsp;
           <Typography
             as="span"
             sx={{
               fontSize: { xs: "22px", md: "32px", lg: "32px" },
               fontWeight: "700",
               fontFamily: "raleway",
-              textTransform: "uppercase",
               color: COLORS.primary,
             }}
           >
-            QUESTIONS&nbsp;
+            questions&nbsp;
           </Typography>
-          AWAY
+          away
         </Typography>
         <Typography
           sx={{

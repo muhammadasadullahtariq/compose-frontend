@@ -91,6 +91,7 @@ export default function Layout({ children, ...props }) {
 
   const handleCreateTrip = async () => {
     setLoading(true);
+    console.log("data", data);
     const response = await createTrip(data);
     if (response.message == "Trip created") {
       console.log(
