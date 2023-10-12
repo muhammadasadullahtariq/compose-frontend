@@ -383,73 +383,76 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
           />
         </Box>
       </Box>
-      <a
-        href={`https://www.kayak.com/in?a=kan_272633_583230&url=/hotels/${item.location}/${startDatee}/${endDate}`}
-        target="_blank"
-        rel="nofollow"
+
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "20px",
+          backgroundSize: {
+            lg: "contain",
+            md: "cover",
+            sm: "cover",
+            xs: "cover",
+          },
+          backgroundRepeat: "no-repeat",
+          borderRadius: "10px",
+          paddingTop: {
+            lg: "50px",
+            md: "76px",
+            xs: "76px",
+          },
+          pb: {
+            lg: "76px",
+            md: "76px",
+            xs: "76px",
+          },
+          backgroundImage: `url(${"/assets/img/hotel.svg"})`,
+        }}
       >
-        <Box
+        <Typography
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            cursor: "pointer",
-            marginTop: "20px",
-            marginLeft: "5px",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            borderRadius: "10px",
-            paddingTop: {
-              lg: "76px",
-              md: "76px",
-              xs: "76px",
+            fontSize: {
+              lg: "42px",
+              md: "36px",
+              sm: "28px",
+              xs: "24px",
             },
-            pb: {
-              lg: "76px",
-              md: "76px",
-              xs: "76px",
-            },
-            backgroundImage: `url(${"/assets/img/hotel.svg"})`,
+            fontWeight: "500",
           }}
         >
+          Best Hotels in&nbsp;
           <Typography
+            variant="span"
             sx={{
-              fontSize: {
-                lg: "28px",
-                md: "24px",
-                sm: "20px",
-                xs: "16px",
-              },
-              fontWeight: "500",
+              fontWeight: "900",
             }}
           >
-            Time to sleep! Find the
+            {item.location}
           </Typography>
-
-          <Typography
-            sx={{
-              fontSize: {
-                lg: "42px",
-                md: "36px",
-                sm: "28px",
-                xs: "24px",
-              },
-              fontWeight: "500",
-            }}
-          >
-            Best Hotels in&nbsp;
-            <Typography
-              variant="span"
-              sx={{
-                fontWeight: "900",
-              }}
-            >
-              {item.location}
-            </Typography>
-          </Typography>
-        </Box>
-      </a>
+        </Typography>
+        <Button
+          sx={{
+            color: "#fff",
+            fontSize: "10px",
+            background: COLORS.primary,
+            borderRadius: "20px",
+            padding: "10px 25px",
+            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+            textTransform: "unset",
+            mt: "10px",
+          }}
+          onClick={() => {
+            window.open(
+              `https://www.kayak.com/in?a=kan_272633_583230&url=/hotels/${item.location}/${startDatee}/${endDate}`
+            );
+          }}
+        >
+          Book now
+        </Button>
+      </Box>
     </Box>
   );
 };
