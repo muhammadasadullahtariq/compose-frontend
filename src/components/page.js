@@ -320,7 +320,7 @@ const PrintScreen = forwardRef(
                 <CollapsibleField
                   item={item}
                   tripIndex={tripIndex}
-                  tripLength={trip.length}
+                  tripLength={tripDetail?.trip?.length}
                   startDate={cityCountry?.date}
                 />
               ))}

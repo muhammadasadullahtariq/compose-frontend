@@ -13,7 +13,10 @@ import TextRender from "@/components/atomic/TextRenderForSuggestion/textRender";
 import CircleIcon from "@mui/icons-material/Circle";
 import { useEffect } from "react";
 import interestImage from "@/assets/images/tripDetails/interest.png";
-import travelingImage from "@/assets/images/tripDetails/travelingWith.png";
+import family from "@/assets/images/tripDetails/family.png";
+import couple from "@/assets/images/tripDetails/couple.png";
+import friends from "@/assets/images/tripDetails/friends.png";
+import solo from "@/assets/images/tripDetails/solo.png";
 
 const SuggestionCollaspible = ({
   natureRelatedSuggestions,
@@ -31,7 +34,11 @@ const SuggestionCollaspible = ({
         width: "100%",
         backgroundColor: COLORS.white,
         marginBottom: "20px",
-        paddingRight: "20px",
+        paddingRight: {
+          lg: "20px",
+          md: "20px",
+          sm: "0px",
+        },
         paddingTop: "10px",
       }}
     >
@@ -157,7 +164,15 @@ const SuggestionCollaspible = ({
                 }}
               >
                 <Image
-                  src={travelingImage}
+                  src={
+                    travelingWith == "Family"
+                      ? family
+                      : travelingWith == "Couple"
+                      ? couple
+                      : travelingWith == "Friends"
+                      ? friends
+                      : solo
+                  }
                   width={100}
                   height={100}
                   alt="travelingWith"

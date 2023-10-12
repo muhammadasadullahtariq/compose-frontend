@@ -1,5 +1,4 @@
 export const citiesList = [
-  { name: "Placencia", destId: 23725 },
   { name: "Arad", destId: 25907 },
   { name: "Mont-St-Michel", destId: 25906 },
   { name: "Inle Lake", destId: 30026 },

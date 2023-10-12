@@ -63,7 +63,7 @@ const Share = ({ open, handleModel, cityCountry, tripId }) => {
                    cityCountry?.city?.length > 0
                      ? cityCountry?.city?.join(", ").replace(/, $/, "")
                      : cityCountry?.country
-                 } using Composetrip : 
+                 } using ComposeTrip : 
                   ${window.location.href}`
                 );
                 handleModel();
@@ -97,7 +97,7 @@ const Share = ({ open, handleModel, cityCountry, tripId }) => {
                       cityCountry?.city?.length > 0
                         ? cityCountry?.city?.join(", ").replace(/, $/, "")
                         : cityCountry?.country
-                    } using Composetrip : 
+                    } using ComposeTrip : 
                   ${window.location.href}`
                   );
                   handleModel();
@@ -121,7 +121,7 @@ const Share = ({ open, handleModel, cityCountry, tripId }) => {
                     cityCountry?.city?.length > 0
                       ? cityCountry?.city?.join(", ").replace(/, $/, "")
                       : cityCountry?.country
-                  } using Composetrip: ${window.location.href}`
+                  } using ComposeTrip: ${window.location.href}`
                 );
                 handleModel();
               }}

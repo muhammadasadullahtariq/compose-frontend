@@ -12,14 +12,27 @@ const Culture = ({ dosCulture, dontsCulture }) => {
     <Box
       sx={{
         width: "100%",
-        backgroundColor: COLORS.white,
         marginBottom: "20px",
-        paddingRight: "20px",
+        paddingRight: {
+          lg: "20px",
+          md: "20px",
+          sm: "0px",
+        },
         paddingTop: "10px",
+        display: "flex",
+        flexDirection: "column",
+        backgroundColor: COLORS.white,
+        alignItems: "center",
       }}
     >
       {dosCulture?.length > 0 && dontsCulture?.length > 0 ? (
-        <Box>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           <Box
             style={{
               display: "flex",
@@ -51,7 +64,7 @@ const Culture = ({ dosCulture, dontsCulture }) => {
               margin: "15px 0",
             }}
           />
-          <Box>
+          <Box sx={{}}>
             {dosCulture?.length > 0 && (
               <Box
                 sx={{
@@ -130,6 +143,7 @@ const Culture = ({ dosCulture, dontsCulture }) => {
                   backgroundSize: "cover",
                   padding: "20px 0",
                   borderRadius: "20px",
+                  alignSelf: "center",
                 }}
               >
                 <Box

@@ -266,7 +266,7 @@ export default function SignUp({ closeModel, popup }) {
                   control={
                     <Checkbox value="allowExtraEmails" color="primary" />
                   }
-                  label="By selecting agree and continue, i agree to composetrip terms of service and privacy policy."
+                  label="By selecting agree and continue, i agree to ComposeTrip terms of service and privacy policy."
                 />
               </Grid>
             </Grid>

@@ -121,19 +121,24 @@ const Footer = ({ paddingBottom }) => {
             </form>
           </Grid>
           <Grid item xs={12} md={3} sx={{ paddingTop: "5!important" }}>
-            <h6>
+            <h6
+              style={{
+                cursor: "pointer",
+                fontSize: 14,
+              }}
+            >
               <a href="https://sites.google.com/ripeseed.io/privacypolices/home">
-                Terms of Service
+                Terms of service
               </a>
             </h6>
             <ul>
               <li>
                 <a href="https://sites.google.com/ripeseed.io/privacy-policy/home">
-                  Privacy Policy
+                  Privacy policy
                 </a>
               </li>
               <li>
-                <a href="mailto:Info@composetrip.com">Contact Us</a>
+                <a href="mailto:Info@composetrip.com">Contact us</a>
               </li>
               <li>Copyright &copy; ComposeTrip 2023</li>
             </ul>

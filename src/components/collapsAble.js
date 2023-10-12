@@ -1,13 +1,13 @@
 "use client";
 import { Box, Typography, Grid, Button } from "@mui/material";
 
-import LocationIcon from "@/assets/images/tripDetails/icons/locationResturant.svg";
 import StarIcon from "@/assets/images/tripDetails/icons/star.svg";
 import TimeIcon from "@/assets/images/tripDetails/icons/time.svg";
 import Image from "next/image";
 import * as COLORS from "@/constants/colors";
 
 const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
+  console.log("tripLength", tripLength);
   var date = new Date(startDate);
 
   date = new Date(date.setDate(date.getDate() + tripIndex));
@@ -20,9 +20,14 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
     (startDatee.getMonth() + 1) +
     "-" +
     startDatee.getDate();
-  var endDate = new Date(
-    new Date(startDate).setDate(new Date(startDate).getDate() + tripLength)
-  );
+
+  console.log("startDatee", startDatee);
+  var endDate = new Date(startDate);
+  console.log("endDate", endDate);
+
+  endDate = new Date(endDate.setDate(endDate.getDate() + tripLength));
+  console.log("endDate", endDate);
+
   endDate =
     endDate.getFullYear() +
     "-" +
@@ -101,17 +106,22 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
                     backgroundImage: `url(${"/assets/img/dayBackground.svg"})`,
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "cover",
-                    height: "100%",
                     width: {
-                      lg: "600px",
+                      lg: "2000px",
                       md: "500px",
                       xs: "100%",
                       sm: "300px",
                     },
-                    marginRight: "20px",
+                    marginRight: {
+                      lg: "20px",
+                      md: "20px",
+                      sm: "0px",
+                      xs: "0px",
+                    },
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
+                    alignSelf: "center",
                     flexDirection: "column",
                     borderRadius: "10px",
                     padding: "20px",
@@ -122,7 +132,7 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
                   <Typography
                     sx={{
                       fontSize: {
-                        lg: "52px",
+                        lg: "50px",
                         md: "52px",
                         sx: "32px",
                       },
@@ -146,7 +156,6 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
                           lg: "24px",
                           md: "24px",
                           sm: "20px",
-                          
                         },
                         fontWeight: "500",
                         color: COLORS.white,
@@ -381,39 +390,63 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
       >
         <Box
           sx={{
-            height: "5px",
             display: "flex",
-            flexDirection: "row",
-            justifyContent: "flex-start",
+            flexDirection: "column",
+            justifyContent: "center",
             alignItems: "center",
             cursor: "pointer",
             marginTop: "20px",
             marginLeft: "5px",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            borderRadius: "10px",
+            paddingTop: {
+              lg: "76px",
+              md: "76px",
+              xs: "76px",
+            },
+            pb: {
+              lg: "76px",
+              md: "76px",
+              xs: "76px",
+            },
+            backgroundImage: `url(${"/assets/img/hotel.svg"})`,
           }}
         >
           <Typography
-            variant="span"
             sx={{
               fontSize: {
-                lg: "22px",
-                md: "18px",
+                lg: "28px",
+                md: "24px",
+                sm: "20px",
+                xs: "16px",
               },
               fontWeight: "500",
             }}
           >
-            Find Hotels in&nbsp;
+            Time to sleep! Find the
           </Typography>
+
           <Typography
             sx={{
               fontSize: {
-                lg: "22px",
-                md: "18px",
+                lg: "42px",
+                md: "36px",
+                sm: "28px",
+                xs: "24px",
               },
               fontWeight: "500",
-              color: COLORS.primary,
             }}
           >
-            {item.location}
+            Best Hotels in&nbsp;
+            <Typography
+              variant="span"
+              sx={{
+                fontWeight: "900",
+              }}
+            >
+              {item.location}
+            </Typography>
           </Typography>
         </Box>
       </a>

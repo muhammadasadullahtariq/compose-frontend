@@ -1,13 +1,13 @@
-<svg width="539" height="525" viewBox="0 0 539 525" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="539" height="525" rx="10" fill="#FFA41B" fill-opacity="0.2"/>
-<mask id="mask0_1664_141" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="539" height="525">
-<rect width="539" height="525" rx="10" fill="#FFA41B" fill-opacity="0.2"/>
+<svg width="539" height="493" viewBox="0 0 539 493" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="539" height="493" rx="10" fill="#FFA41B" fill-opacity="0.15"/>
+<mask id="mask0_1664_141" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="539" height="493">
+<rect width="539" height="493" rx="10" fill="#FFA41B" fill-opacity="0.2"/>
 </mask>
 <g mask="url(#mask0_1664_141)">
-<rect width="608.391" height="81.9145" transform="matrix(0.215526 0.976498 -0.775552 0.631284 204.527 -43)" fill="#FDCB7D"/>
-<rect width="608.391" height="34.6751" transform="matrix(0.215526 0.976498 -0.775552 0.631284 264.891 -13.1785)" fill="#FDCB7D"/>
-<rect width="608.391" height="11.0525" transform="matrix(0.215526 0.976498 -0.775552 0.631284 119.57 1.73389)" fill="#FDCB7D"/>
-<rect width="583.516" height="12.0383" transform="matrix(-0.28791 0.957657 -0.669752 -0.742585 548.062 27.3347)" fill="#FDCB7D"/>
-<rect width="583.516" height="53.8676" transform="matrix(-0.28791 0.957657 -0.669752 -0.742585 576.078 137.192)" fill="#FDCB7D"/>
+<rect width="608.391" height="81.9145" transform="matrix(0.215526 0.976498 -0.775552 0.631284 204.527 -43)" fill="#FDCB7D" fill-opacity="0.7"/>
+<rect width="608.391" height="34.6751" transform="matrix(0.215526 0.976498 -0.775552 0.631284 264.891 -13.1785)" fill="#FDCB7D" fill-opacity="0.7"/>
+<rect width="608.391" height="11.0525" transform="matrix(0.215526 0.976498 -0.775552 0.631284 119.57 1.73389)" fill="#FDCB7D" fill-opacity="0.7"/>
+<rect width="583.516" height="12.0383" transform="matrix(-0.28791 0.957657 -0.669752 -0.742585 548.062 27.3347)" fill="#FDCB7D" fill-opacity="0.7"/>
+<rect width="583.516" height="53.8676" transform="matrix(-0.28791 0.957657 -0.669752 -0.742585 576.078 137.192)" fill="#FDCB7D" fill-opacity="0.7"/>
 </g>
 </svg>

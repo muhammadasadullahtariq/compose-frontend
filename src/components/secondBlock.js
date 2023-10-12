@@ -6,7 +6,7 @@ import { Typography } from "@mui/material";
 import { Container } from "@mui/material";
 import { useRouter } from "next/navigation";
 import * as COLORS from "@/constants/colors";
-import blockImage from "@/assets/images/secondBlock.svg";
+import blockImage from "@/assets/images/secondBlock.png";
 import Image from "next/image";
 import "./styles.css";
 

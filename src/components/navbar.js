@@ -24,7 +24,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-function ResponsiveAppBar({ userAuthChanged }) {
+function ResponsiveAppBar({ userAuthChanged, saveItinerary }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const router = useRouter();
@@ -201,19 +201,23 @@ function ResponsiveAppBar({ userAuthChanged }) {
                   alignSelf: "center",
                   textTransform: "unset",
                 }}
-                onClick={() => {
-                  setCookie("questionaireData", {});
-                  deleteCookie("questionaireData");
-                  //pass props to questionaire
-                  router.push("/questionaire/whereto", undefined, {
-                    shallow: true,
-                  });
-                }}
+                onClick={
+                  saveItinerary
+                    ? () => saveItinerary()
+                    : () => {
+                        setCookie("questionaireData", {});
+                        deleteCookie("questionaireData");
+                        //pass props to questionaire
+                        router.push("/questionaire/whereto", undefined, {
+                          shallow: true,
+                        });
+                      }
+                }
                 onMouseOver={(e) => {
                   e.target.style.backgroundColor = COLORS.primary;
                 }}
               >
-                Get started
+                {saveItinerary ? "Save itinerary" : "Get started"}
               </Button>
               // </SignUp>
             )}
@@ -324,21 +328,25 @@ function ResponsiveAppBar({ userAuthChanged }) {
                   fontSize: "16px",
                   fontWeight: "400",
                   fontFamily: "raleway",
+                  textTransform: "unset",
                 }}
-                onClick={() => {
-                  setCookie("questionaireData", {});
-                  deleteCookie("questionaireData");
-                  router.push("/questionaire/whereto", undefined, {
-                    shallow: true,
-                  });
-                }}
+                onClick={
+                  saveItinerary
+                    ? () => saveItinerary()
+                    : () => {
+                        setCookie("questionaireData", {});
+                        deleteCookie("questionaireData");
+                        router.push("/questionaire/whereto", undefined, {
+                          shallow: true,
+                        });
+                      }
+                }
                 onMouseOver={(e) => {
                   e.target.style.backgroundColor = COLORS.primary;
                 }}
               >
-                Get started
+                {saveItinerary ? "Save itinerary" : "Get started"}
               </Button>
-              // </SignUp>
             )}
           </Box>
         </Toolbar>

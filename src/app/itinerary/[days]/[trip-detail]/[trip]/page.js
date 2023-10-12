@@ -109,7 +109,11 @@ const TripDetail = () => {
   if (loading) {
     return (
       <div>
-        <AppBar />
+        <AppBar
+          saveItinerary={() => {
+            setSaveModal(true);
+          }}
+        />
         <Box
           sx={{
             display: "flex",
@@ -131,7 +135,11 @@ const TripDetail = () => {
   } else {
     return (
       <div>
-        <AppBar />
+        <AppBar
+          saveItinerary={() => {
+            setSaveModal(true);
+          }}
+        />
         <Box
           className="hero-section"
           sx={{
@@ -294,7 +302,7 @@ const TripDetail = () => {
               boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
               borderRadius: "20px",
               zIndex: "100",
-              bottom: "100px",
+              bottom: { lg: "100px", xs: "50px" },
             }}
           >
             <Grid
@@ -446,14 +454,16 @@ const TripDetail = () => {
                   height: "20px",
                 }}
               /> */}
-              {tripDetail?.trip?.map((item, tripIndex) => (
-                <CollapsibleField
-                  item={item}
-                  tripIndex={tripIndex}
-                  tripLength={trip.length}
-                  startDate={cityCountry?.date}
-                />
-              ))}
+              {tripDetail?.trip?.map((item, tripIndex) => {
+                return (
+                  <CollapsibleField
+                    item={item}
+                    tripIndex={tripIndex}
+                    tripLength={tripDetail?.trip?.length}
+                    startDate={cityCountry?.date}
+                  />
+                );
+              })}
             </Box>
           </Container>
           <Typography
@@ -499,7 +509,7 @@ const TripDetail = () => {
                    cityCountry?.city?.length > 0
                      ? cityCountry?.city?.join(", ").replace(/, $/, "")
                      : cityCountry?.country
-                 } using Composetrip : 
+                 } using ComposeTrip : 
                   ${window.location.href}`
                 );
               }}
@@ -539,7 +549,7 @@ const TripDetail = () => {
                       cityCountry?.city?.length > 0
                         ? cityCountry?.city?.join(", ").replace(/, $/, "")
                         : cityCountry?.country
-                    } using Composetrip : 
+                    } using ComposeTrip : 
                   ${window.location.href}`
                   );
                 }}
@@ -562,7 +572,7 @@ const TripDetail = () => {
                     cityCountry?.city?.length > 0
                       ? cityCountry?.city?.join(", ").replace(/, $/, "")
                       : cityCountry?.country
-                  } using Composetrip: ${window.location.href}`
+                  } using ComposeTrip: ${window.location.href}`
                 );
               }}
             />
