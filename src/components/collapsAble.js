@@ -426,6 +426,7 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
                 xs: "24px",
               },
               fontWeight: "500",
+              textAlign: "center",
             }}
           >
             Find the best hotels in&nbsp;
