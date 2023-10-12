@@ -91,6 +91,11 @@ function SecondBlock() {
               display: "flex",
               flexDirection: "row",
               justifyContent: "flex-end",
+              paddingTop: {
+                xs: "30px",
+                md: "0px",
+                lg: "0px",
+              },
             }}
           >
             <Image src={blockImage} alt="image" />
