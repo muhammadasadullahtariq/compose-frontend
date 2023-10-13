@@ -1,7 +1,4 @@
-.landing img {
-  width: 500px;
-  height: 348px;
-}
+
 
 /* Question 6 image styling */
 .question6 img,
@@ -18,8 +15,13 @@
   }
 }
 
+.secondBlock img {
+  width: 500px;
+  height: 348px;
+}
+
 @media screen and (max-width: 560px) {
-  .landing img {
+  .secondBlock img {
     width: 100%;
   }
 }

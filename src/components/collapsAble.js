@@ -6,7 +6,13 @@ import TimeIcon from "@/assets/images/tripDetails/icons/time.svg";
 import Image from "next/image";
 import * as COLORS from "@/constants/colors";
 
-const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
+const CollapsibleField = ({
+  item,
+  tripIndex,
+  tripLength,
+  startDate,
+  travelingWith,
+}) => {
   console.log("tripLength", tripLength);
   var date = new Date(startDate);
 
@@ -107,7 +113,7 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "cover",
                     width: {
-                      lg: "700px",
+                      lg: "1000px",
                       md: "500px",
                       xs: "100%",
                       sm: "300px",
@@ -385,7 +391,21 @@ const CollapsibleField = ({ item, tripIndex, tripLength, startDate }) => {
         </Box>
       </Box>
       <a
-        href={`https://www.kayak.com/in?a=kan_272633_583230&url=/hotels/${item.location}/${startDatee}/${endDate}`}
+        href={`https://www.kayak.com/in?a=kan_272633_583230&url=/hotels/${
+          item.location
+        }/${startDatee}/${endDate}/
+${
+  travelingWith == "Family"
+    ? "4adults"
+    : travelingWith == "Couple"
+    ? "2adults"
+    : travelingWith == "Friends"
+    ? "2adults"
+    : travelingWith == "Solo"
+    ? "1adults"
+    : "1adults"
+}
+        `}
         target="_blank"
         rel="nofollow"
       >

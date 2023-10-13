@@ -1,26 +1,13 @@
 .testimonial {
-    margin: 5rem;
-    margin-bottom: 2rem;
     background-color: #F9F9F9;
     border-radius: 30px;
-    position: relative;
-    padding: 80px 50px;
 }
 
-.testimonial .top-quotation {
-    position: absolute;
-    height: 70px;
-    width: auto;
-    top: -10%;
-    left: 6%;
-}
-
-.testimonial .bottom-quotation {
-    position: absolute;
-    height: 70px;
-    width: auto;
-    bottom: -10%;
-    right: 6%;
+@media (max-width: 500px) {
+    .testimonial {
+        width: 100%;
+        background-color: black;
+    }
 }
 
 @media (max-width: 500px) {
@@ -77,5 +64,27 @@
 @media (max-width: 600px) {
     .testimonial {
         margin: 5rem 0px;
+        background-color: black;
+    }
+}
+
+.tripContainer {
+    width: 320px;
+}
+
+@media screen and (max-width: 420px) {
+    .tripContainer {
+        width: 100%;
+    }
+}
+
+.tripImage {
+    width:100%;
+    height: 200px;
+}
+
+@media screen and (max-width: 420px) {
+    .tripImage {
+        width: 100%;
     }
 }

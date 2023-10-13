@@ -17,6 +17,8 @@ import { setCookie, hasCookie, deleteCookie } from "cookies-next";
 import { pageview, trackConversion } from "./gtm";
 import { loadFacebookPixel } from "./facebookPixel";
 import Head from "next/head";
+import Testimonial from "@/components/testimonials/testimonial";
+import Testimonials from "@/components/testimonials";
 
 function ResponsiveAppBar() {
   const router = useRouter();
@@ -159,6 +161,7 @@ function ResponsiveAppBar() {
         </Box>
         <FirstBloack />
         <SecondBlock />
+        <Testimonials />
         <Footer />
       </Box>
     </div>

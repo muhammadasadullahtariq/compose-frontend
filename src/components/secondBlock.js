@@ -21,6 +21,7 @@ function SecondBlock() {
         paddingBottom: "50px",
         backgroundColor: COLORS.blockBackgroundColor,
       }}
+      className="secondBlock"
     >
       <Container>
         <Box

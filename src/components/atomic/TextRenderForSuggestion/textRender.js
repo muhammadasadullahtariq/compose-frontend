@@ -29,7 +29,6 @@ const TextRender = ({ name, description }) => {
             fontSize: "16px",
             fontWeight: "500",
             fontFamily: "Raleway",
-            //padding: "27px 0 27px 0",
           }}
         >
           {description}

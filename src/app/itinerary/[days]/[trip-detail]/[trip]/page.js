@@ -12,7 +12,6 @@ import getTripDetailById from "@/apis/getTripDetail";
 import { useParams, useRouter } from "next/navigation";
 import saveTrip from "@/apis/saveTrip";
 import loadingGif from "@/assets/images/tripDetails/loader.gif";
-import RegenerateTrip from "@/apis/regenerate";
 import ProtectedPageRoute from "@/app/protected-page-route";
 import CollapsibleField from "@/components/collapsAble";
 import ResturantCollaspible from "@/components/resturants";
@@ -144,15 +143,13 @@ const TripDetail = () => {
           className="hero-section"
           sx={{
             marginTop: "60px",
-            height: "80vh",
             relative: "relative",
           }}
         >
           <Box
             sx={{
               width: "100%",
-              height: "90%",
-              //background repeat
+              height: "calc(100vh - 64px)",
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
               backgroundImage:
@@ -293,144 +290,140 @@ const TripDetail = () => {
               </Container>
             </Box>
           </Box>
-          <Container
+        </Box>
+        <Container
+          sx={{
+            backgroundColor: COLORS.white,
+            boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
+            borderRadius: "20px",
+            zIndex: "100",
+            mt: "20px",
+          }}
+        >
+          <Grid
+            container
             sx={{
-              backgroundColor: COLORS.white,
-              position: "absolute",
-              left: "50%",
-              transform: "translateX(-50%)",
-              boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
-              borderRadius: "20px",
-              zIndex: "100",
-              bottom: { lg: "100px", xs: "50px" },
+              padding: "20px",
             }}
           >
-            <Grid
-              container
-              sx={{
-                padding: "20px",
-              }}
-            >
-              <Grid item md={3} xs={12}>
-                <TripDetailItem
-                  heading={"Adventure begins"}
-                  subHeading={new Date(cityCountry.date).toLocaleDateString(
-                    "en-US",
-                    {
-                      day: "numeric",
-                      month: "short",
-                      year: "numeric",
-                    }
-                  )}
-                  image={false}
-                />
-              </Grid>
-              <Grid item md={3} xs={6}>
-                <TripDetailItem
-                  heading={"Duration"}
-                  subHeading={cityCountry.numberOfDays}
-                  image={true}
-                />
-              </Grid>
-              <Grid item md={3} xs={6}>
-                <TripDetailItem
-                  heading={"Travel type"}
-                  subHeading={cityCountry.travelingWith}
-                  image={true}
-                />
-              </Grid>
-              <Grid item md={3} xs={12}>
-                <Box
-                  sx={{
-                    height: {
-                      lg: "0px",
-                      xs: "1px",
-                    },
-                    width: "100%",
-                    backgroundColor: COLORS.gray,
-                    marginTop: {
-                      lg: "0px",
-                      xs: "10px",
-                    },
-                  }}
-                />
-                <Box
+            <Grid item md={3} xs={12}>
+              <TripDetailItem
+                heading={"Adventure begins"}
+                subHeading={new Date(cityCountry.date).toLocaleDateString(
+                  "en-US",
+                  {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  }
+                )}
+                image={false}
+              />
+            </Grid>
+            <Grid item md={3} xs={6}>
+              <TripDetailItem
+                heading={"Duration"}
+                subHeading={cityCountry.numberOfDays}
+                image={true}
+              />
+            </Grid>
+            <Grid item md={3} xs={6}>
+              <TripDetailItem
+                heading={"Travel type"}
+                subHeading={cityCountry.travelingWith}
+                image={true}
+              />
+            </Grid>
+            <Grid item md={3} xs={12}>
+              <Box
+                sx={{
+                  height: {
+                    lg: "0px",
+                    xs: "1px",
+                  },
+                  width: "100%",
+                  backgroundColor: COLORS.gray,
+                  marginTop: {
+                    lg: "0px",
+                    xs: "10px",
+                  },
+                }}
+              />
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "100%",
+                  margin: {
+                    xs: "0px 0px 20px 0",
+                  },
+                }}
+              >
+                <Button
+                  variant="outlined"
                   sx={{
                     display: "flex",
-                    flexDirection: "row",
                     justifyContent: "center",
                     alignItems: "center",
-                    height: "100%",
-                    margin: {
-                      xs: "0px 0px 20px 0",
-                    },
+                    flexDirection: "row",
+                    marginRight: "20px",
+                    padding: "5px 20px",
+                    width: { xs: "100%" },
+                    fontFamily: "Raleway",
+                    textTransform: "unset",
+                    borderRadius: "161px",
+                  }}
+                  onClick={() => {
+                    const user = ProtectedPageRoute();
+                    if (user) {
+                      setSaveModal(true);
+                    } else {
+                      alert("Please login to save trip");
+                    }
                   }}
                 >
-                  <Button
-                    variant="outlined"
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      flexDirection: "row",
-                      marginRight: "20px",
-                      padding: "5px 20px",
-                      width: { xs: "100%" },
-                      fontFamily: "Raleway",
-                      textTransform: "unset",
-                      borderRadius: "161px",
-                    }}
-                    onClick={() => {
-                      const user = ProtectedPageRoute();
-                      if (user) {
-                        setSaveModal(true);
-                      } else {
-                        alert("Please login to save trip");
-                      }
-                    }}
-                  >
-                    <Image
-                      src={SavedIcon}
-                      width={11}
-                      height={11}
-                      alt="save-icon"
-                      style={{ marginRight: "5px" }}
-                    />
-                    Save
-                  </Button>
-                  <Button
-                    variant="contained"
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      flexDirection: "row",
-                      padding: "5px 20px",
-                      backgroundColor: COLORS.primary,
-                      width: { xs: "100%" },
-                      fontFamily: "Raleway",
-                      textTransform: "unset",
-                      borderRadius: "161px",
-                    }}
-                    onClick={() => {
-                      setShareModal(true);
-                    }}
-                  >
-                    <Image
-                      src={OpenLink}
-                      width={11}
-                      height={11}
-                      alt="share-icon"
-                      style={{ marginRight: "5px" }}
-                    />
-                    Share
-                  </Button>
-                </Box>
-              </Grid>
+                  <Image
+                    src={SavedIcon}
+                    width={11}
+                    height={11}
+                    alt="save-icon"
+                    style={{ marginRight: "5px" }}
+                  />
+                  Save
+                </Button>
+                <Button
+                  variant="contained"
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "row",
+                    padding: "5px 20px",
+                    backgroundColor: COLORS.primary,
+                    width: { xs: "100%" },
+                    fontFamily: "Raleway",
+                    textTransform: "unset",
+                    borderRadius: "161px",
+                  }}
+                  onClick={() => {
+                    setShareModal(true);
+                  }}
+                >
+                  <Image
+                    src={OpenLink}
+                    width={11}
+                    height={11}
+                    alt="share-icon"
+                    style={{ marginRight: "5px" }}
+                  />
+                  Share
+                </Button>
+              </Box>
             </Grid>
-          </Container>
-        </Box>
-
+          </Grid>
+        </Container>
         <Box
           sx={{
             width: "100%",
@@ -461,6 +454,7 @@ const TripDetail = () => {
                     tripIndex={tripIndex}
                     tripLength={tripDetail?.trip?.length}
                     startDate={cityCountry?.date}
+                    travelingWith={cityCountry?.travelingWith}
                   />
                 );
               })}

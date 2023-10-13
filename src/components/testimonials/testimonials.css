@@ -8,7 +8,6 @@
   margin-bottom: 30px;
   font-size: 26px;
   font-weight: 600;
-  text-transform: uppercase;
 }
 
 .testimonials h3 span {
@@ -20,6 +19,10 @@
 .testimonials .slick-dots li button::before {
   content: "";
 }
+
+
+
+
 
 .testimonials .slick-dots li button {
   width: 10px;
@@ -52,7 +55,7 @@
   content: url("/assets/icons/right-arrow.png");
 }
 
-@media (max-width: 1000px) {
+/* @media (max-width: 1000px) {
   .testimonials {
     padding: 5rem 0.5rem;
   }
@@ -65,4 +68,4 @@
   .testimonials {
     padding: 5rem 2rem;
   }
-}
+} */

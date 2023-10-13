@@ -227,3 +227,14 @@
     transform: rotate(0deg);
   }
 }
+
+.landing img {
+  width: 500px;
+  height: 348px;
+}
+
+@media screen and (max-width: 560px) {
+  .landing img {
+    width: 100%;
+  }
+}
