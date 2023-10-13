@@ -21,7 +21,6 @@ const Testimonial = ({ data }) => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          width: "100%",
           alignItems: "center",
           borderRadius: "20px",
           backgroundColor: "#F9F9F9",
