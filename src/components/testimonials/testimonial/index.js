@@ -31,8 +31,6 @@ const Testimonial = ({ data }) => {
       >
         <img
           src={data?.headImage ? data.headImage : "/assets/img/cloud.jpeg"}
-          width={"100%"}
-          height={250}
           style={{
             borderTopRightRadius: "20px",
             borderTopLeftRadius: "20px",
