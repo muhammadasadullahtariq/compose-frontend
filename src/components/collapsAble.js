@@ -5,6 +5,7 @@ import StarIcon from "@/assets/images/tripDetails/icons/star.svg";
 import TimeIcon from "@/assets/images/tripDetails/icons/time.svg";
 import Image from "next/image";
 import * as COLORS from "@/constants/colors";
+import { firebase } from "@/app/config";
 
 const CollapsibleField = ({
   item,
@@ -390,10 +391,23 @@ const CollapsibleField = ({
           />
         </Box>
       </Box>
-      <a
-        href={`https://www.kayak.com/in?a=kan_272633_583230&url=/hotels/${
-          item.location
-        }/${startDatee}/${endDate}/
+
+      <Box
+        onClick={() => {
+          try {
+            const analytics = firebase.analytics();
+            if (typeof window !== "undefined") {
+              analytics.logEvent("kayak_booking", {
+                page_path: window.location.pathname,
+                page_location: window.location.href,
+              });
+            }
+            //console.log("analytics", analytics);
+          } catch (error) {}
+          window.open(
+            `https://www.kayak.com/in?a=kan_272633_583230&url=/hotels/${
+              item.location
+            }/${startDatee}/${endDate}/
 ${
   travelingWith == "Family"
     ? "4adults"
@@ -405,102 +419,114 @@ ${
     ? "1adults"
     : "1adults"
 }
-        `}
-        target="_blank"
-        rel="nofollow"
+        `
+          );
+        }}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "20px",
+          cursor: "pointer",
+          backgroundSize: {
+            lg: "contain",
+            md: "cover",
+            sm: "justify",
+            xs: "containe",
+          },
+          backgroundPosition: {
+            lg: "center",
+            md: "center",
+            sm: "right",
+            xs: "right",
+          },
+          backgroundRepeat: "no-repeat",
+          paddingTop: {
+            lg: "50px",
+            md: "76px",
+            xs: "76px",
+          },
+          pb: {
+            lg: "76px",
+            md: "76px",
+            xs: "76px",
+          },
+          backgroundImage: `url(${"/assets/img/hotel.svg"})`,
+        }}
       >
-        <Box
+        <Typography
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
+            fontSize: {
+              lg: "42px",
+              md: "36px",
+              sm: "28px",
+              xs: "24px",
+            },
+            fontWeight: "500",
+            textAlign: "center",
+          }}
+        >
+          Find the best
+          <Typography
+            variant="span"
+            sx={{
+              fontWeight: "900",
+            }}
+          >
+            &nbsp;hotels&nbsp;
+          </Typography>
+          in&nbsp;
+          <Typography
+            variant="span"
+            sx={{
+              fontWeight: "900",
+            }}
+          >
+            {item.location}
+          </Typography>
+        </Typography>
+        <Button
+          variant="outlined"
+          sx={{
+            borderRadius: "30px",
+            border: "none",
+            outline: "none",
+            borderColor: COLORS.primary,
             marginTop: "20px",
-            backgroundSize: {
-              lg: "contain",
-              md: "cover",
-              sm: "cover",
-              xs: "cover",
+            backgroundColor: "#2ca4f2",
+            "&:hover": {
+              backgroundColor: COLORS.primary,
+              border: "none",
+              outline: "none",
             },
-            backgroundRepeat: "no-repeat",
-            borderRadius: "10px",
-            paddingTop: {
-              lg: "50px",
-              md: "76px",
-              xs: "76px",
-            },
-            pb: {
-              lg: "76px",
-              md: "76px",
-              xs: "76px",
-            },
-            backgroundImage: `url(${"/assets/img/hotel.svg"})`,
+            textTransform: "unset",
+            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1)",
+          }}
+          onClick={() => {
+            router.push("/questionaire/whereto");
           }}
         >
           <Typography
             sx={{
-              fontSize: {
-                lg: "42px",
-                md: "36px",
-                sm: "28px",
-                xs: "24px",
-              },
-              fontWeight: "500",
-              textAlign: "center",
+              fontSize: { lg: "18px", md: "16px", xs: "14px" },
+              fontWeight: "800",
+              fontFamily: "raleway",
+              padding: "5px 30px",
+              color: COLORS.white,
             }}
           >
-            Find the best hotels in&nbsp;
-            <Typography
-              variant="span"
-              sx={{
-                fontWeight: "900",
-              }}
-            >
-              {item.location}
-            </Typography>
+            Book now
           </Typography>
-          <Button
-            variant="outlined"
+          <ArrowForwardIosIcon
             sx={{
-              borderRadius: "30px",
-              border: "none",
-              outline: "none",
-              borderColor: COLORS.primary,
-              marginTop: "20px",
-              backgroundColor: "#2ca4f2",
-              "&:hover": {
-                backgroundColor: COLORS.primary,
-                border: "none",
-                outline: "none",
-              },
-              textTransform: "unset",
-              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1)",
+              fontSize: { lg: "18px", md: "16px", xs: "14px" },
+              marginLeft: "2px",
+              color: COLORS.white,
             }}
-            onClick={() => {
-              router.push("/questionaire/whereto");
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: { lg: "18px", md: "16px", xs: "14px" },
-                fontWeight: "800",
-                fontFamily: "raleway",
-                padding: "5px 30px",
-                color: COLORS.white,
-              }}
-            >
-              Book now
-            </Typography>
-            <ArrowForwardIosIcon
-              sx={{
-                fontSize: { lg: "18px", md: "16px", xs: "14px" },
-                marginLeft: "2px",
-                color: COLORS.white,
-              }}
-            />
-          </Button>
-        </Box>
-      </a>
+          />
+        </Button>
+      </Box>
     </Box>
   );
 };

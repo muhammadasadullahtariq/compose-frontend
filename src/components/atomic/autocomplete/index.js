@@ -8,25 +8,13 @@ const Autocomplete = ({ list, cities, setCities, setDestinationId }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [searchText, setSearchText] = useState("");
-
-  const filteredCities =
-    searchText?.length > 0
-      ? list?.filter((city) =>
-          city.name.toLowerCase().includes(searchText?.toLowerCase())
-        )
-      : list;
+  const [filteredCities, setFilteredCities] = useState([]);
 
   const handleSelection = (key) => {
-    const array = value.length > 0 ? [value] : [];
+    setCities([key.name]);
     setDestinationId(key.destId);
-    array.pop();
-    array.push(key.name);
-    setValue("");
-    let temp = "";
-    array.map((k) => {
-      temp += k;
-    });
-    setValue(temp);
+    setSearchText(key.name);
+
     setOpen(false);
   };
 
@@ -47,10 +35,16 @@ const Autocomplete = ({ list, cities, setCities, setDestinationId }) => {
   }, []);
 
   useEffect(() => {
-    const array = value.length > 0 ? [value] : [];
-    setCities(array);
-    setSearchText(array[array.length - 1]);
-  }, [value]);
+    console.log("search text", searchText);
+    const array =
+      searchText?.length > 0
+        ? list?.filter((city) =>
+            city.name.toLowerCase().includes(searchText?.toLowerCase())
+          )
+        : list;
+    console.log(array);
+    setFilteredCities(array);
+  }, [searchText]);
 
   useEffect(() => {
     if (cities.length) {
@@ -60,7 +54,7 @@ const Autocomplete = ({ list, cities, setCities, setDestinationId }) => {
   }, [cities]);
 
   const handleChange = (event) => {
-    setValue(event.target.value);
+    setSearchText(event.target.value);
   };
   return (
     <>
@@ -73,7 +67,7 @@ const Autocomplete = ({ list, cities, setCities, setDestinationId }) => {
       <Box className="Autocomplete_Main">
         <input
           onChange={handleChange}
-          value={value}
+          value={searchText}
           onClick={() => setOpen(true)}
         />
         <Image src={drop} style={{ rotate: open ? "180deg" : null }} />

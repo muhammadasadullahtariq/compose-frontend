@@ -1,5 +1,5 @@
 "use client";
-import { Grid, Container } from "@mui/material";
+import { Grid, Container, Box } from "@mui/material";
 import "./footer.css";
 import { useRouter } from "next/navigation";
 import { deleteCookie } from "cookies-next";
@@ -120,18 +120,34 @@ const Footer = ({ paddingBottom }) => {
               </button>
             </form>
           </Grid>
+
           <Grid item xs={12} md={3} sx={{ paddingTop: "5!important" }}>
-            <h6
-              style={{
-                cursor: "pointer",
-                fontSize: 14,
-              }}
-            >
-              <a href="https://sites.google.com/ripeseed.io/privacypolices/home">
-                Terms of service
-              </a>
-            </h6>
             <ul>
+              <li>
+                <Box
+                  sx={{
+                    display: {
+                      lg: "none",
+                      md: "none",
+                      sm: "block",
+                      xs: "block",
+                    },
+                    height: "1px",
+                    width: "80%",
+                    backgroundColor: "white",
+                    marginBottom: {
+                      sm: "20px",
+                      xs: "15px",
+                    },
+                    zIndex: 100,
+                  }}
+                ></Box>
+              </li>
+              <li>
+                <a href="https://sites.google.com/ripeseed.io/privacypolices/home">
+                  Terms of service
+                </a>
+              </li>
               <li>
                 <a href="https://sites.google.com/ripeseed.io/privacy-policy/home">
                   Privacy policy

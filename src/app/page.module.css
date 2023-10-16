@@ -235,6 +235,13 @@
 
 @media screen and (max-width: 560px) {
   .landing img {
+    margin-top: 20px;
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+.landing img {
+    margin-top: 20px;
   }
 }

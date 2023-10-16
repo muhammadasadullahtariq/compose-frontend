@@ -34,6 +34,7 @@ import { loadFacebookPixel } from "@/app/facebookPixel";
 import getTripDoDonts from "@/apis/generateDoDonts";
 import SuggestionCollaspible from "@/components/suggestion";
 import TripDetailItem from "@/components/trip_detail_item";
+import Testimonials from "@/components/testimonials";
 
 const TripDetail = () => {
   const [saveModal, setSaveModal] = useState(false);
@@ -50,6 +51,7 @@ const TripDetail = () => {
   const [hidePrint, setHidePrint] = useState(false);
   const componentRef = useRef();
   const [shareModal, setShareModal] = useState(false);
+  const [errorOccure, setError] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -61,18 +63,22 @@ const TripDetail = () => {
       const response = await getTripDetailById(trip);
       console.log("response", response);
       setLoading(false);
-      setTripDetail(response.data.chatGptResponse);
-      setCityCountry({
-        city: response.data.city,
-        country: response.data.country,
-        date: response.data.startDate,
-        travelingWith: response.data.travelingWith,
-        numberOfDays: response.data.numberOfDays,
-        interest: response.data.interest,
-      });
-      if (!response.data.chatGptResponse?.restaurants) {
-        const doDont = await getTripDoDonts(response.data._id);
-        setTripDetail(doDont.data.chatGptResponse);
+      if (response.data.chatGptResponse.trip == "error occured") {
+        setError(true);
+      } else {
+        setTripDetail(response.data.chatGptResponse);
+        setCityCountry({
+          city: response.data.city,
+          country: response.data.country,
+          date: response.data.startDate,
+          travelingWith: response.data.travelingWith,
+          numberOfDays: response.data.numberOfDays,
+          interest: response.data.interest,
+        });
+        if (!response.data.chatGptResponse?.restaurants) {
+          const doDont = await getTripDoDonts(response.data._id);
+          setTripDetail(doDont.data.chatGptResponse);
+        }
       }
       setTripId(response.data._id);
     })();
@@ -131,6 +137,29 @@ const TripDetail = () => {
         </Box>
       </div>
     );
+  } else if (errorOccure) {
+    return (
+      <div>
+        <AppBar />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            height: { md: "90vh", xs: "calc(100vh - 64px)" },
+            backgroundColor: "#FCFCFF",
+            marginTop: "60px",
+            padding: "20px",
+            textAlign: "center",
+          }}
+        >
+          <Typography>
+            Sorry, we are unable to generate your trip. Please try again later.
+          </Typography>
+        </Box>
+      </div>
+    );
   } else {
     return (
       <div>
@@ -157,6 +186,7 @@ const TripDetail = () => {
                   ? `url(${cityImage})`
                   : "url('/assets/img/cloud.jpeg')",
             }}
+            backgroundPosition="center"
           >
             <Box
               sx={{
@@ -471,7 +501,7 @@ const TripDetail = () => {
               position: "fixed",
               bottom: "5px",
               left: "10px",
-              zIndex: "100",
+              zIndex: "2",
             }}
           >
             Share your trip
@@ -488,6 +518,7 @@ const TripDetail = () => {
               alignItems: "center",
               display: "flex",
               flexDirection: "row-reverse",
+              zIndex: "1",
             }}
           >
             <WhatsAppIcon
@@ -662,7 +693,7 @@ const TripDetail = () => {
             </Typography>
           </Box>
         </Container>
-
+        <Testimonials />
         <Footer paddingBottom={true} />
         <Itinerary
           open={saveModal}
