@@ -155,7 +155,7 @@ const TripDetail = () => {
           }}
         >
           <Typography>
-            Sorry, we are unable to generate your trip. Please try again later.
+            Data for current city is not available. Please come back later!
           </Typography>
         </Box>
       </div>
