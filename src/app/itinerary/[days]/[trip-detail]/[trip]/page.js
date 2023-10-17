@@ -185,8 +185,8 @@ const TripDetail = () => {
                 cityImage != ""
                   ? `url(${cityImage})`
                   : "url('/assets/img/cloud.jpeg')",
+              backgroundPosition: "center",
             }}
-            backgroundPosition="center"
           >
             <Box
               sx={{
