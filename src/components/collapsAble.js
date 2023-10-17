@@ -283,14 +283,26 @@ const CollapsibleField = ({
                   },
                   overflow: "hidden",
                   borderRadius: "10px",
-
+                  cursor: "pointer",
                   position: "relative",
-
                   backgroundImage: `url("${activity.image}")`,
 
                   backgroundRepeat: "no-repeat",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
+                }}
+                onClick={() => {
+                  try {
+                    const analytics = firebase.analytics();
+                    if (typeof window !== "undefined") {
+                      analytics.logEvent("viator_booking", {
+                        page_path: window.location.pathname,
+                        page_location: window.location.href,
+                      });
+                    }
+                    //console.log("analytics", analytics);
+                  } catch (error) {}
+                  window.open(activity.url);
                 }}
               >
                 <Box
@@ -323,15 +335,14 @@ const CollapsibleField = ({
                         color: "#fff",
                         fontSize: "10px",
                         background: COLORS.primary,
-
                         borderRadius: "20px",
                         padding: "10px 25px",
                         //add shadow
                         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                         textTransform: "unset",
-                      }}
-                      onClick={() => {
-                        window.open(activity.url);
+                        "&:hover": {
+                          background: COLORS.primary,
+                        },
                       }}
                     >
                       Book now
