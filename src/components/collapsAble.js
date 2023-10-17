@@ -291,19 +291,24 @@ const CollapsibleField = ({
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}
-                onClick={() => {
-                  try {
-                    const analytics = firebase.analytics();
-                    if (typeof window !== "undefined") {
-                      analytics.logEvent("viator_booking", {
-                        page_path: window.location.pathname,
-                        page_location: window.location.href,
-                      });
-                    }
-                    //console.log("analytics", analytics);
-                  } catch (error) {}
-                  window.open(activity.url);
-                }}
+                //diable onclick of activity.url is null
+                onClick={
+                  activity.url
+                    ? () => {
+                        try {
+                          const analytics = firebase.analytics();
+                          if (typeof window !== "undefined") {
+                            analytics.logEvent("viator_booking", {
+                              page_path: window.location.pathname,
+                              page_location: window.location.href,
+                            });
+                          }
+                          //console.log("analytics", analytics);
+                        } catch (error) {}
+                        window.open(activity.url);
+                      }
+                    : null
+                }
               >
                 <Box
                   sx={{

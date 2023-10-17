@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import AppBar from "@/components/navbar";
-import { Typography } from "@mui/material";
+import { Typography, Container } from "@mui/material";
 import Icon from "@mui/material";
 import { useRouter } from "next/navigation";
 import * as COLORS from "@/constants/colors";
@@ -15,7 +15,8 @@ function FirstBloack() {
   useEffect(() => {}, []);
 
   return (
-    <Box
+    <Container
+      className="secondBlock"
       sx={{
         display: "flex",
         flexDirection: {
@@ -99,7 +100,7 @@ function FirstBloack() {
       >
         <Image src={blockImage} alt="Image" />
       </Box>
-    </Box>
+    </Container>
   );
 }
 export default FirstBloack;
