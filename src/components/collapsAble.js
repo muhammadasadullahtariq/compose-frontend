@@ -252,7 +252,25 @@ const CollapsibleField = ({
                           sx={{
                             fontSize: { lg: "22px", md: "18px", xs: "16px" },
                             fontWeight: "500",
+                            cursor: "pointer",
                           }}
+                          onClick={
+                            activity.url
+                              ? () => {
+                                  try {
+                                    const analytics = firebase.analytics();
+                                    if (typeof window !== "undefined") {
+                                      analytics.logEvent("viator_booking", {
+                                        page_path: window.location.pathname,
+                                        page_location: window.location.href,
+                                      });
+                                    }
+                                    //console.log("analytics", analytics);
+                                  } catch (error) {}
+                                  window.open(activity.url);
+                                }
+                              : null
+                          }
                         >
                           {activity.activity}
                         </Typography>

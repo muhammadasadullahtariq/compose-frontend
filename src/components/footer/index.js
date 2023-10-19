@@ -26,7 +26,7 @@ const Footer = ({ paddingBottom }) => {
     <footer
       className="footer"
       style={{
-        paddingBottom: paddingBottom ? 90 : 0,
+        paddingBottom: paddingBottom ? 90 : 30,
       }}
     >
       <Container>
