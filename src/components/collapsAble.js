@@ -473,12 +473,14 @@ ${
           pb: {
             lg: "50px",
             md: "50px",
-            xs: "10px",
+            sm: "50px",
+            xs: "50px",
           },
           pt: {
             lg: "50px",
             md: "50px",
-            xs: "10px",
+            sm: "50px",
+            xs: "50px",
           },
           backgroundRepeat: "no-repeat",
           borderRadius: "10px",
