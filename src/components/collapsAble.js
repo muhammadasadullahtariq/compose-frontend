@@ -460,45 +460,47 @@ ${
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          alignItems: "center",
-          marginTop: "20px",
-          cursor: "pointer",
-          backgroundSize: {
-            lg: "contain",
-            md: "cover",
-            sm: "justify",
-            xs: "containe",
+          width: "100%",
+          marginTop: { lg: "20px", md: "10px", sm: "0px", xs: "0px" },
+          pl: {
+            lg: "100px",
+            md: "100px",
+            sm: "20px",
+            xs: "20px",
           },
-          backgroundPosition: {
-            lg: "center",
-            md: "center",
-            sm: "right",
-            xs: "right",
+          cursor: "pointer",
+          backgroundSize: "cover",
+          pb: {
+            lg: "50px",
+            md: "50px",
+            xs: "10px",
+          },
+          pt: {
+            lg: "50px",
+            md: "50px",
+            xs: "10px",
           },
           backgroundRepeat: "no-repeat",
-          paddingTop: {
-            lg: "50px",
-            md: "76px",
-            xs: "76px",
+          borderRadius: "10px",
+          overflow: "hidden",
+          backgroundImage: {
+            lg: `url(${"/assets/img/hotel.svg"})`,
+            md: `url(${"/assets/img/hotel.svg"})`,
+            sm: `url(${"/assets/img/modileHotel.svg"})`,
+            xs: `url(${"/assets/img/modileHotel.svg"})`,
           },
-          pb: {
-            lg: "76px",
-            md: "76px",
-            xs: "76px",
-          },
-          backgroundImage: `url(${"/assets/img/hotel.svg"})`,
         }}
       >
         <Typography
           sx={{
             fontSize: {
-              lg: "42px",
-              md: "36px",
-              sm: "28px",
-              xs: "24px",
+              lg: "28px",
+              md: "24px",
+              xs: "20px",
             },
             fontWeight: "500",
-            textAlign: "center",
+            textAlign: "left",
+            color: COLORS.white,
           }}
         >
           Find the best
@@ -524,15 +526,11 @@ ${
           variant="outlined"
           sx={{
             borderRadius: "30px",
-            border: "none",
-            outline: "none",
-            borderColor: COLORS.primary,
+            borderColor: COLORS.white,
+            width: "fit-content",
             marginTop: "20px",
-            backgroundColor: "#2ca4f2",
             "&:hover": {
-              backgroundColor: COLORS.primary,
-              border: "none",
-              outline: "none",
+              borderColor: COLORS.white,
             },
             textTransform: "unset",
             boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1)",
@@ -546,7 +544,7 @@ ${
               fontSize: { lg: "18px", md: "16px", xs: "14px" },
               fontWeight: "800",
               fontFamily: "raleway",
-              padding: "5px 30px",
+              padding: "2px 10px",
               color: COLORS.white,
             }}
           >

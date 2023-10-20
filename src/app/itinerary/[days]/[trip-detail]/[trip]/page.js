@@ -90,7 +90,6 @@ const TripDetail = () => {
           page_location: window.location.href,
         });
       }
-      //console.log("analytics", analytics);
     } catch (error) {}
   }, []);
 
