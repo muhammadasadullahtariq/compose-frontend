@@ -453,11 +453,18 @@ const TripDetail = () => {
             </Grid>
           </Grid>
         </Container>
+        <Container
+          sx={{
+            mt: "20px",
+          }}
+        >
+          <ExpediaWidget />
+        </Container>
         <Box
           sx={{
             width: "100%",
             position: "relative",
-            marginTop: "20px",
+            marginTop: "10px",
           }}
         >
           <Container>
